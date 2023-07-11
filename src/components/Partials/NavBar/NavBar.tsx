@@ -1,7 +1,7 @@
 function NavBar() {
   return (
     <div className="navbar bg-base-100 ">
-      <div className="navbar-start">
+      <div className="navbar-start z-10">
         <div className="dropdown">
           <input id="my-drawer" type="checkbox" className="drawer-toggle" />
           <div className="drawer-content">

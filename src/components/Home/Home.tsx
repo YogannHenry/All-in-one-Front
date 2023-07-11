@@ -1,5 +1,6 @@
 import logo from '../../assets/logo.svg';
-import LogoTodo from '../../assets/ToDo.png';
+import LogoTodo from '../../assets/Todo.jpg';
+import Test from '../../assets/Logo-All-in-One.png';
 
 const dataCarrousel = [
   {
@@ -11,6 +12,11 @@ const dataCarrousel = [
     id: 'slide2',
     image: LogoTodo,
     description: 'TEST 2',
+  },
+  {
+    id: 'slide3',
+    image: Test,
+    description: 'TEST 3',
   },
 ];
 
