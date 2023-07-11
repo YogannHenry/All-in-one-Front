@@ -1,9 +1,13 @@
-import React from "react";
-import NavBar from "./NavBar/NavBar";
+import React from 'react';
+import Home from '../Home/Home';
+import NavBar from '../Partials/NavBar/NavBar';
 
 function App() {
   return (
-<NavBar/>
+    <div>
+      <NavBar />
+      <Home />
+    </div>
   );
 }
 
