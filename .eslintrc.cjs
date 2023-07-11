@@ -4,10 +4,14 @@ module.exports = {
     browser: true,
     es2021: true,
   },
+lint: [
+  '!**/tailwind.config.js'
+],
   extends: [
     'airbnb',
     'airbnb-typescript',
     'airbnb/hooks',
+    'eslint:recommended',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended', // must be the last one
