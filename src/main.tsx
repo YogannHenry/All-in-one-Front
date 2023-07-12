@@ -1,12 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom';
 
 import App from './components/App/App';
+import Home from './components/Home/Home';
 
 import './styles/global.css';
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+const router = createBrowserRouter(
+  createRoutesFromElements(
+
+    <Route path="/" element={<App />}>
+      <Route index element={<Home />} />
+      {/* <Route path="/signin" element={<SignIn />} /> */}
+    </Route>
+  )
+);
+
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement
+);
+
+
+root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
