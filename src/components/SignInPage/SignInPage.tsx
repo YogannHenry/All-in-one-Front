@@ -1,6 +1,5 @@
-import { NavLink } from 'react-router-dom';
 
-function LoginPage() {
+function SignInPage() {
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row-reverse px-24 ">
@@ -59,4 +58,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default SignInPage;
