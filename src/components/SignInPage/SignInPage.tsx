@@ -37,4 +37,4 @@ Ne vous inquiétez plus, notre Web App est là pour vous simplifier la vie !</p>
   );
 }
 
-export default LoginPage;
+export default SignInPage;
