@@ -41,7 +41,9 @@ function LoginPage() {
                 </label>
               </div>
               <div className="form-control mt-6">
-                <button className="btn btn-primary">Login</button>
+                <button className="btn bg-red-300 hover:bg-red-500 text-white">
+                  Login
+                </button>
               </div>
             </div>
           </div>

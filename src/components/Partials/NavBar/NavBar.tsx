@@ -34,7 +34,7 @@ function NavBar() {
       </div>
       <div className="navbar-end">
         <NavLink
-          to="/signin"
+          to="/login"
           className="btn btn-ghost text-red-400 hover:border-b-red-400 hover:bg-white"
         >
           Se connecter
