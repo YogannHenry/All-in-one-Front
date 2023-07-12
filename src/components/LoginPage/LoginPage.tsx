@@ -27,7 +27,7 @@ function LoginPage() {
               </div>
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Password</span>
+                  <span className="label-text">Mot de passe</span>
                 </label>
                 <input
                   type="text"
@@ -35,14 +35,17 @@ function LoginPage() {
                   className="input input-bordered"
                 />
                 <label className="label">
-                  <a href="#" className="label-text-alt link link-hover">
-                    Forgot password?
+                  <a
+                    href="#"
+                    className="label-text-alt link link-hover text-blue-700"
+                  >
+                    Mot de passe oublié?
                   </a>
                 </label>
               </div>
               <div className="form-control mt-6">
                 <button className="btn bg-red-300 hover:bg-red-500 text-white">
-                  Login
+                  Se Connecter
                 </button>
               </div>
             </div>
