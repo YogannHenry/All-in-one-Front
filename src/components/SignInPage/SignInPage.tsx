@@ -1,10 +1,8 @@
-import { NavLink } from 'react-router-dom';
-
 function SignInPage() {
   return (
     <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
+      <div className="hero-content flex-col lg:flex-row-reverse px-24 ">
+        <div className="px-24 text-center lg:text-left ">
           <h1 className="text-5xl font-bold">
             Facilitez-vous la vie, inscrivez-vous!
           </h1>
@@ -36,14 +34,16 @@ function SignInPage() {
                 placeholder="mot de passe"
                 className="input input-bordered"
               />
+              <label className="label"></label>
               <label className="label">
-                <a
-                  href="#"
-                  className="label-text-alt link link-hover text-blue-700"
-                >
-                  Mot de passe oublié?
-                </a>
+                <span className="label-text">Vérifiez votre mot de passe</span>
               </label>
+              <input
+                type="text"
+                placeholder="mot de passe"
+                className="input input-bordered"
+              />
+              <label className="label"></label>
             </div>
             <div className="form-control mt-6">
               <button className="btn bg-red-300 hover:bg-red-500 text-white">
