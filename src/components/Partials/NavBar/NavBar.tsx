@@ -33,14 +33,21 @@ function NavBar() {
         <a className="btn btn-ghost  hover:bg-red-300">contact</a>
       </div>
       <div className="navbar-end">
-        <a className="btn btn-ghost text-red-400 hover:border-b-red-400 hover:bg-white">
+        <NavLink
+          to="/signin"
+          className="btn btn-ghost text-red-400 hover:border-b-red-400 hover:bg-white"
+        >
           Se connecter
-        </a>
-        <NavLink to="/signin" className="btn text-white bg-red-300 hover:bg-red-400">s'inscrire</NavLink>
+        </NavLink>
+        <NavLink
+          to="/signin"
+          className="btn text-white bg-red-300 hover:bg-red-400"
+        >
+          s'inscrire
+        </NavLink>
       </div>
     </div>
   );
 }
 
 export default NavBar;
- 
