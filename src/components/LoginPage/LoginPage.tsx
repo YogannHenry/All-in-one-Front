@@ -1,4 +1,4 @@
-import NavBar from '../Partials/NavBar/NavBar';
+import { NavLink } from 'react-router-dom';
 
 function LoginPage() {
   return (
