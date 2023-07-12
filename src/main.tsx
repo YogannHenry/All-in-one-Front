@@ -9,6 +9,7 @@ import {
 
 import App from './components/App/App';
 import Home from './components/Home/Home';
+import SignIn from './components/SignInPage/SignInPage';
 
 import './styles/global.css';
 
@@ -17,7 +18,7 @@ const router = createBrowserRouter(
 
     <Route path="/" element={<App />}>
       <Route index element={<Home />} />
-      {/* <Route path="/signin" element={<SignIn />} /> */}
+      <Route path="/signin" element={<SignIn />} />
     </Route>
   )
 );
