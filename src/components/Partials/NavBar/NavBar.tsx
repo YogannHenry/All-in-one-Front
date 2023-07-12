@@ -1,8 +1,9 @@
+import { NavLink } from 'react-router-dom';
 import DrawerButton from './DrawerButton/DrawerButton';
 
 function NavBar() {
   return (
-    <div className="navbar bg-base-100 ">
+    <div className="navbar bg-base-100">
       <div className="navbar-start">
         <DrawerButton />
       </div>
@@ -32,10 +33,18 @@ function NavBar() {
         <a className="btn btn-ghost  hover:bg-red-300">contact</a>
       </div>
       <div className="navbar-end">
-        <a className="btn btn-ghost text-red-400 hover:border-b-red-400 hover:bg-white">
+        <NavLink
+          to="/login"
+          className="btn btn-ghost text-red-400 hover:border-b-red-400 hover:bg-white"
+        >
           Se connecter
-        </a>
-        <a className="btn text-white bg-red-300 hover:bg-red-400">s'inscrire</a>
+        </NavLink>
+        <NavLink
+          to="/signin"
+          className="btn text-white bg-red-300 hover:bg-red-400"
+        >
+          s'inscrire
+        </NavLink>
       </div>
     </div>
   );

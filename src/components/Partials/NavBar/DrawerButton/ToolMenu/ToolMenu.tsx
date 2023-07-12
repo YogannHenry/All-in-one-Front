@@ -1,17 +1,17 @@
 function ToolMenu() {
   return (
-    <ul>
+    <ul className="flex flex-col items-center font-bold uppercase ">
       <li>
-        <a className="font-bold underline uppercase text-base">Outils</a>
+        <a className="font-bold underline  text-base hover:bg-red-200">Outils</a>
       </li>
       <li>
-        <a>Todo-List</a>
+        <a className="hover:bg-red-200">Todo-List</a>
       </li>
       <li>
-        <a>Wallet</a>
+        <a className="hover:bg-red-200">Wallet</a>
       </li>
       <li>
-        <a>Car-Tool</a>
+        <a className="hover:bg-red-200">Car-Tool</a>
       </li>
     </ul>
   );
