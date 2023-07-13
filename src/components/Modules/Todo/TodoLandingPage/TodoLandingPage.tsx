@@ -1,7 +1,8 @@
 function TodoLandingPage() {
   return (
     <div>
-      <div className="flex items-center justify-center h-screen bg-base-200">
+      <div className="flex flex-col items-center justify-center h-screen bg-base-200">
+        <h1 className="text-5xl font-bold pb-3">TodoList</h1>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <div className="card-body">
             <div className="flex">
@@ -32,30 +33,25 @@ function TodoLandingPage() {
               </div>
             </div>
             <div className="collapse bg-base-200">
-              <input type="radio" name="my-accordion-1" checked="checked" />
-              <div className="collapse-title text-xl font-medium">
-                Click to open this one and close others
-              </div>
+              <input type="radio" name="my-accordion-1" />
+              <div className="collapse-title text-xl font-medium">List 1</div>
               <div className="collapse-content">
-                <p>hello</p>
+                <p>-Finir le css</p>
               </div>
             </div>
             <div className="collapse bg-base-200">
               <input type="radio" name="my-accordion-1" />
-              <div className="collapse-title text-xl font-medium">
-                Click to open this one and close others
-              </div>
+              <div className="collapse-title text-xl font-medium">List 2</div>
               <div className="collapse-content">
-                <p>hello</p>
+                <p>-Faire a manger</p>
               </div>
             </div>
             <div className="collapse bg-base-200">
               <input type="radio" name="my-accordion-1" />
-              <div className="collapse-title text-xl font-medium">
-                Click to open this one and close others
-              </div>
+              <div className="collapse-title text-xl font-medium">List 3</div>
               <div className="collapse-content">
-                <p>hello</p>
+                <p>-Passer ascendant sur valo</p>
+                <p>-Passer ascendant sur valo</p>
               </div>
             </div>
           </div>

@@ -12,7 +12,7 @@ import Home from './components/Home/Home';
 import SignIn from './components/SignInPage/SignInPage';
 import Login from './components/LoginPage/LoginPage';
 import Contact from './components/ContactPage/ContactPage';
-import Landing from './components/Modules/Todo/TodoLandingPage';
+import Landing from './components/Modules/Todo/TodoLandingPage/TodoLandingPage';
 import './styles/global.css';
 
 const router = createBrowserRouter(
