@@ -20,7 +20,7 @@ function LoginPage() {
               </label>
               <input
                 type="text"
-                placeholder="password"
+                placeholder="Mot de passe"
                 className="input input-bordered"
               />
               <label className="label">

@@ -14,6 +14,7 @@ import Login from './components/LoginPage/LoginPage';
 import TodoList from './components/Modules/Todo/TodoListPage';
 
 import './styles/global.css';
+import Contact from './components/ContactPage/ContactPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -22,6 +23,7 @@ const router = createBrowserRouter(
       <Route path="/signin" element={<SignIn />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/TodoList" element={<TodoList />} />
+      <Route path="/Contact" element={<Contact />} />
     </Route>
   )
 );
