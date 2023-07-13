@@ -1,4 +1,5 @@
-function TodoList() {
+
+function TodoListPage() {
   return (
     <div>
       <div className="flex items-center justify-center h-screen bg-base-200">
@@ -20,7 +21,7 @@ function TodoList() {
               </label>
               <input
                 type="text"
-                placeholder="password"
+                placeholder="Mot de passe"
                 className="input input-bordered"
               />
               <label className="label">
@@ -44,4 +45,4 @@ function TodoList() {
   );
 }
 
-export default TodoList;
+export default TodoListPage;

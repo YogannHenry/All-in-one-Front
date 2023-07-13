@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 function TodoListMenu() {
   return (
     <ul className="flex flex-col items-center">
@@ -5,7 +7,9 @@ function TodoListMenu() {
         <a className="font-bold underline uppercase text-base">Todo-List</a>
       </li>
       <li>
+        <NavLink to="/TodoList/ListId">
         <a>List 1</a>
+        </NavLink>
       </li>
       <li>
         <a>List 2</a>
