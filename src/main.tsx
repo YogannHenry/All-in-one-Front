@@ -13,6 +13,7 @@ import SignIn from './components/SignInPage/SignInPage';
 import Login from './components/LoginPage/LoginPage';
 
 import './styles/global.css';
+import Contact from './components/ContactPage/ContactPage';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/Login" element={<Login />} />
+      <Route path="/Contact" element={<Contact />} />
     </Route>
   )
 );
