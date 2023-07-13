@@ -3,7 +3,7 @@ import Carrousel from './Carrousel/Carrousel';
 function Home() {
   return (
     <div>
-      <div className="flex justify-center items-center">
+      <div className="flex justify-center items-center border-t-4 pt-2">
         <form className="">
           <h1 className="text-center	">All-in-One</h1>
           <p className="text-center">

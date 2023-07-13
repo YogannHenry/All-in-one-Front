@@ -22,7 +22,7 @@ const dataCarrousel = [
 
 function Carrousel() {
   return (
-    <div className="carousel w-full border-t-4 mt-10 mx-15">
+    <div className="carousel w-full border-t-4 mt-10">
       {dataCarrousel.map((item, index) => (
         <div
           key={item.id}
