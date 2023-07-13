@@ -22,6 +22,7 @@ const dataCarrousel = [
 
 function Carrousel() {
   return (
+    <div className="">
     <div className="carousel w-full border-t-4 mt-10 mx-15">
       {dataCarrousel.map((item, index) => (
         <div
@@ -51,6 +52,7 @@ function Carrousel() {
           </div>
         </div>
       ))}
+    </div>
     </div>
   );
 }
