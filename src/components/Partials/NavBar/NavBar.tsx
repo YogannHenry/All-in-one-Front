@@ -4,7 +4,7 @@ import Logo from '../../../assets/TodoNavBar.png'
 
 function NavBar() {
   return (
-    <div className="navbar bg-base-100 ">
+    <div className="navbar bg-base-100">
       <div className="navbar-start">
         <DrawerButton />
         <NavLink to="/" className="w-11" >
