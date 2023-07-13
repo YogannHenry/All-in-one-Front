@@ -30,7 +30,9 @@ function NavBar() {
             </li>
           </ul>
         </div>
-        <a className="btn btn-ghost  hover:bg-red-300">contact</a>
+        <NavLink to="/Contact" className="btn btn-ghost  hover:bg-red-300">
+          contact
+        </NavLink>
       </div>
       <div className="navbar-end">
         <NavLink
