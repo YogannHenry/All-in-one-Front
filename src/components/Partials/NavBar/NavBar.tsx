@@ -1,14 +1,14 @@
 import { NavLink } from 'react-router-dom';
 import DrawerButton from './DrawerButton/DrawerButton';
-import Logo from '../../../assets/TodoNavBar.png'
+import Logo from '../../../assets/TodoNavBar.png';
 
 function NavBar() {
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
         <DrawerButton />
-        <NavLink to="/" className="w-11" >
-          <img src={Logo} alt="Logo" className="object-scale-down"/>
+        <NavLink to="/" className="w-11">
+          <img src={Logo} alt="Logo" className="object-scale-down" />
         </NavLink>
       </div>
       <div className="navbar-center max-md:hidden">

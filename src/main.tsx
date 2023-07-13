@@ -11,6 +11,7 @@ import App from './components/App/App';
 import Home from './components/Home/Home';
 import SignIn from './components/SignInPage/SignInPage';
 import Login from './components/LoginPage/LoginPage';
+import TodoList from './components/Modules/Todo/TodoListPage';
 
 import './styles/global.css';
 
@@ -20,6 +21,7 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/Login" element={<Login />} />
+      <Route path="/TodoList" element={<TodoList />} />
     </Route>
   )
 );
