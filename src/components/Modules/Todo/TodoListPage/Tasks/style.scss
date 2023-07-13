@@ -1,0 +1,45 @@
+$item-height: 3.5rem;
+
+.tasks {
+  padding: 0;
+
+  &-item {
+    display: flex;
+    height: $item-height;
+    line-height: $item-height;
+    list-style: none;
+    margin: 0.5rem 0;
+  }
+
+  &-label {
+    background: #eee;
+    border-radius: 4px 0 0 4px;
+    display: block;
+    flex-grow: 1;
+    padding: 0 1rem;
+
+    &--done {
+      opacity: 0.5;
+      text-decoration: line-through;
+    }
+  }
+
+  &-check {
+    margin-right: 0.5rem;
+  }
+
+  &-delete {
+    background: #582e3d;
+    border: 0;
+    border-radius: 0 4px 4px 0;
+    color: #eee;
+    cursor: pointer;
+    height: $item-height;
+    transition: background-color 0.3s linear;
+    width: $item-height;
+
+    &:hover {
+      background: #8a4860;
+    }
+  }
+}

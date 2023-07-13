@@ -10,7 +10,7 @@ function SignInPage() {
             Bienvenue dans le monde de la gestion simplifiée de votre quotidien!
             Vous êtes-vous déjà senti débordé par les tâches, les documents et
             les rendez-vous qui s'accumulent ? Ne vous inquiétez plus, notre Web
-            App est là pour vous simplifier la vie ! oublie pas de manger du poisson
+            App est là pour vous simplifier la vie !
           </p>
         </div>
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
