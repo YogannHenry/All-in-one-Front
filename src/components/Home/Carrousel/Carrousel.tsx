@@ -22,36 +22,38 @@ const dataCarrousel = [
 
 function Carrousel() {
   return (
-    <div className="p-16  bg-red-200  ">
-    <div className="carousel w-full mt-10 mx-15 shadow-2xl rounded-3xl bg-base-100">
-      {dataCarrousel.map((item, index) => (
-        <div
-          key={item.id}
-          id={item.id}
-          className="carousel-item relative w-full flex items-center"
-        >
-          <img src={item.image} className="w-1/2" />
-          <div className="w-1/2 text-center">
-            <p className="my-auto">{item.description}</p>
+    <div className="bg-red-200 flex justify-center">
+    <div className="p-16 w-10/12 ">
+      <div className="carousel  mt-10 mx-15 shadow-2xl rounded-3xl bg-base-100">
+        {dataCarrousel.map((item, index) => (
+          <div
+            key={item.id}
+            id={item.id}
+            className="carousel-item relative w-full flex items-center"
+          >
+            <img src={item.image} className="w-1/2" />
+            <div className="w-1/2 text-center">
+              <p className="my-auto">{item.description}</p>
+            </div>
+            <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 max-md:hidden">
+              <a
+                href={`#slide${index === 0 ? dataCarrousel.length : index}`}
+                className="btn btn-circle"
+              >
+                ❮
+              </a>
+              <a
+                href={`#slide${
+                  index === dataCarrousel.length - 1 ? 1 : index + 2
+                }`}
+                className="btn btn-circle"
+              >
+                ❯
+              </a>
+            </div>
           </div>
-          <div className="absolute flex justify-between transform -translate-y-1/2 left-5 right-5 top-1/2 max-md:hidden">
-            <a
-              href={`#slide${index === 0 ? dataCarrousel.length : index}`}
-              className="btn btn-circle"
-            >
-              ❮
-            </a>
-            <a
-              href={`#slide${
-                index === dataCarrousel.length - 1 ? 1 : index + 2
-              }`}
-              className="btn btn-circle"
-            >
-              ❯
-            </a>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
     </div>
   );

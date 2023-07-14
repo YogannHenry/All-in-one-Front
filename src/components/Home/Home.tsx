@@ -20,7 +20,7 @@ function Home() {
                 placeholder="Entrez votre email..."
                 className="input input-bordered w-full max-w-xs"
               />
-              <a className="btn text-white bg-red-300 hover:bg-red-400">
+              <a className="btn text-white bg-red-300 hover:bg-red-500">
                 s'inscrire
               </a>
             </div>
