@@ -10,7 +10,7 @@ interface TasksProps {
 
 function Tasks({ list, updateTask, deleteTask }: TasksProps) {
   return (
-    <ul className="tasks">
+    <div className="card w-1/2 bg-base-100 shadow-xl">
       {list.map((task) => (
         <TasksItem
           key={task.id}
@@ -19,7 +19,7 @@ function Tasks({ list, updateTask, deleteTask }: TasksProps) {
           deleteTask={deleteTask}
         />
       ))}
-    </ul>
+    </div>
   );
 }
 

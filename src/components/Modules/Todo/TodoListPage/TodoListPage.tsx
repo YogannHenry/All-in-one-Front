@@ -16,6 +16,7 @@ const tasks = [
 ];
 
 function TodoListPage() {
+  
   return (
     <div>
       <div className="flex items-center flex-col p-20 h-screen bg-base-200">
@@ -33,7 +34,7 @@ function TodoListPage() {
             <div
               key={task.id}
               id={task.id}
-              className="flex justify-between items-center h-14 px-4"
+              className="flex justify-between items-center h-14 px-4 border-b-2"
             >
               <div className="form-control">
                 <label className="cursor-pointer label">
@@ -68,9 +69,9 @@ function TodoListPage() {
             </div>
           ))}
           <div className="flex items-center justify-between px-5 h-14 text-xs text-slate-500">
-            <span>X taches restant</span>
+            <span>X taches en cours</span>
             <div className="flex justify-around ">
-              <span className="px-2">Toutes</span>
+              <span className="px-2">Tàches</span>
               <span className="px-2">Actives</span>
               <span className="px-2">Terminées</span>
             </div>
