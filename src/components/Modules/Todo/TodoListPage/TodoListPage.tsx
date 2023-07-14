@@ -18,11 +18,12 @@ const tasks = [
 function TodoListPage() {
   return (
     <div>
-      <div className="flex items-center flex-col p-32 h-screen bg-base-200">
+      <div className="flex items-center flex-col p-20 h-screen bg-base-200">
+        <p className="text-4xl mb-10">Nom de la liste</p>
         <div className="card w-1/2 bg-base-100 shadow-xl mb-10">
           <input
             type="text"
-            placeholder="Type here"
+            placeholder="Ajouter une tâche"
             className="input input-bordered input-error w-full "
           />
         </div>
@@ -66,6 +67,15 @@ function TodoListPage() {
               </div>
             </div>
           ))}
+          <div className="flex items-center justify-between px-5 h-14 text-xs text-slate-500">
+            <span>X taches restant</span>
+            <div className="flex justify-around ">
+              <span className="px-2">Toutes</span>
+              <span className="px-2">Actives</span>
+              <span className="px-2">Terminées</span>
+            </div>
+            <span className="clear">Nettoyer</span>
+          </div>
         </div>
       </div>
     </div>

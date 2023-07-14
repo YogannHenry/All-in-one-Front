@@ -7,7 +7,7 @@ import NavBar from '../Partials/NavBar/NavBar';
 
 function App() {
   return (
-    <div>
+    <div className='font-rubik'>
       <NavBar />
       <Outlet />
     </div>
