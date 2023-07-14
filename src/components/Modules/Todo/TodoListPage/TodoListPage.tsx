@@ -19,9 +19,9 @@ function TodoListPage() {
   
   return (
     <div>
-      <div className="flex items-center flex-col p-20 h-screen bg-base-200">
+      <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen bg-base-200">
         <p className="text-4xl mb-10">Nom de la liste</p>
-        <div className="card w-1/2 bg-base-100 shadow-xl mb-10">
+        <div className="card max-md:w-full  w-1/2 bg-base-100 shadow-xl mb-10">
           <input
             type="text"
             placeholder="Ajouter une tâche"
@@ -29,7 +29,7 @@ function TodoListPage() {
           />
         </div>
 
-        <div className="card w-1/2 bg-base-100 shadow-xl">
+        <div className="card max-md:w-full w-1/2 bg-base-100 shadow-xl">
           {tasks.map((task) => (
             <div
               key={task.id}
