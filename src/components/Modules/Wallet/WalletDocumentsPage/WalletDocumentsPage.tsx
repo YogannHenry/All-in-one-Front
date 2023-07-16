@@ -1,31 +1,49 @@
-
 const Documents = [
   {
     id: 's1',
-    description: 'mutuel Bob l\'éponge',
+    description: 'Santé',
   },
   {
     id: '2',
-    description: 'carte vitale Bob l\'éponge',
+    description: 'Id',
   },
   {
     id: '3',
-    description: 'facture Big John taille XXl',
+    description: 'facture Electroménager',
   },
 ];
 
 function WalletLandingPage() {
-  
   return (
     <div>
       <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen bg-base-200">
-        <p className="text-4xl mb-10">Nom de la liste</p>
-        <div className="card max-md:w-full  w-1/2 bg-base-100 shadow-xl mb-10">
-          <input
-            type="text"
-            placeholder="Ajouter une tâche"
-            className="input input-bordered input-error w-full "
-          />
+        <h1 className="text-5xl font-bold pb-10">Wallet</h1>
+        <div className="flex w-1/2 pb-5">
+          <div className="flex-auto w-full">
+            <input
+              type="text"
+              placeholder="Ajouter un portefeuille de document"
+              className="input input-bordered input-error w-full"
+            />
+          </div>
+          <div className="flex-auto pl-2">
+            <button className="btn bg-red-300 hover:bg-red-500 text-white flex-auto">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-6 h-6"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 4.5v15m7.5-7.5h-15"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
 
         <div className="card max-md:w-full w-1/2 bg-base-100 shadow-xl">
@@ -68,7 +86,7 @@ function WalletLandingPage() {
             </div>
           ))}
           <div className="flex items-center justify-between px-5 h-14 text-xs text-slate-500">
-            <span>X taches en cours</span>
+            <>X taches en cours</>
             <div className="flex justify-around ">
               <span className="px-2">Tàches</span>
               <span className="px-2">Actives</span>

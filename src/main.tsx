@@ -14,7 +14,7 @@ import Login from './components/LoginPage/LoginPage';
 import Contact from './components/ContactPage/ContactPage';
 import TodoList from './components/Modules/Todo/TodoListPage/TodoListPage';
 import TodoListPage from './components/Modules/Todo/TodoListPage/TodoListPage';
-import Wallet from './components/Modules/Wallet/WalletLandingPage';
+import Wallet from './components/Modules/Wallet/WalletLandingPage/WalletLandingPage';
 
 import Landing from './components/Modules/Todo/TodoLandingPage/TodoLandingPage';
 import './styles/global.css';

@@ -26,7 +26,7 @@ function Form({ addTask }: FormProps) {
         <div className="card w-1/2 bg-base-100 shadow-xl mb-10"></div>
       <input
         type="text"
-        className="input input-bordered input-error w-full "
+        className="form-input"
         placeholder="Ajouter une tâche"
         aria-label="Ajouter une tâche"
         value={newTask}
