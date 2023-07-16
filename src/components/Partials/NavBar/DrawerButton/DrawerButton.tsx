@@ -42,11 +42,14 @@ function DrawerButton() {
       <div className="drawer-side z-20 ">
         <label htmlFor="my-drawer" className="drawer-overlay"></label>
         <div className="menu p-4 w-80 max-md:w-full h-full bg-base-200 text-base-content flex items-center justify-around">
-          <ToolMenu />
+        <a className="font-bold underline  text-2xl hover:bg-red-200 uppercase">Outils</a>
+
           <NavLink to="/TodoList">
             <TodoListMenu />
           </NavLink>
-          <WalletMenu />
+          <NavLink to="/Wallet">
+            <WalletMenu />
+          </NavLink>
           <CarToolMenu />
           <Footer />
         </div>

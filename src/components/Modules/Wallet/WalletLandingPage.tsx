@@ -1,21 +1,20 @@
-import { redirect } from 'react-router-dom';
 
-const tasks = [
+const Documents = [
   {
     id: 's1',
-    description: 'mange mes boules',
+    description: 'mutuel Bob l\'éponge',
   },
   {
     id: '2',
-    description: 'moi les fraises ça me refait le fion',
+    description: 'carte vitale Bob l\'éponge',
   },
   {
     id: '3',
-    description: 'et les ananas ? ',
+    description: 'facture Big John taille XXl',
   },
 ];
 
-function TodoListPage() {
+function WalletLandingPage() {
   
   return (
     <div>
@@ -27,14 +26,13 @@ function TodoListPage() {
             placeholder="Ajouter une tâche"
             className="input input-bordered input-error w-full "
           />
-          
         </div>
 
         <div className="card max-md:w-full w-1/2 bg-base-100 shadow-xl">
-          {tasks.map((task) => (
+          {Documents.map((document) => (
             <div
-              key={task.id}
-              id={task.id}
+              key={document.id}
+              id={document.id}
               className="flex justify-between items-center h-14 px-4 border-b-2"
             >
               <div className="form-control">
@@ -47,7 +45,7 @@ function TodoListPage() {
                 </label>
               </div>
               <div className="w-full pl-5">
-                <p>{task.description}</p>
+                <p>{document.description}</p>
               </div>
               <div className="card-actions justify-around opacity-0 hover:opacity-100">
                 <button className="">
@@ -84,4 +82,4 @@ function TodoListPage() {
   );
 }
 
-export default TodoListPage;
+export default WalletLandingPage;
