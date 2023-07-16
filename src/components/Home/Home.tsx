@@ -3,17 +3,21 @@ import Carrousel from './Carrousel/Carrousel';
 import React, { useState } from 'react';
 
 function Home() {
-  const [btnClass, setBtnClass] = useState('bg-red-300'); // State variable to hold the CSS class
+  const [btnClass, setBtnClass] = useState('red'); // State variable to hold the CSS class
 
   const handleBtnClick = () => {
     // Function to change the class on button click
-    setBtnClass((prevClass) => (prevClass === 'red' ? 'sky' : 'red'));
+    setBtnClass((prevClass) => {
+      if (prevClass === 'red') return 'sky';
+      if (prevClass === 'sky') return 'green';
+      return 'red';
+    });
   };
 
 
   return (
     <div>
- <a className={`btn text-white ${btnClass} hover:bg-red-500`} onClick={handleBtnClick}></a>
+ <a className={`btn text-white  hover:bg-red-500`} onClick={handleBtnClick}></a>
 
 
       <div className="hero h-5/6 pt-14 bg-base-200 ">
@@ -32,8 +36,7 @@ function Home() {
                 placeholder="Entrez votre email..."
                 className="input input-bordered w-full max-w-xs"
               />
-                <a className={`btn text-white bg-${btnClass}-300 hover:bg-red-500`}>
-                s'inscrire
+<a className={`btn text-white ${btnClass === 'red' ? 'bg-red-300 hover:bg-red-500' : btnClass === 'sky' ? 'bg-sky-300 hover:bg-sky-500' : 'bg-indigo-300 hover:bg-indigo-500'}`}>                s'inscrire
               </a>
             </div>
             <h1 className="mt-20 text-3xl font-bold">
