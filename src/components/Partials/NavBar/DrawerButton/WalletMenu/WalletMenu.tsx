@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 function WalletMenu() {
   return (
     <ul className="flex flex-col items-center">
@@ -5,7 +7,7 @@ function WalletMenu() {
         <a className="font-bold underline uppercase text-base">Wallet</a>
       </li>
       <li>
-        <a>Santé</a>
+        <NavLink to="/WalletDocumentsPage">Santé</NavLink>
       </li>
       <li>
         <a>Facture</a>

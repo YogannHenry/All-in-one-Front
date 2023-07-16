@@ -1,29 +1,39 @@
+import { HomeIcon } from '@heroicons/react/24/solid';
+
 const Documents = [
   {
     id: 's1',
-    description: 'Santé',
+    nom: 'carte mutuel',
+    information: 'année de validité 2016',
+    icone: HomeIcon,
+    date: '10/12/2016',
   },
   {
     id: '2',
-    description: 'Id',
+    nom: 'fature vidange',
+    information: '123 456km',
+    icone: HomeIcon,
+    date: '10/12/2021',
   },
   {
     id: '3',
-    description: 'facture Electroménager',
+    nom: 'facture tv',
+    information: 'garanti 2 ans',
+    icone: HomeIcon,
+    date: '10/12/2022',
   },
 ];
 
-function WalletLandingPage() {
+function WalletDocumentsPage() {
   return (
     <div>
       <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen bg-base-200">
-        <h1 className="text-5xl font-bold pb-10">Wallet</h1>
+        <h1 className="text-5xl font-bold pb-10">Santé</h1>
         <div className="flex w-1/2 pb-5">
           <div className="flex-auto w-full">
             <input
-              type="text"
-              placeholder="Ajouter un portefeuille de document"
-              className="input input-bordered input-error w-full"
+              type="file"
+              className="file-input file-input-bordered w-10/12 "
             />
           </div>
           <div className="flex-auto pl-2">
@@ -51,53 +61,62 @@ function WalletLandingPage() {
             <div
               key={document.id}
               id={document.id}
-              className="flex justify-between items-center h-14 px-4 border-b-2"
+              className="flex justify-between items-center h-14 px-4 border-b-2 "
             >
-              <div className="form-control">
-                <label className="cursor-pointer label">
-                  <input
-                    type="checkbox"
-                    // checked="checked"
-                    className="checkbox checkbox-error"
-                  />
-                </label>
+              <div className="w-4/6 px-5 border-r-2 ">
+                <div className="flex justify-between">
+                  <p className="uppercase">{document.nom}</p>
+                  <p className="text-sm">{document.date}</p>
+                </div>
+                <p className="text-slate-400 text-sm">{document.information}</p>
               </div>
-              <div className="w-full pl-5">
-                <p>{document.description}</p>
+              <div className="card-actions justify-around">
+                <button className="btn">
+                  <p>Ouvrir</p>
+                </button>
               </div>
-              <div className="card-actions justify-around opacity-0 hover:opacity-100">
+              <div className="card-actions justify-around">
                 <button className="">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-8 w-8 "
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke="red"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
                   >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M6 18L18 6M6 6l12 12"
+                      d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                    />
+                  </svg>
+                </button>
+              </div>
+              <div className="card-actions justify-around">
+                <button className="">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    strokeWidth={1.5}
+                    stroke="currentColor"
+                    className="w-6 h-6"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                     />
                   </svg>
                 </button>
               </div>
             </div>
           ))}
-          <div className="flex items-center justify-between px-5 h-14 text-xs text-slate-500">
-            <>X taches en cours</>
-            <div className="flex justify-around ">
-              <span className="px-2">Tàches</span>
-              <span className="px-2">Actives</span>
-              <span className="px-2">Terminées</span>
-            </div>
-            <span className="clear">Nettoyer</span>
-          </div>
         </div>
       </div>
     </div>
   );
 }
 
-export default WalletLandingPage;
+export default WalletDocumentsPage;

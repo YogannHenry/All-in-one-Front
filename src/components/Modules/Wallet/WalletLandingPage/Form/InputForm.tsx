@@ -13,7 +13,7 @@ function WalletInputForm() {
         </div>
         <WalletIconForm />
         <div className="pl-2">
-          <button className="btn bg-red-300 hover:bg-red-500 text-white ">
+          <button className="btn bg-red-700 hover:bg-red-500 text-white ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
