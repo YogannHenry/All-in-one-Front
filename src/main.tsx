@@ -16,6 +16,7 @@ import TodoList from './components/Modules/Todo/TodoListPage/TodoListPage';
 import TodoListPage from './components/Modules/Todo/TodoListPage/TodoListPage';
 import Wallet from './components/Modules/Wallet/WalletLandingPage';
 
+import Landing from './components/Modules/Todo/TodoLandingPage/TodoLandingPage';
 import './styles/global.css';
 
 const router = createBrowserRouter(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
       <Route path="/TodoList" element={<TodoList />} />
       <Route path="/TodoList/ListId" element={<TodoListPage />} />
       <Route path="/Wallet" element={<Wallet />} />
+      <Route path="/TodoLandingPage" element={<Landing />} />
     </Route>
   )
 );
