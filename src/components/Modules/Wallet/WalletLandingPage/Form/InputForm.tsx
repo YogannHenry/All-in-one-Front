@@ -3,7 +3,7 @@ import WalletIconForm from './IconForm';
 function WalletInputForm() {
   return (
     <div>
-      <div className="flex justify-around pb-5">
+      <div className="flex justify-around  items-center pb-5">
         <div className="flex-auto ">
           <input
             type="text"

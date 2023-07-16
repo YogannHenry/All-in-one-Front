@@ -1,5 +1,5 @@
 import  { useState } from 'react';
-import { FolderIcon, CalculatorIcon, ClipboardDocumentIcon, CreditCardIcon, AcademicCapIcon, BanknotesIcon, BookOpenIcon, CurrencyEuroIcon, FilmIcon } from '@heroicons/react/24/solid';
+import { FolderIcon, CalculatorIcon, ClipboardDocumentIcon, CreditCardIcon, AcademicCapIcon, BanknotesIcon, BookOpenIcon, CurrencyEuroIcon, FilmIcon, ShoppingCartIcon, HomeIcon, TruckIcon } from '@heroicons/react/24/solid';
 
 function WalletIconForm() {
   const [selectedIcon, setSelectedIcon] = useState(null);
@@ -9,12 +9,11 @@ function WalletIconForm() {
   };
 
   return (
-    <div className="dropdown dropdown-top">
+    <div className="dropdown dropdown-top ">
       <label tabIndex={0} className="btn m-1">
         {selectedIcon ? selectedIcon : 'Icons'}
       </label>
-      <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-auto">
-      <li><a onClick={() => handleIconSelection("Icons")}>Icons</a></li>
+      <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-[240px] grid grid-cols-4 gap-4">
      
         <li><a onClick={() => handleIconSelection(<ClipboardDocumentIcon className="h-6 w-6 text-green-500" />)}><ClipboardDocumentIcon className="h-6 w-6 text-green-500" /></a></li>
         <li><a onClick={() => handleIconSelection(<FolderIcon className="h-6 w-6 text-green-500" />)}><FolderIcon className="h-6 w-6 text-green-500" /></a></li>
@@ -25,6 +24,10 @@ function WalletIconForm() {
         <li><a onClick={() => handleIconSelection(<BookOpenIcon className="h-6 w-6 text-green-500" />)}><BookOpenIcon className="h-6 w-6 text-green-500" /></a></li>
         <li><a onClick={() => handleIconSelection(<CurrencyEuroIcon className="h-6 w-6 text-green-500" />)}><CurrencyEuroIcon className="h-6 w-6 text-green-500" /></a></li>
         <li><a onClick={() => handleIconSelection(<FilmIcon className="h-6 w-6 text-green-500" />)}><FilmIcon className="h-6 w-6 text-green-500" /></a></li>
+        <li><a onClick={() => handleIconSelection(<ShoppingCartIcon className="h-6 w-6 text-green-500" />)}><ShoppingCartIcon className="h-6 w-6 text-green-500" /></a></li>
+        <li><a onClick={() => handleIconSelection(<HomeIcon className="h-6 w-6 text-green-500" />)}><HomeIcon className="h-6 w-6 text-green-500" /></a></li>
+        <li><a onClick={() => handleIconSelection(<TruckIcon className="h-6 w-6 text-green-500" />)}><TruckIcon className="h-6 w-6 text-green-500" /></a></li>
+
 
 
 
