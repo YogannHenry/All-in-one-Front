@@ -1,9 +1,21 @@
 import Carrousel from './Carrousel/Carrousel';
-import Wave from '../../assets/wavesOpacity.svg';
+
+import React, { useState } from 'react';
 
 function Home() {
+  const [btnClass, setBtnClass] = useState('bg-red-300'); // State variable to hold the CSS class
+
+  const handleBtnClick = () => {
+    // Function to change the class on button click
+    setBtnClass((prevClass) => (prevClass === 'red' ? 'sky' : 'red'));
+  };
+
+
   return (
     <div>
+ <a className={`btn text-white ${btnClass} hover:bg-red-500`} onClick={handleBtnClick}></a>
+
+
       <div className="hero h-5/6 pt-14 bg-base-200 ">
         <form className="hero-content text-center">
           <div className="max-w-md">
@@ -20,7 +32,7 @@ function Home() {
                 placeholder="Entrez votre email..."
                 className="input input-bordered w-full max-w-xs"
               />
-              <a className="btn text-white bg-red-300 hover:bg-red-500">
+                <a className={`btn text-white bg-${btnClass}-300 hover:bg-red-500`}>
                 s'inscrire
               </a>
             </div>
@@ -34,8 +46,7 @@ function Home() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-10 h-10 stroke-red-500"
-              >
+                className={`${btnClass === 'red' ? 'stroke-red-500' : 'stroke-sky-500'} w-10 h-10`}              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -47,8 +58,7 @@ function Home() {
         </form>
       </div>
       <svg
-        className=" bg-base-200 fill-red-300 rotate-180"
-        data-name="Layer 1"
+   className={`${btnClass === 'red' ? 'fill-red-300' : 'fill-sky-300'} bg-base-200 rotate-180`}        data-name="Layer 1"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1200 120"
         preserveAspectRatio="none"
