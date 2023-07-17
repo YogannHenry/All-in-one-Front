@@ -14,6 +14,7 @@ import Login from './components/LoginPage/LoginPage';
 import TodoList from './components/Modules/Todo/TodoLandingPage/TodoLandingPage';
 import Contact from './components/ContactPage/ContactPage';
 import TodoListPage from './components/Modules/Todo/TodoListPage/TodoListPage';
+import CarsList from './components/Modules/CarTool/CarToolListe/CarToolListe';
 
 import './styles/global.css';
 
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
       <Route path="/TodoList" element={<TodoList />} />
       <Route path="/TodoList/ListId" element={<TodoListPage />} />
       <Route path="/Contact" element={<Contact />} />
+      <Route path="/cars" element={<CarsList />} />
     </Route>
   )
 );

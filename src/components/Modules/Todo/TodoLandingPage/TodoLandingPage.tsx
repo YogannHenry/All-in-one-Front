@@ -22,7 +22,7 @@ function TodoList() {
   return (
     <div className="flex items-center justify-center min-h-screen bg-base-200">
       <div className="max-w-full w-11/12 md:w-3/4 lg:w-1/2 px-4 flex flex-col items-center">
-        <p className="text-4xl mb-10">TodoList</p>
+        <h1 className="text-4xl mb-10">TodoList</h1>
         <div className="card w-full bg-base-100 shadow-xl mb-10">
           <div className="flex justify-between">
             <div className="flex-grow">
