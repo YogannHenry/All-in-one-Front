@@ -21,6 +21,6 @@
     ".eslintrc.cjs",
     "src",
     "tailwind.config.js"
-  ],
+, "src/components/Modules/Todo/.tsx"  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
