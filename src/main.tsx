@@ -14,6 +14,7 @@ import Login from './components/LoginPage/LoginPage';
 import Contact from './components/ContactPage/ContactPage';
 import Landing from './components/Modules/Todo/TodoLandingPage/TodoLandingPage';
 import './styles/global.css';
+import TodoLandingPage2 from './components/Modules/Todo/TodoLandingPage/TodoLandingPage2';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +24,7 @@ const router = createBrowserRouter(
       <Route path="/Login" element={<Login />} />
       <Route path="/Contact" element={<Contact />} />
       <Route path="/TodoLandingPage" element={<Landing />} />
+      <Route path="/TodoLandingPage2" element={<TodoLandingPage2 />} />
     </Route>
   )
 );
