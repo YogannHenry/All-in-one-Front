@@ -12,9 +12,8 @@ import Home from './components/Home/Home';
 import SignIn from './components/SignInPage/SignInPage';
 import Login from './components/LoginPage/LoginPage';
 import Contact from './components/ContactPage/ContactPage';
-import Landing from './components/Modules/Todo/TodoLandingPage/TodoLandingPage';
+import TodoList from './components/Modules/Todo/TodoLandingPage/TodoLandingPage';
 import './styles/global.css';
-import TodoLandingPage2 from './components/Modules/Todo/TodoLandingPage/TodoLandingPage2';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,7 +22,7 @@ const router = createBrowserRouter(
       <Route path="/signin" element={<SignIn />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/Contact" element={<Contact />} />
-      <Route path="/TodoLandingPage" element={<Landing />} />
+      <Route path="/TodoList" element={<TodoList />} />
     </Route>
   )
 );

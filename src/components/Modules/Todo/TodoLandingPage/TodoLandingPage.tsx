@@ -1,4 +1,4 @@
-const TodoList = [
+const TodoListData = [
   {
     id: '1',
     Titre: 'css',
@@ -16,7 +16,7 @@ const TodoList = [
   },
 ];
 
-function TodoLandingPage() {
+function TodoList() {
   return (
     <div className="flex items-center justify-center h-screen bg-base-200">
       <div className="max-w-full px-4 flex flex-col items-center">
@@ -50,7 +50,7 @@ function TodoLandingPage() {
         </div>
         <div className="card max-w-full w-full bg-base-100 shadow-xl">
           <div className="card-body">
-            {TodoList.map((item) => (
+            {TodoListData.map((item) => (
               <div className="collapse bg-base-200" key={item.id}>
                 <input type="radio" name="my-accordion-1" />
                 <div className="collapse-title text-xl font-medium">
@@ -68,4 +68,4 @@ function TodoLandingPage() {
   );
 }
 
-export default TodoLandingPage;
+export default TodoList;
