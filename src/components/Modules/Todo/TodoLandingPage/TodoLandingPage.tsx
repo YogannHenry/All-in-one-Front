@@ -53,29 +53,29 @@ function TodoList() {
         <div className="card max-w-full w-1/2 bg-base-100 shadow-xl">
           <div className="card-body">
             {TodoListData.map((item) => (
-              <div className="collapse bg-base-200" key={item.id}>
-                <input type="radio" name="my-accordion-1" />
-                <div className="collapse-title text-xl font-medium">
-                  {item.Titre}
-                </div>
-                <div className="collapse-content">
-                  <p>- {item.Task}</p>
-                </div>
-                <div className="flex justify-between">
-                  <div className="flex justify-center">
-                    <NavLink
-                      to={`/list/${item.id}`}
-                      className="text-blue-500 underline"
-                    >
-                      Ouvrir
-                    </NavLink>
+              <div className="flex bg-base-200">
+                <div className="collapse bg-base-200" key={item.id}>
+                  <input type="radio" name="my-accordion-1" />
+                  <div className="collapse-title text-xl font-medium">
+                    {item.Titre}
                   </div>
-                  <button className="btn bg-red-300 hover:bg-red-500 text-white">
+                  <div className="collapse-content">
+                    <p>- {item.Task}</p>
+                  </div>
+                </div>
+                <div className="flex justify-center p-2 items-center">
+                  <NavLink
+                    to={`/list/${item.id}`}
+                    className="text-blue-500 underline"
+                  >
+                    Ouvrir
+                  </NavLink>
+                  <button className="btn bg-red-300 hover:bg-red-500 text-white ml-2">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
-                      strokeWidth={1.5}
+                      strokeWidth="1.5"
                       stroke="currentColor"
                       className="w-6 h-6"
                     >
