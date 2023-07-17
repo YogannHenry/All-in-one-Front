@@ -4,6 +4,7 @@ import './style.scss';
 
 interface TasksProps {
   list: Task[];
+  
   updateTask: (id: number) => Promise<void>;
   deleteTask: (id: number) => Promise<void>;
 }

@@ -1,16 +1,19 @@
-import React from 'react';
+
 
 import { Outlet } from 'react-router-dom';
+import ThemeProvider from '../../contexts/ThemeProvider';
 
-import Home from '../Home/Home';
 import NavBar from '../Partials/NavBar/NavBar';
 
 function App() {
+
   return (
-    <div className='font-rubik'>
-      <NavBar />
-      <Outlet />
-    </div>
+    <ThemeProvider>
+      <div className='font-rubik'>
+        <NavBar />
+        <Outlet />
+      </div>
+    </ThemeProvider>
   );
 }
 

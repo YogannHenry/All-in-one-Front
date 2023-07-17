@@ -1,8 +1,17 @@
+import React, { useContext } from 'react';
+import { ThemeContext } from '../../../contexts/ThemeProvider';
 import { NavLink } from 'react-router-dom';
 import DrawerButton from './DrawerButton/DrawerButton';
 import Logo from '../../../assets/TodoNavBar.png';
 
+interface ThemeProps {
+  colorTheme: String;
+  handleColorChange: String;
+}
+
 function NavBar() {
+  const { colorTheme, handleColorChange } = useContext(ThemeContext);
+
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
@@ -39,15 +48,35 @@ function NavBar() {
         </NavLink>
       </div>
       <div className="navbar-end">
+        <div className="color-switch">
+          <button
+            className="btn bg-red-300"
+            onClick={() => handleColorChange('red')}
+          >
+            1
+          </button>
+          <button
+            className="btn bg-sky-300"
+            onClick={() => handleColorChange('sky')}
+          >
+            2
+          </button>
+          <button
+            className="btn bg-brique-300"
+            onClick={() => handleColorChange('brique')}
+          >
+            3
+          </button>
+        </div>
         <NavLink
           to="/login"
-          className="btn btn-ghost text-red-400 hover:border-b-red-400 hover:bg-white"
+          className={`btn btn-ghost text-${colorTheme}-300 hover:border-b-red-400 hover:bg-white`}
         >
           Se connecter
         </NavLink>
         <NavLink
           to="/signin"
-          className="btn text-white bg-red-300 hover:bg-red-400"
+          className={`btn text-white bg-${colorTheme}-300 hover:bg-${colorTheme}-500`}
         >
           s'inscrire
         </NavLink>

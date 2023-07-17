@@ -1,23 +1,19 @@
 import Carrousel from './Carrousel/Carrousel';
+import { ThemeContext } from '../../contexts/ThemeProvider';
 
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
+
+interface ThemeProps {
+  colorTheme: string;
+}
 
 function Home() {
-  const [colorTheme, setColorTheme] = useState('red'); // State variable to hold the color theme
+  const { colorTheme, handleColorChange } = useContext(ThemeContext);
 
-  const handleColorChange = (theme) => {
-    setColorTheme(theme);
-  };
-
+  console.log(colorTheme);
 
   return (
     <div>
- <div className="color-switch">
-        <button className="btn bg-red-300" onClick={() => handleColorChange('red')}>1</button>
-        <button className="btn bg-sky-300" onClick={() => handleColorChange('sky')}>2</button>
-        <button className="btn bg-indigo-300"onClick={() => handleColorChange('indigo')}>3</button>
-      </div>
-
       <div className="hero h-5/6 pt-14 bg-base-200 ">
         <form className="hero-content text-center">
           <div className="max-w-md">
@@ -34,7 +30,11 @@ function Home() {
                 placeholder="Entrez votre email..."
                 className="input input-bordered w-full max-w-xs"
               />
-<a className={`btn text-white ${colorTheme === 'red' ? 'bg-red-300 hover:bg-red-500' : colorTheme === 'sky' ? 'bg-sky-300 hover:bg-sky-500' : 'bg-indigo-300 hover:bg-indigo-500'}`}>                s'inscrire
+              <a
+                className={`btn text-white bg-${colorTheme}-300 hover:bg-${colorTheme}-500`}
+              >
+                
+                s'inscrire
               </a>
             </div>
             <h1 className="mt-20 text-3xl font-bold">
@@ -47,7 +47,8 @@ function Home() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className={`${colorTheme === 'red' ? 'stroke-red-500' : 'stroke-sky-500'} w-10 h-10`}              >
+                className={`stroke-${colorTheme}-500 w-10 h-10`}
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -59,7 +60,14 @@ function Home() {
         </form>
       </div>
       <svg
- className={`${colorTheme === 'red' ? 'fill-red-300' : colorTheme === 'sky' ? 'fill-sky-300' : 'fill-indigo-300'} bg-base-200 rotate-180`}        xmlns="http://www.w3.org/2000/svg"
+        className={`${
+          colorTheme === 'red'
+            ? 'fill-red-300'
+            : colorTheme === 'sky'
+            ? 'fill-sky-300'
+            : 'fill-brique-300'
+        } bg-base-200 rotate-180`}
+        xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1200 120"
         preserveAspectRatio="none"
       >
