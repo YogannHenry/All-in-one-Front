@@ -65,7 +65,13 @@ function Home() {
             ? 'fill-red-300'
             : colorTheme === 'sky'
             ? 'fill-sky-300'
-            : 'fill-brique-300'
+            : colorTheme === 'brique'
+            ? 'fill-brique-300'
+            : colorTheme === 'blueIntense'
+            ? 'fill-blueIntense-300'
+            : colorTheme === 'orangeIntense'
+            ? 'fill-orangeIntense-300'
+            : 'fill-emeraldIntense-300'
         } bg-base-200 rotate-180`}
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1200 120"

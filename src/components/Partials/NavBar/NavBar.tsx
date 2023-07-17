@@ -3,6 +3,8 @@ import { ThemeContext } from '../../../contexts/ThemeProvider';
 import { NavLink } from 'react-router-dom';
 import DrawerButton from './DrawerButton/DrawerButton';
 import Logo from '../../../assets/TodoNavBar.png';
+import ThemeButton from './ThemeButton/ThemeButton';
+import colorThemeCssClass from '../../../styles/colorThemeCssClasse';
 
 interface ThemeProps {
   colorTheme: String;
@@ -48,30 +50,22 @@ function NavBar() {
         </NavLink>
       </div>
       <div className="navbar-end">
-        <div className="color-switch">
-          <button
-            className="btn bg-red-300"
-            onClick={() => handleColorChange('red')}
-          >
-            1
-          </button>
-          <button
-            className="btn bg-sky-300"
-            onClick={() => handleColorChange('sky')}
-          >
-            2
-          </button>
-          <button
-            className="btn bg-brique-300"
-            onClick={() => handleColorChange('brique')}
-          >
-            3
-          </button>
-        </div>
+        <ThemeButton />
         <NavLink
           to="/login"
-          className={`btn btn-ghost text-${colorTheme}-300 hover:border-b-red-400 hover:bg-white`}
-        >
+          className={`btn bg-base-100 ${
+            colorTheme === 'red'
+              ? 'text-red-300'
+              : colorTheme === 'sky'
+              ? 'text-sky-300'
+              : colorTheme === 'brique'
+              ? 'text-brique-300'
+              : colorTheme === 'blueIntense'
+              ? 'text-blueIntense-300'
+              : colorTheme === 'orangeIntense'
+              ? 'text-orangeIntense-300'
+              : 'text-emeraldIntense-300'}
+              `}>
           Se connecter
         </NavLink>
         <NavLink
