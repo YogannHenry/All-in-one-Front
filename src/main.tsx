@@ -11,7 +11,7 @@ import App from './components/App/App';
 import Home from './components/Home/Home';
 import SignIn from './components/SignInPage/SignInPage';
 import Login from './components/LoginPage/LoginPage';
-import TodoList from './components/Modules/Todo/TodoListPage/TodoListPage';
+import TodoList from './components/Modules/Todo/TodoLandingPage/TodoLandingPage';
 import Contact from './components/ContactPage/ContactPage';
 import TodoListPage from './components/Modules/Todo/TodoListPage/TodoListPage';
 
