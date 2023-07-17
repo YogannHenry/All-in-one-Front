@@ -20,19 +20,19 @@ const TodoListData = [
 
 function TodoList() {
   return (
-    <div className="flex items-center justify-center h-screen bg-base-200 ">
-      <div className="max-w-full w-1/2 px-4 flex flex-col items-center">
+    <div className="flex items-center justify-center min-h-screen bg-base-200">
+      <div className="max-w-full w-11/12 md:w-3/4 lg:w-1/2 px-4 flex flex-col items-center">
         <p className="text-4xl mb-10">TodoList</p>
         <div className="card w-full bg-base-100 shadow-xl mb-10">
           <div className="flex justify-between">
-            <div className="flex flex-grow bg-base-200">
+            <div className="flex-grow">
               <input
                 type="text"
-                placeholder="Ajouter une List"
+                placeholder="Ajouter une Liste"
                 className="input input-bordered input-error w-full mr-2"
               />
             </div>
-            <button className="btn bg-red-300 hover:bg-red-500 text-white ">
+            <button className="btn bg-red-300 hover:bg-red-500 text-white">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -50,11 +50,14 @@ function TodoList() {
             </button>
           </div>
         </div>
-        <div className="card max-w-full w-1/2 bg-base-100 shadow-xl">
+        <div className="card w-full bg-base-100 shadow-xl">
           <div className="card-body">
             {TodoListData.map((item) => (
-              <div className="flex bg-base-200">
-                <div className="collapse bg-base-200" key={item.id}>
+              <div
+                className="flex flex-col md:flex-row bg-base-200 mb-4"
+                key={item.id}
+              >
+                <div className="md:w-1/2 collapse">
                   <input type="radio" name="my-accordion-1" />
                   <div className="collapse-title text-xl font-medium">
                     {item.Titre}
@@ -63,10 +66,11 @@ function TodoList() {
                     <p>- {item.Task}</p>
                   </div>
                 </div>
-                <div className="flex justify-center p-2 items-center">
+                <div className="flex p-2 items-center md:w-1/2">
+                  <div className="flex-grow" />
                   <NavLink
                     to={`/list/${item.id}`}
-                    className="text-blue-500 underline"
+                    className="text-blue-500 underline ml-2"
                   >
                     Ouvrir
                   </NavLink>
