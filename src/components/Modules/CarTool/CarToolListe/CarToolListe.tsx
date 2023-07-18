@@ -35,7 +35,7 @@ function CarsList() {
   };
   return (
     <div className="bg-base-200  min-h-screen h-full">
-      <div>
+      <div className="pt-8">
         <h1 className="text-4xl mb-10 flex justify-center">CarTool</h1>
       </div>
       <div className="flex justify-center space-x-4 ">
@@ -91,7 +91,7 @@ function CarsList() {
 
       {/* Espace à ouvrir */}
       {isFormOpen && (
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center pb-8">
           <div className="bg-white shadow p-4 w-1/3 rounded-lg">
             <form onSubmit="">
               <div className="p-4 mt-4 flex flex-col md:flex-row">
