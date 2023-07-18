@@ -1,63 +1,28 @@
 import { HomeIcon } from '@heroicons/react/24/solid';
+import InputDocumentForm from './Form/InputDocumentForm';
+import { useState } from 'react';
 
-const Documents = [
-  {
-    id: 's1',
-    nom: 'carte mutuel',
-    information: 'année de validité 2016',
-    icone: HomeIcon,
-    date: '10/12/2016',
-  },
-  {
-    id: '2',
-    nom: 'fature vidange',
-    information: '123 456km',
-    icone: HomeIcon,
-    date: '10/12/2021',
-  },
-  {
-    id: '3',
-    nom: 'facture tv',
-    information: 'garanti 2 ans',
-    icone: HomeIcon,
-    date: '10/12/2022',
-  },
-];
+
 
 function WalletDocumentsPage() {
+
+  const [documents, setDocuments] = useState([]);
+
+  // Fonction pour ajouter un nouveau document soumis
+  const addDocument = (document) => {
+    setDocuments([...documents, document]);
+  };
+
   return (
     <div>
       <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen bg-base-200">
         <h1 className="text-5xl font-bold pb-10">Santé</h1>
-        <div className="flex w-1/2 pb-5">
-          <div className="flex-auto w-full">
-            <input
-              type="file"
-              className="file-input file-input-bordered w-10/12 "
-            />
-          </div>
-          <div className="flex-auto pl-2">
-            <button className="btn bg-red-300 hover:bg-red-500 text-white flex-auto">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 4.5v15m7.5-7.5h-15"
-                />
-              </svg>
-            </button>
-          </div>
-        </div>
+      
+          <InputDocumentForm onSubmit={addDocument}  />
+      
 
         <div className="card max-md:w-full w-1/2 bg-base-100 shadow-xl">
-          {Documents.map((document) => (
+          {documents.map((document) => (
             <div
               key={document.id}
               id={document.id}
@@ -65,13 +30,13 @@ function WalletDocumentsPage() {
             >
               <div className="w-4/6 px-5 border-r-2 ">
                 <div className="flex justify-between">
-                  <p className="uppercase">{document.nom}</p>
+                  <p className="uppercase">{document.name}</p>
                   <p className="text-sm">{document.date}</p>
                 </div>
-                <p className="text-slate-400 text-sm">{document.information}</p>
+                <p className="text-slate-400 text-sm">{document.description}</p>
               </div>
               <div className="card-actions justify-around">
-                <button className="btn">
+                <button className="btn bg-[var(--color-primary-300)] text-white">
                   <p>Ouvrir</p>
                 </button>
               </div>

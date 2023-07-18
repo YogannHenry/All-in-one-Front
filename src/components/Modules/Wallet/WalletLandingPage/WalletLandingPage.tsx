@@ -35,7 +35,7 @@ function WalletLandingPage() {
                 <div
                   key={document.id}
                   id={document.id}
-                  className="flex justify-between items-center h-14 p-4 border-b-2 border-white bg-base-200 hover:bg-red-700 hover:text-white"
+                  className="flex justify-between items-center h-14 p-4 border-b-2 border-white bg-base-200 hover:bg-[var(--color-primary-500)] hover:text-white"
                 >
                 
                     <GlobeEuropeAfricaIcon className="h-10 w-10"  />

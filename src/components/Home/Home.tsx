@@ -8,10 +8,7 @@ interface ThemeProps {
 }
 
 function Home() {
-  const { colorTheme, handleColorChange } = useContext(ThemeContext);
-
-  console.log(colorTheme);
-
+ 
   return (
     <div>
       <div className="hero h-5/6 pt-14 bg-base-200 ">
@@ -31,7 +28,7 @@ function Home() {
                 className="input input-bordered w-full max-w-xs"
               />
               <a
-                className={`btn text-white bg-${colorTheme}-300 hover:bg-${colorTheme}-500`}
+                className="btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)"
               >
                 
                 s'inscrire
@@ -47,7 +44,7 @@ function Home() {
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className={`stroke-${colorTheme}-500 w-10 h-10`}
+                className={`stroke-[var(--color-primary-500)] w-10 h-10`}
               >
                 <path
                   strokeLinecap="round"
@@ -60,19 +57,7 @@ function Home() {
         </form>
       </div>
       <svg
-        className={`${
-          colorTheme === 'red'
-            ? 'fill-red-300'
-            : colorTheme === 'sky'
-            ? 'fill-sky-300'
-            : colorTheme === 'brique'
-            ? 'fill-brique-300'
-            : colorTheme === 'blueIntense'
-            ? 'fill-blueIntense-300'
-            : colorTheme === 'orangeIntense'
-            ? 'fill-orangeIntense-300'
-            : 'fill-emeraldIntense-300'
-        } bg-base-200 rotate-180`}
+        className="fill-[var(--color-primary-300)] bg-base-200 rotate-180"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 1200 120"
         preserveAspectRatio="none"

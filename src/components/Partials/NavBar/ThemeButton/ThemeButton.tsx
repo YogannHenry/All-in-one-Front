@@ -1,8 +1,10 @@
 import { ThemeContext } from '../../../../contexts/ThemeProvider';
 import React, { useContext } from 'react';
-
+// on importe notre ThemeContext qui va nous permettre de changer le thème et la fonction useContext qui va nous permettre d'utiliser notre contexte
 function ThemeButton() {
-  const { colorTheme, ChangeColorTheme } = useContext(ThemeContext);
+
+  //on récupère notre contexte et on recupère dedans la fonction qui permet de changer le thème
+  const { ChangeColorTheme } = useContext(ThemeContext);
 
   return (
     <div className="dropdown">
@@ -19,6 +21,8 @@ function ThemeButton() {
         <li>
           <button
             className="btn bg-red-300 rounded-full"
+
+            //au clic on appelle la fonction qui permet de changer le thème et on lui passe en paramètre le nom du thème
             onClick={() => ChangeColorTheme('theme-red')}
           ></button>
         </li>

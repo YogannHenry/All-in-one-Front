@@ -1,5 +1,4 @@
-import React, { useContext, useState } from 'react';
-import { ThemeContext } from '../../../contexts/ThemeProvider';
+
 import { NavLink } from 'react-router-dom';
 import DrawerButton from './DrawerButton/DrawerButton';
 import Logo from '../../../assets/TodoNavBar.png';
@@ -11,7 +10,6 @@ interface ThemeProps {
 }
 
 function NavBar() {
-  const { colorTheme, ChangeColorTheme } = useContext(ThemeContext);
 
   return (
     <div className="navbar bg-base-100">
@@ -26,7 +24,7 @@ function NavBar() {
         <div className="dropdown dropdown-hover">
           <label
             tabIndex={0}
-            className="btn btn-ghost m-1 mr-16 hover:bg-red-300"
+            className="btn btn-ghost m-1 mr-16 hover:bg-[var(--color-primary-300)]"
           >
             Outils
           </label>
@@ -35,17 +33,17 @@ function NavBar() {
             className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 "
           >
             <li>
-              <a className=" hover:bg-red-300">Todo-List</a>
+              <a className=" hover:bg-[var(--color-primary-300)]">Todo-List</a>
             </li>
             <li>
-              <a className=" hover:bg-red-300">Wallet</a>
+              <a className=" hover:bg-[var(--color-primary-300)]">Wallet</a>
             </li>
             <li>
-              <a className=" hover:bg-red-300">Car-Tool</a>
+              <a className=" hover:bg-[var(--color-primary-300)]">Car-Tool</a>
             </li>
           </ul>
         </div>
-        <NavLink to="/Contact" className="btn btn-ghost  hover:bg-red-300">
+        <NavLink to="/Contact" className="btn btn-ghost  hover:bg-[var(--color-primary-300)]">
           contact
         </NavLink>
       </div>

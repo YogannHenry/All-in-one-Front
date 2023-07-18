@@ -8,12 +8,12 @@ function WalletInputForm() {
           <input
             type="text"
             placeholder="Ajouter un portefeuille de document"
-            className="input input-bordered input-error w-full"
+            className="input input-bordered border-[var(--color-primary-500)] w-full"
           />
         </div>
         <WalletIconForm />
         <div className="pl-2">
-          <button className="btn bg-red-700 hover:bg-red-500 text-white ">
+          <button className="btn bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-200)] text-white ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
