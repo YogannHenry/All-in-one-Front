@@ -4,10 +4,12 @@ import WalletIconForm from './IconForm';
 function WalletInputForm({ onSubmit, icon }) {
 
   const [WalletDetails, setWalletDetails] = useState({
+    id: 1,
     icon: '',
     description: '',
   });
 
+  const [nextId, setNextId] = useState(2);
   // Fonction pour gérer le changement des détails du document
   const handleInputChange = (event) => {
     // ici, on récupère le nom et la valeur de l'input
@@ -16,16 +18,27 @@ function WalletInputForm({ onSubmit, icon }) {
     setWalletDetails({ ...WalletDetails, [name]: value });
   };
 
+    // Fonction pour gérer la sélection d'une icône
+    const handleIconSelection = (selectedIcon) => {
+      setWalletDetails({ ...WalletDetails, icon: selectedIcon });
+    };
+
   // Fonction pour gérer la soumission du formulaire
   const handleSubmit = (event) => {
     event.preventDefault();
 
+
+    const newWallet = { ...WalletDetails, id: nextId }; // Utilise le prochain id disponible
+    onSubmit(newWallet);
+
+    setNextId((prevNextId) => prevNextId + 1);
     // ici, on crée un objet avec les détails du document et le fichier sélectionné
     onSubmit(WalletDetails);
 
 
     // Réinitialiser le formulaire
     setWalletDetails({
+      id: nextId, 
       icon: '',
       description: '',
      
@@ -47,7 +60,7 @@ function WalletInputForm({ onSubmit, icon }) {
             className="input input-bordered border-[var(--color-primary-500)] w-full"
           />
         </div>
-        <WalletIconForm />
+        <WalletIconForm onIconSelection={handleIconSelection} />
         <div className="pl-2" onClick={handleSubmit}>
           <button className="btn bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-200)] text-white ">
             <svg

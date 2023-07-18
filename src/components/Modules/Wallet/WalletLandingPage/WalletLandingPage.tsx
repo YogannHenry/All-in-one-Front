@@ -35,7 +35,7 @@ console.log(wallets);
                   className="flex justify-between items-center h-14 p-4 border-b-2 border-white bg-base-200 hover:bg-[var(--color-primary-500)] hover:text-white"
                 >
                 
-                    <GlobeEuropeAfricaIcon className="h-10 w-10"  />
+                    <div className="h-10 w-10 hover:fill-white">{wallet.icon}</div>
                  
                   <div className="w-full pl-5">
                     <p>{wallet.description}</p>

@@ -1,11 +1,14 @@
 import  { useState } from 'react';
 import { FolderIcon, CalculatorIcon, ClipboardDocumentIcon, CreditCardIcon, AcademicCapIcon, GlobeEuropeAfricaIcon, BookOpenIcon, CurrencyEuroIcon, FilmIcon, ShoppingCartIcon, HomeIcon, TruckIcon } from '@heroicons/react/24/solid';
 
-function WalletIconForm() {
+function WalletIconForm({ onIconSelection }) {
   const [selectedIcon, setSelectedIcon] = useState(null);
 
   const handleIconSelection = (iconComponent) => {
     setSelectedIcon(iconComponent);
+    onIconSelection(iconComponent);
+    console.log("handleIconSelection", handleIconSelection)
+    console.log("onIconSelection", onIconSelection)
   };
 
   return (
