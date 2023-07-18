@@ -17,7 +17,7 @@ function InputDocumentForm({ onSubmit }) {
   });
 
 
-  // Fonction pour gérer le changement de fichier
+  // Fonction pour gérer l'apparition du menu lors de lq selection d'un fichier
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     // ici, setSelectedFile permet de mettre à jour le state avec le fichier sélectionné
@@ -61,6 +61,7 @@ function InputDocumentForm({ onSubmit }) {
         <div className="pb-10 flex justify-start w-full">
           <input
             type="file"
+            // ici, on utilise onChange pour gérer le changement de fichier
             onChange={handleFileChange}
             className="file-input border-[var(--color-primary-500)] "
           />
