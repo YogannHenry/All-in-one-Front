@@ -19,6 +19,7 @@ const deleteDocument = (documentId) => {
   setDocuments(documents.filter((document) => document.id !== documentId));
 };
 
+console.log(documents);
 
   return (
     <div>

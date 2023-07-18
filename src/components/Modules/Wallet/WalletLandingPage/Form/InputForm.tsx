@@ -2,43 +2,48 @@ import { useState } from 'react';
 import WalletIconForm from './IconForm';
 
 function WalletInputForm({ onSubmit }) {
-
   const [WalletDetails, setWalletDetails] = useState({
+    id: 1,
     icon: '',
     description: '',
   });
 
-  // Fonction pour gérer le changement des détails du document
+  const [nextId, setNextId] = useState(2); // Le prochain id disponible commence à partir de 2 (le premier id est 1)
+
+  // Fonction pour gérer le changement des détails du wallet
   const handleInputChange = (event) => {
-    // ici, on récupère le nom et la valeur de l'input
     const { name, value } = event.target;
-    // ici, on met à jour le state avec les détails du document, en utilisant le spread operator pour garder les valeurs précédentes
     setWalletDetails({ ...WalletDetails, [name]: value });
   };
 
   // Fonction pour gérer la soumission du formulaire
   const handleSubmit = (event) => {
     event.preventDefault();
+    const newWallet = { ...WalletDetails, id: nextId }; // Utilise le prochain id disponible
+    onSubmit(newWallet);
 
-    // ici, on crée un objet avec les détails du document et le fichier sélectionné
-    onSubmit(WalletDetails);
+    // Incrémente le prochain id disponible pour le prochain wallet
+    setNextId((prevNextId) => prevNextId + 1);
 
-
-    // Réinitialiser le formulaire
+    // Réinitialise le formulaire
     setWalletDetails({
+      id: nextId, // Remet l'id à la valeur actuelle de nextId pour le prochain wallet
       icon: '',
       description: '',
-     
     });
   };
 
   return (
     <div>
-      <div className="flex justify-around  items-center pb-5">
+      <form  onSubmit={handleSubmit} className="flex justify-around  items-center pb-5">
+      <label htmlFor="name"></label>
         <div className="flex-auto ">
           <input
             type="text"
-            onClick={handleSubmit}
+            onChange={handleInputChange}
+            name="description"
+            id="description"
+            value={WalletDetails.description}
             placeholder="Ajouter un portefeuille de document"
             className="input input-bordered border-[var(--color-primary-500)] w-full"
           />
@@ -62,7 +67,7 @@ function WalletInputForm({ onSubmit }) {
             </svg>
           </button>
         </div>
-      </div>
+      </form>
     </div>
   );
 }
