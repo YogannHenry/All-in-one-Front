@@ -32,10 +32,10 @@ function CarsList() {
       <div className="pt-8">
         <h1 className="text-4xl mb-10 flex justify-center">CarTool</h1>
       </div>
-      <div className="flex flex-col md:flex-row justify-center space-x-4">
+      <div className="flex flex-wrap justify-center">
         {CarsData.map((car) => (
           <div
-            className="card w-96 bg-base-100 shadow-xl mb-4 md:mb-0 md:mr-4"
+            className="card w-full sm:w-96 bg-base-100 shadow-xl my-4 mx-2"
             key={car.id}
           >
             <figure>
