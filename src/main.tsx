@@ -16,9 +16,9 @@ import TodoList from './components/Modules/Todo/TodoListPage/TodoListPage';
 import TodoListPage from './components/Modules/Todo/TodoListPage/TodoListPage';
 import Wallet from './components/Modules/Wallet/WalletLandingPage/WalletLandingPage';
 import DocumentsPage from './components/Modules/Wallet/WalletDocumentsPage/WalletDocumentsPage';
-
-
+import CarsList from './components/Modules/CarTool/CarToolListe/CarToolListe';
 import Landing from './components/Modules/Todo/TodoLandingPage/TodoLandingPage';
+
 import './styles/global.css';
 
 const router = createBrowserRouter(
@@ -36,7 +36,7 @@ const router = createBrowserRouter(
       <Route path="/TodoLandingPage" element={<Landing />} />
       <Route path="/Wallet" element={<Wallet />} />
       <Route path="/WalletDocumentsPage" element={<DocumentsPage />} />
-
+      <Route path="/cars" element={<CarsList />} />
     </Route>
   )
 );
@@ -44,7 +44,6 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
-
 
 root.render(
   <React.StrictMode>
