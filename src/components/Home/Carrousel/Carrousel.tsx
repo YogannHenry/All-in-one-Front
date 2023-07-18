@@ -2,6 +2,7 @@ import logo from '../../../assets/logo.svg';
 import LogoTodo from '../../../assets/Todo.jpg';
 import Test from '../../../assets/Logo-All-in-One.png';
 
+
 const dataCarrousel = [
   {
     id: 'slide1',
@@ -21,8 +22,9 @@ const dataCarrousel = [
 ];
 
 function Carrousel() {
+
   return (
-    <div className="bg-red-200 flex justify-center">
+    <div className="bg-[var(--color-primary-200)] flex justify-center">
     <div className="p-16 w-10/12 ">
       <div className="carousel  mt-10 mx-15 shadow-2xl rounded-3xl bg-base-100">
         {dataCarrousel.map((item, index) => (

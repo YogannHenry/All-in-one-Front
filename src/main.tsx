@@ -11,10 +11,14 @@ import App from './components/App/App';
 import Home from './components/Home/Home';
 import SignIn from './components/SignInPage/SignInPage';
 import Login from './components/LoginPage/LoginPage';
-import TodoList from './components/Modules/Todo/TodoLandingPage/TodoLandingPage';
 import Contact from './components/ContactPage/ContactPage';
+import TodoList from './components/Modules/Todo/TodoListPage/TodoListPage';
 import TodoListPage from './components/Modules/Todo/TodoListPage/TodoListPage';
+import Wallet from './components/Modules/Wallet/WalletLandingPage/WalletLandingPage';
+import DocumentsPage from './components/Modules/Wallet/WalletDocumentsPage/WalletDocumentsPage';
 
+
+import Landing from './components/Modules/Todo/TodoLandingPage/TodoLandingPage';
 import './styles/global.css';
 
 const router = createBrowserRouter(
@@ -26,6 +30,13 @@ const router = createBrowserRouter(
       <Route path="/TodoList" element={<TodoList />} />
       <Route path="/TodoList/ListId" element={<TodoListPage />} />
       <Route path="/Contact" element={<Contact />} />
+      <Route path="/Contact" element={<Contact />} />
+      <Route path="/TodoList" element={<TodoList />} />
+      <Route path="/TodoList/ListId" element={<TodoListPage />} />
+      <Route path="/TodoLandingPage" element={<Landing />} />
+      <Route path="/Wallet" element={<Wallet />} />
+      <Route path="/WalletDocumentsPage" element={<DocumentsPage />} />
+
     </Route>
   )
 );
@@ -33,6 +44,7 @@ const router = createBrowserRouter(
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 
 root.render(
   <React.StrictMode>

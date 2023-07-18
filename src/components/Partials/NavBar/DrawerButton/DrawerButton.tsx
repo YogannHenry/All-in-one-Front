@@ -1,22 +1,31 @@
 import { NavLink } from 'react-router-dom';
+import { useState } from 'react';
 
-import ToolMenu from './ToolMenu/ToolMenu';
 import TodoListMenu from './TodoListMenu/TodoListMenu';
 import WalletMenu from './WalletMenu/WalletMenu';
 import CarToolMenu from './CarToolMenu/CarToolMenu';
 import Footer from '../../Footer/Footer';
 
 function DrawerButton() {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const toggleDrawer = () => {
+    setIsDrawerOpen((prevIsOpen) => !prevIsOpen);
+  };
+
   const closeDrawer = () => {
-    const drawerToggle = document.getElementById('my-drawer');
-    if (drawerToggle) {
-      drawerToggle.checked = false;
-    }
+    setIsDrawerOpen(false);
   };
 
   return (
     <div className="dropdown">
-      <input id="my-drawer" type="checkbox" className="drawer-toggle" />
+      <input
+        id="my-drawer"
+        type="checkbox"
+        className="drawer-toggle"
+        checked={isDrawerOpen}
+        onChange={toggleDrawer}
+      />
       <div className="drawer-content max-md:z-0">
         <label
           htmlFor="my-drawer"
@@ -39,15 +48,23 @@ function DrawerButton() {
           </svg>
         </label>
       </div>
-      <div className="drawer-side z-20 ">
+      <div className={`drawer-side z-20 ${isDrawerOpen ? 'open' : 'closed'}`}>
         <label htmlFor="my-drawer" className="drawer-overlay"></label>
         <div className="menu p-4 w-80 max-md:w-full h-full bg-base-200 text-base-content flex items-center justify-around">
-          <ToolMenu />
-          <NavLink to="/TodoList">
+          <a className="font-bold underline text-2xl hover:bg-red-200 uppercase">
+            Outils
+          </a>
+
+          <NavLink to="/TodoLandingPage">
             <TodoListMenu />
           </NavLink>
-          <WalletMenu />
+
+          <NavLink to="/Wallet">
+            <WalletMenu />
+          </NavLink>
+
           <CarToolMenu />
+
           <Footer />
         </div>
         <button onClick={closeDrawer} className="btn md:hidden top-0 right-0">

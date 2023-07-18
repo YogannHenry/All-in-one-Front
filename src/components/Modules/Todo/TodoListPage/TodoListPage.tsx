@@ -25,8 +25,9 @@ function TodoListPage() {
           <input
             type="text"
             placeholder="Ajouter une tâche"
-            className="input input-bordered input-error w-full "
+            className="input input-bordered border-[var(--color-primary-300)] w-full "
           />
+          
         </div>
 
         <div className="card max-md:w-full w-1/2 bg-base-100 shadow-xl">
@@ -41,7 +42,7 @@ function TodoListPage() {
                   <input
                     type="checkbox"
                     // checked="checked"
-                    className="checkbox checkbox-error"
+                    className="checkbox border-[var(--color-primary-300)] "
                   />
                 </label>
               </div>
@@ -68,7 +69,7 @@ function TodoListPage() {
               </div>
             </div>
           ))}
-          <div className="flex items-center justify-between px-5 h-14 text-xs text-slate-500">
+          <div className="flex items-center justify-between px-5 h-14 text-xs text-[var(--color-primary-300)]">
             <span>X taches en cours</span>
             <div className="flex justify-around ">
               <span className="px-2">Tàches</span>
