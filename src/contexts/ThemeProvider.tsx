@@ -3,15 +3,17 @@ import React, { useState } from 'react';
 export const ThemeContext = React.createContext();
 
 const ThemeProvider = ({ children }) => {
-  const [colorTheme, setColorTheme] = useState('red');
+  const [colorTheme, setColorTheme] = useState('theme-red'); 
 
-  const handleColorChange = (theme) => {
-    setColorTheme(theme);
+  const ChangeColorTheme = (newTheme) => {
+    setColorTheme(newTheme);
   };
 
   return (
-    <ThemeContext.Provider value={{ colorTheme, handleColorChange }}>
-      {children}
+    <ThemeContext.Provider value={{ colorTheme, ChangeColorTheme }}>
+      <div className={colorTheme}>
+        {children}
+      </div>
     </ThemeContext.Provider>
   );
 };

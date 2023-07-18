@@ -2,11 +2,14 @@ import { ThemeContext } from '../../../../contexts/ThemeProvider';
 import React, { useContext } from 'react';
 
 function ThemeButton() {
-  const { colorTheme, handleColorChange } = useContext(ThemeContext);
+  const { colorTheme, ChangeColorTheme } = useContext(ThemeContext);
 
   return (
     <div className="dropdown">
-      <label tabIndex={0}  className={`btn bg-${colorTheme}-300 text-white rounded-bl-3xl rounded-tr-3xl hover:bg-${colorTheme}-500`}>
+      <label
+        tabIndex={0}
+        className={`btn bg-[var(--color-primary-300)] text-white rounded-bl-3xl rounded-tr-3xl hover:bg-[var(--color-primary-500)]`}
+      >
         Couleur
       </label>
       <ul
@@ -15,47 +18,40 @@ function ThemeButton() {
       >
         <li>
           <button
-            className="btn bg-red-300  rounded-full"
-            onClick={() => handleColorChange('red')}
+            className="btn bg-red-300 rounded-full"
+            onClick={() => ChangeColorTheme('theme-red')}
           ></button>
         </li>
         <li>
-        <button
+          <button
             className="btn bg-sky-300 rounded-full"
-            onClick={() => handleColorChange('sky')}
-          >
-        
-          </button>
+            onClick={() => ChangeColorTheme('theme-sky')}
+          ></button>
         </li>
         <li>
-        <button
+          <button
             className="btn bg-brique-300 rounded-full"
-            onClick={() => handleColorChange('brique')}
-          >
-            
-          </button>
+            onClick={() => ChangeColorTheme('theme-brique')}
+          ></button>
         </li>
         <li>
-        <button
+          <button
             className="btn bg-blueIntense-300 rounded-full"
-            onClick={() => handleColorChange('blueIntense')}
-          >
-            
-          </button>
+            onClick={() => ChangeColorTheme('theme-blueIntense')}
+          ></button>
         </li>
         <li>
           <button
             className="btn bg-orangeIntense-300 rounded-full"
-            onClick={() => handleColorChange('orangeIntense')}
+            onClick={() => ChangeColorTheme('theme-orangeIntense')}
           ></button>
         </li>
         <li>
           <button
             className="btn bg-emeraldIntense-300 rounded-full"
-            onClick={() => handleColorChange('emeraldIntense')}
+            onClick={() => ChangeColorTheme('theme-emeraldIntense')}
           ></button>
         </li>
-    
       </ul>
     </div>
   );
