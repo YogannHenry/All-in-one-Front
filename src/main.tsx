@@ -17,6 +17,7 @@ import TodoListPage from './components/Modules/Todo/TodoListPage/TodoListPage';
 import CarsList from './components/Modules/CarTool/CarToolListe/CarToolListe';
 
 import './styles/global.css';
+import CarsList2 from './components/Modules/CarTool/CarToolListe/test';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
       <Route path="/TodoList/ListId" element={<TodoListPage />} />
       <Route path="/Contact" element={<Contact />} />
       <Route path="/cars" element={<CarsList />} />
+      <Route path="/test" element={<CarsList2 />} />
     </Route>
   )
 );
