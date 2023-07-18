@@ -13,9 +13,16 @@ function WalletDocumentsPage() {
     setDocuments([...documents, document]);
   };
 
+
+
+const deleteDocument = (documentId) => {
+  setDocuments(documents.filter((document) => document.id !== documentId));
+};
+
+
   return (
     <div>
-      <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen bg-base-200">
+      <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen bg-base-200 ">
         <h1 className="text-5xl font-bold pb-10">Santé</h1>
       
           <InputDocumentForm onSubmit={addDocument}  />
@@ -59,7 +66,7 @@ function WalletDocumentsPage() {
                 </button>
               </div>
               <div className="card-actions justify-around">
-                <button className="">
+                <button className="" onClick={() => deleteDocument(document.id)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
