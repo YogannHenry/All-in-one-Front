@@ -9,7 +9,7 @@ function WalletIconForm() {
   };
 
   return (
-    <div className="dropdown dropdown-top max-md:dropdown-end  ">
+    <form className="dropdown dropdown-top max-md:dropdown-end  ">
       <label tabIndex={0} className="btn m-1">
         {selectedIcon ? selectedIcon : 'Icons'}
       </label>
@@ -27,7 +27,7 @@ function WalletIconForm() {
         <li><a onClick={() => handleIconSelection(<HomeIcon className="h-6 w-6 text-[var(--color-primary-500)]" />)}><HomeIcon className="h-6 w-6 text-[var(--color-primary-500)]" /></a></li>
         <li><a onClick={() => handleIconSelection(<TruckIcon className="h-6 w-6 text-[var(--color-primary-500)]" />)}><TruckIcon className="h-6 w-6 text-[var(--color-primary-500)]" /></a></li>
       </ul>
-    </div>
+    </form>
   );
 }
 

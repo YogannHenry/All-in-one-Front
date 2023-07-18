@@ -6,6 +6,7 @@ import { FolderIcon, CalculatorIcon, ClipboardDocumentIcon, CreditCardIcon, Acad
 function WalletLandingPage() {
 
   const [wallets, setWallets] = useState([]);
+  
 
   const addWallet = (wallet) => {
     setWallets([...wallets, wallet]);
@@ -20,7 +21,7 @@ const deleteWallet = (walletId) => {
 console.log(wallets);
   return (
     <div>
-      <div className="flex flex-col items-center justify-center h-screen bg-base-200">
+      <div className="flex flex-col items-center pt-20 h-screen bg-base-200">
         <h1 className="text-5xl font-bold pb-10">Wallet</h1>
         <div className="card  w-full max-w-xl shadow-2xl bg-base-100">
           <div className="card-body ">

@@ -1,35 +1,34 @@
 import { useState } from 'react';
 import WalletIconForm from './IconForm';
 
-function WalletInputForm({ onSubmit }) {
+function WalletInputForm({ onSubmit, icon }) {
+
   const [WalletDetails, setWalletDetails] = useState({
-    id: 1,
     icon: '',
     description: '',
   });
 
-  const [nextId, setNextId] = useState(2); // Le prochain id disponible commence à partir de 2 (le premier id est 1)
-
-  // Fonction pour gérer le changement des détails du wallet
+  // Fonction pour gérer le changement des détails du document
   const handleInputChange = (event) => {
+    // ici, on récupère le nom et la valeur de l'input
     const { name, value } = event.target;
+    // ici, on met à jour le state avec les détails du document, en utilisant le spread operator pour garder les valeurs précédentes
     setWalletDetails({ ...WalletDetails, [name]: value });
   };
 
   // Fonction pour gérer la soumission du formulaire
   const handleSubmit = (event) => {
     event.preventDefault();
-    const newWallet = { ...WalletDetails, id: nextId }; // Utilise le prochain id disponible
-    onSubmit(newWallet);
 
-    // Incrémente le prochain id disponible pour le prochain wallet
-    setNextId((prevNextId) => prevNextId + 1);
+    // ici, on crée un objet avec les détails du document et le fichier sélectionné
+    onSubmit(WalletDetails);
 
-    // Réinitialise le formulaire
+
+    // Réinitialiser le formulaire
     setWalletDetails({
-      id: nextId, // Remet l'id à la valeur actuelle de nextId pour le prochain wallet
       icon: '',
       description: '',
+     
     });
   };
 
@@ -49,7 +48,7 @@ function WalletInputForm({ onSubmit }) {
           />
         </div>
         <WalletIconForm />
-        <div className="pl-2">
+        <div className="pl-2" onClick={handleSubmit}>
           <button className="btn bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-200)] text-white ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
