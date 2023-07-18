@@ -3,23 +3,23 @@ import { FolderIcon, CalculatorIcon, ClipboardDocumentIcon, CreditCardIcon, Acad
 
 
 function WalletLandingPage() {
-  const Documents = [
-    {
-      id: 's1',
-      icon: `${GlobeEuropeAfricaIcon}`,
-      description: 'Santé',
-    },
-    {
-      id: '2',
-      icon: HomeIcon,
-      description: 'Id',
-    },
-    {
-      id: '3',
-      icon: FolderIcon,
-      description: 'facture Electroménager',
-    },
-  ];
+  // const Documents = [
+  //   {
+  //     id: 's1',
+  //     icon: `${GlobeEuropeAfricaIcon}`,
+  //     description: 'Santé',
+  //   },
+  //   {
+  //     id: '2',
+  //     icon: HomeIcon,
+  //     description: 'Id',
+  //   },
+  //   {
+  //     id: '3',
+  //     icon: FolderIcon,
+  //     description: 'facture Electroménager',
+  //   },
+  // ];
 
 
   return (
