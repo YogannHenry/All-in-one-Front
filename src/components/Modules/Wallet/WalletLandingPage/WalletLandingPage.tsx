@@ -16,6 +16,7 @@ function WalletLandingPage() {
   console.log(wallets);
   return (
     <div>
+      
       <div className="flex flex-col items-center pt-20 h-screen bg-base-200">
         <h1 className="text-5xl font-bold pb-10">Wallet</h1>
         <div className="card  w-full max-w-xl shadow-2xl bg-base-100">
