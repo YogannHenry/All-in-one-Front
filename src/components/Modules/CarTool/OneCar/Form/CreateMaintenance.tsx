@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-function CreateMaintenance() {
+function CreateMaintenance(onSubmit) {
   // État local pour gérer l'ouverture de la div
   const [isFormOpen, setIsFormOpen] = useState(false);
 
