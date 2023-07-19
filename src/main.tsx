@@ -11,13 +11,13 @@ import App from './components/App/App';
 import Home from './components/Home/Home';
 import SignIn from './components/SignInPage/SignInPage';
 import Login from './components/LoginPage/LoginPage';
-import TodoList from './components/Modules/Todo/TodoLandingPage/TodoLandingPage';
 import Contact from './components/ContactPage/ContactPage';
+import TodoList from './components/Modules/Todo/TodoListPage/TodoListPage';
 import TodoListPage from './components/Modules/Todo/TodoListPage/TodoListPage';
 import CarsList from './components/Modules/CarTool/CarToolListe/CarToolListe';
+import Landing from './components/Modules/Todo/TodoLandingPage/TodoLandingPage';
 
 import './styles/global.css';
-import CarsList2 from './components/Modules/CarTool/CarToolListe/test';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,8 +28,10 @@ const router = createBrowserRouter(
       <Route path="/TodoList" element={<TodoList />} />
       <Route path="/TodoList/ListId" element={<TodoListPage />} />
       <Route path="/Contact" element={<Contact />} />
+      <Route path="/TodoList" element={<TodoList />} />
+      <Route path="/TodoList/ListId" element={<TodoListPage />} />
+      <Route path="/TodoLandingPage" element={<Landing />} />
       <Route path="/cars" element={<CarsList />} />
-      <Route path="/test" element={<CarsList2 />} />
     </Route>
   )
 );

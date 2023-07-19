@@ -34,11 +34,11 @@ function CarsForm() {
 
       {/* Espace à ouvrir */}
       {isFormOpen && (
-        <div className="flex justify-center pb-8 mt-4">
-          <div className="bg-white shadow p-4 w-1/3 rounded-lg">
+        <div className="flex justify-center pb-8">
+          <div className="bg-white shadow p-4 sm:w-1/3 rounded-lg flex flex-col">
             <form onSubmit="">
-              <div className="p-4 mt-4 flex flex-col md:flex-row">
-                <div className="mr-2 mb-4 md:mb-0 md:flex-1">
+              <div className="p-4 mt-4">
+                <div className="mb-4">
                   <label className="block text-gray-700 font-bold mb-2">
                     Modèle :
                   </label>
@@ -49,7 +49,7 @@ function CarsForm() {
                     placeholder="Entrez le modèle"
                   />
                 </div>
-                <div className="md:flex-1">
+                <div className="mb-4">
                   <label className="block text-gray-700 font-bold mb-2">
                     Km/mois :
                   </label>
@@ -60,9 +60,7 @@ function CarsForm() {
                     placeholder="Entrez les kilomètres par mois"
                   />
                 </div>
-              </div>
-              <div className="p-4 mt-4 flex flex-col md:flex-row">
-                <div className="mr-2 mb-4 md:mb-0 md:flex-1">
+                <div className="mb-4">
                   <label className="block font-bold mb-2">
                     Type de véhicules :
                   </label>
@@ -75,7 +73,7 @@ function CarsForm() {
                     <option>Camion</option>
                   </select>
                 </div>
-                <div className="md:flex-1">
+                <div>
                   <label className="block font-bold mb-2">Km actuel :</label>
                   <input
                     type="text"
@@ -100,4 +98,5 @@ function CarsForm() {
     </div>
   );
 }
+
 export default CarsForm;
