@@ -21,7 +21,6 @@ function OneCar() {
   // Fonction pour gérer le clic sur le bouton "Enregistrer"
   const handleSaveClick = () => {
     setIsEditing(false);
-    // Ici, tu peux effectuer une action pour enregistrer les modifications si nécessaire
   };
 
   return (
