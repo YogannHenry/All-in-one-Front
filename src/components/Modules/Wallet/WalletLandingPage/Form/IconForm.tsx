@@ -9,7 +9,10 @@ function WalletIconForm({ onIconSelection }) {
     onIconSelection(iconComponent);
     console.log("handleIconSelection", handleIconSelection)
     console.log("onIconSelection", onIconSelection)
+  
+
   };
+  
 
   return (
     <form className="dropdown dropdown-top max-md:dropdown-end  ">

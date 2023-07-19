@@ -1,13 +1,16 @@
 import { useState } from 'react';
 import WalletIconForm from './IconForm';
+import FormIncompleteAlert from '../../../../../modals/FormIncompleteAlert';
 
-function WalletInputForm({ onSubmit, icon }) {
+function WalletInputForm({ onSubmit }) {
 
   const [WalletDetails, setWalletDetails] = useState({
     id: 1,
     icon: '',
     description: '',
   });
+
+  const [formIncomplete, setFormIncomplete] = useState(false);
 
   const [nextId, setNextId] = useState(2);
   // Fonction pour gérer le changement des détails du document
@@ -27,7 +30,11 @@ function WalletInputForm({ onSubmit, icon }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-
+    if (!WalletDetails.icon || !WalletDetails.description) {
+      setFormIncomplete(true);
+      return;
+    }
+    
     const newWallet = { ...WalletDetails, id: nextId }; // Utilise le prochain id disponible
     onSubmit(newWallet);
 
@@ -43,10 +50,16 @@ function WalletInputForm({ onSubmit, icon }) {
       description: '',
      
     });
+    setFormIncomplete(false);
+  };
+  
+  const handleCloseAlert = () => {
+    setFormIncomplete(false);
   };
 
   return (
     <div>
+         {formIncomplete && <FormIncompleteAlert  onClose={handleCloseAlert} />}
       <form  onSubmit={handleSubmit} className="flex justify-around  items-center pb-5">
       <label htmlFor="name"></label>
         <div className="flex-auto ">
@@ -80,6 +93,8 @@ function WalletInputForm({ onSubmit, icon }) {
           </button>
         </div>
       </form>
+      
+
     </div>
   );
 }

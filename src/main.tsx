@@ -9,9 +9,9 @@ import {
 
 import App from './components/App/App';
 import Home from './components/Home/Home';
-import SignIn from './components/SignInPage/SignInPage';
-import Login from './components/LoginPage/LoginPage';
-import Contact from './components/ContactPage/ContactPage';
+import SignIn from './pages/SignInPage';
+import Login from './pages/LoginPage';
+import Contact from './pages/ContactPage';
 import TodoList from './components/Modules/Todo/TodoListPage/TodoListPage';
 import TodoListPage from './components/Modules/Todo/TodoListPage/TodoListPage';
 import Wallet from './components/Modules/Wallet/WalletLandingPage/WalletLandingPage';
