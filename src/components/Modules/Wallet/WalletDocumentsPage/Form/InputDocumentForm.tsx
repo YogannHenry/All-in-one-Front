@@ -81,10 +81,10 @@ function InputDocumentForm({ onSubmit }) {
             name="name"
             value={documentDetails.name}
             onChange={handleInputChange}
-            className="mb-4"
+            className="input input-bordered input-sm w-full max-w-xs"
           />
 
-          <label htmlFor="description" className="block mb-2">
+          <label htmlFor="description" className="block">
             Description :
           </label>
           <input
@@ -93,11 +93,11 @@ function InputDocumentForm({ onSubmit }) {
             name="description"
             value={documentDetails.description}
             onChange={handleInputChange}
-            className="mb-4"
+            className="input input-bordered input-sm w-full max-w-xs"
           />
 
-          <label htmlFor="date" className="block mb-2">
-            Date d'insertion :
+          <label htmlFor="date" className="block ">
+            Date:
           </label>
           <input
             type="date"
@@ -105,10 +105,10 @@ function InputDocumentForm({ onSubmit }) {
             name="date"
             value={documentDetails.date}
             onChange={handleInputChange}
-            className="mb-4"
+            className="input input-bordered input-sm max-w-xs"
           />
 
-          <button type="submit" className="btn bg-blue-500 text-white px-4 py-2">
+          <button type="submit" className="btn bg-[var(--color-primary-300)] ml-5  text-white px-4 py-2">
           <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

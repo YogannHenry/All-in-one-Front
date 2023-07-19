@@ -1,13 +1,21 @@
 import { useState } from 'react';
 import WalletIconForm from './IconForm';
+import FormIncompleteAlert from '../../../../../modals/FormIncompleteAlert';
 
 function WalletInputForm({ onSubmit }) {
+  const [selectedIcon, setSelectedIcon] = useState(null);
+
+ 
 
   const [WalletDetails, setWalletDetails] = useState({
+    id: 1,
     icon: '',
     description: '',
   });
 
+  const [formIncomplete, setFormIncomplete] = useState(false);
+
+  const [nextId, setNextId] = useState(2);
   // Fonction pour gérer le changement des détails du document
   const handleInputChange = (event) => {
     // ici, on récupère le nom et la valeur de l'input
@@ -16,35 +24,68 @@ function WalletInputForm({ onSubmit }) {
     setWalletDetails({ ...WalletDetails, [name]: value });
   };
 
+    // Fonction pour gérer la sélection d'une icône
+    const handleIconSelection = (selectedIcon) => {
+      setWalletDetails({ ...WalletDetails, icon: selectedIcon });
+    };
+
   // Fonction pour gérer la soumission du formulaire
   const handleSubmit = (event) => {
     event.preventDefault();
 
+    if (!WalletDetails.icon || !WalletDetails.description) {
+      setFormIncomplete(true);
+      return;
+    }
+    
+    const newWallet = { ...WalletDetails, id: nextId }; // Utilise le prochain id disponible
+    onSubmit(newWallet);
+
+    setNextId((prevNextId) => prevNextId + 1);
     // ici, on crée un objet avec les détails du document et le fichier sélectionné
     onSubmit(WalletDetails);
 
 
     // Réinitialiser le formulaire
     setWalletDetails({
+      id: nextId, 
       icon: '',
       description: '',
      
     });
+    setFormIncomplete(false);
+    setSelectedIcon(null)
   };
+  
+  const handleCloseAlert = () => {
+    setFormIncomplete(false);
+  };
+
+ 
 
   return (
     <div>
-      <div className="flex justify-around  items-center pb-5">
+         {formIncomplete && <FormIncompleteAlert  onClose={handleCloseAlert} />}
+      <form  onSubmit={handleSubmit} className="flex justify-around  items-center pb-5">
+      <label htmlFor="name"></label>
         <div className="flex-auto ">
           <input
             type="text"
-            onClick={handleSubmit}
+            onChange={handleInputChange}
+            name="description"
+            id="description"
+            value={WalletDetails.description}
             placeholder="Ajouter un portefeuille de document"
             className="input input-bordered border-[var(--color-primary-500)] w-full"
           />
         </div>
-        <WalletIconForm />
-        <div className="pl-2">
+        
+        <WalletIconForm 
+        onIconSelection={handleIconSelection}  
+        selectedIcon={selectedIcon}
+        setSelectedIcon={setSelectedIcon}    />
+
+        <div className="pl-2" onClick={handleSubmit}>
           <button className="btn bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-200)] text-white ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +103,9 @@ function WalletInputForm({ onSubmit }) {
             </svg>
           </button>
         </div>
-      </div>
+      </form>
+      
+
     </div>
   );
 }

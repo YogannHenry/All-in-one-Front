@@ -2,7 +2,7 @@ function ContactPage() {
   return (
     <div>
       <section className="text-gray-600 body-font relative bg-base-200">
-        <div className="container px-5 py-24 mx-auto">
+        <div className="container px-5 py-20 mx-auto">
           <div className="flex flex-col text-center w-full mb-12">
             <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
               Contactez-Nous
@@ -66,7 +66,7 @@ function ContactPage() {
                   </div>
                 </div>
                 <div className="p-2 w-full">
-                  <button className="flex mx-auto btn text-white bg-red-300 hover:bg-red-400">
+                  <button className="flex mx-auto btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]">
                     Envoyer
                   </button>
                 </div>

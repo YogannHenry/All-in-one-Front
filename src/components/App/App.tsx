@@ -15,6 +15,7 @@ function App() {
         <NavBar />
         <Outlet />
       </div>
+      
     </ThemeProvider>
   );
 }

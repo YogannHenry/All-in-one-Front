@@ -33,7 +33,7 @@ function LoginPage() {
               </label>
             </div>
             <div className="form-control mt-6">
-              <button className="btn bg-red-300 hover:bg-red-500 text-white">
+              <button className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white">
                 Se Connecter
               </button>
             </div>

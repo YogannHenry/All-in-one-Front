@@ -51,7 +51,7 @@ function NavBar() {
         <ThemeButton />
         <NavLink
           to="/login"
-          className={`btn btn-ghost text-[var(--color-primary-300)] hover:border-b-[var(--color-primary-500)] hover:bg-white`}
+          className={`btn btn-ghost text-[var(--color-primary-300)]  hover:underline-offset-4 hover:bg-white`}
         >
           Se connecter
         </NavLink>
