@@ -1,21 +1,24 @@
 import  { useState } from 'react';
 import { FolderIcon, CalculatorIcon, ClipboardDocumentIcon, CreditCardIcon, AcademicCapIcon, GlobeEuropeAfricaIcon, BookOpenIcon, CurrencyEuroIcon, FilmIcon, ShoppingCartIcon, HomeIcon, TruckIcon } from '@heroicons/react/24/solid';
 
-function WalletIconForm({ onIconSelection }) {
-  const [selectedIcon, setSelectedIcon] = useState(null);
+function WalletIconForm({ onIconSelection, selectedIcon, setSelectedIcon ,  }) {
+
 
   const handleIconSelection = (iconComponent) => {
     setSelectedIcon(iconComponent);
     onIconSelection(iconComponent);
+   
     console.log("handleIconSelection", handleIconSelection)
     console.log("onIconSelection", onIconSelection)
-  
 
   };
+
+ 
   
 
+
   return (
-    <form className="dropdown dropdown-top max-md:dropdown-end  ">
+    <form className="dropdown dropdown-top max-md:dropdown-end  " >
       <label tabIndex={0} className="btn m-1">
         {selectedIcon ? selectedIcon : 'Icons'}
       </label>
@@ -33,6 +36,7 @@ function WalletIconForm({ onIconSelection }) {
         <li><a onClick={() => handleIconSelection(<HomeIcon className="h-6 w-6 text-[var(--color-primary-500)]" />)}><HomeIcon className="h-6 w-6 text-[var(--color-primary-500)]" /></a></li>
         <li><a onClick={() => handleIconSelection(<TruckIcon className="h-6 w-6 text-[var(--color-primary-500)]" />)}><TruckIcon className="h-6 w-6 text-[var(--color-primary-500)]" /></a></li>
       </ul>
+     
     </form>
   );
 }

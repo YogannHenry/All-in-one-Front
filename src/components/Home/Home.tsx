@@ -1,7 +1,4 @@
 import Carrousel from './Carrousel/Carrousel';
-import { ThemeContext } from '../../contexts/ThemeProvider';
-
-import React, { useContext } from 'react';
 
 interface ThemeProps {
   colorTheme: string;
@@ -37,7 +34,6 @@ function Home() {
               <a
                 className="btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]"
               >
-                
                 s'inscrire
               </a>
             </div>

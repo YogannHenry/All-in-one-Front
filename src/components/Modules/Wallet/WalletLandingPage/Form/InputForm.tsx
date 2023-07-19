@@ -3,6 +3,9 @@ import WalletIconForm from './IconForm';
 import FormIncompleteAlert from '../../../../../modals/FormIncompleteAlert';
 
 function WalletInputForm({ onSubmit }) {
+  const [selectedIcon, setSelectedIcon] = useState(null);
+
+ 
 
   const [WalletDetails, setWalletDetails] = useState({
     id: 1,
@@ -51,11 +54,14 @@ function WalletInputForm({ onSubmit }) {
      
     });
     setFormIncomplete(false);
+    setSelectedIcon(null)
   };
   
   const handleCloseAlert = () => {
     setFormIncomplete(false);
   };
+
+ 
 
   return (
     <div>
@@ -73,7 +79,12 @@ function WalletInputForm({ onSubmit }) {
             className="input input-bordered border-[var(--color-primary-500)] w-full"
           />
         </div>
-        <WalletIconForm onIconSelection={handleIconSelection} />
+        
+        <WalletIconForm 
+        onIconSelection={handleIconSelection}  
+        selectedIcon={selectedIcon}
+        setSelectedIcon={setSelectedIcon}    />
+
         <div className="pl-2" onClick={handleSubmit}>
           <button className="btn bg-[var(--color-primary-500)] hover:bg-[var(--color-primary-200)] text-white ">
             <svg
