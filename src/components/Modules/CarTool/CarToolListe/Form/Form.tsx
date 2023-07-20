@@ -8,11 +8,12 @@ function CarsForm() {
   const handlePlusButtonClick = () => {
     setIsFormOpen(!isFormOpen); // Inverse l'état d'ouverture
   };
+  
   return (
     <div>
       <div className="flex justify-center mt-4">
         <button
-          className="btn bg-red-300 hover:bg-red-500 text-white"
+          className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white"
           onClick={handlePlusButtonClick} // Déclenche la fonction lors du clic sur le bouton
         >
           <svg
@@ -86,7 +87,7 @@ function CarsForm() {
               <div className="flex justify-center">
                 <button
                   type="submit"
-                  className="btn bg-red-300 hover:bg-red-500 text-white mt-4"
+                  className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white mt-4"
                 >
                   Enregistrer
                 </button>

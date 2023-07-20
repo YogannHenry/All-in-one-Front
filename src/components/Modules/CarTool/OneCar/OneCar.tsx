@@ -16,17 +16,17 @@ function OneCar() {
   const [newMaintenances, setNewMaintenances] = useState([]);
 
   return (
-    <div className="bg-base-200 min-h-screen h-full px-8">
+    <div className="bg-base-200 min-h-screen h-full px-20">
       <div className="pt-8">
         <h1 className="text-4xl mb-10 text-center">Nom de la voiture</h1>
       </div>
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex justify-between items-center mb-8 px-60">
         <div>
-          <figure className="mr-8">
+          <figure className="">
             <img src={Voiture} alt="Icon voiture" className="" />
           </figure>
         </div>
-        <div className="max-w-md">
+        <div className="max-w-md ">
           <EditCarData />
         </div>
       </div>

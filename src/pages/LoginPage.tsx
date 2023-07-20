@@ -1,9 +1,10 @@
 import CoilBackground from "../assets/SvgBackground/CoilBackground"
+import PolygonBackground from "../assets/SvgBackground/Polygonbackground";
 
 function LoginPage() {
   return (
     <div>
-      <CoilBackground />
+      <PolygonBackground />
       <div className="flex items-center justify-center h-screen bg-base-200">
         <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <div className="card-body">

@@ -12,7 +12,7 @@ function NewMaintenance({ maintenanceData }) {
         KM
       </p>
       <p className="mb-2 font-semibold">Date : {maintenanceData.date}</p>
-      <button className="btn bg-red-300 hover:bg-red-500 text-white ml-2">
+      <button className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -29,7 +29,7 @@ function NewMaintenance({ maintenanceData }) {
         </svg>
       </button>
 
-      <button className="btn bg-red-300 hover:bg-red-500 text-white mt-2">
+      <button className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white mt-2">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"

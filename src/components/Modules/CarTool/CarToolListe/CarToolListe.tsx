@@ -44,7 +44,7 @@ function CarsList() {
             <div className="card-body flex items-center">
               <div className="flex-grow" />
               <h2 className="card-title">{car.Modele}</h2>
-              <button className="btn bg-red-300 hover:bg-red-500 text-white ml-2">
+              <button className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

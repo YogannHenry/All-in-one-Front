@@ -37,7 +37,7 @@ function CreateMaintenance({ onSubmit, newMaintenances }) {
     <div>
       <div className="flex mt-4">
         <button
-          className="btn bg-red-300 hover:bg-red-500 text-white"
+          className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white"
           onClick={handlePlusButtonClick} // Déclenche la fonction lors du clic sur le bouton
         >
           <svg
@@ -74,6 +74,7 @@ function CreateMaintenance({ onSubmit, newMaintenances }) {
                     <option disabled selected>
                       Entretien
                     </option>
+                    <option value="other"></option>
                     <option value="Pneu">Pneu</option>
                     <option value="Vidange">Vidange</option>
                     <option value="Courroie">Courroie</option>
@@ -107,7 +108,7 @@ function CreateMaintenance({ onSubmit, newMaintenances }) {
                 </div>
                 <button
                   type="submit"
-                  className="btn bg-red-300 hover:bg-red-500 text-white mt-4"
+                  className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white mt-4"
                 >
                   Enregistrer
                 </button>

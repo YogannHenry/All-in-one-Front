@@ -86,7 +86,7 @@ function EditCarData() {
           </div>
           <button
             onClick={handleSaveClick}
-            className="btn bg-red-300 hover:bg-red-500 text-white mt-4"
+            className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white mt-4"
           >
             Enregistrer
           </button>
@@ -101,7 +101,7 @@ function EditCarData() {
           <p className="mb-2 font-semibold">Km actuel: {carData.KmActuel}</p>
           <button
             onClick={handleEditClick}
-            className="btn bg-red-300 hover:bg-red-500 text-white mt-4"
+            className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white mt-4"
           >
             Modifier
           </button>

@@ -2,133 +2,277 @@ function CircleLigneBackground() {
   return (
     <svg
     className="z-0 absolute w-screen h-screen stroke-[var(--color-primary-300)]"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:svgjs="http://svgjs.dev/svgjs"
-    version="1.1"
-    viewBox="0 0 800 800"
-  >
-    <g transform="matrix(0.6560590289905073,0.754709580222772,-0.754709580222772,0.6560590289905073,670.4602204929058,-66.30744368531168)">
-      <circle
-        r="17"
-        cx="747"
-        cy="787"
-        stroke-width="7"
-        stroke="[var(--color-primary-300)]"
-        fill="none"
-        opacity="0.01"
-        transform="matrix(-0.2756793431162386,0.9409822041933199,-0.9614081230521446,-0.34248951330057,454.7251258666172,28.154992847241772)"
-      />
-      <circle
-        r="28.083333333333336"
-        cx="718.0833333333334"
-        cy="754.75"
-        stroke-width="7.75"
-        stroke="[var(--color-primary-300)]"            fill="none"
-        opacity="0.0925"
-        transform="matrix(-0.12477199163151484,0.9833104640905669,-0.9923144446380568,-0.18816945288517378,422.48024616411766,-14.374299242357097)"
-      />
-      <circle
-        r="39.16666666666667"
-        cx="689.1666666666666"
-        cy="722.5"
-        stroke-width="8.5"
-        stroke="[var(--color-primary-300)]"            fill="none"
-        opacity="0.17500000000000002"
-        transform="matrix(0.029087795303165208,1.0005292322121404,-0.9996826845932539,-0.029112427323137402,386.3165292439072,-51.19756635577812)"
-      />
-      <circle
-        r="50.25"
-        cx="660.25"
-        cy="690.25"
-        stroke-width="9.25"
-        stroke="[var(--color-primary-300)]"            fill="none"
-        opacity="0.2575"
-        transform="matrix(0.18225113938939907,0.9922098191860017,-0.9833391526147329,0.1306269008265757,346.9965639874756,-81.29424317799885)"
-      />
-      <circle
-        r="61.333333333333336"
-        cx="631.3333333333334"
-        cy="658"
-        stroke-width="10"
-        stroke="[var(--color-primary-300)]"            fill="none"
-        opacity="0.34"
-        transform="matrix(0.3310858297456995,0.9585734493610518,-0.9436723854611498,0.28697805198647286,305.3582602390603,-103.8722303528948)"
-      />
-      <circle
-        r="72.41666666666667"
-        cx="602.4166666666666"
-        cy="625.75"
-        stroke-width="10.75"
-        stroke="[var(--color-primary-300)]"            fill="none"
-        opacity="0.42250000000000004"
-        transform="matrix(0.4720624288577052,0.9004854065091233,-0.881623913561165,0.43595814479061923,262.29859335277234,-118.38439581846683)"
-      />
-      <circle
-        r="83.5"
-        cx="573.5"
-        cy="593.5"
-        stroke-width="11.5"
-        stroke="[var(--color-primary-300)]"            fill="none"
-        opacity="0.505"
-        transform="matrix(0.6018379392966422,0.8194328434586531,-0.7986659207983077,0.5737730540463661,218.75561611117993,-124.53710222750726)"
-      />
-      <circle
-        r="94.58333333333334"
-        cx="544.5833333333333"
-        cy="561.25"
-        stroke-width="12.25"
-        stroke="[var(--color-primary-300)]"            fill="none"
-        opacity="0.5875"
-        transform="matrix(0.7173350485564952,0.7174868229536745,-0.6967663273621696,0.6969137498107489,175.68906373316375,-122.29079098739874)"
-      />
-      <circle
-        r="105.66666666666667"
-        cx="515.6666666666666"
-        cy="529"
-        stroke-width="13"
-        stroke="[var(--color-primary-300)]"            fill="none"
-        opacity="0.67"
-        transform="matrix(0.8158150741987271,0.5972495557029629,-0.5783421235340156,0.8022453786119692,134.05991440714172,-111.85285608125935)"
-      />
-      <circle
-        r="116.75"
-        cx="486.75"
-        cy="496.75"
-        stroke-width="13.75"
-        stroke="[var(--color-primary-300)]"            fill="none"
-        opacity="0.7525000000000001"
-        transform="matrix(0.8949428808132343,0.46178817574834513,-0.44620206063183276,0.8870868320591907,94.80933065036302,-93.66332885122256)"
-      />
-      <circle
-        r="127.83333333333334"
-        cx="457.8333333333333"
-        cy="464.5"
-        stroke-width="14.5"
-        stroke="[var(--color-primary-300)]"            fill="none"
-        opacity="0.8350000000000001"
-        transform="matrix(0.9528422305675176,0.31455673350817015,-0.30348005748293305,0.9492787892005737,58.83742039391268,-68.37407899675532)"
-      />
-      <circle
-        r="138.91666666666669"
-        cx="428.91666666666663"
-        cy="432.25"
-        stroke-width="15.25"
-        stroke="[var(--color-primary-300)]"            fill="none"
-        opacity="0.9175000000000001"
-        transform="matrix(0.9881402558152219,0.1593083845685247,-0.15356090075002632,0.9872385109164611,26.98230780284638,-36.82239654112516)"
-      />
-      <circle
-        r="150"
-        cx="400"
-        cy="400"
-        stroke-width="16"
-        stroke="[var(--color-primary-300)]"            fill="none"
-        opacity="1"
-        transform="matrix(1,0,0,1,0,0)"
-      />
-    </g>
-  </svg>
+    style={{ pointerEvents: "none" }} // This line is important to make the svg not interact with the mouse
+
+      xmlns="http://www.w3.org/2000/svg"
+      version="1.1"
+      xmlns:xlink="http://www.w3.org/1999/xlink"
+      xmlns:svgjs="http://svgjs.dev/svgjs"
+      viewBox="2 100 800 800"
+    >
+      <g stroke="[var(--color-primary-300)]" fill="none" stroke-linecap="round">
+        <circle
+          r="391.5"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="640 2460"
+          opacity="0.73"
+        ></circle>
+        <circle
+          r="378"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="595 2375"
+          transform="rotate(13, 400, 400)"
+          opacity="0.90"
+        ></circle>
+        <circle
+          r="364.5"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="553 2290"
+          transform="rotate(26, 400, 400)"
+          opacity="0.28"
+        ></circle>
+        <circle
+          r="351"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="512 2205"
+          transform="rotate(39, 400, 400)"
+          opacity="0.62"
+        ></circle>
+        <circle
+          r="337.5"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="473 2121"
+          transform="rotate(51, 400, 400)"
+          opacity="0.18"
+        ></circle>
+        <circle
+          r="324"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="435 2036"
+          transform="rotate(64, 400, 400)"
+          opacity="0.76"
+        ></circle>
+        <circle
+          r="310.5"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="399 1951"
+          transform="rotate(77, 400, 400)"
+          opacity="0.56"
+        ></circle>
+        <circle
+          r="297"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="364 1866"
+          transform="rotate(90, 400, 400)"
+          opacity="0.31"
+        ></circle>
+        <circle
+          r="283.5"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="331 1781"
+          transform="rotate(103, 400, 400)"
+          opacity="0.32"
+        ></circle>
+        <circle
+          r="270"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="299 1696"
+          transform="rotate(116, 400, 400)"
+          opacity="0.55"
+        ></circle>
+        <circle
+          r="256.5"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="269 1612"
+          transform="rotate(129, 400, 400)"
+          opacity="0.34"
+        ></circle>
+        <circle
+          r="243"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="241 1527"
+          transform="rotate(141, 400, 400)"
+          opacity="0.78"
+        ></circle>
+        <circle
+          r="229.5"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="214 1442"
+          transform="rotate(154, 400, 400)"
+          opacity="0.38"
+        ></circle>
+        <circle
+          r="216"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="189 1357"
+          transform="rotate(167, 400, 400)"
+          opacity="0.99"
+        ></circle>
+        <circle
+          r="202.5"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="165 1272"
+          transform="rotate(180, 400, 400)"
+          opacity="0.28"
+        ></circle>
+        <circle
+          r="189"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="143 1188"
+          transform="rotate(193, 400, 400)"
+          opacity="0.35"
+        ></circle>
+        <circle
+          r="175.5"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="123 1103"
+          transform="rotate(206, 400, 400)"
+          opacity="0.53"
+        ></circle>
+        <circle
+          r="162"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="104 1018"
+          transform="rotate(219, 400, 400)"
+          opacity="0.61"
+        ></circle>
+        <circle
+          r="148.5"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="87 933"
+          transform="rotate(231, 400, 400)"
+          opacity="0.51"
+        ></circle>
+        <circle
+          r="135"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="71 848"
+          transform="rotate(244, 400, 400)"
+          opacity="0.56"
+        ></circle>
+        <circle
+          r="121.5"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="57 763"
+          transform="rotate(257, 400, 400)"
+          opacity="0.34"
+        ></circle>
+        <circle
+          r="108"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="44 679"
+          transform="rotate(270, 400, 400)"
+          opacity="0.51"
+        ></circle>
+        <circle
+          r="94.5"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="33 594"
+          transform="rotate(283, 400, 400)"
+          opacity="0.43"
+        ></circle>
+        <circle
+          r="81"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="24 509"
+          transform="rotate(296, 400, 400)"
+          opacity="0.69"
+        ></circle>
+        <circle
+          r="67.5"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="16 424"
+          transform="rotate(309, 400, 400)"
+          opacity="0.43"
+        ></circle>
+        <circle
+          r="54"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="9 339"
+          transform="rotate(321, 400, 400)"
+          opacity="0.33"
+        ></circle>
+        <circle
+          r="40.5"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="5 254"
+          transform="rotate(334, 400, 400)"
+          opacity="0.33"
+        ></circle>
+        <circle
+          r="27"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="2 170"
+          transform="rotate(347, 400, 400)"
+          opacity="0.54"
+        ></circle>
+        <circle
+          r="13.5"
+          cx="400"
+          cy="400"
+          stroke-width="8.5"
+          stroke-dasharray="0 85"
+          transform="rotate(360, 400, 400)"
+          opacity="0.09"
+        ></circle>
+      </g>
+    </svg>
   );
 }
 
