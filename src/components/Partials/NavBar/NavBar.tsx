@@ -47,7 +47,7 @@ function NavBar() {
           contact
         </NavLink>
       </div>
-      <div className="navbar-end">
+      <div className="navbar-end flex max-md:flex-col">
         <ThemeButton />
         <NavLink
           to="/login"
