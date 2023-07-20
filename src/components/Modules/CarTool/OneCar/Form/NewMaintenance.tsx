@@ -13,7 +13,7 @@ function NewMaintenance({ maintenanceData }) {
       </p>
       <p className="mb-2 font-semibold">Date : {maintenanceData.date}</p>
       <button
-        onClick={() => onEdit(maintenanceData)} // Appel de la fonction onEdit lors du clic sur le bouton Modifier
+        onClick={() => onEdit(maintenanceData)}
         className="btn bg-red-300 hover:bg-red-500 text-white ml-2"
       >
         <svg
@@ -33,7 +33,7 @@ function NewMaintenance({ maintenanceData }) {
       </button>
 
       <button
-        onClick={() => onDelete(maintenanceData)} // Appel de la fonction onDelete lors du clic sur le bouton Supprimer
+        onClick={() => onDelete(maintenanceData)}
         className="btn bg-red-300 hover:bg-red-500 text-white mt-2"
       >
         <svg
