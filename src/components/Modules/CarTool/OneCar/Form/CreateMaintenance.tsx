@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import NewMaintenance from './NewMaintenance';
 
 function CreateMaintenance(onSubmit) {
   // État local pour gérer l'ouverture de la div
@@ -8,8 +9,26 @@ function CreateMaintenance(onSubmit) {
   const handlePlusButtonClick = () => {
     setIsFormOpen(!isFormOpen); // Inverse l'état d'ouverture
   };
+  const [newMaintenances, setNewMaintenances] = useState([]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const type = event.target.elements.type.value;
+    const lastMaintenance = event.target.elements.lastMaintenance.value;
+    const maintenanceInterval = event.target.elements.maintenanceInterval.value;
+    const date = event.target.elements.date.value;
+
+    // Créer un nouvel objet avec les données de l'entretien
+    const newMaintenanceData = {
+      type,
+      lastMaintenance,
+      maintenanceInterval,
+      date,
+    };
+
+    // Ajouter le nouvel entretien à la liste des nouveaux entretiens
+    setNewMaintenances([...newMaintenances, newMaintenanceData]);
 
     setIsFormOpen(false);
   };
@@ -46,9 +65,12 @@ function CreateMaintenance(onSubmit) {
               <div className="p-4 mt-4">
                 <div className="mb-4">
                   <label className="block mb-2 font-semibold">
-                    Creer un suivi :{' '}
+                    Creer un suivi :
                   </label>
-                  <select className="select select-bordered w-full max-w-xs">
+                  <select
+                    className="select select-bordered w-full max-w-xs"
+                    name="type"
+                  >
                     <option disabled selected>
                       Entretien
                     </option>
@@ -65,6 +87,7 @@ function CreateMaintenance(onSubmit) {
                     type="text"
                     className="input input-bordered w-full max-w-xs mb-2"
                     placeholder="Entrez le nombre de KM"
+                    name="lastMaintenance"
                   />
                   <label htmlFor="date" className="block font-bold mb-2">
                     le :
@@ -79,6 +102,7 @@ function CreateMaintenance(onSubmit) {
                     type="text"
                     className="input input-bordered w-full max-w-xs mb-2"
                     placeholder="Entrez le nombre de KM"
+                    name="maintenanceInterval"
                   />
                 </div>
                 <button
@@ -92,6 +116,11 @@ function CreateMaintenance(onSubmit) {
           </div>
         </div>
       )}
+
+      {/* Afficher les nouveaux entretiens enregistrés */}
+      {newMaintenances.map((maintenance, index) => (
+        <NewMaintenance key={index} maintenanceData={maintenance} />
+      ))}
     </div>
   );
 }
