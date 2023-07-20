@@ -63,7 +63,9 @@ function DrawerButton() {
             <WalletMenu />
           </NavLink>
 
-          <CarToolMenu />
+          <NavLink to="/Cars">
+            <CarToolMenu />
+          </NavLink>
 
           <Footer />
         </div>

@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router-dom';
+
 function CarToolMenu() {
   return (
     <ul className="flex flex-col items-center">
@@ -5,7 +7,9 @@ function CarToolMenu() {
         <a className="font-bold underline uppercase text-base ">Car-Tool</a>
       </li>
       <li>
-        <a>Car 1</a>
+        <NavLink to="/Cars/CarsId">
+          <a>Car 1</a>
+        </NavLink>
       </li>
       <li>
         <a>Car 2</a>
