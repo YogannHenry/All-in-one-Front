@@ -1,8 +1,5 @@
-import { useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 
-import { useAppDispatch } from '../../hooks/redux';
-import { fetchRecipes } from '../../store/reducers/recipes';
 import ThemeProvider from '../../contexts/ThemeProvider';
 
 import NavBar from '../Partials/NavBar/NavBar';
