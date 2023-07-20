@@ -3,17 +3,20 @@ import {
   createAsyncThunk,
   createReducer,
 } from '@reduxjs/toolkit';
-import axios from 'axios';
+
+// Au lieu d'utiliser Axios pour mes requêtes,
+// je vais utiliser une **instance** d'Axios qui me permet
+// de personnaliser mes appels
+// import axios from 'axios';
+import axiosInstance from '../../utils/axios';
 
 interface UserState {
   logged: boolean;
   pseudo: string | null;
-  token: string | null;
 }
 export const initialState: UserState = {
   logged: false,
   pseudo: null,
-  token: null,
 };
 
 // Action pour la déconnexion
@@ -26,15 +29,19 @@ export const login = createAsyncThunk(
     const objData = Object.fromEntries(formData);
     console.log(objData);
 
-    const { data } = await axios.post(
-      'https://orecipes-api.onrender.com/api/login',
-      objData
-    );
+    const { data } = await axiosInstance.post('/login', objData);
+
+    // après m'être connecté, j'ajoute mon token directement
+    // dans l'instance Axios
+    axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+
+    // le token est utilisé ci-dessus, je n'en ai plus besoin
+    // je le supprime de mes données
+    delete data.token;
 
     return data as {
       logged: boolean;
       pseudo: string;
-      token: string;
     };
   }
 );
@@ -47,13 +54,14 @@ const userReducer = createReducer(initialState, (builder) => {
       // contient un payload avec les données retournées par l'API
       state.logged = action.payload.logged;
       state.pseudo = action.payload.pseudo;
-      state.token = action.payload.token;
     })
     .addCase(logout, (state) => {
       // je ré-initialise mes données depuis mon state initial
       state.logged = initialState.logged;
       state.pseudo = initialState.pseudo;
-      state.token = initialState.token;
+
+      // à la déconnexion, je supprime le JWT de mon instance Axios
+      delete axiosInstance.defaults.headers.common.Authorization;
     });
 });
 

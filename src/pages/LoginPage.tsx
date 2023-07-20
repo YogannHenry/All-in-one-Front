@@ -1,7 +1,7 @@
-import { FormEvent, MouseEvent } from 'react';
-
+import { FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { login, logout } from '../store/reducers/user';
+import Field from './LoginField';
 
 import CoilBackground from '../assets/SvgBackground/CoilBackground';
 
@@ -25,6 +25,18 @@ function LoginPage() {
   };
   return (
     <div>
+      {isLogged && (
+        <div className="">
+          <p className="">{loggedMessage}</p>
+          <button
+            type="button"
+            className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white"
+            onClick={handleLogout}
+          >
+            Déconnexion
+          </button>
+        </div>
+      )}
       {!isLogged && (
         <form onSubmit={handleSubmit}>
           <CoilBackground />
@@ -32,23 +44,15 @@ function LoginPage() {
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
               <div className="card-body">
                 <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Email</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="email"
-                    className="input input-bordered"
+                  <Field
+                    name="email"
+                    placeholder="Adresse Email"
+                    type="email"
                   />
-                </div>
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Mot de passe</span>
-                  </label>
-                  <input
-                    type="text"
+                  <Field
+                    name="password"
                     placeholder="Mot de passe"
-                    className="input input-bordered"
+                    type="password"
                   />
                   <label className="label">
                     <a
@@ -60,7 +64,10 @@ function LoginPage() {
                   </label>
                 </div>
                 <div className="form-control mt-6">
-                  <button className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white">
+                  <button
+                    type="submit"
+                    className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white"
+                  >
                     Se Connecter
                   </button>
                 </div>
@@ -68,18 +75,6 @@ function LoginPage() {
             </div>
           </div>
         </form>
-      )}
-      {isLogged && (
-        <div className="login-form-logged">
-          <p className="login-form-message">{loggedMessage}</p>
-          <button
-            type="button"
-            className="login-form-button"
-            onClick={handleLogout}
-          >
-            Déconnexion
-          </button>
-        </div>
       )}
     </div>
   );
