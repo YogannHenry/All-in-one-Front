@@ -26,7 +26,7 @@ function LoginPage() {
   return (
     <div>
       {!isLogged && (
-        <div>
+        <form onSubmit={handleSubmit}>
           <CoilBackground />
           <div className="flex items-center justify-center h-screen bg-base-200">
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
@@ -67,7 +67,7 @@ function LoginPage() {
               </div>
             </div>
           </div>
-        </div>
+        </form>
       )}
       {isLogged && (
         <div className="login-form-logged">
