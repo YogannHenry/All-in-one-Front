@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import NewMaintenance from './NewMaintenance';
 
-function CreateMaintenance(onSubmit) {
+function CreateMaintenance({ onSubmit, newMaintenances }) {
   // État local pour gérer l'ouverture de la div
   const [isFormOpen, setIsFormOpen] = useState(false);
 
@@ -9,9 +9,9 @@ function CreateMaintenance(onSubmit) {
   const handlePlusButtonClick = () => {
     setIsFormOpen(!isFormOpen); // Inverse l'état d'ouverture
   };
-  const [newMaintenances, setNewMaintenances] = useState([]);
 
   const handleSubmit = (event) => {
+    //empeche le rechargement de la page
     event.preventDefault();
 
     const type = event.target.elements.type.value;
@@ -28,8 +28,8 @@ function CreateMaintenance(onSubmit) {
     };
 
     // Ajouter le nouvel entretien à la liste des nouveaux entretiens
-    setNewMaintenances([...newMaintenances, newMaintenanceData]);
-
+    onSubmit(newMaintenanceData);
+    //fermer la modale
     setIsFormOpen(false);
   };
 
@@ -74,9 +74,9 @@ function CreateMaintenance(onSubmit) {
                     <option disabled selected>
                       Entretien
                     </option>
-                    <option value="Voiture">Pneu</option>
-                    <option value="Moto">Vidange</option>
-                    <option value="Camion">Courroie</option>
+                    <option value="Pneu">Pneu</option>
+                    <option value="Vidange">Vidange</option>
+                    <option value="Courroie">Courroie</option>
                   </select>
                 </div>
                 <div>

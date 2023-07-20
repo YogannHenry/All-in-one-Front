@@ -55,6 +55,7 @@ function EditCarData() {
             <label className="block mb-2 font-semibold">
               Type de véhicule:
               <select
+                name="TypeVehicules"
                 className="select select-bordered w-full max-w-xs"
                 value={carData.TypeVehicules}
                 onChange={(e) =>

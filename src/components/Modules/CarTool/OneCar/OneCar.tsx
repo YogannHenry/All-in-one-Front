@@ -1,8 +1,20 @@
+import { useState } from 'react';
 import Voiture from '../../../../assets/icon-voiture.png';
 import CreateMaintenance from './Form/CreateMaintenance';
 import EditCarData from './Form/EditCarData';
 
 function OneCar() {
+  const handleSubmit = (newMaintenanceData) => {
+    // Ici, tu peux gérer les données nouvellement enregistrées, si nécessaire
+
+    console.log('Nouvel entretien enregistré :', newMaintenanceData);
+    // Mettre à jour la variable newMaintenances avec les nouveaux entretiens
+    setNewMaintenances([...newMaintenances, newMaintenanceData]);
+  };
+
+  // État local pour gérer les nouveaux entretiens
+  const [newMaintenances, setNewMaintenances] = useState([]);
+
   return (
     <div className="bg-base-200 min-h-screen h-full px-8">
       <div className="pt-8">
@@ -19,7 +31,10 @@ function OneCar() {
         </div>
       </div>
       <div>
-        <CreateMaintenance />
+        <CreateMaintenance
+          onSubmit={handleSubmit}
+          newMaintenances={newMaintenances}
+        />
       </div>
       <div></div>
     </div>
