@@ -71,7 +71,7 @@ function InputDocumentForm({ onSubmit }) {
 
 {/* Afficher les détails lorsque le fichier est sélectionné */}
       {showDetails && (
-        <form onSubmit={handleSubmit}>
+        <form className="relative" onSubmit={handleSubmit}>
           <label htmlFor="name" className="block mb-2">
             Nom :
           </label>

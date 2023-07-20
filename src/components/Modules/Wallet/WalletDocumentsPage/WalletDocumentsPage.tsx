@@ -1,11 +1,8 @@
-import { HomeIcon } from '@heroicons/react/24/solid';
+import TriangleBlur from '../../../../assets/SvgBackground/TriangleBlur';
 import InputDocumentForm from './Form/InputDocumentForm';
 import { useState } from 'react';
 
-
-
 function WalletDocumentsPage() {
-
   const [documents, setDocuments] = useState([]);
 
   // Fonction pour ajouter un nouveau document soumis
@@ -13,21 +10,19 @@ function WalletDocumentsPage() {
     setDocuments([...documents, document]);
   };
 
+  const deleteDocument = (documentId) => {
+    setDocuments(documents.filter((document) => document.id !== documentId));
+  };
 
-
-const deleteDocument = (documentId) => {
-  setDocuments(documents.filter((document) => document.id !== documentId));
-};
-
-console.log(documents);
+  console.log(documents);
 
   return (
     <div>
-      <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen bg-base-200 ">
+     <TriangleBlur />
+      <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen bg-base-200 z-10  ">
         <h1 className="text-5xl font-bold pb-10">Santé</h1>
-      
-          <InputDocumentForm onSubmit={addDocument}  />
-      
+
+        <InputDocumentForm onSubmit={addDocument} />
 
         <div className="card max-md:w-full w-1/2 bg-base-100 shadow-xl">
           {documents.map((document) => (
@@ -67,7 +62,10 @@ console.log(documents);
                 </button>
               </div>
               <div className="card-actions justify-around">
-                <button className="" onClick={() => deleteDocument(document.id)}>
+                <button
+                  className=""
+                  onClick={() => deleteDocument(document.id)}
+                >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

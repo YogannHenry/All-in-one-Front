@@ -1,6 +1,9 @@
+import OscillateBackground from "../assets/SvgBackground/OscillateBackground";
+
 function SignInPage() {
   return (
     <div className="hero min-h-screen bg-base-200">
+      <OscillateBackground />
       <div className="hero-content flex-col lg:flex-row-reverse px-24 ">
         <div className="px-24 text-center lg:text-left ">
           <h1 className="text-5xl font-bold">
