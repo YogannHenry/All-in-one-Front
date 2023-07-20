@@ -18,6 +18,7 @@ import Wallet from './components/Modules/Wallet/WalletLandingPage/WalletLandingP
 import DocumentsPage from './components/Modules/Wallet/WalletDocumentsPage/WalletDocumentsPage';
 import CarsList from './components/Modules/CarTool/CarToolListe/CarToolListe';
 import Landing from './components/Modules/Todo/TodoLandingPage/TodoLandingPage';
+import OneCar from './components/Modules/CarTool/OneCar/OneCar';
 
 import './styles/global.css';
 
@@ -37,6 +38,7 @@ const router = createBrowserRouter(
       <Route path="/Wallet" element={<Wallet />} />
       <Route path="/WalletDocumentsPage" element={<DocumentsPage />} />
       <Route path="/cars" element={<CarsList />} />
+      <Route path="/cars/carsId" element={<OneCar />} />
     </Route>
   )
 );
