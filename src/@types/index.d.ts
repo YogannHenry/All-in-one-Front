@@ -1,5 +1,5 @@
-export interface Task {
+export interface List {
   id: number;
-  label: string;
-  done: boolean;
+  name: string;
+  position: number;
 }
