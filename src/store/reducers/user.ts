@@ -23,25 +23,29 @@ export const initialState: UserState = {
 export const logout = createAction('/logout');
 
 // Thunk pour la connexion
-export const login = createAsyncThunk('/login', async (formData: FormData) => {
-  const objData = Object.fromEntries(formData);
-  console.log(objData);
+export const login = createAsyncThunk(
+  'user/login',
+  async (formData: FormData) => {
+    const objData = Object.fromEntries(formData);
+    console.log(objData);
 
-  const { data } = await axiosInstance.post('/login', objData);
+    const { data } = await axiosInstance.post('/login', objData);
+    console.log(data);
 
-  // après m'être connecté, j'ajoute mon token directement
-  // dans l'instance Axios
-  axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+    // après m'être connecté, j'ajoute mon token directement
+    // dans l'instance Axios
+    axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
 
-  // le token est utilisé ci-dessus, je n'en ai plus besoin
-  // je le supprime de mes données
-  delete data.token;
+    // le token est utilisé ci-dessus, je n'en ai plus besoin
+    // je le supprime de mes données
+    delete data.token;
 
-  return data as {
-    logged: boolean;
-    pseudo: string;
-  };
-});
+    return data as {
+      logged: boolean;
+      pseudo: string;
+    };
+  }
+);
 
 const userReducer = createReducer(initialState, (builder) => {
   builder

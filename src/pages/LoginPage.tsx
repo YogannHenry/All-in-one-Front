@@ -7,6 +7,8 @@ import CoilBackground from '../assets/SvgBackground/CoilBackground';
 
 function LoginPage() {
   const isLogged = useAppSelector((state) => state.user.logged);
+  console.log(isLogged);
+  console.log();
   const loggedMessage = useAppSelector(
     (state) => `Bienvenue ${state.user.pseudo}`
   );
@@ -44,7 +46,6 @@ function LoginPage() {
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
               <div className="card-body">
                 <div className="form-control">
-                  <Field name="pseudo" placeholder="Pseudo" type="text" />
                   <Field
                     name="email"
                     placeholder="Adresse Email"

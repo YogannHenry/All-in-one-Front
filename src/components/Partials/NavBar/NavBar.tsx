@@ -1,4 +1,3 @@
-
 import { NavLink } from 'react-router-dom';
 import DrawerButton from './DrawerButton/DrawerButton';
 import Logo from '../../../assets/TodoNavBar.png';
@@ -10,11 +9,9 @@ interface ThemeProps {
 }
 
 function NavBar() {
-
   return (
     <div className="navbar bg-base-100">
       <div className="navbar-start">
-    
         <DrawerButton />
         <NavLink to="/" className="w-11">
           <img src={Logo} alt="Logo" className="object-scale-down" />
@@ -43,7 +40,10 @@ function NavBar() {
             </li>
           </ul>
         </div>
-        <NavLink to="/Contact" className="btn btn-ghost  hover:bg-[var(--color-primary-300)]">
+        <NavLink
+          to="/Contact"
+          className="btn btn-ghost  hover:bg-[var(--color-primary-300)]"
+        >
           contact
         </NavLink>
       </div>
