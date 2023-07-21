@@ -7,10 +7,10 @@ function ThemeButton() {
   const { ChangeColorTheme } = useContext(ThemeContext);
 
   return (
-    <div className="dropdown dropdown-bottom dropdown-end ">
+    <div className="dropdown max-md:dropdown-end max-md:absolute max-md:top-32 max-md:right-0">
       <label
         tabIndex={0}
-        className={`btn bg-[var(--color-primary-300)] text-white rounded-bl-3xl rounded-tr-3xl hover:bg-[var(--color-primary-500)] max-md:hidden`}
+        className={`btn bg-[var(--color-primary-300)] text-white rounded-bl-3xl rounded-tr-3xl hover:bg-[var(--color-primary-500)]  `}
       >
         Couleur
       </label>
