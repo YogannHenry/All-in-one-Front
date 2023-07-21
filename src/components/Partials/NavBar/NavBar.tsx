@@ -16,7 +16,7 @@ function NavBar() {
       <div className="navbar-start">
     
         <DrawerButton />
-        <NavLink to="/" className="w-11">
+        <NavLink to="/" className="w-11 ml-5">
           <img src={Logo} alt="Logo" className="object-scale-down" />
         </NavLink>
       </div>
