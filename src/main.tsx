@@ -16,6 +16,7 @@ import Login from './pages/LoginPage';
 import Contact from './pages/ContactPage';
 import TodoList from './components/Modules/Todo/TodoListPage/TodoListPage';
 import TodoListPage from './components/Modules/Todo/TodoListPage/TodoListPage';
+import TodoListPage2 from './components/Modules/Todo/TodoListPage/Form/Form';
 import Wallet from './components/Modules/Wallet/WalletLandingPage/WalletLandingPage';
 import DocumentsPage from './components/Modules/Wallet/WalletDocumentsPage/WalletDocumentsPage';
 import CarsList from './components/Modules/CarTool/CarToolListe/CarToolListe';
@@ -31,7 +32,13 @@ const router = createBrowserRouter(
       <Route path="/signin" element={<SignIn />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/TodoList" element={<TodoList />} />
-      <Route path="/TodoList/ListId" element={<TodoListPage />} />
+      <Route path="/TodoList/ListId" element={<TodoListPage2 addTask={function (newTask: string): Promise<void> {
+        throw new Error('Function not implemented.');
+      } } list={[]} updateTask={function (id: number): Promise<void> {
+        throw new Error('Function not implemented.');
+      } } deleteTask={function (id: number): Promise<void> {
+        throw new Error('Function not implemented.');
+      } } />} />
       <Route path="/Contact" element={<Contact />} />
       <Route path="/Contact" element={<Contact />} />
       <Route path="/TodoList" element={<TodoList />} />

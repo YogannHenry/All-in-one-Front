@@ -26,7 +26,7 @@ function TasksItem({ task, updateTask, deleteTask }: TasksItemProps) {
                   <input
                     type="checkbox"
                     checked={done}
-                    className="checkbox checkbox-error"
+                    className="checkbox border-[var(--color-primary-300)]"
                     onChange={handleChange}
                   />
                 </label>
