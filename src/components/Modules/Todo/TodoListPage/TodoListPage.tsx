@@ -1,76 +1,76 @@
-import { redirect } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-const tasks = [
-  {
-    id: 's1',
-    description: 'mange mes boules',
-  },
-  {
-    id: '2',
-    description: 'moi les fraises ça me refait le fion',
-  },
-  {
-    id: '3',
-    description: 'et les ananas ? ',
-  },
-];
+import Counter from './Counter/Counter';
+import Form from './Form/Form';
+import Tasks from './Tasks/Tasks';
+
+import { Task } from '../../../../@types';
+
+
+
+const API_URL = 'http://localhost:3000';
 
 function TodoListPage() {
-  
-  return (
-    <div>
-      <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen bg-base-200">
-        <p className="text-4xl mb-10">Nom de la liste</p>
-        <div className="card max-md:w-full  w-1/2 bg-base-100 shadow-xl mb-10">
-          <input
-            type="text"
-            placeholder="Ajouter une tâche"
-            className="input input-bordered border-[var(--color-primary-300)] w-full "
-          />
-          
-        </div>
+  const [tasks, setTasks] = useState<Task[]>([]);
 
-        <div className="card max-md:w-full w-1/2 bg-base-100 shadow-xl">
-          {tasks.map((task) => (
-            <div
-              key={task.id}
-              id={task.id}
-              className="flex justify-between items-center h-14 px-4 border-b-2"
-            >
-              <div className="form-control">
-                <label className="cursor-pointer label">
-                  <input
-                    type="checkbox"
-                    // checked="checked"
-                    className="checkbox border-[var(--color-primary-300)] "
-                  />
-                </label>
-              </div>
-              <div className="w-full pl-5">
-                <p>{task.description}</p>
-              </div>
-              <div className="card-actions justify-around opacity-0 hover:opacity-100">
-                <button className="">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-8 w-8 "
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="red"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M6 18L18 6M6 6l12 12"
-                    />
-                  </svg>
-                </button>
-              </div>
-            </div>
-          ))}
-          <div className="flex items-center justify-between px-5 h-14 text-xs text-[var(--color-primary-300)]">
-            <span>X taches en cours</span>
+  const getTasks = async () => {
+    const { data } = await axios.get(`${API_URL}/tasks`);
+    setTasks(data);
+  };
+
+  const addTask = async (newTask: string) => {
+    const { data } = await axios.post(`${API_URL}/tasks`, {
+      label: newTask,
+    });
+    setTasks(data);
+  };
+
+  const updateTask = async (id: number) => {
+    const { data } = await axios.put(`${API_URL}/tasks/${id}`);
+
+    // `data` est la tâche modifiée
+    // dans mon tableau des tâches `tasks`, je dois remplacer
+    // l'ancienne tâche par celle-ci
+    // → à partir de `tasks`, je crée un nouveau tableau (`map()`)
+    // si la tâche est celle à remplacer,
+    // alors je retourne la tâche modifiée
+    // sinon je la retourne telle quelle
+    const updatedTasks = tasks.map((task) => (task.id === id ? data : task));
+
+    setTasks(updatedTasks);
+  };
+
+  const deleteTask = async (id: number) => {
+    const { data } = await axios.delete(`${API_URL}/tasks/${id}`);
+    setTasks(data);
+  };
+
+  useEffect(() => {
+    getTasks();
+  }, []);
+
+  /*
+    je veux les tâches non effectuées puis les effectuées
+    je crée des tableaux intermédiaires
+  */
+  const tasksNotDone = tasks.filter(({ done }) => !done);
+  const tasksDone = tasks.filter(({ done }) => done);
+  // je crée un nouveau tableau trié
+  const tasksSorted = [...tasksNotDone, ...tasksDone];
+
+  return (
+    <div className="w-screen h-screen">
+    <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen bg-base-200">
+      <Form addTask={addTask} />
+      
+      <Tasks
+        list={tasksSorted}
+        updateTask={updateTask}
+        deleteTask={deleteTask}
+      />
+        <div className="flex items-center justify-between px-5 h-14 text-xs text-slate-500">
+        <Counter nbTasksNotDone={tasksNotDone.length} />
             <div className="flex justify-around ">
               <span className="px-2">Tàches</span>
               <span className="px-2">Actives</span>
@@ -78,8 +78,7 @@ function TodoListPage() {
             </div>
             <span className="clear">Nettoyer</span>
           </div>
-        </div>
-      </div>
+    </div>
     </div>
   );
 }

@@ -32,13 +32,6 @@ const router = createBrowserRouter(
       <Route path="/signin" element={<SignIn />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/TodoList" element={<TodoList />} />
-      <Route path="/TodoList/ListId" element={<TodoListPage2 addTask={function (newTask: string): Promise<void> {
-        throw new Error('Function not implemented.');
-      } } list={[]} updateTask={function (id: number): Promise<void> {
-        throw new Error('Function not implemented.');
-      } } deleteTask={function (id: number): Promise<void> {
-        throw new Error('Function not implemented.');
-      } } />} />
       <Route path="/Contact" element={<Contact />} />
       <Route path="/Contact" element={<Contact />} />
       <Route path="/TodoList" element={<TodoList />} />

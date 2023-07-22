@@ -53,15 +53,7 @@ function TasksItem({ task, updateTask, deleteTask }: TasksItemProps) {
                 </button>
               </div>
             </div>
-          <div className="flex items-center justify-between px-5 h-14 text-xs text-slate-500">
-            <span>X taches en cours</span>
-            <div className="flex justify-around ">
-              <span className="px-2">Tàches</span>
-              <span className="px-2">Actives</span>
-              <span className="px-2">Terminées</span>
-            </div>
-            <span className="clear">Nettoyer</span>
-          </div>
+        
         </div>
   );
 }
