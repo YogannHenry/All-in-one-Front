@@ -1,13 +1,19 @@
 import { useState } from 'react';
+import { ArrowUturnLeftIcon} from '@heroicons/react/24/solid';
+import { NavLink } from 'react-router-dom';
 
 
 
 interface FormProps {
   addTask: (newTask: string) => Promise<void>;
+
 }
+
 
 function Form({ addTask }: FormProps) {
   const [newTask, setNewTask] = useState('');
+
+  
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setNewTask(event.target.value);
@@ -16,22 +22,30 @@ function Form({ addTask }: FormProps) {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     addTask(newTask);
-
+    console.log('newTask',newTask);
     setNewTask('');
   }
 
   return (
-    <form className="flex items-center flex-col p-20 h-screen bg-base-200" onSubmit={handleSubmit}>
-        <p className="text-4xl mb-10">Nom de la liste</p>
-        <div className="card w-1/2 bg-base-100 shadow-xl mb-10"></div>
+    
+    <form
+      className="max-md:px-4 flex items-center flex-col   "
+      onSubmit={handleSubmit}
+    >
+      
+      <div className="card max-md:w-full  bg-red-400 shadow-xl mb-10">
+        <NavLink to="/list" className="btn btn-circle btn-ghost">
+        <ArrowUturnLeftIcon className="h-10 w-10 text-white" />
+        </NavLink>
       <input
         type="text"
-        className="form-input"
+        className="input input-bordered border-[var(--color-primary-300)] w-full "
         placeholder="Ajouter une tâche"
         aria-label="Ajouter une tâche"
         value={newTask}
         onChange={handleChange}
       />
+      </div>
     </form>
   );
 }

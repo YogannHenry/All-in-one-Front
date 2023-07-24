@@ -2,13 +2,12 @@ function CoilBackground() {
   return (
     <svg
     className="z-0 absolute w-screen h-screen stroke-[var(--color-primary-300)]"
-
-      xmlns="http://www.w3.org/2000/svg"
+    style={{ pointerEvents: "none" }} // This line is important to make the svg not interact with the mouse
+    xmlns="http://www.w3.org/2000/svg"
       version="1.1"
       xmlns:xlink="http://www.w3.org/1999/xlink"
       xmlns:svgjs="http://svgjs.dev/svgjs"
       viewBox="0 0 800 800"
-      style={{ pointerEvents: "none" }} // This line is important to make the svg not interact with the mouse
 
     >
       <g stroke="[var(--color-primary-300)]" fill="none" stroke-linecap="round">
