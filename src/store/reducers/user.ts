@@ -13,12 +13,12 @@ import axiosInstance from '../../utils/axios';
 interface UserState {
   logged: boolean;
   pseudo: string | null;
-  id: number | null;
+  userId : number | null;
 }
 export const initialState: UserState = {
   logged: false,
   pseudo: null,
-  id: null,
+  userId: null,
 };
 
 // Action pour la déconnexion
@@ -43,7 +43,7 @@ export const login = createAsyncThunk('/login', async (formData: FormData) => {
   return data as {
     logged: boolean;
     pseudo: string;
-    id:number
+    userId:number
   };
 });
 
@@ -55,7 +55,7 @@ const userReducer = createReducer(initialState, (builder) => {
       // contient un payload avec les données retournées par l'API
       state.logged = action.payload.logged;
       state.pseudo = action.payload.pseudo;
-      state.id = action.payload.id;
+      state.userId = action.payload.userId;
       console.log("action.payload",action.payload);
     })
     .addCase(logout, (state) => {

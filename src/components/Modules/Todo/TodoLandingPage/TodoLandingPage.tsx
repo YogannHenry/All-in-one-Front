@@ -6,11 +6,19 @@ import Form from './Form/Form';
 
 const API_URL = 'http://localhost:3002/api';
 
+interface User {
+  userId: number;
+
+}
+
 function TodoList() {
   const [lists, setLists] = useState([]);
   const [newList, setNewList] = useState('');
 
-  const userId = useAppSelector((state) => ` ${state.user.id}`);
+  const userId = useAppSelector((state) => Number(state.user.userId));
+
+
+console.log(typeof userId)
 
   const getLists = async () => {
     const { data } = await axios.get(`${API_URL}/list`);
