@@ -1,6 +1,24 @@
 import OscillateBackground from "../assets/SvgBackground/OscillateBackground";
+import { FormEvent } from 'react';
+import { useAppDispatch, useAppSelector } from '../hooks/redux';
+import { login } from '../store/reducers/user';
+import Field from "./LoginField";
+
 
 function SignInPage() {
+
+  const isLogged = useAppSelector((state) => state.user.logged);
+  console.log(isLogged);
+
+  const dispatch = useAppDispatch();
+
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    dispatch(login(formData));
+  };
   return (
     <div className="hero min-h-screen bg-base-200">
       <OscillateBackground />
@@ -16,37 +34,28 @@ function SignInPage() {
             App est là pour vous simplifier la vie !
           </p>
         </div>
-        <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
+        <form onSubmit={handleSubmit} className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
           <div className="card-body">
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Email</span>
-              </label>
-              <input
-                type="text"
-                placeholder="email"
-                className="input input-bordered"
-              />
+            
+              <Field
+                    name="email"
+                    placeholder="Adresse Email"
+                    type="email"
+                  />
             </div>
             <div className="form-control">
-              <label className="label">
-                <span className="label-text">Mot de passe</span>
-              </label>
-              <input
-                type="text"
-                placeholder="mot de passe"
-                className="input input-bordered"
-              />
-              <label className="label"></label>
-              <label className="label">
-                <span className="label-text">Vérifiez votre mot de passe</span>
-              </label>
-              <input
-                type="text"
-                placeholder="mot de passe"
-                className="input input-bordered"
-              />
-              <label className="label"></label>
+           
+              <Field
+                    name="password"
+                    placeholder="Mot de passe"
+                    type="password"
+                  />
+               <Field
+                    name="passwordConfirm"
+                    placeholder="Vérifier votre mot de passe"
+                    type="password"
+                  />
             </div>
             <div className="form-control mt-6">
               <button className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white">
@@ -54,7 +63,7 @@ function SignInPage() {
               </button>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
