@@ -7,7 +7,7 @@ interface TasksItemProps {
 }
 
 function TasksItem({ task, updateTask, deleteTask }: TasksItemProps) {
-  const { id, label, done } = task;
+  const { id, name, done } = task;
 
   function handleChange() {
     updateTask(id);
@@ -17,6 +17,10 @@ function TasksItem({ task, updateTask, deleteTask }: TasksItemProps) {
     deleteTask(id);
   }
 
+  console.log("task",task)
+
+  
+console.log("handleClick",handleClick)
   return (
     <div className="card w-1/2 bg-base-100 shadow-xl">
             <div className={done ? 'flex justify-between items-center h-14 px-4 border-b-2 first-line:rounded block flex-grow line-through opacity-50' : 'flex justify-between items-center h-14 px-4 border-b-2 '}>
@@ -32,16 +36,15 @@ function TasksItem({ task, updateTask, deleteTask }: TasksItemProps) {
                 </label>
               </div>
               <div className="w-full pl-5">
-                <p>{label}</p>
+                <p>{name}</p>
               </div>
               <div className="card-actions justify-around opacity-0 hover:opacity-100">
                 <button type="button" onClick={handleClick}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    className="h-8 w-8 "
+                    className="h-8 w-8 stroke-[var(--color-primary-300)]"
                     fill="none"
                     viewBox="0 0 24 24"
-                    stroke="red"
                   >
                     <path
                       strokeLinecap="round"

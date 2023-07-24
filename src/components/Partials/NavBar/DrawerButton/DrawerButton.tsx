@@ -55,7 +55,7 @@ function DrawerButton() {
             Outils
           </a>
 
-          <NavLink to="/TodoLandingPage">
+          <NavLink to="/list">
             <TodoListMenu />
           </NavLink>
 

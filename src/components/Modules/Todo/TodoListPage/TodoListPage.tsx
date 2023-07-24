@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 import Counter from './Counter/Counter';
 import Form from './Form/Form';
@@ -9,25 +10,29 @@ import { Task } from '../../../../@types';
 
 
 
-const API_URL = 'http://localhost:3000';
+const API_URL = 'http://localhost:3002/api/list';
 
 function TodoListPage() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
+  const { listId } = useParams();
+
   const getTasks = async () => {
-    const { data } = await axios.get(`${API_URL}/tasks`);
+    const { data } = await axios.get(`${API_URL}/${listId}/task`);
     setTasks(data);
+    console.log("getTasks",data)
   };
 
   const addTask = async (newTask: string) => {
-    const { data } = await axios.post(`${API_URL}/tasks`, {
-      label: newTask,
+    const { data } = await axios.post(`${API_URL}/${listId}/task`, {
+      name: newTask,
     });
     setTasks(data);
+    getTasks();
   };
 
   const updateTask = async (id: number) => {
-    const { data } = await axios.put(`${API_URL}/tasks/${id}`);
+    const { data } = await axios.put(`${API_URL}/task/${id}`);
 
     // `data` est la tâche modifiée
     // dans mon tableau des tâches `tasks`, je dois remplacer
@@ -42,14 +47,13 @@ function TodoListPage() {
   };
 
   const deleteTask = async (id: number) => {
-    const { data } = await axios.delete(`${API_URL}/tasks/${id}`);
-    setTasks(data);
+    const { data } = await axios.delete(`${API_URL}/task/${id}`);
+    getTasks();
   };
 
   useEffect(() => {
     getTasks();
-  }, []);
-
+  }, [listId]);
   /*
     je veux les tâches non effectuées puis les effectuées
     je crée des tableaux intermédiaires

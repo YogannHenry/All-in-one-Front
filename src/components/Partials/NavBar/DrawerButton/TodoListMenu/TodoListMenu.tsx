@@ -7,7 +7,7 @@ function TodoListMenu() {
         <a className="font-bold underline uppercase text-base">Todo-List</a>
       </li>
       <li>
-        <NavLink to="/TodoList/ListId">
+        <NavLink to="/list/4">
         <a>List 1</a>
         </NavLink>
       </li>

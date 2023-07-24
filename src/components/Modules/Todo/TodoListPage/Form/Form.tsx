@@ -11,6 +11,8 @@ interface FormProps {
 function Form({ addTask }: FormProps) {
   const [newTask, setNewTask] = useState('');
 
+  
+
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setNewTask(event.target.value);
   }
@@ -18,7 +20,7 @@ function Form({ addTask }: FormProps) {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     addTask(newTask);
-
+    console.log('newTask',newTask);
     setNewTask('');
   }
 

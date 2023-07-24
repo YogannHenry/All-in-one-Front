@@ -35,8 +35,8 @@ const router = createBrowserRouter(
       <Route path="/Contact" element={<Contact />} />
       <Route path="/Contact" element={<Contact />} />
       <Route path="/TodoList" element={<TodoList />} />
-      <Route path="/TodoList/ListId" element={<TodoListPage />} />
-      <Route path="/TodoLandingPage" element={<Landing />} />
+      <Route path="/list/:listId" element={<TodoListPage />} />
+      <Route path="/list" element={<Landing />} />
       <Route path="/Wallet" element={<Wallet />} />
       <Route path="/WalletDocumentsPage" element={<DocumentsPage />} />
       <Route path="/cars" element={<CarsList />} />

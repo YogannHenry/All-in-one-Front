@@ -13,9 +13,6 @@ function LoginPage() {
 
   const dispatch = useAppDispatch();
 
-  function handleLogout() {
-    dispatch(logout());
-  }
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
