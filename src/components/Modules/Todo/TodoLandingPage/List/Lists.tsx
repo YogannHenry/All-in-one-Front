@@ -1,27 +1,19 @@
-import { Task } from '../../../@types';
-import TasksItem from './TasksItem';
+import ListesItem from './ListesItem';
 import './style.scss';
 
-interface TasksProps {
-  list: Task[];
-  
-  updateTask: (id: number) => Promise<void>;
-  deleteTask: (id: number) => Promise<void>;
-}
 
-function Tasks({ list, updateTask, deleteTask }: TasksProps) {
+
+function Listes({ list, updateList, deleteList }: ListesProps) {
   return (
-    <ul className="tasks">
-      {list.map((task) => (
-        <TasksItem
-          key={task.id}
-          task={task}
-          updateTask={updateTask}
-          deleteTask={deleteTask}
-        />
+    
+    <div className="card w-full bg-base-100 shadow-xl">
+    <div className="card-body">
+      {lists.map((list) => (
+
       ))}
-    </ul>
+      </div>
+    </div>
   );
 }
 
-export default Tasks;
+export default Listes;

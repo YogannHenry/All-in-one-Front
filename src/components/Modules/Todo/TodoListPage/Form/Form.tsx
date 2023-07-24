@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { ArrowUturnLeftIcon} from '@heroicons/react/24/solid';
+import { NavLink } from 'react-router-dom';
 
 
 
@@ -27,11 +29,14 @@ function Form({ addTask }: FormProps) {
   return (
     
     <form
-      className="max-md:px-4 flex items-center flex-col   bg-base-200"
+      className="max-md:px-4 flex items-center flex-col   "
       onSubmit={handleSubmit}
     >
-      <p className="text-4xl mb-10">Nom de la liste</p>
-      <div className="card max-md:w-full  bg-base-100 shadow-xl mb-10"></div>
+      
+      <div className="card max-md:w-full  bg-red-400 shadow-xl mb-10">
+        <NavLink to="/list" className="btn btn-circle btn-ghost">
+        <ArrowUturnLeftIcon className="h-10 w-10 text-white" />
+        </NavLink>
       <input
         type="text"
         className="input input-bordered border-[var(--color-primary-300)] w-full "
@@ -40,6 +45,7 @@ function Form({ addTask }: FormProps) {
         value={newTask}
         onChange={handleChange}
       />
+      </div>
     </form>
   );
 }

@@ -17,10 +17,8 @@ function TasksItem({ task, updateTask, deleteTask }: TasksItemProps) {
     deleteTask(id);
   }
 
-  console.log("task",task)
 
   
-console.log("handleClick",handleClick)
   return (
     <div className="card w-1/2 bg-base-100 shadow-xl">
             <div className={done ? 'flex justify-between items-center h-14 px-4 border-b-2 first-line:rounded block flex-grow line-through opacity-50' : 'flex justify-between items-center h-14 px-4 border-b-2 '}>

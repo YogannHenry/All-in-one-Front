@@ -1,71 +1,33 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { useAppSelector } from '../../../../hooks/redux';
-import Form from './Form/Form';
 
 
-
-const API_URL = 'http://localhost:3002/api';
-
+function ListesItem({ task, updateTask, deleteTask }) {
 
 
-
-function TodoList() {
-  const [lists, setLists] = useState([]);
-  const [newList, setNewList] = useState('');
-
-
-
-
-  const userId = useAppSelector((state) => ` ${state.user.id}`);
   
-  const getLists = async () => {
-    const { data }  = await axios.get(`${API_URL}/list`);
-    setLists(data);
-  };
 
-  const addList = async (newList: string) => {
-    const { data } = await axios.post(`${API_URL}/list`, {
-      name: newList,
-      userId: userId
-
-    });
-    setLists(data);
-    getLists();
-  };
-
-  const deleteList = async (id: number) => {
-    const { data } = await axios.delete(`${API_URL}/list/${id}`);
-    getLists();
-  };
-
-
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setNewList(event.target.value);
+  function handleChange() {
+    // on veut utiliser le _endpoint_ PUT /tasks/:task_id
+    // pour modifier une tâche
+    // ça retourne la tâche mise à jour,
+    // il faudra enregistrer cette tâche dans la liste de notre état
+    // de plus, il faudra mettre à jour le compteur
+    // → on fait ça dans <App />
+    // → on diffuse la fonction via les props et on l'exécute
+    updateTask(id);
   }
 
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-     addList(newList)
-    setNewList('');
+  function handleClick() {
+    // on veut utiliser le _endpoint_ DELETE /tasks/:task_id
+    // pour supprimer une tâche
+    // ça retourne la liste des tâches mise à jour,
+    // il faudra enregistrer cette liste dans notre état
+    // → on fait ça dans <App />
+    // → on diffuse la fonction via les props et on l'exécute
+    deleteTask(id);
   }
-
-  useEffect(() => {
-    getLists();
-  }, []);
 
   return (
-    <div className="flex items-center flex-col justify-center min-h-screen bg-base-200">
-      <div className="max-w-full w-11/12 md:w-3/4 lg:w-1/2 px-4 flex flex-col items-center">
-        <h1 className="text-4xl mb-10">TodoList</h1>
-        <Form addList={addList} />
-
-        <div className="card w-full bg-base-100 shadow-xl">
-          <div className="card-body">
-            {lists.map((list) => (
-              <div
-                className="flex flex-col md:flex-row bg-base-200 mb-4"
+            <div className="flex flex-col md:flex-row bg-base-200 mb-4"
                 key={list.id}
               >
                 <div className="md:w-1/2 collapse">
@@ -104,13 +66,7 @@ function TodoList() {
                   </button>
                 </div>
               </div>
-            ))}
-          </div>
-        </div>
-      </div>
-   
-    </div>
   );
 }
 
-export default TodoList;
+export default ListesItem;
