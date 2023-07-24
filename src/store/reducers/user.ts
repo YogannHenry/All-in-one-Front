@@ -11,6 +11,7 @@ import {
 import axiosInstance from '../../utils/axios';
 
 interface UserState {
+  registered: boolean;
   logged: boolean;
   pseudo: string | null;
   userId : number | null;
@@ -19,6 +20,7 @@ export const initialState: UserState = {
   logged: false,
   pseudo: null,
   userId: null,
+  registered: false
 };
 
 // Action pour la déconnexion
@@ -47,8 +49,32 @@ export const login = createAsyncThunk('/login', async (formData: FormData) => {
   };
 });
 
+export const register = createAsyncThunk('/register', async (formData: FormData) => {
+  const objData = Object.fromEntries(formData);
+  console.log("objData2", objData);
+
+  const { data } = await axiosInstance.post('/register', objData);
+  console.log("data",data);
+
+  axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
+
+  delete data.token;
+
+  return data as {
+  registered: boolean;
+  pseudo: string | null;
+  userId : number | null;
+  };
+});
+
 const userReducer = createReducer(initialState, (builder) => {
   builder
+  .addCase(register.fulfilled, (state, action) => {
+    state.registered = action.payload.registered;
+    state.pseudo = action.payload.pseudo;
+    state.userId = action.payload.userId;
+    console.log("action.payload",action.payload);
+  })
     .addCase(login.fulfilled, (state, action) => {
       // enregistrer les données retournées par l'API
       // l'action `login.fulfilled` (générée par le thunk)
