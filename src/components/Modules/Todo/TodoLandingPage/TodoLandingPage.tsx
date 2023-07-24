@@ -4,32 +4,22 @@ import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../../../hooks/redux';
 import Form from './Form/Form';
 
-
-
 const API_URL = 'http://localhost:3002/api';
-
-
-
 
 function TodoList() {
   const [lists, setLists] = useState([]);
-  const [newList, setNewList] = useState('');
-
-
-
 
   const userId = useAppSelector((state) => ` ${state.user.id}`);
-  
+
   const getLists = async () => {
-    const { data }  = await axios.get(`${API_URL}/list`);
+    const { data } = await axios.get(`${API_URL}/list`);
     setLists(data);
   };
 
   const addList = async (newList: string) => {
     const { data } = await axios.post(`${API_URL}/list`, {
       name: newList,
-      userId: userId
-
+      userId: userId,
     });
     setLists(data);
     getLists();
@@ -39,17 +29,6 @@ function TodoList() {
     const { data } = await axios.delete(`${API_URL}/list/${id}`);
     getLists();
   };
-
-
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    setNewList(event.target.value);
-  }
-
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-     addList(newList)
-    setNewList('');
-  }
 
   useEffect(() => {
     getLists();
@@ -82,11 +61,14 @@ function TodoList() {
                   <NavLink
                     to={`/list/${list.id}`}
                     className="text-blue-500 underline ml-2"
-                   
                   >
                     Ouvrir
                   </NavLink>
-                  <button type="button"  onClick={() => deleteList(list.id)} className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2">
+                  <button
+                    type="button"
+                    onClick={() => deleteList(list.id)}
+                    className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -108,7 +90,6 @@ function TodoList() {
           </div>
         </div>
       </div>
-   
     </div>
   );
 }
