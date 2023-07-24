@@ -13,24 +13,24 @@ import axiosInstance from '../../utils/axios';
 interface UserState {
   logged: boolean;
   pseudo: string | null;
+  userId : number | null;
 }
 export const initialState: UserState = {
   logged: false,
   pseudo: null,
+  userId: null,
 };
 
 // Action pour la déconnexion
 export const logout = createAction('/logout');
 
 // Thunk pour la connexion
-export const login = createAsyncThunk(
-  'user/login',
-  async (formData: FormData) => {
-    const objData = Object.fromEntries(formData);
-    console.log(objData);
+export const login = createAsyncThunk('/login', async (formData: FormData) => {
+  const objData = Object.fromEntries(formData);
+  console.log("objData2", objData);
 
-    const { data } = await axiosInstance.post('/login', objData);
-    console.log(data);
+  const { data } = await axiosInstance.post('/login', objData);
+  console.log("data",data);
 
     // après m'être connecté, j'ajoute mon token directement
     // dans l'instance Axios
@@ -40,12 +40,12 @@ export const login = createAsyncThunk(
     // je le supprime de mes données
     delete data.token;
 
-    return data as {
-      logged: boolean;
-      pseudo: string;
-    };
-  }
-);
+  return data as {
+    logged: boolean;
+    pseudo: string;
+    userId:number
+  };
+});
 
 const userReducer = createReducer(initialState, (builder) => {
   builder
@@ -55,6 +55,8 @@ const userReducer = createReducer(initialState, (builder) => {
       // contient un payload avec les données retournées par l'API
       state.logged = action.payload.logged;
       state.pseudo = action.payload.pseudo;
+      state.userId = action.payload.userId;
+      console.log("action.payload",action.payload);
     })
     .addCase(logout, (state) => {
       // je ré-initialise mes données depuis mon state initial

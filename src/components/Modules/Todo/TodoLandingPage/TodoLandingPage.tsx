@@ -1,32 +1,71 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useAppSelector } from '../../../../hooks/redux';
+import Form from './Form/Form';
 
-const TodoListData = [
-  {
-    id: '1',
-    Titre: 'css',
-    Task: 'page home a faire',
-  },
-  {
-    id: '2',
-    Titre: 'Maison',
-    Task: 'Faire a manger',
-  },
-  {
-    id: '3',
-    Titre: 'Autre',
-    Task: 'Passer ascendant sur valo',
-  },
-];
+const API_URL = 'http://localhost:3002/api';
+
+interface User {
+  userId: number;
+
+}
 
 function TodoList() {
+  const [lists, setLists] = useState([]);
+  const [newList, setNewList] = useState('');
+
+  const userId = useAppSelector((state) => Number(state.user.userId));
+
+
+console.log(typeof userId)
+
+  const getLists = async () => {
+    const { data } = await axios.get(`${API_URL}/list`);
+    setLists(data);
+  };
+
+  const addList = async (newList: string) => {
+    const { data } = await axios.post(`${API_URL}/list`, {
+      name: newList,
+      userId: userId,
+    });
+    setLists(data);
+    getLists();
+  };
+
+  const deleteList = async (id: number) => {
+    const { data } = await axios.delete(`${API_URL}/list/${id}`);
+    getLists();
+  };
+
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+    setNewList(event.target.value);
+  }
+
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    addList(newList);
+    setNewList('');
+  }
+
+  useEffect(() => {
+    getLists();
+  }, []);
+
   return (
     <div className="flex items-center flex-col justify-center min-h-screen bg-base-200">
       <div className="max-w-full w-11/12 md:w-3/4 lg:w-1/2 px-4 flex flex-col items-center">
         <h1 className="text-4xl mb-10">TodoList</h1>
-        <div className="card w-full bg-base-100 shadow-xl mb-10">
+        <form
+          onSubmit={handleSubmit}
+          className="card w-full bg-base-100 shadow-xl mb-10"
+        >
           <div className="flex justify-between">
             <div className="flex-grow">
               <input
+                value={newList}
+                onChange={handleChange}
                 type="text"
                 placeholder="Ajouter une Liste"
                 className="input input-bordered border-[var(--color-primary-300)] w-full mr-2"
@@ -49,33 +88,37 @@ function TodoList() {
               </svg>
             </button>
           </div>
-        </div>
+        </form>
 
         <div className="card w-full bg-base-100 shadow-xl">
           <div className="card-body">
-            {TodoListData.map((item) => (
+            {lists.map((list) => (
               <div
                 className="flex flex-col md:flex-row bg-base-200 mb-4"
-                key={item.id}
+                key={list.id}
               >
                 <div className="md:w-1/2 collapse">
                   <input type="radio" name="my-accordion-1" />
                   <div className="collapse-title text-xl font-medium">
-                    {item.Titre}
+                    {list.name}
                   </div>
                   <div className="collapse-content">
-                    <p>- {item.Task}</p>
+                    <p>- {list.name}</p>
                   </div>
                 </div>
                 <div className="flex p-2 items-center md:w-1/2">
                   <div className="flex-grow" />
                   <NavLink
-                    to={`/list/${item.id}`}
+                    to={`/list/${list.id}`}
                     className="text-blue-500 underline ml-2"
                   >
                     Ouvrir
                   </NavLink>
-                  <button className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2">
+                  <button
+                    type="button"
+                    onClick={() => deleteList(list.id)}
+                    className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2"
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
@@ -97,7 +140,6 @@ function TodoList() {
           </div>
         </div>
       </div>
-   
     </div>
   );
 }

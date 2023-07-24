@@ -16,6 +16,7 @@ import Login from './pages/LoginPage';
 import Contact from './pages/ContactPage';
 import TodoList from './components/Modules/Todo/TodoListPage/TodoListPage';
 import TodoListPage from './components/Modules/Todo/TodoListPage/TodoListPage';
+import TodoListPage2 from './components/Modules/Todo/TodoListPage/Form/Form';
 import Wallet from './components/Modules/Wallet/WalletLandingPage/WalletLandingPage';
 import DocumentsPage from './components/Modules/Wallet/WalletDocumentsPage/WalletDocumentsPage';
 import CarsList from './components/Modules/CarTool/CarToolListe/CarToolListe';
@@ -31,12 +32,11 @@ const router = createBrowserRouter(
       <Route path="/signin" element={<SignIn />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/TodoList" element={<TodoList />} />
-      <Route path="/TodoList/ListId" element={<TodoListPage />} />
       <Route path="/Contact" element={<Contact />} />
       <Route path="/Contact" element={<Contact />} />
       <Route path="/TodoList" element={<TodoList />} />
-      <Route path="/TodoList/ListId" element={<TodoListPage />} />
-      <Route path="/TodoLandingPage" element={<Landing />} />
+      <Route path="/list/:listId" element={<TodoListPage />} />
+      <Route path="/list" element={<Landing />} />
       <Route path="/Wallet" element={<Wallet />} />
       <Route path="/WalletDocumentsPage" element={<DocumentsPage />} />
       <Route path="/cars" element={<CarsList />} />
