@@ -50,22 +50,11 @@ function TodoListPage() {
 
   const deleteTask = async (id: number) => {
     const { data } = await axios.delete(`${API_URL}/task/${id}`);
+    setTasks(tasks => tasks.filter(task => task.id !== id));
     getTasks();
   };
 
-  const getNotDoneTasks = async () => {
-    const { data } = await axios.get(`${API_URL}/${listId}/task`);
-    const filteredTasks = data.filter((task) => task.status === false);
-    setTasks(filteredTasks);
-    console.log('filteredTasks', filteredTasks);
-  };
 
-  const getDoneTasks = async () => {
-    const { data } = await axios.get(`${API_URL}/${listId}/task`);
-    const filteredTasks = data.filter((task) => task.status === true);
-    setTasks(filteredTasks);
-    console.log('filteredTasks', filteredTasks);
-  };
 
   const deleteAllTasks = async () => {
     const { data } = await axios.get(`${API_URL}/${listId}/task`);

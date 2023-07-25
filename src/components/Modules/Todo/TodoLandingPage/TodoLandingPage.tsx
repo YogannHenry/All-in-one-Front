@@ -2,27 +2,34 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../../../hooks/redux';
-import Form from './Form/Form';
+
+import { Task } from '../../../../@types';
 
 const API_URL = 'http://localhost:3002/api';
 
-interface User {
-  userId: number;
-
+interface List {
+  id: number;
+  name: string;
 }
 
 function TodoList() {
-  const [lists, setLists] = useState([]);
-  const [newList, setNewList] = useState('');
+  const [lists, setLists] = useState<List[]>([]);
+    const [newList, setNewList] = useState('');
 
   const userId = useAppSelector((state) => Number(state.user.userId));
 
+  const [selectedListTasks, setSelectedListTasks] = useState<Task[]>([]);
 
-console.log(typeof userId)
-
+  
   const getLists = async () => {
     const { data } = await axios.get(`${API_URL}/list`);
     setLists(data);
+  };
+
+  const getTasksForList = async (listId: number) => {
+    const { data } = await axios.get(`${API_URL}/list/${listId}/task`);
+    const filteredTasks  = data.filter(task => task.status === false); 
+    setSelectedListTasks(filteredTasks);
   };
 
   const addList = async (newList: string) => {
@@ -98,12 +105,16 @@ console.log(typeof userId)
                 key={list.id}
               >
                 <div className="md:w-1/2 collapse">
-                  <input type="radio" name="my-accordion-1" />
+                  <input onClick={() => getTasksForList(list.id)} type="radio" name="my-accordion-1" />
                   <div className="collapse-title text-xl font-medium">
                     {list.name}
                   </div>
                   <div className="collapse-content">
-                    <p>- {list.name}</p>
+                  <ul>
+                {selectedListTasks.map((task) => (
+                  <li key={task.id}>{task.name}</li>
+                ))}
+              </ul>
                   </div>
                 </div>
                 <div className="flex p-2 items-center md:w-1/2">
