@@ -4,8 +4,9 @@ import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../../../hooks/redux';
 
 import { Task } from '../../../../@types';
+import API_URL from '../../../API_URL';
 
-const API_URL = 'http://localhost:3002/api';
+
 
 interface List {
   id: number;
@@ -26,6 +27,7 @@ function TodoList() {
     setLists(data);
   };
 
+  // Récupérer les tâches d'une liste pour gérer la prévisualisation
   const getTasksForList = async (listId: number) => {
     const { data } = await axios.get(`${API_URL}/list/${listId}/task`);
     const filteredTasks  = data.filter(task => task.status === false); 

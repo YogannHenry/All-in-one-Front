@@ -1,21 +1,21 @@
 import { useState } from 'react';
 import WalletIconForm from './IconForm';
 import FormIncompleteAlert from '../../../../../modals/FormIncompleteAlert';
+import { useAppSelector } from '../../../../../hooks/redux';
 
 function WalletInputForm({ onSubmit }) {
+  const userId = useAppSelector((state) => Number(state.user.userId));
+  
   const [selectedIcon, setSelectedIcon] = useState(null);
 
- 
-
   const [WalletDetails, setWalletDetails] = useState({
-    id: 1,
+    name: '',
     icon: '',
-    description: '',
+    userId: userId
   });
 
   const [formIncomplete, setFormIncomplete] = useState(false);
 
-  const [nextId, setNextId] = useState(2);
   // Fonction pour gérer le changement des détails du document
   const handleInputChange = (event) => {
     // ici, on récupère le nom et la valeur de l'input
@@ -27,32 +27,29 @@ function WalletInputForm({ onSubmit }) {
     // Fonction pour gérer la sélection d'une icône
     const handleIconSelection = (selectedIcon) => {
       setWalletDetails({ ...WalletDetails, icon: selectedIcon });
+      console.log("selectedIcon",selectedIcon);
     };
 
   // Fonction pour gérer la soumission du formulaire
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!WalletDetails.icon || !WalletDetails.description) {
+    if (!WalletDetails.icon || !WalletDetails.name) {
       setFormIncomplete(true);
       return;
     }
     
-    const newWallet = { ...WalletDetails, id: nextId }; // Utilise le prochain id disponible
-    onSubmit(newWallet);
-
-    setNextId((prevNextId) => prevNextId + 1);
     // ici, on crée un objet avec les détails du document et le fichier sélectionné
     onSubmit(WalletDetails);
-
+console.log("WalletDetails",WalletDetails)
 
     // Réinitialiser le formulaire
     setWalletDetails({
-      id: nextId, 
+      name: '',
       icon: '',
-      description: '',
      
     });
+
     setFormIncomplete(false);
     setSelectedIcon(null)
   };
@@ -72,9 +69,9 @@ function WalletInputForm({ onSubmit }) {
           <input
             type="text"
             onChange={handleInputChange}
-            name="description"
-            id="description"
-            value={WalletDetails.description}
+            name="name"
+            id="name"
+            value={WalletDetails.name}
             placeholder="Ajouter un portefeuille de document"
             className="input input-bordered border-[var(--color-primary-500)] w-full"
           />

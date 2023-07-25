@@ -6,9 +6,15 @@ import ThemeButton from './ThemeButton/ThemeButton';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { logout } from '../../../store/reducers/user';
 
+
 interface ThemeProps {
   colorTheme: String;
   handleColorChange: String;
+}
+
+interface List {
+  id: number;
+  name: string;
 }
 
 function NavBar() {
@@ -18,9 +24,15 @@ function NavBar() {
 
   const dispatch = useAppDispatch();
 
+
+
+
+
   function handleLogout() {
     dispatch(logout());
   }
+
+
 
   return (
     <div>

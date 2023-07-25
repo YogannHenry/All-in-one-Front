@@ -1,22 +1,58 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import WalletInputForm from './Form/InputForm';
 import CircleLigneBackground from '../../../../assets/SvgBackground/CircleLigneBackground';
+import { useAppSelector } from '../../../../hooks/redux';
+import axios from 'axios';
+
+const API_URL = 'http://localhost:3002/api';
+
+
+interface Wallet {
+  id: number;
+  name: string;
+  icon: string;
+  wallet: [];
+}
 
 function WalletLandingPage() {
-  const [wallets, setWallets] = useState([]);
+  const userId = useAppSelector((state) => Number(state.user.userId));
+  
+  const [wallets, setWallets] = useState<Wallet[]>([]);
 
-  const addWallet = (wallet) => {
-    setWallets([...wallets, wallet]);
+  const getWallets = async () => {
+    const { data } = await axios.get(`${API_URL}/wallet`);
+    setWallets(data);
+  };
+  
+  const addWallet = async (newWallet: string, iconName: string) => {
+    try {
+      const { data } = await axios.post(`${API_URL}/wallet`, {
+        name: newWallet,
+        icon: iconName,
+        userId: userId,
+      });
+
+      // Mettre à jour l'état des Wallets avec le nouveau Wallet ajouté
+      setWallets((prevWallets) => [...prevWallets, data]);
+    } catch (error) {
+      console.error('Erreur lors de la création du Wallet :', error);
+    }
   };
 
-  const deleteWallet = (walletId) => {
-    setWallets(wallets.filter((wallet) => wallet.id !== walletId));
+  const deleteWallet = async (walletId: number) => {
+    const { data } = await axios.delete(`${API_URL}/wallet/${walletId}`);
+    setWallets(wallets => wallets.filter(wallet => wallet.id !== walletId));
+    
   };
+
+  useEffect(() => {
+    getWallets();
+  }, []);
 
   console.log(wallets);
   return (
     <div>
- <CircleLigneBackground />
+      <CircleLigneBackground />
 
       <div className="flex flex-col items-center pt-20 h-screen bg-base-200">
         <h1 className="text-5xl font-bold pb-10">Wallet</h1>
@@ -25,7 +61,7 @@ function WalletLandingPage() {
             <WalletInputForm onSubmit={addWallet} />
 
             <div className="card max-md:w-full bg-base-100 shadow-xl">
-              {wallets.map((wallet) => (
+              {wallets.map((wallet: Wallet) => (
                 <div
                   key={wallet.id}
                   id={wallet.id}
@@ -33,8 +69,8 @@ function WalletLandingPage() {
                 >
                   {wallet.icon}
 
-                  <div className="w-full pl-5">
-                    <p>{wallet.description}</p>
+                  <div className="w-full pl-5 text-2xl">
+                    <p>{wallet.name}</p>
                   </div>
                   <div className="card-actions justify-around opacity-0 hover:opacity-100">
                     <button
