@@ -42,16 +42,9 @@ function TodoListPage() {
     getTasks();
   };
 
-  const updateTask = async (id: number) => {
-    const { data } = await axios.put(`${API_URL}/task/${id}`);
+  const updateTask = async (id: number, updatedTaskData: any) => {
+    const { data } = await axios.put(`${API_URL}/task/${id}`, updatedTaskData);
 
-    // `data` est la tâche modifiée
-    // dans mon tableau des tâches `tasks`, je dois remplacer
-    // l'ancienne tâche par celle-ci
-    // → à partir de `tasks`, je crée un nouveau tableau (`map()`)
-    // si la tâche est celle à remplacer,
-    // alors je retourne la tâche modifiée
-    // sinon je la retourne telle quelle
     const updatedTasks = tasks.map((task) => (task.id === id ? data : task));
 
     setTasks(updatedTasks);
@@ -71,8 +64,8 @@ function TodoListPage() {
     je veux les tâches non effectuées puis les effectuées
     je crée des tableaux intermédiaires
   */
-  const tasksNotDone = tasks.filter(({ done }) => !done);
-  const tasksDone = tasks.filter(({ done }) => done);
+  const tasksNotDone = tasks.filter(({ status }) => !status);
+  const tasksDone = tasks.filter(({ status }) => status);
   // je crée un nouveau tableau trié
   const tasksSorted = [...tasksNotDone, ...tasksDone];
   const listName = list.map((list) => list.name);

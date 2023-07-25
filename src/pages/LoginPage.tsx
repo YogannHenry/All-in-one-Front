@@ -13,7 +13,6 @@ function LoginPage() {
 
   const dispatch = useAppDispatch();
 
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -23,35 +22,34 @@ function LoginPage() {
   return (
     <div>
       {isLogged && (
-        <div className="hero h-5/6 pb-60 bg-base-200 h-screen">
-       
-          <form className="hero-content text-center">
-            <div className="max-w-md">
-              <h1 className="text-5xl textfont-bold flex flex-col gap-4">
-                Bienvenue 
+        <div className="hero pb-40 bg-base-200 h-screen">
+          <form className="hero-content">
+            <div className="max-w-md flex  flex-col items-center text-center ">
+              <h1 className="text-5xl textfont-bold flex   flex-col gap-4">
+                Bienvenue
                 <span className="text-[var(--color-primary-500)]">
-                   {loggedMessage} 
+                  {loggedMessage}
                 </span>
-                 sur All-in-One
+                sur All-in-One
               </h1>
               <p className="py-6">
                 Découvre dès maintenant toutes les fonctionnalités en appuyant
                 sur ce bouton présent dans le menu de navigation:
               </p>
               <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-10 w-10"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h7"
-            />
-          </svg>
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-10 w-10"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h7"
+                />
+              </svg>
             </div>
           </form>
         </div>

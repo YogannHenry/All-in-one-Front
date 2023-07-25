@@ -31,7 +31,7 @@ function SignInPage() {
   return (
     <div>
       {isLogged && (
-        <div className="hero h-5/6 pb-60 bg-base-200 h-screen">
+        <div className="hero  pb-60 bg-base-200 h-screen">
           <form className="hero-content text-center">
             <div className="max-w-md">
               <h1 className="text-5xl font-bold flex flex-col gap-4">
