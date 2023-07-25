@@ -42,7 +42,7 @@ function NavBar() {
      
         <button
           onClick={handleLogout}
-          className={`btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]`}
+          className={`btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] ml-4`}
         >
           se déconnecter 
         </button>

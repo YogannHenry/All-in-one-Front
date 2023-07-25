@@ -61,6 +61,7 @@ export const register = createAsyncThunk('/register', async (formData: FormData)
   delete data.token;
 
   return data as {
+
   registered: boolean;
   pseudo: string | null;
   userId : number | null;
