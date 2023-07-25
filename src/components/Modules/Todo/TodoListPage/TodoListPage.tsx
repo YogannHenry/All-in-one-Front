@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
-
 import Counter from './Counter/Counter';
 import Form from './Form/Form';
 import Tasks from './Tasks/Tasks';
@@ -15,7 +14,6 @@ interface List {
   name: string;
   // Add other properties if available in the API response
 }
-
 
 function TodoListPage() {
   const [tasks, setTasks] = useState<Task[]>([]);
@@ -55,19 +53,54 @@ function TodoListPage() {
     getTasks();
   };
 
+  const getNotDoneTasks = async () => {
+    const { data } = await axios.get(`${API_URL}/${listId}/task`);
+    const filteredTasks = data.filter((task) => task.status === false);
+    setTasks(filteredTasks);
+    console.log('filteredTasks', filteredTasks);
+  };
+
+  const getDoneTasks = async () => {
+    const { data } = await axios.get(`${API_URL}/${listId}/task`);
+    const filteredTasks = data.filter((task) => task.status === true);
+    setTasks(filteredTasks);
+    console.log('filteredTasks', filteredTasks);
+  };
+
+  const deleteAllTasks = async () => {
+    const { data } = await axios.get(`${API_URL}/${listId}/task`);
+
+    // Filtrer les tâches ayant le statut true
+    const tasksToDelete = data.filter((task) => task.status === true);
+
+    // Supprimer chaque tâche ayant le statut true
+    for (const task of tasksToDelete) {
+      await axios.delete(`${API_URL}/task/${task.id}`);
+    }
+
+    // Mettre à jour la liste des tâches après la suppression
+    getTasks();
+  };
+
+  const [sortingType, setSortingType] = useState<
+    'all' | 'active' | 'completed'
+  >('all');
+
+  const tasksNotDone = tasks.filter(({ status }) => !status);
+  const tasksDone = tasks.filter(({ status }) => status);
+  let tasksSorted = [...tasksNotDone, ...tasksDone];
+  if (sortingType === 'active') {
+    tasksSorted = tasks.filter(({ status }) => !status);
+  } else if (sortingType === 'completed') {
+    tasksSorted = tasks.filter(({ status }) => status);
+  }
+
   useEffect(() => {
     getTasks();
+
     getOneList();
   }, [listId, list]);
 
-  /*
-    je veux les tâches non effectuées puis les effectuées
-    je crée des tableaux intermédiaires
-  */
-  const tasksNotDone = tasks.filter(({ status }) => !status);
-  const tasksDone = tasks.filter(({ status }) => status);
-  // je crée un nouveau tableau trié
-  const tasksSorted = [...tasksNotDone, ...tasksDone];
   const listName = list.map((list) => list.name);
 
   return (
@@ -81,14 +114,25 @@ function TodoListPage() {
           updateTask={updateTask}
           deleteTask={deleteTask}
         />
-        <div className="flex items-center justify-between px-5 h-14 text-xs text-slate-500">
+        <div className="flex items-center justify-between w-2/4 px-5 h-14 text-xs text-slate-500">
           <Counter nbTasksNotDone={tasksNotDone.length} />
           <div className="flex justify-around ">
-            <span className="px-2">Tàches</span>
-            <span className="px-2">Actives</span>
-            <span className="px-2">Terminées</span>
+            <button onClick={() => setSortingType('all')} className="px-2">
+              Toutes les Tâches
+            </button>
+            <button onClick={() => setSortingType('active')} className="px-2">
+              Actives
+            </button>
+            <button
+              onClick={() => setSortingType('completed')}
+              className="px-2"
+            >
+              Terminées
+            </button>
           </div>
-          <span className="clear">Nettoyer</span>
+          <button onClick={deleteAllTasks} className="clear">
+            Nettoyer
+          </button>
         </div>
       </div>
     </div>
