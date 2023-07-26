@@ -4,35 +4,9 @@ import CircleLigneBackground from '../../../../assets/SvgBackground/CircleLigneB
 import { useAppSelector } from '../../../../hooks/redux';
 import axios from 'axios';
 import API_URL from '../../../API_URL';
-import {
-  FolderIcon,
-  CalculatorIcon,
-  ClipboardDocumentIcon,
-  CreditCardIcon,
-  AcademicCapIcon,
-  GlobeEuropeAfricaIcon,
-  BookOpenIcon,
-  CurrencyEuroIcon,
-  FilmIcon,
-  ShoppingCartIcon,
-  HomeIcon,
-  TruckIcon,
-} from '@heroicons/react/24/solid';
+import {  FolderIcon,  CalculatorIcon,  ClipboardDocumentIcon,  CreditCardIcon,  AcademicCapIcon,GlobeEuropeAfricaIcon,BookOpenIcon,CurrencyEuroIcon,FilmIcon,ShoppingCartIcon,HomeIcon,TruckIcon,} from '@heroicons/react/24/solid';
 
-const iconComponents = {
-  FolderIcon,
-  CalculatorIcon,
-  ClipboardDocumentIcon,
-  CreditCardIcon,
-  AcademicCapIcon,
-  GlobeEuropeAfricaIcon,
-  BookOpenIcon,
-  CurrencyEuroIcon,
-  FilmIcon,
-  ShoppingCartIcon,
-  HomeIcon,
-  TruckIcon,
-};
+const iconComponents = {  FolderIcon,  CalculatorIcon,  ClipboardDocumentIcon,  CreditCardIcon,  AcademicCapIcon,  GlobeEuropeAfricaIcon,  BookOpenIcon,  CurrencyEuroIcon,  FilmIcon,  ShoppingCartIcon,  HomeIcon,  TruckIcon,};
 
 interface Wallet {
   id: number;
@@ -52,13 +26,9 @@ function WalletLandingPage() {
     setWallets(data);
   };
 
-  const addWallet = async (walletName: []) => {
+  const addWallet = async (WalletDetails) => {
     try {
-      const { data } = await axios.post(`${API_URL}/wallet`, {
-        name: walletName.name,
-        icon: walletName.icon,
-        userId: walletName.userId,
-      });
+      const { data } = await axios.post(`${API_URL}/wallet`, WalletDetails);
 
       // Mettre à jour l'état des Wallets avec le nouveau Wallet ajouté
       setWallets((prevWallets) => [...prevWallets, data]);
@@ -72,6 +42,7 @@ function WalletLandingPage() {
     setWallets((wallets) => wallets.filter((wallet) => wallet.id !== walletId));
   };
 
+  // Fonction pour créer un composant dynamique en fonction du nom de l'icône, dans le componentName sera appelé wallet.icon qui contient le nom de l'icône
   const createDynamicIconComponent = (componentName) => {
     const DynamicIconComponent = iconComponents[componentName];
     if (DynamicIconComponent) {
@@ -85,7 +56,7 @@ function WalletLandingPage() {
     getWallets();
   }, []);
 
-  // console.log("walletComposantparent",wallets);
+
   return (
     <div>
       <CircleLigneBackground />
@@ -105,7 +76,7 @@ function WalletLandingPage() {
                   id={wallet.id}
                   className="flex justify-between items-center h-14 p-4 border-b-2 border-white bg-base-200 hover:bg-[var(--color-primary-500)] hover:text-white hover:stroke-white"
                 >
-                  <div className='h-6 w-6 text-[var(--color-primary-500)]'>{createDynamicIconComponent(wallet.icon)}</div>
+                  <div className='h-8 w-8 text-[var(--color-primary-500)]'>{createDynamicIconComponent(wallet.icon)}</div>
                   
 
                   <div className="w-full pl-5 text-2xl">
