@@ -3,9 +3,36 @@ import WalletInputForm from './Form/InputForm';
 import CircleLigneBackground from '../../../../assets/SvgBackground/CircleLigneBackground';
 import { useAppSelector } from '../../../../hooks/redux';
 import axios from 'axios';
+import API_URL from '../../../API_URL';
+import {
+  FolderIcon,
+  CalculatorIcon,
+  ClipboardDocumentIcon,
+  CreditCardIcon,
+  AcademicCapIcon,
+  GlobeEuropeAfricaIcon,
+  BookOpenIcon,
+  CurrencyEuroIcon,
+  FilmIcon,
+  ShoppingCartIcon,
+  HomeIcon,
+  TruckIcon,
+} from '@heroicons/react/24/solid';
 
-const API_URL = 'http://localhost:3002/api';
-
+const iconComponents = {
+  FolderIcon,
+  CalculatorIcon,
+  ClipboardDocumentIcon,
+  CreditCardIcon,
+  AcademicCapIcon,
+  GlobeEuropeAfricaIcon,
+  BookOpenIcon,
+  CurrencyEuroIcon,
+  FilmIcon,
+  ShoppingCartIcon,
+  HomeIcon,
+  TruckIcon,
+};
 
 interface Wallet {
   id: number;
@@ -16,20 +43,21 @@ interface Wallet {
 
 function WalletLandingPage() {
   const userId = useAppSelector((state) => Number(state.user.userId));
-  
+
   const [wallets, setWallets] = useState<Wallet[]>([]);
+  const [iconString, setIconString] = useState<string>('');
 
   const getWallets = async () => {
     const { data } = await axios.get(`${API_URL}/wallet`);
     setWallets(data);
   };
-  
-  const addWallet = async (newWallet: string, iconName: string) => {
+
+  const addWallet = async (walletName: []) => {
     try {
       const { data } = await axios.post(`${API_URL}/wallet`, {
-        name: newWallet,
-        icon: iconName,
-        userId: userId,
+        name: walletName.name,
+        icon: walletName.icon,
+        userId: walletName.userId,
       });
 
       // Mettre à jour l'état des Wallets avec le nouveau Wallet ajouté
@@ -41,15 +69,23 @@ function WalletLandingPage() {
 
   const deleteWallet = async (walletId: number) => {
     const { data } = await axios.delete(`${API_URL}/wallet/${walletId}`);
-    setWallets(wallets => wallets.filter(wallet => wallet.id !== walletId));
-    
+    setWallets((wallets) => wallets.filter((wallet) => wallet.id !== walletId));
   };
+
+  const createDynamicIconComponent = (componentName) => {
+    const DynamicIconComponent = iconComponents[componentName];
+    if (DynamicIconComponent) {
+      return <DynamicIconComponent />;
+    } else {
+      return <div>Icône introuvable pour le nom : {componentName}</div>;
+    }
+  }
 
   useEffect(() => {
     getWallets();
   }, []);
 
-  console.log(wallets);
+  // console.log("walletComposantparent",wallets);
   return (
     <div>
       <CircleLigneBackground />
@@ -58,8 +94,10 @@ function WalletLandingPage() {
         <h1 className="text-5xl font-bold pb-10">Wallet</h1>
         <div className="card  w-full max-w-xl shadow-2xl bg-base-100">
           <div className="card-body ">
-            <WalletInputForm onSubmit={addWallet} />
-
+            <WalletInputForm
+              onSubmit={addWallet}
+              onIconChange={setIconString}
+            />
             <div className="card max-md:w-full bg-base-100 shadow-xl">
               {wallets.map((wallet: Wallet) => (
                 <div
@@ -67,7 +105,8 @@ function WalletLandingPage() {
                   id={wallet.id}
                   className="flex justify-between items-center h-14 p-4 border-b-2 border-white bg-base-200 hover:bg-[var(--color-primary-500)] hover:text-white hover:stroke-white"
                 >
-                  {wallet.icon}
+                  <div className='h-6 w-6 text-[var(--color-primary-500)]'>{createDynamicIconComponent(wallet.icon)}</div>
+                  
 
                   <div className="w-full pl-5 text-2xl">
                     <p>{wallet.name}</p>

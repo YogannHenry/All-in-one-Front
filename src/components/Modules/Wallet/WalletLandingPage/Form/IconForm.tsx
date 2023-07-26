@@ -15,27 +15,30 @@ import {
 } from '@heroicons/react/24/solid';
 
 function WalletIconForm({ onIconSelection, selectedIcon, setSelectedIcon }) {
-  const handleIconSelection = (iconComponent) => {
-    setSelectedIcon(iconComponent);
-    onIconSelection(iconComponent);
 
-    console.log('handleIconSelection', handleIconSelection);
-    console.log('onIconSelection', onIconSelection);
+
+
+  const handleIconSelection = (iconComponent, iconNameString) => {
+    // ici, setSelectedIcon est une fonction qui a été passée en props depuis le composant parent qui permet de conserver l'icon sélectionnée sur le boutton
+    setSelectedIcon(iconComponent);
+    // ici, on appelle la fonction onIconSelection qui a été passée en props depuis le composant parent et qui permet de conserver l'icon sélectionnée dans le state du composant parent
+    onIconSelection(iconNameString);
+ 
   };
 
   const Icons = [
-    FolderIcon,
-    CalculatorIcon,
-    ClipboardDocumentIcon,
-    CreditCardIcon,
-    AcademicCapIcon,
-    GlobeEuropeAfricaIcon,
-    BookOpenIcon,
-    CurrencyEuroIcon,
-    FilmIcon,
-    ShoppingCartIcon,
-    HomeIcon,
-    TruckIcon,
+    { icon: FolderIcon, name: 'FolderIcon' },
+    { icon: CalculatorIcon, name: 'CalculatorIcon' },
+    { icon: ClipboardDocumentIcon, name: 'ClipboardDocumentIcon' },
+    { icon: CreditCardIcon, name: 'CreditCardIcon' },
+    { icon: AcademicCapIcon, name: 'AcademicCapIcon' },
+    { icon: GlobeEuropeAfricaIcon, name: 'GlobeEuropeAfricaIcon' },
+    { icon: BookOpenIcon, name: 'BookOpenIcon' },
+    { icon: CurrencyEuroIcon, name: 'CurrencyEuroIcon' },
+    { icon: FilmIcon, name: 'FilmIcon' },
+    { icon: ShoppingCartIcon, name: 'ShoppingCartIcon' },
+    { icon: HomeIcon, name: 'HomeIcon' },
+    { icon: TruckIcon, name: 'TruckIcon' },
   ];
 
   return (
@@ -50,12 +53,14 @@ function WalletIconForm({ onIconSelection, selectedIcon, setSelectedIcon }) {
         {Icons.map((Icon) => (
           <li key={Icon.name}>
             <a
-              onClick={() => {
-                const iconName = Icon.displayName; // Get the display name of the icon
-                handleIconSelection(iconName);
-              }}
+              onClick={() =>
+                handleIconSelection(
+                  <Icon.icon className="h-6 w-6 text-[var(--color-primary-500)]" />, Icon.name
+                
+                )
+              }
             >
-              <Icon className="h-6 w-6 text-[var(--color-primary-500)]" />
+              <Icon.icon className="h-6 w-6 text-[var(--color-primary-500)]" />
             </a>
           </li>
         ))}
