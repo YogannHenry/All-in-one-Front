@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import Voiture from '../../../../assets/icon-voiture.png';
+import iconVoiture from '../../../../assets/icon-voiture.png';
+
+import iconCamion from '../../../../assets/icon-camion.png';
+import iconMoto from '../../../../assets/icon-moto.png';
 
 import CarsForm from './Form/Form';
 
@@ -15,6 +18,11 @@ function CarsList() {
     setCars([...cars, newCarWithId]);
   };
 
+  const handleDeleteCar = (carId) => {
+    const updatedCars = cars.filter((car) => car.id !== carId);
+    setCars(updatedCars);
+  };
+
   return (
     <div className="bg-base-200  min-h-screen h-full">
       <div className="pt-8">
@@ -22,18 +30,31 @@ function CarsList() {
       </div>
       <div className="flex flex-wrap justify-center">
         {cars.map((car) => (
-          <NavLink
-            to={`/cars/${car.id}`}
+          <div
             className="card w-full sm:w-96 bg-base-100 shadow-xl my-4 mx-2"
             key={car.id}
           >
-            <figure>
-              <img src={Voiture} alt="Icon voiture" />
-            </figure>
+            <NavLink to={`/cars/${car.id}`}>
+              <figure>
+                {/* Condition d'affichage de l'icône en fonction du type de véhicule */}
+                {car.typeVehicules === 'Voiture' && (
+                  <img src={iconVoiture} alt="Icon voiture" />
+                )}
+                {car.typeVehicules === 'Camion' && (
+                  <img src={iconCamion} alt="Icon camion" />
+                )}
+                {car.typeVehicules === 'Moto' && (
+                  <img src={iconMoto} alt="Icon moto" />
+                )}
+              </figure>
+            </NavLink>
             <div className="card-body flex items-center">
               <div className="flex-grow" />
               <h2 className="card-title">{car.modele}</h2>
-              <button className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2">
+              <button
+                className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2"
+                onClick={() => handleDeleteCar(car.id)}
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -50,7 +71,7 @@ function CarsList() {
                 </svg>
               </button>
             </div>
-          </NavLink>
+          </div>
         ))}
       </div>
       <CarsForm onAddCar={handleAddCar} />
