@@ -1,40 +1,29 @@
-import Voiture from '../../../../assets/icon-voiture.png';
 import { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import Voiture from '../../../../assets/icon-voiture.png';
+
 import CarsForm from './Form/Form';
 
-const CarsData = [
-  {
-    id: '1',
-    Modele: 'BMW Série 3',
-    KmMois: '1200',
-    TypeVehicules: 'Voiture',
-    KmActuel: '126000',
-  },
-  {
-    id: '2',
-    Modele: 'BMW Série 1',
-    KmMoyenMois: '566',
-    TypeVehicules: 'Voiture',
-    KmActuel: '5000',
-  },
-  {
-    id: '3',
-    Modele: 'Porsche GT2 RS',
-    KmMoyenMois: '200',
-    TypeVehicules: 'Voiture',
-    KmActuel: '800',
-  },
-];
-
 function CarsList() {
+  const [cars, setCars] = useState([]);
+
+  const handleAddCar = (newCar) => {
+    const newCarWithId = {
+      ...newCar,
+      id: Date.now().toString(),
+    };
+    setCars([...cars, newCarWithId]);
+  };
+
   return (
     <div className="bg-base-200  min-h-screen h-full">
       <div className="pt-8">
         <h1 className="text-4xl mb-10 flex justify-center">CarTool</h1>
       </div>
       <div className="flex flex-wrap justify-center">
-        {CarsData.map((car) => (
-          <div
+        {cars.map((car) => (
+          <NavLink
+            to={`/cars/${car.id}`}
             className="card w-full sm:w-96 bg-base-100 shadow-xl my-4 mx-2"
             key={car.id}
           >
@@ -43,7 +32,7 @@ function CarsList() {
             </figure>
             <div className="card-body flex items-center">
               <div className="flex-grow" />
-              <h2 className="card-title">{car.Modele}</h2>
+              <h2 className="card-title">{car.modele}</h2>
               <button className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -61,10 +50,10 @@ function CarsList() {
                 </svg>
               </button>
             </div>
-          </div>
+          </NavLink>
         ))}
       </div>
-      <CarsForm></CarsForm>
+      <CarsForm onAddCar={handleAddCar} />
     </div>
   );
 }

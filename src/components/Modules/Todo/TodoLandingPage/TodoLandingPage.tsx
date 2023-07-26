@@ -2,13 +2,11 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../../../hooks/redux';
-import Form from './Form/Form';
 
 const API_URL = 'http://localhost:3002/api';
 
 interface User {
   userId: number;
-
 }
 
 function TodoList() {
@@ -17,8 +15,7 @@ function TodoList() {
 
   const userId = useAppSelector((state) => Number(state.user.userId));
 
-
-console.log(typeof userId)
+  console.log(typeof userId);
 
   const getLists = async () => {
     const { data } = await axios.get(`${API_URL}/list`);
