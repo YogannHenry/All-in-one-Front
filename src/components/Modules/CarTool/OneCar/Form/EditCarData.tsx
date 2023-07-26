@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 function EditCarData() {
   const [carData, setCarData] = useState({
-    Modele: 'BMW Série 3',
+    name: 'BMW Série 3',
     KmMois: '1200',
     TypeVehicules: 'Voiture',
     KmActuel: '126000',
@@ -30,9 +30,9 @@ function EditCarData() {
               Modèle:
               <input
                 type="text"
-                value={carData.Modele}
+                value={carData.name}
                 onChange={(e) =>
-                  setCarData({ ...carData, Modele: e.target.value })
+                  setCarData({ ...carData, name: e.target.value })
                 }
                 className="border rounded px-2 py-1 w-48"
               />
@@ -93,7 +93,7 @@ function EditCarData() {
         </div>
       ) : (
         <div>
-          <p className="mb-2 font-semibold">Modèle: {carData.Modele}</p>
+          <p className="mb-2 font-semibold">Modèle: {carData.name}</p>
           <p className="mb-2 font-semibold">Km par mois: {carData.KmMois}</p>
           <p className="mb-2 font-semibold">
             Type de véhicule: {carData.TypeVehicules}

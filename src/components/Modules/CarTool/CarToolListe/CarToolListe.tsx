@@ -1,27 +1,54 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { NavLink } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
 import iconVoiture from '../../../../assets/icon-voiture.png';
-
 import iconCamion from '../../../../assets/icon-camion.png';
 import iconMoto from '../../../../assets/icon-moto.png';
 
 import CarsForm from './Form/Form';
 
+const API_URL = 'http://localhost:3002/api';
+
 function CarsList() {
   const [cars, setCars] = useState([]);
 
-  const handleAddCar = (newCar) => {
-    const newCarWithId = {
-      ...newCar,
-      id: Date.now().toString(),
-    };
-    setCars([...cars, newCarWithId]);
+  const userToken = useSelector((state) => state.user.token);
+
+  const handleAddCar = async (newCar) => {
+    try {
+      const response = await axios.post(`${API_URL}/car`, newCar);
+      setCars([...cars, response.data]);
+    } catch (error) {
+      console.error("Erreur lors de l'ajout de la voiture:", error);
+    }
   };
 
-  const handleDeleteCar = (carId) => {
-    const updatedCars = cars.filter((car) => car.id !== carId);
-    setCars(updatedCars);
+  const handleDeleteCar = async (carId) => {
+    try {
+      await axios.delete(`${API_URL}/car/${carId}`);
+      setCars(cars.filter((car) => car.id !== carId));
+    } catch (error) {
+      console.error('Erreur lors de la suppression de la voiture:', error);
+    }
   };
+
+  useEffect(() => {
+    // Utilisez le token JWT pour effectuer la requête API
+    const getCars = async () => {
+      try {
+        const response = await axios.get(`${API_URL}/car`, {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        });
+        setCars(response.data);
+      } catch (error) {
+        console.error('Erreur lors du chargement des voitures:', error);
+      }
+    };
+    getCars();
+  }, [userToken]);
 
   return (
     <div className="bg-base-200  min-h-screen h-full">
@@ -50,7 +77,7 @@ function CarsList() {
             </NavLink>
             <div className="card-body flex items-center">
               <div className="flex-grow" />
-              <h2 className="card-title">{car.modele}</h2>
+              <h2 className="card-title">{car.name}</h2>
               <button
                 className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2"
                 onClick={() => handleDeleteCar(car.id)}

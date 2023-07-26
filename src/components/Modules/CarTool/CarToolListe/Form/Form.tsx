@@ -3,13 +3,13 @@ import { useState } from 'react';
 function CarsForm({ onAddCar }) {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [newCar, setNewCar] = useState({
-    modele: '',
-    kmMois: '',
-    typeVehicules: '',
-    kmActuel: '',
+    name: '',
+    km_per_month: '',
+    type: '',
+    current_km: '',
   });
 
-  const vehicleTypes = ['Voiture', 'Moto', 'Camion'];
+  const type = ['Voiture', 'Moto', 'Camion'];
 
   const handlePlusButtonClick = () => {
     setIsFormOpen(!isFormOpen);
@@ -26,18 +26,18 @@ function CarsForm({ onAddCar }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (
-      newCar.modele.trim() &&
-      newCar.kmMois.trim() &&
-      newCar.typeVehicules &&
-      newCar.kmActuel.trim()
+      newCar.name.trim() &&
+      newCar.km_per_month.trim() &&
+      newCar.type &&
+      newCar.current_km.trim()
     ) {
       // Appeler la fonction onAddCar du composant parent pour ajouter la nouvelle voiture
       onAddCar(newCar);
       setNewCar({
-        modele: '',
-        kmMois: '',
-        typeVehicules: '',
-        kmActuel: '',
+        name: '',
+        km_per_month: '',
+        type: '',
+        current_km: '',
       });
       setIsFormOpen(false);
     } else {
@@ -81,8 +81,8 @@ function CarsForm({ onAddCar }) {
                   <input
                     type="text"
                     className="input input-bordered w-full"
-                    name="modele"
-                    value={newCar.modele}
+                    name="name"
+                    value={newCar.name}
                     onChange={handleChange}
                     placeholder="Entrez le modèle"
                   />
@@ -94,8 +94,8 @@ function CarsForm({ onAddCar }) {
                   <input
                     type="text"
                     className="input input-bordered w-full"
-                    name="kmMois"
-                    value={newCar.kmMois}
+                    name="km_per_month"
+                    value={newCar.km_per_month}
                     onChange={handleChange}
                     placeholder="Entrez les kilomètres par mois"
                   />
@@ -106,16 +106,16 @@ function CarsForm({ onAddCar }) {
                   </label>
                   <select
                     className="select select-bordered w-full max-w-xs"
-                    name="typeVehicules"
-                    value={newCar.typeVehicules}
+                    name="type"
+                    value={newCar.type}
                     onChange={handleChange}
                   >
                     <option disabled value="">
                       Choisissez le type de véhicules
                     </option>
-                    {vehicleTypes.map((type) => (
-                      <option key={type} value={type}>
-                        {type}
+                    {type.map((types) => (
+                      <option key={types} value={types}>
+                        {types}
                       </option>
                     ))}
                   </select>
@@ -125,8 +125,8 @@ function CarsForm({ onAddCar }) {
                   <input
                     type="text"
                     className="input input-bordered w-full max-w-xs mb-2"
-                    name="kmActuel"
-                    value={newCar.kmActuel}
+                    name="current_km"
+                    value={newCar.current_km}
                     onChange={handleChange}
                     placeholder="Entrez les kilomètres Actuel"
                   />
