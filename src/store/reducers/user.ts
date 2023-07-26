@@ -4,11 +4,9 @@ import {
   createReducer,
 } from '@reduxjs/toolkit';
 
-// Au lieu d'utiliser Axios pour mes requêtes,
-// je vais utiliser une **instance** d'Axios qui me permet
-// de personnaliser mes appels
-// import axios from 'axios';
-import axiosInstance from '../../utils/axios';
+import axios from 'axios';
+
+const API_URL = 'http://localhost:3002/api';
 
 interface UserState {
   logged: boolean;
@@ -22,51 +20,48 @@ export const initialState: UserState = {
 };
 
 // Action pour la déconnexion
-export const logout = createAction('/logout');
+export const logout = createAsyncThunk(`${API_URL}/logout`, async () => {
+  // Supprimer le token du local storage
+  localStorage.removeItem('token');
+});
 
 // Thunk pour la connexion
-export const login = createAsyncThunk('/login', async (formData: FormData) => {
-  const objData = Object.fromEntries(formData);
-  console.log('objData2', objData);
+export const login = createAsyncThunk(
+  '/login',
+  async (formData: FormData, { rejectWithValue }) => {
+    try {
+      const objData = Object.fromEntries(formData);
+      console.log('objData2', objData);
 
-  const { data } = await axiosInstance.post('/login', objData);
-  console.log('data', data);
+      const { data } = await axios.post(`${API_URL}/login`, objData);
+      console.log('data', data);
 
-  // après m'être connecté, j'ajoute mon token directement
-  // dans l'instance Axios
-  axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
-  localStorage.setItem('token', data.token);
-  // le token est utilisé ci-dessus, je n'en ai plus besoin
-  // je le supprime de mes données
-  delete data.token;
+      // Après la connexion réussie, stockez le token dans le local storage
+      localStorage.setItem('token', data.token);
 
-  return data as {
-    logged: boolean;
-    pseudo: string;
-    userId: number;
-  };
-});
+      return data as {
+        logged: boolean;
+        pseudo: string;
+        userId: number;
+      };
+    } catch (error) {
+      // En cas d'erreur, utilisez rejectWithValue pour renvoyer l'erreur avec le payload
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 const userReducer = createReducer(initialState, (builder) => {
   builder
     .addCase(login.fulfilled, (state, action) => {
-      // enregistrer les données retournées par l'API
-      // l'action `login.fulfilled` (générée par le thunk)
-      // contient un payload avec les données retournées par l'API
       state.logged = action.payload.logged;
       state.pseudo = action.payload.pseudo;
       state.userId = action.payload.userId;
       console.log('action.payload', action.payload);
     })
     .addCase(logout, (state) => {
-      // je ré-initialise mes données depuis mon state initial
       state.logged = initialState.logged;
       state.pseudo = initialState.pseudo;
-
-      // à la déconnexion, je supprime le JWT de mon instance Axios
-      delete axiosInstance.defaults.headers.common.Authorization;
-
-      localStorage.removeItem('token');
     });
 });
 
