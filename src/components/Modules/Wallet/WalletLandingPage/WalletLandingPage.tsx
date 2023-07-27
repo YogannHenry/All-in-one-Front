@@ -5,6 +5,7 @@ import { useAppSelector } from '../../../../hooks/redux';
 import axios from 'axios';
 import API_URL from '../../../API_URL';
 import {  FolderIcon,  CalculatorIcon,  ClipboardDocumentIcon,  CreditCardIcon,  AcademicCapIcon,GlobeEuropeAfricaIcon,BookOpenIcon,CurrencyEuroIcon,FilmIcon,ShoppingCartIcon,HomeIcon,TruckIcon,} from '@heroicons/react/24/solid';
+import { NavLink } from 'react-router-dom';
 
 const iconComponents = {  FolderIcon,  CalculatorIcon,  ClipboardDocumentIcon,  CreditCardIcon,  AcademicCapIcon,  GlobeEuropeAfricaIcon,  BookOpenIcon,  CurrencyEuroIcon,  FilmIcon,  ShoppingCartIcon,  HomeIcon,  TruckIcon,};
 
@@ -32,6 +33,7 @@ function WalletLandingPage() {
 
       // Mettre à jour l'état des Wallets avec le nouveau Wallet ajouté
       setWallets((prevWallets) => [...prevWallets, data]);
+      getWallets();
     } catch (error) {
       console.error('Erreur lors de la création du Wallet :', error);
     }
@@ -54,6 +56,7 @@ function WalletLandingPage() {
 
   useEffect(() => {
     getWallets();
+    
   }, []);
 
 
@@ -71,11 +74,11 @@ function WalletLandingPage() {
             />
             <div className="card max-md:w-full bg-base-100 shadow-xl">
               {wallets.map((wallet: Wallet) => (
-                <div
+                <NavLink 
+                to={`/wallet/${wallet.id}`}
                   key={wallet.id}
-                  id={wallet.id}
-                  className="flex justify-between items-center h-14 p-4 border-b-2 border-white bg-base-200 hover:bg-[var(--color-primary-500)] hover:text-white hover:stroke-white"
-                >
+                  className="flex justify-between items-center h-14 p-4 border-b-2 border-white bg-base-200 hover:bg-[var(--color-primary-500)] hover:text-white hover:stroke-white" 
+                 >
                   <div className='h-8 w-8 text-[var(--color-primary-500)]'>{createDynamicIconComponent(wallet.icon)}</div>
                   
 
@@ -103,7 +106,7 @@ function WalletLandingPage() {
                       </svg>
                     </button>
                   </div>
-                </div>
+                </NavLink>
               ))}
             </div>
           </div>

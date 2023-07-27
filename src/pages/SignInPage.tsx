@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { login, register } from '../store/reducers/user';
 import Field from './LoginField';
 import CoilBackground from '../assets/SvgBackground/CoilBackground';
+import clipartFallout from '../assets/1460481845.svg';
 
 function SignInPage() {
   const isRegistered = useAppSelector((state) => state.user.registered);
@@ -32,7 +33,7 @@ function SignInPage() {
     <div>
       {isLogged && (
         <div className="hero  pb-60 bg-base-200 h-screen">
-          <form className="hero-content text-center">
+          <form className="hero-content text-center max-md:flex-col">
             <div className="max-w-md">
               <h1 className="text-5xl font-bold flex flex-col gap-4">
                 Bienvenue 
@@ -61,6 +62,7 @@ function SignInPage() {
               </svg>
             </div>
           </form>
+          <img src={clipartFallout} alt='Fallout clipart' className='max-md:w-1/2 w-1/3  fill-red-500 stroke-red-500' />       
         </div>
       )}
       {!isLogged && isRegistered && (
