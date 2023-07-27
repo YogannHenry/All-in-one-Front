@@ -23,6 +23,7 @@ export const initialState: UserState = {
 export const logout = createAsyncThunk(`${API_URL}/logout`, async () => {
   // Supprimer le token du local storage
   localStorage.removeItem('token');
+  return false;
 });
 
 // Thunk pour la connexion
@@ -35,7 +36,6 @@ export const login = createAsyncThunk(
 
       const { data } = await axios.post(`${API_URL}/login`, objData);
       console.log('data', data);
-
       // Après la connexion réussie, stockez le token dans le local storage
       localStorage.setItem('token', data.token);
 
@@ -45,11 +45,12 @@ export const login = createAsyncThunk(
         userId: number;
       };
     } catch (error) {
-      // En cas d'erreur, utilisez rejectWithValue pour renvoyer l'erreur avec le payload
       return rejectWithValue(error.response.data);
     }
   }
 );
+
+export const initializeUser = createAction('user/initialize');
 
 const userReducer = createReducer(initialState, (builder) => {
   builder
@@ -59,9 +60,15 @@ const userReducer = createReducer(initialState, (builder) => {
       state.userId = action.payload.userId;
       console.log('action.payload', action.payload);
     })
-    .addCase(logout, (state) => {
-      state.logged = initialState.logged;
-      state.pseudo = initialState.pseudo;
+    .addCase(logout.fulfilled, (state, action) => {
+      state.logged = action.payload;
+      state.pseudo = null;
+      state.userId = null;
+    })
+    .addCase(initializeUser, (state) => {
+      // Vérifiez si le token est présent dans le local storage et définissez l'état "logged" en conséquence
+      const token = localStorage.getItem('token');
+      state.logged = !!token;
     });
 });
 

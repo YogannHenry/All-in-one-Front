@@ -7,7 +7,8 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 
-import store from './store';
+import store, { AppDispatch } from './store/index';
+import { initializeUser } from './store/reducers/user';
 
 import App from './components/App/App';
 import Home from './components/Home/Home';
@@ -16,7 +17,6 @@ import Login from './pages/LoginPage';
 import Contact from './pages/ContactPage';
 import TodoList from './components/Modules/Todo/TodoListPage/TodoListPage';
 import TodoListPage from './components/Modules/Todo/TodoListPage/TodoListPage';
-import TodoListPage2 from './components/Modules/Todo/TodoListPage/Form/Form';
 import Wallet from './components/Modules/Wallet/WalletLandingPage/WalletLandingPage';
 import DocumentsPage from './components/Modules/Wallet/WalletDocumentsPage/WalletDocumentsPage';
 import CarsList from './components/Modules/CarTool/CarToolListe/CarToolListe';
@@ -24,6 +24,8 @@ import Landing from './components/Modules/Todo/TodoLandingPage/TodoLandingPage';
 import OneCar from './components/Modules/CarTool/OneCar/OneCar';
 
 import './styles/global.css';
+
+(store.dispatch as AppDispatch)(initializeUser());
 
 const router = createBrowserRouter(
   createRoutesFromElements(

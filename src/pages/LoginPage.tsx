@@ -1,16 +1,14 @@
-import { FormEvent } from 'react';
+import { FormEvent, useEffect } from 'react'; // Importez useEffect
+// Importez useHistory pour la redirection
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { login } from '../store/reducers/user';
+import { login, logout } from '../store/reducers/user';
 import Field from './LoginField';
 
 import CoilBackground from '../assets/SvgBackground/CoilBackground';
 
 function LoginPage() {
   const isLogged = useAppSelector((state) => state.user.logged);
-  console.log(isLogged);
-
   const loggedMessage = useAppSelector((state) => ` ${state.user.pseudo}`);
-
   const dispatch = useAppDispatch();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -19,6 +17,7 @@ function LoginPage() {
     const formData = new FormData(event.currentTarget);
     dispatch(login(formData));
   };
+
   return (
     <div>
       {isLogged && (
