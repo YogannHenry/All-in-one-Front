@@ -114,12 +114,12 @@ function TodoList() {
                   <div className="collapse-content">
                   <ul>
                 {selectedListTasks.map((task) => (
-                  <li key={task.id}>{task.name}</li>
+                  <li className="pl-5 pb-1" key={task.id}>{task.name}</li>
                 ))}
               </ul>
                   </div>
                 </div>
-                <div className="flex p-2 items-center md:w-1/2">
+                <div className="flex p-2 gap-4 items-center md:w-1/2">
                   <div className="flex-grow" />
                   <NavLink
                     to={`/list/${list.id}`}

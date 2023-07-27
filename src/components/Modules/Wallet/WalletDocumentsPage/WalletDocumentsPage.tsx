@@ -46,6 +46,28 @@ function WalletDocumentsPage() {
   };
 
   const downloadFile = async (documentId: number) => {
+    try {
+      const response = await axios.get(`${API_URL}/wallet/document/${documentId}/download`, {
+        responseType: 'blob',
+      });
+  
+      // Create a download link for the file
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      console.log('url:', url);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', response.headers['content-disposition'].split('=')[1]);
+      document.body.appendChild(link);
+      
+      // Trigger the download
+      link.click();
+  
+      // Clean up the temporary URL and link element
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error while downloading the document:', error);
+    }
   };
 
   useEffect(() => {
