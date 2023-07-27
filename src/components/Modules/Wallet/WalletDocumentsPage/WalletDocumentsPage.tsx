@@ -18,6 +18,7 @@ const getOneWallet = async () => {
   setWallet(data);
 };
 
+
   const getDocuments = async () => {
     const { data } = await axios.get(`${API_URL}/wallet/${walletId}/document`);
     setDocuments(data);
@@ -81,10 +82,10 @@ const getOneWallet = async () => {
     getDocuments();
     getOneWallet();
     
-  }, [wallet]);
+  }, []);
 
-  const walletName = wallet.map((list) => wallet.name);
-console.log('walletName:', walletName);
+  const walletName = wallet.map((wallet) => wallet.name);
+
   return (
     <div>
      <TriangleBlur />

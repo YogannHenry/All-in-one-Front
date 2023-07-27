@@ -38,7 +38,7 @@ function CarsList() {
     const getCars = async () => {
       try {
         const userToken = localStorage.getItem('token');
-        console.log(userToken);
+        console.log("userToken",userToken);
 
         if (userToken) {
           // Ajouter le token à l'en-tête de la requête

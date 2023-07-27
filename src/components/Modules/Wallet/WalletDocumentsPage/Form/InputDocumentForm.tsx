@@ -1,20 +1,20 @@
+import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid';
 import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
 
 // ici, onSubmit est une fonction qui sera passée en props depuis le composant parent
 function InputDocumentForm({ onSubmit, documentInformationFromInput }) {
-
   // Ici, on utilise le hook useState pour gérer le fichier sélectionné
   const [selectedFile, setSelectedFile] = useState(null);
 
-// Ici, on utilise le hook useState pour gérer l'affichage des détails de façon interactive
+  // Ici, on utilise le hook useState pour gérer l'affichage des détails de façon interactive
   const [showDetails, setShowDetails] = useState(false);
-// Ici, on utilise le hook useState pour gérer les détails du document
+  // Ici, on utilise le hook useState pour gérer les détails du document
   const [documentDetails, setDocumentDetails] = useState({
     name: '',
     information: '',
     date: '',
   });
-
 
   // Fonction pour gérer l'apparition du menu lors de lq selection d'un fichier
   const handleFileChange = (event) => {
@@ -25,8 +25,6 @@ function InputDocumentForm({ onSubmit, documentInformationFromInput }) {
     setShowDetails(true);
   };
 
-  
-  
   // Fonction pour gérer le changement des détails du document
   const handleInputChange = (event) => {
     // ici, on récupère le nom et la valeur de l'input
@@ -34,8 +32,7 @@ function InputDocumentForm({ onSubmit, documentInformationFromInput }) {
     // ici, on met à jour le state avec les détails du document, en utilisant le spread operator pour garder les valeurs précédentes
     setDocumentDetails({ ...documentDetails, [name]: value });
   };
-  
-  
+
   // Fonction pour gérer la soumission du formulaire
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -43,11 +40,10 @@ function InputDocumentForm({ onSubmit, documentInformationFromInput }) {
     // ici, on crée un objet avec les détails du document et le fichier sélectionné
     onSubmit(selectedFile, documentDetails);
 
-    documentInformationFromInput(documentDetails)
-    
+    documentInformationFromInput(documentDetails);
 
-    console.log('documentDetails', documentDetails)
-    
+    console.log('documentDetails', documentDetails);
+
     // Réinitialiser le formulaire
     setSelectedFile(null);
     setShowDetails(false);
@@ -59,20 +55,23 @@ function InputDocumentForm({ onSubmit, documentInformationFromInput }) {
   };
 
   return (
-    <div>
-     
-        <div className="pb-10 flex justify-start w-full">
-          <input
-            type="file"
-            // ici, on utilise onChange pour gérer le changement de fichier
-            onChange={handleFileChange}
-            className="file-input border-[var(--color-primary-500)] "
-          />
-        </div>
-     
-  
+    <div className="flex">
+      <NavLink
+        to="/wallet"
+        className="btn bg-[var(--color-primary-300)] mr-10 mb-2"
+      >
+        <ArrowUturnLeftIcon className="h-10 w-10 text-white" />
+      </NavLink>
+      <div className="pb-10 flex justify-start w-full">
+        <input
+          type="file"
+          // ici, on utilise onChange pour gérer le changement de fichier
+          onChange={handleFileChange}
+          className="file-input border-[var(--color-primary-500)] "
+        />
+      </div>
 
-{/* Afficher les détails lorsque le fichier est sélectionné */}
+      {/* Afficher les détails lorsque le fichier est sélectionné */}
       {showDetails && (
         <form className="relative" onSubmit={handleSubmit}>
           <label htmlFor="name" className="block mb-2">
@@ -111,8 +110,11 @@ function InputDocumentForm({ onSubmit, documentInformationFromInput }) {
             className="input input-bordered input-sm max-w-xs"
           />
 
-          <button type="submit" className="btn bg-[var(--color-primary-300)] ml-5  text-white px-4 py-2">
-          <svg
+          <button
+            type="submit"
+            className="btn bg-[var(--color-primary-300)] ml-5  text-white px-4 py-2"
+          >
+            <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
               viewBox="0 0 24 24"
@@ -120,7 +122,11 @@ function InputDocumentForm({ onSubmit, documentInformationFromInput }) {
               stroke="currentColor"
               className="w-6 h-6"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M12 4.5v15m7.5-7.5h-15"
+              />
             </svg>
           </button>
         </form>
