@@ -25,11 +25,8 @@ import OneCar from './components/Modules/CarTool/OneCar/OneCar';
 
 import './styles/global.css';
 
-const token = localStorage.getItem('token');
-if (token) {
-  // Si le token est présent, déclenchez l'action d'initialisation pour remplir le state avec les données utilisateur
-  (store.dispatch as AppDispatch)(initializeUser());
-}
+// Si le token est présent, déclenchez l'action d'initialisation pour remplir le state avec les données utilisateur
+(store.dispatch as AppDispatch)(initializeUser());
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -37,8 +34,6 @@ const router = createBrowserRouter(
       <Route index element={<Home />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/Login" element={<Login />} />
-      <Route path="/TodoList" element={<TodoList />} />
-      <Route path="/Contact" element={<Contact />} />
       <Route path="/Contact" element={<Contact />} />
       <Route path="/TodoList" element={<TodoList />} />
       <Route path="/list/:listId" element={<TodoListPage />} />

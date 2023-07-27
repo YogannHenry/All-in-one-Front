@@ -11,8 +11,6 @@ interface ThemeProps {
 }
 
 function NavBar() {
-  console.log('NavBar - Rendu de la NavBar');
-
   const isLogged = useAppSelector((state) => state.user.logged);
 
   const dispatch = useAppDispatch();

@@ -54,10 +54,6 @@ export const login = createAsyncThunk(
 );
 
 export const initializeUser = createAction('user/initialize');
-export const updateUser = createAction<{
-  pseudo: string | null;
-  userId: number | null;
-}>('user/update');
 
 const userReducer = createReducer(initialState, (builder) => {
   builder
@@ -71,15 +67,8 @@ const userReducer = createReducer(initialState, (builder) => {
       state.logged = action.payload;
       state.pseudo = null;
       state.userId = null;
-
       localStorage.removeItem('pseudo');
       localStorage.removeItem('userId');
-    })
-
-    .addCase(updateUser, (state, action) => {
-      // Mettre à jour les données du pseudo et de l'ID utilisateur dans le state
-      state.pseudo = action.payload.pseudo;
-      state.userId = action.payload.userId;
     })
 
     .addCase(initializeUser, (state) => {
