@@ -1,20 +1,79 @@
+import axios from 'axios';
 import TriangleBlur from '../../../../assets/SvgBackground/TriangleBlur';
+import API_URL from '../../../API_URL';
 import InputDocumentForm from './Form/InputDocumentForm';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 function WalletDocumentsPage() {
+  const { walletId } = useParams();
   const [documents, setDocuments] = useState([]);
+  // Ici, on utilise le hook useState pour gérer les documents soumis
+  const [submittedDocuments, setSubmittedDocuments] = useState([]);
 
-  // Fonction pour ajouter un nouveau document soumis
-  const addDocument = (document) => {
-    setDocuments([...documents, document]);
+  const getDocuments = async () => {
+    const { data } = await axios.get(`${API_URL}/wallet/${walletId}/document`);
+    setDocuments(data);
   };
+  // Fonction pour ajouter un nouveau document soumis
+  const addDocument = async (newDocument, documentDetails) => {
+    try {
+      console.log('newDocument:', newDocument); 
+  console.log('newDocument:', newDocument); 
+      const formData = new FormData();
+      formData.append('uploaded_file', newDocument);
+      formData.append('name', documentDetails.name);
+      formData.append('information', documentDetails.information);
+  
+      const { data } = await axios.post(`${API_URL}/wallet/${walletId}/document`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+  
+      // Mettre à jour l'état des Documents avec le nouveau Document ajouté
+      setDocuments((prevDocuments) => [...prevDocuments, data]);
+      getDocuments();
+    } catch (error) {
+      console.error('Erreur lors de la création du document :', error);
+    }
+  };
+  
 
-  const deleteDocument = (documentId) => {
+  const deleteDocument = async (documentId: number) => {
+    const { data } = await axios.delete(`${API_URL}/wallet/document/${documentId}`);
     setDocuments(documents.filter((document) => document.id !== documentId));
   };
 
-  console.log(documents);
+  const downloadFile = async (documentId: number) => {
+    try {
+      const response = await axios.get(`${API_URL}/wallet/document/${documentId}/download`, {
+        responseType: 'blob',
+      });
+  
+      // Create a download link for the file
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      console.log('url:', url);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', response.headers['content-disposition'].split('=')[1]);
+      document.body.appendChild(link);
+      
+      // Trigger the download
+      link.click();
+  
+      // Clean up the temporary URL and link element
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error while downloading the document:', error);
+    }
+  };
+
+  useEffect(() => {
+    getDocuments();
+    
+  }, []);
 
   return (
     <div>
@@ -22,7 +81,9 @@ function WalletDocumentsPage() {
       <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen bg-base-200 z-10  ">
         <h1 className="text-5xl font-bold pb-10">Santé</h1>
 
-        <InputDocumentForm onSubmit={addDocument} />
+        <InputDocumentForm 
+        onSubmit={addDocument}
+        documentInformationFromInput={setSubmittedDocuments} />
 
         <div className="card max-md:w-full w-1/2 bg-base-100 shadow-xl">
           {documents.map((document) => (
@@ -36,7 +97,7 @@ function WalletDocumentsPage() {
                   <p className="uppercase">{document.name}</p>
                   <p className="text-sm">{document.date}</p>
                 </div>
-                <p className="text-slate-400 text-sm">{document.description}</p>
+                <p className="text-slate-400 text-sm">{document.information}</p>
               </div>
               <div className="card-actions justify-around">
                 <button className="btn bg-[var(--color-primary-300)] text-white">
@@ -44,7 +105,8 @@ function WalletDocumentsPage() {
                 </button>
               </div>
               <div className="card-actions justify-around">
-                <button className="">
+                <button className=""
+                onClick={() => downloadFile(document.id)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

@@ -1,18 +1,16 @@
 import { FormEvent } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { login, logout } from '../store/reducers/user';
+import { login } from '../store/reducers/user';
 import Field from './LoginField';
-
+import clipartFallout from '../assets/1460481845.svg';
 import CoilBackground from '../assets/SvgBackground/CoilBackground';
 
 function LoginPage() {
   const isLogged = useAppSelector((state) => state.user.logged);
-  console.log(isLogged);
 
   const loggedMessage = useAppSelector((state) => ` ${state.user.pseudo}`);
 
   const dispatch = useAppDispatch();
-
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -23,37 +21,37 @@ function LoginPage() {
   return (
     <div>
       {isLogged && (
-        <div className="hero h-5/6 pb-60 bg-base-200 h-screen">
-       
-          <form className="hero-content text-center">
-            <div className="max-w-md">
-              <h1 className="text-5xl textfont-bold flex flex-col gap-4">
-                Bienvenue 
+        <div className="hero pb-40 bg-base-200 h-screen">
+          <form className="hero-content max-md:flex-col max-md:pt-10">
+            <div className="max-w-md flex  flex-col items-center text-center ">
+              <h1 className="text-5xl textfont-bold flex   flex-col gap-4">
+                Content de te voir
                 <span className="text-[var(--color-primary-500)]">
-                   {loggedMessage} 
+                  {loggedMessage}
                 </span>
-                 sur All-in-One
+                sur All-in-One
               </h1>
               <p className="py-6">
                 Découvre dès maintenant toutes les fonctionnalités en appuyant
                 sur ce bouton présent dans le menu de navigation:
               </p>
               <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-10 w-10"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h7"
-            />
-          </svg>
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-10 w-10"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h7"
+                />
+              </svg>
             </div>
-          </form>
+            <img src={clipartFallout} alt='Fallout clipart' className='max-md:w-1/2 w-1/3  fill-red-500 stroke-red-500' />       
+               </form>
         </div>
       )}
       {!isLogged && (

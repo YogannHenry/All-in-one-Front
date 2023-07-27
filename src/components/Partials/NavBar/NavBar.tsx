@@ -5,9 +5,15 @@ import ThemeButton from './ThemeButton/ThemeButton';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { logout } from '../../../store/reducers/user';
 
+
 interface ThemeProps {
   colorTheme: String;
   handleColorChange: String;
+}
+
+interface List {
+  id: number;
+  name: string;
 }
 
 function NavBar() {
@@ -17,9 +23,16 @@ function NavBar() {
 
   const dispatch = useAppDispatch();
 
+
+
+
+
   function handleLogout() {
     dispatch(logout());
   }
+
+
+
   return (
     <div>
       {isLogged && (
@@ -39,7 +52,7 @@ function NavBar() {
      
         <button
           onClick={handleLogout}
-          className={`btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]`}
+          className={`btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] ml-4`}
         >
           se déconnecter 
         </button>

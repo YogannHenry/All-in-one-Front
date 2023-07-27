@@ -7,11 +7,16 @@ interface TasksItemProps {
 }
 
 function TasksItem({ task, updateTask, deleteTask }: TasksItemProps) {
-  const { id, name, done } = task;
+  const { id, name, status } = task;
 
   function handleChange() {
-    updateTask(id);
+    const updatedTaskData = {
+      status: !status,
+    };
+    console.log('Delete button clicked');
+    updateTask(id, updatedTaskData);
   }
+
 
   function handleClick() {
     deleteTask(id);
@@ -21,13 +26,13 @@ function TasksItem({ task, updateTask, deleteTask }: TasksItemProps) {
   
   return (
     <div className="card w-1/2 bg-base-100 shadow-xl">
-            <div className={done ? 'flex justify-between items-center h-14 px-4 border-b-2 first-line:rounded block flex-grow line-through opacity-50' : 'flex justify-between items-center h-14 px-4 border-b-2 '}>
+            <div className={status ? 'flex justify-between items-center h-14 px-4 border-b-2 first-line:rounded  flex-grow line-through opacity-50' : 'flex justify-between items-center h-14 px-4 border-b-2 '}>
             
               <div className="form-control">
                 <label className="cursor-pointer label">
                   <input
                     type="checkbox"
-                    checked={done}
+                    checked={status}
                     className="checkbox border-[var(--color-primary-300)]"
                     onChange={handleChange}
                   />
