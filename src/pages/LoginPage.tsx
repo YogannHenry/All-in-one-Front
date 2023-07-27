@@ -1,9 +1,9 @@
 import { FormEvent, useEffect } from 'react'; // Importez useEffect
 // Importez useHistory pour la redirection
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
-import { login, logout } from '../store/reducers/user';
+import { login } from '../store/reducers/user';
 import Field from './LoginField';
-
+import clipartFallout from '../assets/1460481845.svg';
 import CoilBackground from '../assets/SvgBackground/CoilBackground';
 
 function LoginPage() {
@@ -21,11 +21,11 @@ function LoginPage() {
   return (
     <div>
       {isLogged && (
-        <div className="hero h-5/6 pb-60 bg-base-200 h-screen">
-          <form className="hero-content text-center">
-            <div className="max-w-md">
-              <h1 className="text-5xl textfont-bold flex flex-col gap-4">
-                Bienvenue
+        <div className="hero pb-40 bg-base-200 h-screen">
+          <form className="hero-content max-md:flex-col max-md:pt-10">
+            <div className="max-w-md flex  flex-col items-center text-center ">
+              <h1 className="text-5xl textfont-bold flex   flex-col gap-4">
+                Content de te voir
                 <span className="text-[var(--color-primary-500)]">
                   {loggedMessage}
                 </span>
@@ -50,6 +50,11 @@ function LoginPage() {
                 />
               </svg>
             </div>
+            <img
+              src={clipartFallout}
+              alt="Fallout clipart"
+              className="max-md:w-1/2 w-1/3  fill-red-500 stroke-red-500"
+            />
           </form>
         </div>
       )}

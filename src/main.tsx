@@ -42,7 +42,7 @@ const router = createBrowserRouter(
       <Route path="/list/:listId" element={<TodoListPage />} />
       <Route path="/list" element={<Landing />} />
       <Route path="/Wallet" element={<Wallet />} />
-      <Route path="/WalletDocumentsPage" element={<DocumentsPage />} />
+      <Route path="/wallet/:walletId" element={<DocumentsPage />} />
       <Route path="/cars" element={<CarsList />} />
       <Route path="/cars/:carsId" element={<OneCar />} />
     </Route>

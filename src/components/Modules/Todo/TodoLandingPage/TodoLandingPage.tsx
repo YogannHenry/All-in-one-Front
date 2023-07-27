@@ -3,23 +3,32 @@ import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../../../hooks/redux';
 
-const API_URL = 'http://localhost:3002/api';
+import { Task } from '../../../../@types';
+import API_URL from '../../../API_URL';
 
-interface User {
-  userId: number;
+interface List {
+  id: number;
+  name: string;
 }
 
 function TodoList() {
-  const [lists, setLists] = useState([]);
+  const [lists, setLists] = useState<List[]>([]);
   const [newList, setNewList] = useState('');
 
   const userId = useAppSelector((state) => Number(state.user.userId));
 
-  console.log(typeof userId);
+  const [selectedListTasks, setSelectedListTasks] = useState<Task[]>([]);
 
   const getLists = async () => {
     const { data } = await axios.get(`${API_URL}/list`);
     setLists(data);
+  };
+
+  // Récupérer les tâches d'une liste pour gérer la prévisualisation
+  const getTasksForList = async (listId: number) => {
+    const { data } = await axios.get(`${API_URL}/list/${listId}/task`);
+    const filteredTasks = data.filter((task) => task.status === false);
+    setSelectedListTasks(filteredTasks);
   };
 
   const addList = async (newList: string) => {
@@ -95,15 +104,25 @@ function TodoList() {
                 key={list.id}
               >
                 <div className="md:w-1/2 collapse">
-                  <input type="radio" name="my-accordion-1" />
+                  <input
+                    onClick={() => getTasksForList(list.id)}
+                    type="radio"
+                    name="my-accordion-1"
+                  />
                   <div className="collapse-title text-xl font-medium">
                     {list.name}
                   </div>
                   <div className="collapse-content">
-                    <p>- {list.name}</p>
+                    <ul>
+                      {selectedListTasks.map((task) => (
+                        <li className="pl-5 pb-1" key={task.id}>
+                          {task.name}
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-                <div className="flex p-2 items-center md:w-1/2">
+                <div className="flex p-2 gap-4 items-center md:w-1/2">
                   <div className="flex-grow" />
                   <NavLink
                     to={`/list/${list.id}`}

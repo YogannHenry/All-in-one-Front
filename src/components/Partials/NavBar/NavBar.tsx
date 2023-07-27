@@ -5,9 +5,15 @@ import ThemeButton from './ThemeButton/ThemeButton';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { logout } from '../../../store/reducers/user';
 
+
 interface ThemeProps {
   colorTheme: String;
   handleColorChange: String;
+}
+
+interface List {
+  id: number;
+  name: string;
 }
 
 function NavBar() {
@@ -15,12 +21,20 @@ function NavBar() {
 
   const dispatch = useAppDispatch();
 
+
+
+
+
   function handleLogout() {
     dispatch(logout());
   }
+
+
+
   return (
     <div>
       {isLogged && (
+<<<<<<< HEAD
         <div className="navbar bg-base-100">
           <div className="navbar-start">
             <DrawerButton />
@@ -44,6 +58,30 @@ function NavBar() {
             </button>
           </div>
         </div>
+=======
+    <div className="navbar bg-base-100">
+      <div className="navbar-start">
+        <DrawerButton />
+        <NavLink to="/" className="w-11 ml-5">
+          <img src={Logo} alt="Logo" className="object-scale-down" />
+        </NavLink>
+      </div>
+      <div className="navbar-center max-md:hidden">
+       
+      <h1 className='text-[var(--color-primary-500)] text-3xl'>All-In-One</h1>
+      </div>
+      <div className="navbar-end">
+        <ThemeButton />
+     
+        <button
+          onClick={handleLogout}
+          className={`btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] ml-4`}
+        >
+          se déconnecter 
+        </button>
+      </div>
+    </div>
+>>>>>>> 3dae8c900d1c1b571e42f95675b9d5283bafc1ad
       )}
 
       {!isLogged && (

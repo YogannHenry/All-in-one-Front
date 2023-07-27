@@ -1,18 +1,17 @@
 import React, { useState } from 'react';
 
 // ici, onSubmit est une fonction qui sera passée en props depuis le composant parent
-function InputDocumentForm({ onSubmit }) {
+function InputDocumentForm({ onSubmit, documentInformationFromInput }) {
 
   // Ici, on utilise le hook useState pour gérer le fichier sélectionné
   const [selectedFile, setSelectedFile] = useState(null);
-  // Ici, on utilise le hook useState pour gérer les documents soumis
-  const [submittedDocuments, setSubmittedDocuments] = useState([]);
-// Ici, on utilise le hook useState pour gérer l'affichage des détails
+
+// Ici, on utilise le hook useState pour gérer l'affichage des détails de façon interactive
   const [showDetails, setShowDetails] = useState(false);
 // Ici, on utilise le hook useState pour gérer les détails du document
   const [documentDetails, setDocumentDetails] = useState({
     name: '',
-    description: '',
+    information: '',
     date: '',
   });
 
@@ -27,30 +26,34 @@ function InputDocumentForm({ onSubmit }) {
   };
 
   
-// Fonction pour gérer le changement des détails du document
+  
+  // Fonction pour gérer le changement des détails du document
   const handleInputChange = (event) => {
     // ici, on récupère le nom et la valeur de l'input
     const { name, value } = event.target;
     // ici, on met à jour le state avec les détails du document, en utilisant le spread operator pour garder les valeurs précédentes
     setDocumentDetails({ ...documentDetails, [name]: value });
   };
-
+  
+  
   // Fonction pour gérer la soumission du formulaire
   const handleSubmit = (event) => {
     event.preventDefault();
 
     // ici, on crée un objet avec les détails du document et le fichier sélectionné
-    onSubmit(documentDetails);
+    onSubmit(selectedFile, documentDetails);
 
+    documentInformationFromInput(documentDetails)
     
-    setSubmittedDocuments([...submittedDocuments, documentDetails]);
 
+    console.log('documentDetails', documentDetails)
+    
     // Réinitialiser le formulaire
     setSelectedFile(null);
     setShowDetails(false);
     setDocumentDetails({
       name: '',
-      description: '',
+      information: '',
       date: '',
     });
   };
@@ -89,9 +92,9 @@ function InputDocumentForm({ onSubmit }) {
           </label>
           <input
             type="text"
-            id="description"
-            name="description"
-            value={documentDetails.description}
+            id="information"
+            name="information"
+            value={documentDetails.information}
             onChange={handleInputChange}
             className="input input-bordered input-sm w-full max-w-xs"
           />

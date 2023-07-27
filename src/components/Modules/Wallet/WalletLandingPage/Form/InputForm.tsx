@@ -1,56 +1,56 @@
 import { useState } from 'react';
 import WalletIconForm from './IconForm';
 import FormIncompleteAlert from '../../../../../modals/FormIncompleteAlert';
+import { useAppSelector } from '../../../../../hooks/redux';
 
-function WalletInputForm({ onSubmit }) {
+function WalletInputForm({ onSubmit, onIconChange }) {
+  const userId = useAppSelector((state) => Number(state.user.userId));
+  
   const [selectedIcon, setSelectedIcon] = useState(null);
 
  
 
   const [WalletDetails, setWalletDetails] = useState({
-    id: 1,
+    name: '',
     icon: '',
-    description: '',
+    userId: userId
   });
 
   const [formIncomplete, setFormIncomplete] = useState(false);
 
-  const [nextId, setNextId] = useState(2);
-  // Fonction pour gérer le changement des détails du document
+
+  // Fonction pour récupérer le name du wallet:
   const handleInputChange = (event) => {
-    // ici, on récupère le nom et la valeur de l'input
     const { name, value } = event.target;
-    // ici, on met à jour le state avec les détails du document, en utilisant le spread operator pour garder les valeurs précédentes
+    //  en utilisant le spread operator pour garder les valeurs précédentes
     setWalletDetails({ ...WalletDetails, [name]: value });
   };
 
     // Fonction pour gérer la sélection d'une icône
     const handleIconSelection = (selectedIcon) => {
+      onIconChange(selectedIcon)
       setWalletDetails({ ...WalletDetails, icon: selectedIcon });
+  console.log("WalletDetailshandleIconSelection",selectedIcon)
     };
 
   // Fonction pour gérer la soumission du formulaire
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    if (!WalletDetails.icon || !WalletDetails.description) {
+    if (!WalletDetails.icon || !WalletDetails.name) {
       setFormIncomplete(true);
       return;
     }
     
-    const newWallet = { ...WalletDetails, id: nextId }; // Utilise le prochain id disponible
-    onSubmit(newWallet);
-
-    setNextId((prevNextId) => prevNextId + 1);
     // ici, on crée un objet avec les détails du document et le fichier sélectionné
     onSubmit(WalletDetails);
-
+console.log("OnsubMitWalletDetails",WalletDetails)
 
     // Réinitialiser le formulaire
     setWalletDetails({
-      id: nextId, 
+      name: '',
       icon: '',
-      description: '',
+      userId: userId
      
     });
     setFormIncomplete(false);
@@ -72,9 +72,9 @@ function WalletInputForm({ onSubmit }) {
           <input
             type="text"
             onChange={handleInputChange}
-            name="description"
-            id="description"
-            value={WalletDetails.description}
+            name="name"
+            id="name"
+            value={WalletDetails.name}
             placeholder="Ajouter un portefeuille de document"
             className="input input-bordered border-[var(--color-primary-500)] w-full"
           />
