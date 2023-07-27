@@ -32,38 +32,42 @@ function SignInPage() {
   return (
     <div>
       {isLogged && (
-        <div className="hero  pb-60 bg-base-200 h-screen">
-          <form className="hero-content text-center max-md:flex-col">
-            <div className="max-w-md">
-              <h1 className="text-5xl font-bold flex flex-col gap-4">
-                Bienvenue 
-                <span className="text-[var(--color-primary-500)]">
-                   {loggedMessage} 
-                </span>
-                 sur All-in-One
-              </h1>
-              <p className="py-6">
-                Découvrez dès maintenant toutes les fonctionnalités en appuyant
-                sur ce bouton présent dans le menu de navigation:
-              </p>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-10 w-10"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h7"
-                />
-              </svg>
-            </div>
-          </form>
-          <img src={clipartFallout} alt='Fallout clipart' className='max-md:w-1/2 w-1/3  fill-red-500 stroke-red-500' />       
-        </div>
+        <div className="hero pb-40 bg-base-200 h-screen">
+        <form className="hero-content max-md:flex-col max-md:pt-10">
+          <div className="max-w-md flex  flex-col items-center text-center ">
+            <h1 className="text-5xl textfont-bold flex   flex-col gap-4">
+              Content de te voir
+              <span className="text-[var(--color-primary-500)]">
+                {loggedMessage}
+              </span>
+              sur All-in-One
+            </h1>
+            <p className="py-6 text-2xl">
+              Découvre dès maintenant toutes les fonctionnalités en appuyant
+              sur ce bouton présent dans le menu en haut à gauche de l'écran:
+            </p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-10 w-10"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h7"
+              />
+            </svg>
+          </div>
+          <img
+            src={clipartFallout}
+            alt="Fallout clipart"
+            className="max-md:w-1/2 w-1/3  fill-red-500 stroke-red-500"
+          />
+        </form>
+      </div>
       )}
       {!isLogged && isRegistered && (
         <form onSubmit={handleSubmitLogin}>

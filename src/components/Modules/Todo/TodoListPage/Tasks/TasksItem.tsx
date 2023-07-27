@@ -25,7 +25,7 @@ function TasksItem({ task, updateTask, deleteTask }: TasksItemProps) {
 
   
   return (
-    <div className="card w-1/2 bg-base-100 shadow-xl">
+    <div className="card  bg-base-100 shadow-xl">
             <div className={status ? 'flex justify-between items-center h-14 px-4 border-b-2 first-line:rounded  flex-grow line-through opacity-50' : 'flex justify-between items-center h-14 px-4 border-b-2 '}>
             
               <div className="form-control">
