@@ -31,9 +31,11 @@ function CarsList() {
   };
 
   const handleDeleteCar = async (carId) => {
+    console.log(carId);
     try {
       await axios.delete(`${API_URL}/car/${carId}`);
       setCars(cars.filter((car) => car.id !== carId));
+      getCars();
     } catch (error) {
       console.error('Erreur lors de la suppression de la voiture:', error);
     }
@@ -86,10 +88,10 @@ function CarsList() {
                 {car.typeVehicules === 'Voiture' && (
                   <img src={iconVoiture} alt="Icon voiture" />
                 )}
-                {car.typeVehicules === 'Camion' && (
+                {car.typeVehicules === 'vamion' && (
                   <img src={iconCamion} alt="Icon camion" />
                 )}
-                {car.typeVehicules === 'Moto' && (
+                {car.typeVehicules === 'moto' && (
                   <img src={iconMoto} alt="Icon moto" />
                 )}
               </figure>
