@@ -71,9 +71,7 @@ function SignInPage() {
             <div className="max-w-md">
               <h1 className="text-5xl font-bold flex flex-col gap-4">
                 Vous êtes inscrits ! 
-                <span className="text-[var(--color-primary-500)]">
-                   {loggedMessage} 
-                </span>
+    
                  sur All-in-One
               </h1>
               <p className="py-6">
@@ -83,7 +81,7 @@ function SignInPage() {
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
               <div className="card-body">
                 <div className="form-control">
-                  <Field name="pseudo" placeholder="Pseudo" type="text" />
+                  {/* <Field name="pseudo" placeholder="Pseudo" type="text" /> */}
                   <Field
                     name="email"
                     placeholder="Adresse Email"
