@@ -25,8 +25,11 @@ import OneCar from './components/Modules/CarTool/OneCar/OneCar';
 
 import './styles/global.css';
 
-// Si le token est présent, déclenchez l'action d'initialisation pour remplir le state avec les données utilisateur
-(store.dispatch as AppDispatch)(initializeUser());
+const token = localStorage.getItem('token');
+if (token) {
+  // Si le token est présent, déclenchez l'action d'initialisation pour remplir le state avec les données utilisateur
+  (store.dispatch as AppDispatch)(initializeUser());
+}
 
 const router = createBrowserRouter(
   createRoutesFromElements(

@@ -37,14 +37,25 @@ function CarsList() {
     // Utilisez le token JWT pour effectuer la requête API
     const getCars = async () => {
       try {
-        const response = await axios.get(`${API_URL}/car`, {
-          headers: {
-            Authorization: `Bearer ${userToken}`,
-          },
-        });
-        setCars(response.data);
+        const userToken = localStorage.getItem('token');
+        console.log(userToken);
+
+        if (userToken) {
+          // Ajouter le token à l'en-tête de la requête
+          const config = {
+            headers: {
+              authorization: `${userToken}`,
+            },
+          };
+          console.log(config);
+
+          const response = await axios.get(`${API_URL}/car`, config);
+          setCars(response.data);
+        } else {
+          console.log("Vous n'êtes pas connecté. Le token est manquant.");
+        }
       } catch (error) {
-        console.error('Erreur lors du chargement des voitures:', error);
+        console.error('Erreur lors de la récupération des véhicules:', error);
       }
     };
     getCars();
