@@ -17,11 +17,12 @@ function EditCarData({ car, setCar }) {
   // Fonction pour gérer le clic sur le bouton "Enregistrer"
   const handleSaveClick = async () => {
     try {
-      const { id, icon, ...dataWithoutIdAndIcon } = carData;
+      const { id, icon, created_at, updated_at, ...dataWithoutParams } =
+        carData;
 
       const response = await axios.put(
         `${API_URL}/car/${carId}`,
-        dataWithoutIdAndIcon
+        dataWithoutParams
       );
       setCar(response.data); // Mettre à jour l'état avec les nouvelles données
       setIsEditing(false); // Sortir du mode édition
