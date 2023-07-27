@@ -41,6 +41,7 @@ function CarsList() {
     }
   };
 
+  // Utilisez le token JWT pour effectuer la requête API
   const getCars = async () => {
     try {
       const userToken = localStorage.getItem('token');
@@ -66,8 +67,6 @@ function CarsList() {
   };
 
   useEffect(() => {
-    // Utilisez le token JWT pour effectuer la requête API
-
     getCars();
   }, [userToken]);
 
@@ -85,15 +84,13 @@ function CarsList() {
             <NavLink to={`/cars/${car.id}`}>
               <figure>
                 {/* Condition d'affichage de l'icône en fonction du type de véhicule */}
-                {car.typeVehicules === 'Voiture' && (
+                {car.type === 'Voiture' && (
                   <img src={iconVoiture} alt="Icon voiture" />
                 )}
-                {car.typeVehicules === 'vamion' && (
+                {car.type === 'Camion' && (
                   <img src={iconCamion} alt="Icon camion" />
                 )}
-                {car.typeVehicules === 'moto' && (
-                  <img src={iconMoto} alt="Icon moto" />
-                )}
+                {car.type === 'Moto' && <img src={iconMoto} alt="Icon moto" />}
               </figure>
             </NavLink>
             <div className="card-body flex items-center">

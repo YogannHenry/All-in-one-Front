@@ -1,8 +1,5 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
-
-import TodoListMenu from './TodoListMenu/TodoListMenu';
-import WalletMenu from './WalletMenu/WalletMenu';
 import CarToolMenu from './CarToolMenu/CarToolMenu';
 import Footer from '../../Footer/Footer';
 
@@ -54,15 +51,6 @@ function DrawerButton() {
           <a className="font-bold underline text-2xl hover:bg-red-200 uppercase">
             Outils
           </a>
-
-          <NavLink to="/list">
-            <TodoListMenu />
-          </NavLink>
-
-          <NavLink to="/Wallet">
-            <WalletMenu />
-          </NavLink>
-
           <NavLink to="/Cars">
             <CarToolMenu />
           </NavLink>

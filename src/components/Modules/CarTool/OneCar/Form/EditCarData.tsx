@@ -1,25 +1,37 @@
 import { useState } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+const API_URL = 'http://localhost:3002/api';
 
-function EditCarData() {
-  const [carData, setCarData] = useState({
-    name: 'BMW Série 3',
-    KmMois: '1200',
-    TypeVehicules: 'Voiture',
-    KmActuel: '126000',
-  });
-
+function EditCarData({ car, setCar }) {
+  const [carData, setCarData] = useState({});
   // État pour la gestion de l'édition
   const [isEditing, setIsEditing] = useState(false);
-
+  const { carId } = useParams();
   // Fonction pour gérer le clic sur le bouton "Modifier"
   const handleEditClick = () => {
+    setCarData({ ...car });
     setIsEditing(true);
   };
 
   // Fonction pour gérer le clic sur le bouton "Enregistrer"
-  const handleSaveClick = () => {
-    setIsEditing(false);
+  const handleSaveClick = async () => {
+    try {
+      const { id, icon, ...dataWithoutIdAndIcon } = carData;
+
+      const response = await axios.put(
+        `${API_URL}/car/${carId}`,
+        dataWithoutIdAndIcon
+      );
+      setCar(response.data); // Mettre à jour l'état avec les nouvelles données
+      setIsEditing(false); // Sortir du mode édition
+    } catch (error) {
+      console.error("Erreur lors de l'enregistrement des données : ", error);
+      // Gérer les erreurs ici si nécessaire
+    }
   };
+
+  console.log('carData apres les modifff:', carData);
 
   return (
     <div>
@@ -30,7 +42,7 @@ function EditCarData() {
               Modèle:
               <input
                 type="text"
-                value={carData.name}
+                value={carData.name || ''}
                 onChange={(e) =>
                   setCarData({ ...carData, name: e.target.value })
                 }
@@ -43,9 +55,9 @@ function EditCarData() {
               Km par mois:
               <input
                 type="text"
-                value={carData.KmMois}
+                value={carData.km_per_month || ''}
                 onChange={(e) =>
-                  setCarData({ ...carData, KmMois: e.target.value })
+                  setCarData({ ...carData, km_per_month: e.target.value })
                 }
                 className="border rounded px-2 py-1 w-48"
               />
@@ -55,11 +67,11 @@ function EditCarData() {
             <label className="block mb-2 font-semibold">
               Type de véhicule:
               <select
-                name="TypeVehicules"
+                name="type"
                 className="select select-bordered w-full max-w-xs"
-                value={carData.TypeVehicules}
+                value={carData.type || ''}
                 onChange={(e) =>
-                  setCarData({ ...carData, TypeVehicules: e.target.value })
+                  setCarData({ ...carData, type: e.target.value })
                 }
               >
                 <option disabled selected>
@@ -76,9 +88,9 @@ function EditCarData() {
               Km actuel:
               <input
                 type="text"
-                value={carData.KmActuel}
+                value={carData.current_km || ''}
                 onChange={(e) =>
-                  setCarData({ ...carData, KmActuel: e.target.value })
+                  setCarData({ ...carData, current_km: e.target.value })
                 }
                 className="border rounded px-2 py-1 w-48"
               />
@@ -93,12 +105,10 @@ function EditCarData() {
         </div>
       ) : (
         <div>
-          <p className="mb-2 font-semibold">Modèle: {carData.name}</p>
-          <p className="mb-2 font-semibold">Km par mois: {carData.KmMois}</p>
-          <p className="mb-2 font-semibold">
-            Type de véhicule: {carData.TypeVehicules}
-          </p>
-          <p className="mb-2 font-semibold">Km actuel: {carData.KmActuel}</p>
+          <p className="mb-2 font-semibold">Modèle: {car.name}</p>
+          <p className="mb-2 font-semibold">Km par mois: {car.km_per_month}</p>
+          <p className="mb-2 font-semibold">Type de véhicule: {car.type}</p>
+          <p className="mb-2 font-semibold">Km actuel: {car.current_km}</p>
           <button
             onClick={handleEditClick}
             className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white mt-4"
