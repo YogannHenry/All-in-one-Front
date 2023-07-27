@@ -14,10 +14,15 @@ function CarsList() {
   const [cars, setCars] = useState([]);
 
   const userToken = useSelector((state) => state.user.token);
+  const userId = useSelector((state) => state.user.userId);
+  console.log('userID:', userId);
 
   const handleAddCar = async (newCar) => {
     try {
-      const response = await axios.post(`${API_URL}/car`, newCar);
+      const carWithUserId = { ...newCar, userId };
+      console.log('carWithUserId:', carWithUserId);
+
+      const response = await axios.post(`${API_URL}/car`, carWithUserId);
       setCars([...cars, response.data]);
     } catch (error) {
       console.error("Erreur lors de l'ajout de la voiture:", error);
