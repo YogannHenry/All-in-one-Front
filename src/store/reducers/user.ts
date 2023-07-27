@@ -38,7 +38,10 @@ export const login = createAsyncThunk(
       console.log('data', data);
       // Après la connexion réussie, stockez le token dans le local storage
       localStorage.setItem('token', data.token);
-
+      // Sauvegarder le pseudo et l'ID utilisateur dans le local storage lors de la connexion réussie
+      localStorage.setItem('pseudo', data.pseudo);
+      localStorage.setItem('userId', data.userId.toString());
+      // Convertir en chaîne de caractères avant de stocker car pas de number dans le storage
       return data as {
         logged: boolean;
         pseudo: string;
@@ -51,6 +54,10 @@ export const login = createAsyncThunk(
 );
 
 export const initializeUser = createAction('user/initialize');
+export const updateUser = createAction<{
+  pseudo: string | null;
+  userId: number | null;
+}>('user/update');
 
 const userReducer = createReducer(initialState, (builder) => {
   builder
@@ -64,11 +71,27 @@ const userReducer = createReducer(initialState, (builder) => {
       state.logged = action.payload;
       state.pseudo = null;
       state.userId = null;
+
+      localStorage.removeItem('pseudo');
+      localStorage.removeItem('userId');
     })
+
+    .addCase(updateUser, (state, action) => {
+      // Mettre à jour les données du pseudo et de l'ID utilisateur dans le state
+      state.pseudo = action.payload.pseudo;
+      state.userId = action.payload.userId;
+    })
+
     .addCase(initializeUser, (state) => {
       // Vérifiez si le token est présent dans le local storage et définissez l'état "logged" en conséquence
       const token = localStorage.getItem('token');
       state.logged = !!token;
+      if (token) {
+        // Si le token est présent, charger le pseudo et l'ID utilisateur depuis le local storage
+        state.pseudo = localStorage.getItem('pseudo') || null;
+        state.userId =
+          parseInt(localStorage.getItem('userId') || '0', 10) || null;
+      }
     });
 });
 
