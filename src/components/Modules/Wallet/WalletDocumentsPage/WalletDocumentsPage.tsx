@@ -11,6 +11,13 @@ function WalletDocumentsPage() {
   // Ici, on utilise le hook useState pour gérer les documents soumis
   const [submittedDocuments, setSubmittedDocuments] = useState([]);
 
+const [wallet, setWallet] = useState([]);
+
+const getOneWallet = async () => {
+  const { data } = await axios.get(`${API_URL}/wallet/${walletId}`);
+  setWallet(data);
+};
+
   const getDocuments = async () => {
     const { data } = await axios.get(`${API_URL}/wallet/${walletId}/document`);
     setDocuments(data);
@@ -51,7 +58,7 @@ function WalletDocumentsPage() {
         responseType: 'blob',
       });
   
-      // Create a download link for the file
+
       const url = window.URL.createObjectURL(new Blob([response.data]));
       console.log('url:', url);
       const link = document.createElement('a');
@@ -59,10 +66,10 @@ function WalletDocumentsPage() {
       link.setAttribute('download', response.headers['content-disposition'].split('=')[1]);
       document.body.appendChild(link);
       
-      // Trigger the download
+
       link.click();
   
-      // Clean up the temporary URL and link element
+
       window.URL.revokeObjectURL(url);
       document.body.removeChild(link);
     } catch (error) {
@@ -72,14 +79,17 @@ function WalletDocumentsPage() {
 
   useEffect(() => {
     getDocuments();
+    getOneWallet();
     
-  }, []);
+  }, [wallet]);
 
+  const walletName = wallet.map((list) => wallet.name);
+console.log('walletName:', walletName);
   return (
     <div>
      <TriangleBlur />
       <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen bg-base-200 z-10  ">
-        <h1 className="text-5xl font-bold pb-10">Santé</h1>
+        <h1 className="text-5xl font-bold pb-10">{walletName}</h1>
 
         <InputDocumentForm 
         onSubmit={addDocument}
