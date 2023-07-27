@@ -18,7 +18,7 @@ export const initialState: UserState = {
   logged: false,
   pseudo: null,
   userId: null,
-  registered: false
+  registered: false,
 };
 
 // Action pour la déconnexion
@@ -57,7 +57,7 @@ export const login = createAsyncThunk(
 
 export const initializeUser = createAction('user/initialize');
 
-export const register = createAsyncThunk('/register', async (formData: FormData) => {
+/*export const register = createAsyncThunk('/register', async (formData: FormData) => {
   const objData = Object.fromEntries(formData);
   console.log("objData2", objData);
 
@@ -74,16 +74,41 @@ export const register = createAsyncThunk('/register', async (formData: FormData)
   pseudo: string | null;
   userId : number | null;
   };
-});
+});*/
+
+export const register = createAsyncThunk(
+  '/register',
+  async (formData: FormData, { rejectWithValue }) => {
+    try {
+      const objData = Object.fromEntries(formData);
+      console.log('objData2', objData);
+
+      const { data } = await axios.post(`${API_URL}/register`, objData, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+
+      console.log('data', data);
+      return data as {
+        registered: boolean;
+        pseudo: string | null;
+        userId: number | null;
+      };
+    } catch (error) {
+      return rejectWithValue(error.response.data);
+    }
+  }
+);
 
 const userReducer = createReducer(initialState, (builder) => {
   builder
-  .addCase(register.fulfilled, (state, action) => {
-    state.registered = action.payload.registered;
-    state.pseudo = action.payload.pseudo;
-    state.userId = action.payload.userId;
-    console.log("action.payload",action.payload);
-  })
+    .addCase(register.fulfilled, (state, action) => {
+      state.registered = action.payload.registered;
+      state.pseudo = action.payload.pseudo;
+      state.userId = action.payload.userId;
+      console.log('action.payload', action.payload);
+    })
     .addCase(login.fulfilled, (state, action) => {
       state.logged = action.payload.logged;
       state.pseudo = action.payload.pseudo;
