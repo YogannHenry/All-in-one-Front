@@ -101,16 +101,16 @@ const getOneWallet = async () => {
             <div
               key={document.id}
               id={document.id}
-              className="flex justify-between items-center h-14 px-4 border-b-2 "
+              className="flex justify-between items-center max-lg:h-32 h-14 px-4 border-b-2 "
             >
-              <div className="w-4/6 px-5 border-r-2 ">
+              <div className="w-4/6 max-lg:h-full max-lg:flex  max-lg:flex-col max-lg:justify-around max-lg:px-1 px-5 border-r-2 ">
                 <div className="flex justify-between">
                   <p className="uppercase">{document.name}</p>
-                  <p className="text-sm">{document.date}</p>
+                  <p className="text-sm">{document.date.substring(0, 10)}</p>
                 </div>
                 <p className="text-slate-400 text-sm">{document.information}</p>
               </div>
-              <div className="card-actions justify-around">
+              <div className="card-actions justify-around p-1">
                 <button className="btn bg-[var(--color-primary-300)] text-white">
                   <p>Ouvrir</p>
                 </button>

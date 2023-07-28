@@ -55,10 +55,11 @@ function InputDocumentForm({ onSubmit, documentInformationFromInput }) {
   };
 
   return (
-    <div className="flex">
+    <div className="flex flex-col relative">
+      <div>
       <NavLink
         to="/wallet"
-        className="btn bg-[var(--color-primary-300)] mr-10 mb-2"
+        className="btn bg-[var(--color-primary-300)] max-lg:w-16 mr-10 mb-2"
       >
         <ArrowUturnLeftIcon className="h-10 w-10 text-white" />
       </NavLink>
@@ -70,10 +71,11 @@ function InputDocumentForm({ onSubmit, documentInformationFromInput }) {
           className="file-input border-[var(--color-primary-500)] "
         />
       </div>
+      </div>
 
       {/* Afficher les détails lorsque le fichier est sélectionné */}
       {showDetails && (
-        <form className="relative" onSubmit={handleSubmit}>
+        <form className="  mb-5" onSubmit={handleSubmit}>
           <label htmlFor="name" className="block mb-2">
             Nom :
           </label>

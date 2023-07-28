@@ -72,7 +72,7 @@ function WalletLandingPage() {
               onSubmit={addWallet}
               onIconChange={setIconString}
             />
-            <div className="card max-md:w-full bg-base-100 shadow-xl">
+            <div className="card max-md:w-full bg-base-100 shadow-xl ">
               {wallets.map((wallet: Wallet) => (
                 <NavLink 
                 to={`/wallet/${wallet.id}`}
@@ -82,7 +82,7 @@ function WalletLandingPage() {
                   <div className='h-8 w-8 text-[var(--color-primary-500)]'>{createDynamicIconComponent(wallet.icon)}</div>
                   
 
-                  <div className="w-full pl-5 text-2xl">
+                  <div className="w-full pl-5 max-lg:text-lg  text-2xl">
                     <p>{wallet.name}</p>
                   </div>
                   <div className="card-actions justify-around opacity-0 hover:opacity-100">
