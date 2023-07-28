@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 const API_URL = 'http://localhost:3002/api';
 
-function EditCarData({ car, setCar }) {
+function EditCarData({ car, setCar, updateCarDetails }) {
   const [carData, setCarData] = useState({});
   // État pour la gestion de l'édition
   const [isEditing, setIsEditing] = useState(false);
@@ -26,6 +26,7 @@ function EditCarData({ car, setCar }) {
       );
       setCar(response.data); // Mettre à jour l'état avec les nouvelles données
       setIsEditing(false); // Sortir du mode édition
+      updateCarDetails();
     } catch (error) {
       console.error("Erreur lors de l'enregistrement des données : ", error);
       // Gérer les erreurs ici si nécessaire

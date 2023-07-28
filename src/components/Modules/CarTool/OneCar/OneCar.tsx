@@ -63,7 +63,11 @@ function OneCar() {
           </figure>
         </div>
         <div className="max-w-md ">
-          <EditCarData car={car} setCar={setCar} />
+          <EditCarData
+            car={car}
+            setCar={setCar}
+            updateCarDetails={getCarDetails}
+          />
         </div>
       </div>
       <div>
