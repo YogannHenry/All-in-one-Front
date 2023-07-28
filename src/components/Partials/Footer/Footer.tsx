@@ -1,12 +1,13 @@
+import { NavLink } from 'react-router-dom';
 import Logo from '../../../assets/Logo-All-in-One.png';
+import { PhoneArrowUpRightIcon } from '@heroicons/react/24/solid';
 
 function Footer() {
   return (
-    <footer className="footer flex items-center justify-around">
-      {/* <div className="items-center grid-flow-col">
-        <img src={Logo} alt="Logo" className="object-scale-down" />
-        <p>All In One © 2023 - All right reserved</p>
-      </div> */}
+    <footer className="footer flex flex-col items-center justify-around">
+  <NavLink to="/contact">
+    <PhoneArrowUpRightIcon className='h-7 w-7' />
+  </NavLink>
         <a >
           <svg
             xmlns="http://www.w3.org/2000/svg"

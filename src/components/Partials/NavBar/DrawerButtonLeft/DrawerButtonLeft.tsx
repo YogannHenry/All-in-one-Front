@@ -4,9 +4,9 @@ import { useState } from 'react';
 import TodoListMenu from './TodoListMenu/TodoListMenu';
 import WalletMenu from './WalletMenu/WalletMenu';
 import CarToolMenu from './CarToolMenu/CarToolMenu';
-import Footer from '../../Footer/Footer';
 
-function DrawerButton() {
+
+function DrawerButtonLeft() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawer = () => {
@@ -67,7 +67,6 @@ function DrawerButton() {
             <CarToolMenu />
           </NavLink>
 
-          <Footer />
         </div>
         <button onClick={closeDrawer} className="btn md:hidden top-0 right-0">
           <svg
@@ -84,4 +83,4 @@ function DrawerButton() {
   );
 }
 
-export default DrawerButton;
+export default DrawerButtonLeft;
