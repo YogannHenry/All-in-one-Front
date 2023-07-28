@@ -26,10 +26,10 @@ function NavBar() {
   }
 
   return (
-    <div className="absolute w-screen z-50">
+    <div>
       {isLogged && (
         <div className="navbar bg-base-100">
-          <div className="navbar-start pl-5">
+          <div className="navbar-start">
             <DrawerButton />
             <NavLink to="/" className="w-11 ml-5">
               <img src={Logo} alt="Logo" className="object-scale-down" />
@@ -40,27 +40,36 @@ function NavBar() {
               All-In-One
             </h1>
           </div>
-          <div className="navbar-end pr-5 ">
-            <div className="dropdown dropdown-end">
-              <label tabIndex={0}>
-                <UserCircleIcon className="h-10 w-10 text-[var(--color-primary-500)]" />
-              </label>
-              <ul
-                tabIndex={0}
-                className="dropdown-content z-[1]  p-2 shadow bg-base-100 rounded-box w-52"
-              >
-                <li>
-                  <ThemeButton />
-                </li>
-                <li>
-                  <button
-                    onClick={handleLogout}
-                    className={`btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]`}
-                  >
-                    se déconnecter
-                  </button>
-                </li>
-              </ul>
+          <div className="navbar-end">
+            <div className=" drawer-end">
+              <input
+                id="my-drawer-4"
+                type="checkbox"
+                className="drawer-toggle"
+              />
+              <div className="drawer-content">
+               
+                <label htmlFor="my-drawer-4" className="">
+                  <UserCircleIcon className="h-10 w-10 text-[var(--color-primary-500)]" />
+                </label>
+              </div>
+              <div className="drawer-side">
+                <label htmlFor="my-drawer-4" className="drawer-overlay"></label>
+                <ul className="menu p-4  h-full bg-base-200 text-base-content">
+                 
+                  <li>
+                    <button
+                      onClick={handleLogout}
+                      className={`btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]`}
+                    >
+                      se déconnecter
+                    </button>
+                  </li>
+                  <li>
+                    <ThemeButton />
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

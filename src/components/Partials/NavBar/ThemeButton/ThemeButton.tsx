@@ -7,7 +7,7 @@ function ThemeButton() {
   const { ChangeColorTheme } = useContext(ThemeContext);
 
   return (
-    <div className="dropdown max-md:dropdown-end max-md:absolute max-md:top-28 max-md:right-0">
+    <div className="dropdown dropdown-end">
       <label
         tabIndex={0}
         className={`btn bg-[var(--color-primary-300)] text-white rounded-bl-3xl rounded-tr-3xl hover:bg-[var(--color-primary-500)]  `}
@@ -30,7 +30,8 @@ function ThemeButton() {
           <button
             className="btn bg-sky-300 rounded-full"
             onClick={() => ChangeColorTheme('theme-sky')}
-          ></button>
+          >
+          </button>
         </li>
         <li>
           <button
