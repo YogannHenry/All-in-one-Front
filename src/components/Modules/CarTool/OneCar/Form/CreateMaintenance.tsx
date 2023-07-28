@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import Maintenance from './Maintenance';
 import NewMaintenance from './NewMaintenance';
 
-function CreateMaintenance({ onSubmit, newMaintenances }) {
+function CreateMaintenance({ onSubmit }) {
   // État local pour gérer l'ouverture de la div
   const [isFormOpen, setIsFormOpen] = useState(false);
-
+  const [newMaintenances, setNewMaintenances] = useState([]);
   // Fonction pour gérer le clic sur le bouton "Plus"
   const handlePlusButtonClick = () => {
     setIsFormOpen(!isFormOpen); // Inverse l'état d'ouverture
@@ -14,17 +15,17 @@ function CreateMaintenance({ onSubmit, newMaintenances }) {
     //empeche le rechargement de la page
     event.preventDefault();
 
-    const type = event.target.elements.type.value;
-    const lastMaintenance = event.target.elements.lastMaintenance.value;
-    const maintenanceInterval = event.target.elements.maintenanceInterval.value;
-    const date = event.target.elements.date.value;
+    const name = event.target.elements.name.value;
+    const last_date_verif = event.target.elements.lastMaintenance.value;
+    const validity_km = event.target.elements.maintenanceInterval.value;
+    const last_km_verif = event.target.elements.date.value;
 
     // Créer un nouvel objet avec les données de l'entretien
     const newMaintenanceData = {
-      type,
-      lastMaintenance,
-      maintenanceInterval,
-      date,
+      name,
+      last_date_verif,
+      validity_km,
+      last_km_verif,
     };
 
     // Ajouter le nouvel entretien à la liste des nouveaux entretiens
@@ -69,7 +70,7 @@ function CreateMaintenance({ onSubmit, newMaintenances }) {
                   </label>
                   <select
                     className="select select-bordered w-full max-w-xs"
-                    name="type"
+                    name="name"
                   >
                     <option disabled selected>
                       Entretien
@@ -119,8 +120,8 @@ function CreateMaintenance({ onSubmit, newMaintenances }) {
       )}
 
       {/* Afficher les nouveaux entretiens enregistrés */}
-      {newMaintenances.map((maintenance, index) => (
-        <NewMaintenance key={index} maintenanceData={maintenance} />
+      {newMaintenances.map((maintenance, id) => (
+        <Maintenance key={id} maintenanceData={maintenance} />
       ))}
     </div>
   );

@@ -6,23 +6,14 @@ import iconCamion from '../../../../assets/icon-camion.png';
 import iconMoto from '../../../../assets/icon-moto.png';
 import CreateMaintenance from './Form/CreateMaintenance';
 import EditCarData from './Form/EditCarData';
+import Maintenance from './Form/Maintenance';
 
 const API_URL = 'http://localhost:3002/api';
 
 function OneCar() {
-  const [newMaintenances, setNewMaintenances] = useState([]);
-
   const [car, setCar] = useState([]);
+  const [maintenances, setMaintenances] = useState([]);
   const { carId } = useParams();
-
-  const handleSubmit = (newMaintenanceData) => {
-    // Ici, tu peux gérer les données nouvellement enregistrées, si nécessaire
-
-    console.log('Nouvel entretien enregistré :', newMaintenanceData);
-    // Mettre à jour la variable newMaintenances avec les nouveaux entretiens
-    setNewMaintenances([...newMaintenances, newMaintenanceData]);
-  };
-  // État local pour gérer les nouveaux entretiens
 
   const getCarDetails = async () => {
     try {
@@ -30,6 +21,13 @@ function OneCar() {
       const carData = response.data[0];
       setCar(carData);
       console.log('Détails de la voiture:', response.data);
+      // Appel API pour récupérer les maintenances de la voiture
+      const maintenanceResponse = await axios.get(
+        `${API_URL}/car/${carId}/maintenance`
+      );
+      const maintenancesData = maintenanceResponse.data;
+      setMaintenances(maintenancesData);
+      console.log('Maintenances de la voiture:', maintenancesData);
     } catch (error) {
       console.error(
         'Erreur lors de la récupération des détails de la voiture:',
@@ -37,6 +35,7 @@ function OneCar() {
       );
     }
   };
+
   console.log('car', car);
   console.log('le NAme', car.name);
 
@@ -70,13 +69,8 @@ function OneCar() {
           />
         </div>
       </div>
-      <div>
-        <CreateMaintenance
-          onSubmit={handleSubmit}
-          newMaintenances={newMaintenances}
-        />
-      </div>
       <div></div>
+      <div>{maintenances && <Maintenance maintenances={maintenances} />}</div>
     </div>
   );
 }
