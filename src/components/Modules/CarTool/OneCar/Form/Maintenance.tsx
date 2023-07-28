@@ -1,4 +1,4 @@
-function Maintenance({ maintenances }) {
+function Maintenance({ maintenances, handleDeleteMaintenance }) {
   return (
     <div>
       {maintenances.map((maintenance) => (
@@ -24,7 +24,10 @@ function Maintenance({ maintenances }) {
             {maintenance.validity_period?.months || 0} mois{' '}
             {maintenance.validity_period?.days || 0} jours
           </p>
-          <button className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2">
+          <button
+            className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2"
+            name="modifier"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
@@ -41,7 +44,11 @@ function Maintenance({ maintenances }) {
             </svg>
           </button>
 
-          <button className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white mt-2">
+          <button
+            className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white mt-2"
+            name="supprimer"
+            onClick={() => handleDeleteMaintenance(maintenance.id)}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

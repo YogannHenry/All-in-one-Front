@@ -89,7 +89,7 @@ function CreateMaintenance({ onSubmit }) {
                     type="text"
                     className="input input-bordered w-full max-w-xs mb-2"
                     placeholder="Entrez le nombre de KM"
-                    name="lastMaintenance"
+                    name="last_date_verif"
                   />
                   <label htmlFor="date" className="block font-bold mb-2">
                     le :

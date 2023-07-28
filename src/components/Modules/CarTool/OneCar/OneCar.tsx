@@ -22,6 +22,19 @@ function OneCar() {
       setCar(carData);
       console.log('Détails de la voiture:', response.data);
       // Appel API pour récupérer les maintenances de la voiture
+    } catch (error) {
+      console.error(
+        'Erreur lors de la récupération des détails de la voiture:',
+        error
+      );
+    }
+  };
+  //console.log('car', car);
+  //.log('le NAme', car.name);
+
+  const getMaintenanceDetails = async () => {
+    try {
+      // Appel API pour récupérer les maintenances de la voiture
       const maintenanceResponse = await axios.get(
         `${API_URL}/car/${carId}/maintenance`
       );
@@ -30,17 +43,29 @@ function OneCar() {
       console.log('Maintenances de la voiture:', maintenancesData);
     } catch (error) {
       console.error(
-        'Erreur lors de la récupération des détails de la voiture:',
+        'Erreur lors de la récupération des détails de la Maintenances:',
         error
       );
     }
   };
 
-  console.log('car', car);
-  console.log('le NAme', car.name);
+  const deleteMaintenance = async (maintenanceId) => {
+    try {
+      await axios.delete(`${API_URL}/car/maintenance/${maintenanceId}`);
+      // Si la suppression réussit, vous pouvez effectuer une action supplémentaire ici, comme actualiser la liste des maintenances, etc.
+      getMaintenanceDetails();
+    } catch (error) {
+      console.error("Erreur lors de la suppression de l'entretien:", error);
+    }
+  };
+
+  const handleDeleteMaintenance = (maintenanceId) => {
+    deleteMaintenance(maintenanceId);
+  };
 
   useEffect(() => {
     getCarDetails();
+    getMaintenanceDetails();
   }, []);
 
   return (
@@ -70,7 +95,16 @@ function OneCar() {
         </div>
       </div>
       <div></div>
-      <div>{maintenances && <Maintenance maintenances={maintenances} />}</div>
+      <div>
+        {maintenances.length > 0 ? (
+          <Maintenance
+            maintenances={maintenances}
+            handleDeleteMaintenance={handleDeleteMaintenance}
+          />
+        ) : (
+          <p>Aucun entretien disponible pour cette voiture.</p>
+        )}
+      </div>
     </div>
   );
 }
