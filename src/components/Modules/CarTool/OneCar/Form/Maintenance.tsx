@@ -18,7 +18,7 @@ function Maintenance({ maintenances, handleDeleteMaintenance }) {
           <p className="mb-2 font-semibold">
             Entretien à effectuer tous les : {maintenance.validity_km} KM
           </p>
-          <p>
+          <p className="mb-2 font-semibold">
             Entretien à effectuer tous les :{' '}
             {maintenance.validity_period?.years || 0} années{' '}
             {maintenance.validity_period?.months || 0} mois{' '}

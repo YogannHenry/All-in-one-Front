@@ -49,6 +49,21 @@ function OneCar() {
     }
   };
 
+  const addMaintenance = async (carId, newMaintenanceData) => {
+    try {
+      await axios.post(
+        `${API_URL}/car/${carId}/maintenance`,
+        newMaintenanceData
+      );
+      getMaintenanceDetails();
+    } catch (error) {
+      console.error("Erreur lors de la création de l'entretien:", error);
+    }
+  };
+  const handleAddMaintenance = (newMaintenanceData) => {
+    addMaintenance(carId, newMaintenanceData);
+  };
+
   const deleteMaintenance = async (maintenanceId) => {
     try {
       await axios.delete(`${API_URL}/car/maintenance/${maintenanceId}`);
@@ -94,7 +109,9 @@ function OneCar() {
           />
         </div>
       </div>
-      <div></div>
+      <div>
+        <CreateMaintenance onSubmit={handleAddMaintenance} />
+      </div>
       <div>
         {maintenances.length > 0 ? (
           <Maintenance
