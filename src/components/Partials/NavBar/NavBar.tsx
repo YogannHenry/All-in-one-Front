@@ -4,6 +4,7 @@ import Logo from '../../../assets/TodoNavBar.png';
 import ThemeButton from './ThemeButton/ThemeButton';
 import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
 import { logout } from '../../../store/reducers/user';
+import { UserCircleIcon } from '@heroicons/react/24/solid';
 
 interface ThemeProps {
   colorTheme: String;
@@ -25,7 +26,7 @@ function NavBar() {
   }
 
   return (
-    <div>
+    <div className="absolute w-screen z-50">
       {isLogged && (
         <div className="navbar bg-base-100">
           <div className="navbar-start">
@@ -39,7 +40,31 @@ function NavBar() {
               All-In-One
             </h1>
           </div>
-          <div className="navbar-end">
+          <div className="navbar-end ">
+            <div className="dropdown dropdown-end">
+              <label tabIndex={0}>
+                <UserCircleIcon className='h-10 w-10 text-[var(--color-primary-500)]' />
+              </label>
+              <ul
+                tabIndex={0}
+                className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+              >
+                <li>
+                  <ThemeButton />{' '}
+                </li>
+                <li>
+                  {' '}
+                  <button
+                    onClick={handleLogout}
+                    className={`btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]`}
+                  >
+                    se déconnecter
+                  </button>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div className="navbar-end max-lg:hidden">
             <ThemeButton />
 
             <button

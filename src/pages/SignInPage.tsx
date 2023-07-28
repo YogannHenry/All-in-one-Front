@@ -1,38 +1,51 @@
 import OscillateBackground from '../assets/SvgBackground/OscillateBackground';
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { login, register } from '../store/reducers/user';
 import Field from './LoginField';
-import CoilBackground from '../assets/SvgBackground/CoilBackground';
 import clipartFallout from '../assets/1460481845.svg';
+import PasswordCaractereMissing from '../modals/PasswordCaractereMissing';
 
 function SignInPage() {
   const isRegistered = useAppSelector((state) => state.user.registered);
-  console.log(isRegistered);
 
   const loggedMessage = useAppSelector((state) => ` ${state.user.pseudo}`);
 
   const isLogged = useAppSelector((state) => state.user.logged);
   
+  const [passwordMissingCaractere, setPasswordMissingCaractere] = useState(false);
+
+  const handleCloseAlert = () => {
+    setPasswordMissingCaractere(false);
+  };
+
   const dispatch = useAppDispatch();
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmitRegister = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (event.currentTarget.password.value.length < 8 || !event.currentTarget.password.value.match(/(?=.*[!@#$%^&*])/) || !event.currentTarget.password.value.match(/(?=.*[A-Z])/)) {
+      setPasswordMissingCaractere(true);
+      return;
+    }
+
     const formData = new FormData(event.currentTarget);
+    console.log(formData)
     dispatch(register(formData));
   };
 
   const handleSubmitLogin = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+
     const formData = new FormData(event.currentTarget);
     dispatch(login(formData));
   };
+
   return (
-    <div>
+    <div className=''>
       {isLogged && (
-        <div className="hero pb-40 bg-base-200 h-screen">
+        <div className="hero max-lg:pt-36 pb-40 bg-base-200 h-screen">
         <form className="hero-content max-md:flex-col max-md:pt-10">
           <div className="max-w-md flex  flex-col items-center text-center ">
             <h1 className="text-5xl textfont-bold flex   flex-col gap-4">
@@ -71,7 +84,7 @@ function SignInPage() {
       )}
       {!isLogged && isRegistered && (
         <form onSubmit={handleSubmitLogin}>
-          <div className="flex items-center justify-center h-screen bg-base-200">
+          <div className="flex max-lg:flex-col max-lg:p-5 max-lg:text-center max-lg:pt-40 items-center justify-center h-screen bg-base-200">
             <div className="max-w-md">
               <h1 className="text-5xl font-bold flex flex-col gap-4">
                 Vous êtes inscrits ! 
@@ -119,7 +132,7 @@ function SignInPage() {
         </form>
       )}
       {!isRegistered && (
-        <div className="hero min-h-screen bg-base-200">
+        <div className="  xl:hero min-h-screen bg-base-200 max-md:pt-40 max-md:flex max-md:items-center max-md:justify-center">
           <OscillateBackground />
           <div className="hero-content flex-col lg:flex-row-reverse px-24">
             <div className="px-24 text-center lg:text-left">
@@ -134,7 +147,7 @@ function SignInPage() {
               </p>
             </div>
             <form
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmitRegister}
               className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100"
             >
               <div className="card-body">
@@ -152,6 +165,7 @@ function SignInPage() {
                     placeholder="Mot de passe"
                     type="password"
                   />
+                  {passwordMissingCaractere && <PasswordCaractereMissing  onClose={handleCloseAlert} />}
                   <Field
                     name="passwordConfirm"
                     placeholder="Vérifier votre mot de passe"
