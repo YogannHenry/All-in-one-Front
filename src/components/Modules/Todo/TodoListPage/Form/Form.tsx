@@ -22,7 +22,7 @@ function Form({ addTask }: FormProps) {
 
   return (
     <form
-      className="max-md:px-4 align-center  w-1/2"
+      className="max-md:px-4 align-center max-lg:w-full w-1/2"
       onSubmit={handleSubmit}
     >
       <NavLink to="/list" className="btn bg-[var(--color-primary-300)] mr-10 mb-2">

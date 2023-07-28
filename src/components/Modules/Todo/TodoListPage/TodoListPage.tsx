@@ -12,7 +12,7 @@ const API_URL = 'http://localhost:3002/api/list';
 
 interface List {
   name: string;
-  // Add other properties if available in the API response
+  
 }
 
 function TodoListPage() {
@@ -70,14 +70,16 @@ function TodoListPage() {
     // Mettre à jour la liste des tâches après la suppression
     getTasks();
   };
+  
+  const tasksNotDone = tasks.filter(({ status }) => !status);
+  const tasksDone = tasks.filter(({ status }) => status);
+  let tasksSorted = [...tasksNotDone, ...tasksDone];
 
   const [sortingType, setSortingType] = useState<
     'all' | 'active' | 'completed'
   >('all');
 
-  const tasksNotDone = tasks.filter(({ status }) => !status);
-  const tasksDone = tasks.filter(({ status }) => status);
-  let tasksSorted = [...tasksNotDone, ...tasksDone];
+  
   if (sortingType === 'active') {
     tasksSorted = tasks.filter(({ status }) => !status);
   } else if (sortingType === 'completed') {
@@ -95,7 +97,7 @@ function TodoListPage() {
   return (
     <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen w-screen bg-base-200">
       
-        <p className="text-4xl mb-10">{listName}</p>
+        <p className="text-4xl mb-10 uppercase">{listName}</p>
         <Form addTask={addTask} />
 
         <Tasks
@@ -103,7 +105,7 @@ function TodoListPage() {
           updateTask={updateTask}
           deleteTask={deleteTask}
         />
-        <div className="flex items-center justify-between w-2/4 px-5 h-14 text-xs text-slate-500">
+        <div className="flex items-center justify-between max-lg:w-full w-2/4 px-5 h-14 text-xs text-slate-500 pt-10">
           <Counter nbTasksNotDone={tasksNotDone.length} />
           <div className="flex justify-around ">
             <button onClick={() => setSortingType('all')} className="px-2">
