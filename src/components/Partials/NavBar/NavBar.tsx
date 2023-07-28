@@ -29,7 +29,7 @@ function NavBar() {
     <div className="absolute w-screen z-50">
       {isLogged && (
         <div className="navbar bg-base-100">
-          <div className="navbar-start">
+          <div className="navbar-start pl-5">
             <DrawerButton />
             <NavLink to="/" className="w-11 ml-5">
               <img src={Logo} alt="Logo" className="object-scale-down" />
@@ -40,20 +40,19 @@ function NavBar() {
               All-In-One
             </h1>
           </div>
-          <div className="navbar-end ">
+          <div className="navbar-end pr-5 ">
             <div className="dropdown dropdown-end">
               <label tabIndex={0}>
-                <UserCircleIcon className='h-10 w-10 text-[var(--color-primary-500)]' />
+                <UserCircleIcon className="h-10 w-10 text-[var(--color-primary-500)]" />
               </label>
               <ul
                 tabIndex={0}
-                className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+                className="dropdown-content z-[1]  p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <ThemeButton />{' '}
+                  <ThemeButton />
                 </li>
                 <li>
-                  {' '}
                   <button
                     onClick={handleLogout}
                     className={`btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]`}
@@ -63,16 +62,6 @@ function NavBar() {
                 </li>
               </ul>
             </div>
-          </div>
-          <div className="navbar-end max-lg:hidden">
-            <ThemeButton />
-
-            <button
-              onClick={handleLogout}
-              className={`btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]`}
-            >
-              se déconnecter
-            </button>
           </div>
         </div>
       )}
