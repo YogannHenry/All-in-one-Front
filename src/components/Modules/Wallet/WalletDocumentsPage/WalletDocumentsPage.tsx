@@ -23,6 +23,7 @@ const getOneWallet = async () => {
     const { data } = await axios.get(`${API_URL}/wallet/${walletId}/document`);
     setDocuments(data);
   };
+
   // Fonction pour ajouter un nouveau document soumis
   const addDocument = async (newDocument, documentDetails) => {
     try {
@@ -59,15 +60,23 @@ const getOneWallet = async () => {
         responseType: 'blob',
       });
   
-
+      const { data } = await axios.get(`${API_URL}/wallet/document/${documentId}`);
+      const fileName = data[0].name
+      const type = data[0].type
+      
       const url = window.URL.createObjectURL(new Blob([response.data]));
       console.log('url:', url);
       const link = document.createElement('a');
+      console.log(link)
       link.href = url;
-      link.setAttribute('download', response.headers['content-disposition'].split('=')[1]);
-      document.body.appendChild(link);
-      
 
+      // const fileExtension = `pdf.${type}`
+
+      const fileExtension = `${fileName}.${type}`
+      link.setAttribute('download', fileExtension);
+      console.log(link)
+
+      document.body.appendChild(link);
       link.click();
   
 
