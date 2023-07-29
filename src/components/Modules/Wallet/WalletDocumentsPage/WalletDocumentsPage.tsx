@@ -87,6 +87,39 @@ const getOneWallet = async () => {
     }
   };
 
+  const PrevisualisationFile = async (documentId: number) => {
+    try {
+      const response = await axios.get(`${API_URL}/wallet/document/${documentId}/download`, {
+        responseType: 'blob',
+      });
+  
+      const { data } = await axios.get(`${API_URL}/wallet/document/${documentId}`);
+      const fileName = data[0].name
+      const type = data[0].type
+      
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      console.log('url:', url);
+      const link = document.createElement('a');
+      console.log(link)
+      link.href = url;
+
+      // const fileExtension = `pdf.${type}`
+
+      const fileExtension = `${fileName}.${type}`
+      link.setAttribute('download', fileExtension);
+      console.log(link)
+
+      document.body.appendChild(link);
+      link.click();
+  
+
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error while downloading the document:', error);
+    }
+  };
+
   useEffect(() => {
     getDocuments();
     getOneWallet();
