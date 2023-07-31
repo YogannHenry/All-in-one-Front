@@ -1,14 +1,19 @@
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
-import CarToolMenu from './CarToolMenu/CarToolMenu';
-import Footer from '../../Footer/Footer';
 
-function DrawerButton() {
+import TodoListMenu from './TodoListMenu/TodoListMenu';
+import WalletMenu from './WalletMenu/WalletMenu';
+import CarToolMenu from './CarToolMenu/CarToolMenu';
+
+
+function DrawerButtonLeft() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawer = () => {
     setIsDrawerOpen((prevIsOpen) => !prevIsOpen);
   };
+
+
 
   const closeDrawer = () => {
     setIsDrawerOpen(false);
@@ -51,11 +56,19 @@ function DrawerButton() {
           <a className="font-bold underline text-2xl hover:bg-red-200 uppercase">
             Outils
           </a>
+
+          <NavLink to="/list">
+            <TodoListMenu />
+          </NavLink>
+
+          <NavLink to="/Wallet">
+            <WalletMenu />
+          </NavLink>
+
           <NavLink to="/Cars">
             <CarToolMenu />
           </NavLink>
 
-          <Footer />
         </div>
         <button onClick={closeDrawer} className="btn md:hidden top-0 right-0">
           <svg
@@ -72,4 +85,4 @@ function DrawerButton() {
   );
 }
 
-export default DrawerButton;
+export default DrawerButtonLeft;
