@@ -12,7 +12,6 @@ function CreateMaintenance({ onSubmit }) {
     validity_km: '',
     last_km_verif: '',
     validity_period: '',
-    userId: localStorage.getItem('userId'),
   });
 
   // Fonction pour gérer le clic sur le bouton "Plus"
@@ -27,9 +26,9 @@ function CreateMaintenance({ onSubmit }) {
     if (
       newMaintenanceData.name.trim() &&
       newMaintenanceData.last_date_verif &&
-      newMaintenanceData.validity_km.trim() &&
-      newMaintenanceData.last_km_verif.trim() &&
-      newMaintenanceData.validity_period.trim()
+      !isNaN(parseInt(newMaintenanceData.validity_km)) &&
+      !isNaN(parseInt(newMaintenanceData.last_km_verif)) &&
+      !isNaN(parseInt(newMaintenanceData.validity_period))
     ) {
       // Si tous les champs sont remplis, formater la date et soumettre le formulaire
       const formattedDate = format(

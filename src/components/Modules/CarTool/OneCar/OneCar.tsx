@@ -6,7 +6,7 @@ import iconCamion from '../../../../assets/icon-camion.png';
 import iconMoto from '../../../../assets/icon-moto.png';
 import CreateMaintenance from './Form/CreateMaintenance';
 import EditCarData from './Form/EditCarData';
-import Maintenance from './Form/Maintenance';
+import EditMaintenanceData from './Form/EditMaintenanceData';
 
 const API_URL = 'http://localhost:3002/api';
 
@@ -132,7 +132,7 @@ function OneCar() {
       </div>
       <div>
         {maintenances.length > 0 ? (
-          <Maintenance
+          <EditMaintenanceData
             maintenances={maintenances}
             handleDeleteMaintenance={handleDeleteMaintenance}
             handleUpdateMaintenance={handleUpdateMaintenance}

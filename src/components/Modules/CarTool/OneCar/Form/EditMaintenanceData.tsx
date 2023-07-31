@@ -22,8 +22,7 @@ function Maintenance({
       editedMaintenance.last_date_verif &&
       !isNaN(parseInt(editedMaintenance.validity_km)) &&
       !isNaN(parseInt(editedMaintenance.last_km_verif)) &&
-      !isNaN(parseInt(editedMaintenance.validity_period)) &&
-      (timeUnit === 'years' || timeUnit === 'months')
+      !isNaN(parseInt(editedMaintenance.validity_period))
     ) {
       // Formater la date et soumettre le formulaire au parent (API)
       const formattedDate = format(
@@ -158,7 +157,8 @@ function Maintenance({
                 Type d'entretien : {maintenance.name}
               </p>
               <p className="mb-2 font-semibold">
-                Dernière date d'entretien : {maintenance.last_date_verif}
+                Dernière date d'entretien :{' '}
+                {format(new Date(maintenance.last_date_verif), 'yyyy-MM-dd')}
               </p>
               <p className="mb-2 font-semibold">
                 Km au dernier entretien : {maintenance.last_km_verif}
@@ -170,7 +170,6 @@ function Maintenance({
                 Entretien à effectuer tous les :{' '}
                 {maintenance.validity_period?.years || 0} années{' '}
                 {maintenance.validity_period?.months || 0} mois{' '}
-                {maintenance.validity_period?.days || 0} jours
               </p>
               <button
                 className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2"
