@@ -4,28 +4,30 @@ import API_URL from '../../../API_URL';
 import InputDocumentForm from './Form/InputDocumentForm';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Document, Page, pdfjs  } from 'react-pdf';
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
+
 
 function WalletDocumentsPage() {
   const { walletId } = useParams();
   const [documents, setDocuments] = useState([]);
   // Ici, on utilise le hook useState pour gérer les documents soumis
   const [submittedDocuments, setSubmittedDocuments] = useState([]);
-
-const [wallet, setWallet] = useState([]);
+  const [previewDocument, setPreviewDocument] = useState(false);
+  const [currentDocumentId, setCurrentDocumentId] = useState(null);
+  const [pdfFile, setPdfFile] = useState({});
+  const [wallet, setWallet] = useState([]);
 
 const getOneWallet = async () => {
   const { data } = await axios.get(`${API_URL}/wallet/${walletId}`);
   setWallet(data);
 };
-
-
-  const getDocuments = async () => {
+const getDocuments = async () => {
     const { data } = await axios.get(`${API_URL}/wallet/${walletId}/document`);
     setDocuments(data);
-  };
-
-  // Fonction pour ajouter un nouveau document soumis
-  const addDocument = async (newDocument, documentDetails) => {
+};
+const addDocument = async (newDocument, documentDetails) => {
     try {
       console.log('newDocument:', newDocument); 
   console.log('newDocument:', newDocument); 
@@ -46,15 +48,30 @@ const getOneWallet = async () => {
     } catch (error) {
       console.error('Erreur lors de la création du document :', error);
     }
-  };
-  
-
-  const deleteDocument = async (documentId: number) => {
+};
+const deleteDocument = async (documentId: number) => {
     const { data } = await axios.delete(`${API_URL}/wallet/document/${documentId}`);
     setDocuments(documents.filter((document) => document.id !== documentId));
+};
+const previewFile = async (documentId: number) => {
+    try {
+      // const rootPath = '../../../../../../All-In-One-Back/uploads'
+      const { data } = await axios.get(`${API_URL}/wallet/document/${documentId}`);
+      console.log(data)
+      console.log(data[0].file)
+      const pdfFileImport = await import(`../../../../../../All-In-One-Back/uploads/${data[0].file}`);
+      console.log(pdfFileImport)
+      const pdfFile = pdfFileImport.default; 
+      setPdfFile((prevPdfFiles) => ({ ...prevPdfFiles, [documentId]: pdfFile }));
+      setCurrentDocumentId(documentId);
+      setPreviewDocument(true);
+ 
+    } catch (error) {
+      console.error('Erreur lors du chargement du fichier PDF :', error);
+    }
   };
 
-  const downloadFile = async (documentId: number) => {
+const downloadFile = async (documentId: number) => {
     try {
       const response = await axios.get(`${API_URL}/wallet/document/${documentId}/download`, {
         responseType: 'blob',
@@ -70,8 +87,6 @@ const getOneWallet = async () => {
       console.log(link)
       link.href = url;
 
-      // const fileExtension = `pdf.${type}`
-
       const fileExtension = `${fileName}.${type}`
       link.setAttribute('download', fileExtension);
       console.log(link)
@@ -85,11 +100,12 @@ const getOneWallet = async () => {
     } catch (error) {
       console.error('Error while downloading the document:', error);
     }
-  };
+};
 
   useEffect(() => {
     getDocuments();
     getOneWallet();
+    // previewDocument();
     
   }, []);
 
@@ -119,9 +135,18 @@ const getOneWallet = async () => {
                 </div>
                 <p className="text-slate-400 text-sm">{document.information}</p>
               </div>
+
               <div className="card-actions justify-around">
-                <button className="btn bg-[var(--color-primary-300)] text-white">
-                  <p>Ouvrir</p>
+                <button className="btn bg-[var(--color-primary-300)] text-white"
+>
+                  <p onClick={() => previewFile(document.id)}>Ouvrir</p>
+                    {pdfFile[document.id] && (
+                        <div>
+                          <Document file={pdfFile[document.id]}>
+                            <Page pageNumber={1} />
+                          </Document>
+                        </div>
+                        )}
                 </button>
               </div>
               <div className="card-actions justify-around">
@@ -173,3 +198,6 @@ const getOneWallet = async () => {
 }
 
 export default WalletDocumentsPage;
+
+
+
