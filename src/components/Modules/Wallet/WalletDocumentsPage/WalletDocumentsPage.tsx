@@ -134,7 +134,7 @@ function WalletDocumentsPage() {
           {documents.map((document) => (
             <div
               key={document.id}
-              id={document.id}
+              id={document.id.toString()}
               className="flex justify-between items-center max-lg:h-32 h-14 px-4 border-b-2 "
             >
               <div className="w-4/6 max-lg:h-full max-lg:flex  max-lg:flex-col max-lg:justify-around max-lg:px-1 px-5 border-r-2 ">

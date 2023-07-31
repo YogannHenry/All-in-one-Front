@@ -1,13 +1,14 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
+import API_URL from "../../../../API_URL";
 
 interface List {
   id: number;
   name: string;
  
 }
-const API_URL = 'http://localhost:3002/api';
+
 
 function TodoListMenu() {
   const [lists, setLists] = useState<List[]>([]);
@@ -15,7 +16,7 @@ function TodoListMenu() {
   const getLists = async () => {
     const { data } = await axios.get(`${API_URL}/list`);
         setLists(data);
-        getLists();
+   
   };
 
   useEffect(() => {

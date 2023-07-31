@@ -17,7 +17,7 @@ function InputDocumentForm({ onSubmit }) {
   });
 
   // Fonction pour gérer l'apparition du menu lors de lq selection d'un fichier
-  const handleFileChange = (event) => {
+  const handleFileChange = (event: { target: { files: any[]; }; }) => {
     const file = event.target.files[0];
     // ici, setSelectedFile permet de mettre à jour le state avec le fichier sélectionné
     setSelectedFile(file);
@@ -26,7 +26,7 @@ function InputDocumentForm({ onSubmit }) {
   };
 
   // Fonction pour gérer le changement des détails du document
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: { target: { name: any; value: any; }; }) => {
     // ici, on récupère le nom et la valeur de l'input
     const { name, value } = event.target;
     // ici, on met à jour le state avec les détails du document, en utilisant le spread operator pour garder les valeurs précédentes
@@ -52,6 +52,8 @@ function InputDocumentForm({ onSubmit }) {
       information: '',
       date: '',
     });
+
+    
   };
 
   return (
