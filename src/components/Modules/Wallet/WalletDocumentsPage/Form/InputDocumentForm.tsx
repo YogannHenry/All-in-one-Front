@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 // ici, onSubmit est une fonction qui sera passée en props depuis le composant parent
-function InputDocumentForm({ onSubmit, documentInformationFromInput }) {
+function InputDocumentForm({ onSubmit }) {
   // Ici, on utilise le hook useState pour gérer le fichier sélectionné
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -40,7 +40,7 @@ function InputDocumentForm({ onSubmit, documentInformationFromInput }) {
     // ici, on crée un objet avec les détails du document et le fichier sélectionné
     onSubmit(selectedFile, documentDetails);
 
-    documentInformationFromInput(documentDetails);
+   
 
     console.log('documentDetails', documentDetails);
 

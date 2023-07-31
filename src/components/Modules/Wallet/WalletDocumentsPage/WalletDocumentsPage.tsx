@@ -4,109 +4,131 @@ import API_URL from '../../../API_URL';
 import InputDocumentForm from './Form/InputDocumentForm';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Wallet } from '../../../../@types/index';
 
+interface Document {
+  id: number;
+  name: string;
+  information: string;
+  date: string;
+  type: string;
+  walletId: string;
+}
 
 function WalletDocumentsPage() {
-  const { walletId } = useParams();
-  const [documents, setDocuments] = useState([]);
-  // Ici, on utilise le hook useState pour gérer les documents soumis
-  const [submittedDocuments, setSubmittedDocuments] = useState([]);
+  const { walletId } = useParams<{ walletId: string }>();
 
-const [wallet, setWallet] = useState([]);
+  const [documents, setDocuments] = useState<Document[]>([]);
+  const [wallet, setWallet] = useState<Wallet[]>([]);
 
-const getOneWallet = async () => {
-  const { data } = await axios.get(`${API_URL}/wallet/${walletId}`);
-  setWallet(data);
-};
-
+  const getOneWallet = async () => {
+    try {
+      const { data } = await axios.get<Wallet []>(`${API_URL}/wallet/${walletId}`);
+      setWallet(data);
+    } catch (error) {
+      console.error('Une erreur s\'est produite lors de la récupération du portefeuille :', error);
+    }
+  };
 
   const getDocuments = async () => {
-    const { data } = await axios.get(`${API_URL}/wallet/${walletId}/document`);
-    setDocuments(data);
+    try {
+      const { data } = await axios.get<Document[]>(`${API_URL}/wallet/${walletId}/document`);
+      setDocuments(data);
+    } catch (error) {
+      console.error('Une erreur s\'est produite lors de la récupération des documents :', error);
+    }
   };
 
   // Fonction pour ajouter un nouveau document soumis
-  const addDocument = async (newDocument: string | Blob, documentDetails: { name: string | Blob; information: string | Blob; }) => {
+  const addDocument = async (
+    newDocument: string | Blob,
+    documentDetails: { name: string | Blob; information: string | Blob }
+  ) => {
     try {
-      console.log('newDocument:', newDocument); 
-  console.log('newDocument:', newDocument); 
       const formData = new FormData();
       formData.append('uploaded_file', newDocument);
       formData.append('name', documentDetails.name);
       formData.append('information', documentDetails.information);
-  
-      const { data } = await axios.post(`${API_URL}/wallet/${walletId}/document`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
+
+      const { data } = await axios.post(
+        `${API_URL}/wallet/${walletId}/document`,
+        formData,
+        {
+          // Ici, on précise le type de contenu de la requête, pour que le serveur sache comment traiter les données, ici, un fichier. 
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
         }
-      });
-  
-      // Mettre à jour l'état des Documents avec le nouveau Document ajouté
+      );
+
       setDocuments(data);
       getDocuments();
     } catch (error) {
       console.error('Erreur lors de la création du document :', error);
     }
   };
-  
+
 
   const deleteDocument = async (documentId: number) => {
-    const { data } = await axios.delete(`${API_URL}/wallet/document/${documentId}`);
-    setDocuments(documents.filter((document) => document.id !== documentId));
+    try {
+      const { data } = await axios.delete(`${API_URL}/wallet/document/${documentId}`);
+      setDocuments(documents.filter((document) => document.id !== documentId));
+    } catch (error) {
+      console.error('Une erreur s\'est produite lors de la suppression du document :', error);
+    }
   };
+  
 
   const downloadFile = async (documentId: number) => {
     try {
-      const response = await axios.get(`${API_URL}/wallet/document/${documentId}/download`, {
-        responseType: 'blob',
-      });
-  
-      const { data } = await axios.get(`${API_URL}/wallet/document/${documentId}`);
-      const fileName = data[0].name
-      const type = data[0].type
-      
+      const response = await axios.get(
+        `${API_URL}/wallet/document/${documentId}/download`,
+        {
+          responseType: 'blob',
+        }
+      );
+
+      const { data } = await axios.get(
+        `${API_URL}/wallet/document/${documentId}`
+      );
+      const fileName = data[0].name;
+      const type = data[0].type;
+
       const url = window.URL.createObjectURL(new Blob([response.data]));
       console.log('url:', url);
       const link = document.createElement('a');
-      console.log(link)
       link.href = url;
 
-      // const fileExtension = `pdf.${type}`
-
-      const fileExtension = `${fileName}.${type}`
+      const fileExtension = `${fileName}.${type}`;
       link.setAttribute('download', fileExtension);
-      console.log(link)
 
       document.body.appendChild(link);
       link.click();
-  
 
       window.URL.revokeObjectURL(url);
       document.body.removeChild(link);
     } catch (error) {
-      console.error('Error while downloading the document:', error);
+      console.error('Une erreur s\'est produite lors du télechargement du document:', error);
     }
   };
-
-  
 
   useEffect(() => {
     getDocuments();
     getOneWallet();
-    
   }, []);
 
   const walletName = wallet.map((wallet) => wallet.name);
 
   return (
     <div>
-     <TriangleBlur />
+      <TriangleBlur />
       <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen bg-base-200 z-10  ">
         <h1 className="text-5xl font-bold pb-10">{walletName}</h1>
 
-        <InputDocumentForm 
-        onSubmit={addDocument}
-        documentInformationFromInput={setSubmittedDocuments} />
+        <InputDocumentForm
+          onSubmit={addDocument}
+          
+        />
 
         <div className="card max-md:w-full w-1/2 bg-base-100 shadow-xl">
           {documents.map((document) => (
@@ -118,7 +140,9 @@ const getOneWallet = async () => {
               <div className="w-4/6 max-lg:h-full max-lg:flex  max-lg:flex-col max-lg:justify-around max-lg:px-1 px-5 border-r-2 ">
                 <div className="flex justify-between">
                   <p className="uppercase">{document.name}</p>
-                  <p className="text-sm">{document.date && document.date.substring(0, 10)}</p>
+                  <p className="text-sm">
+                    {document.date && document.date.substring(0, 10)}
+                  </p>
                 </div>
                 <p className="text-slate-400 text-sm">{document.information}</p>
               </div>
@@ -128,8 +152,7 @@ const getOneWallet = async () => {
                 </button>
               </div>
               <div className="card-actions justify-around">
-                <button className=""
-                onClick={() => downloadFile(document.id)}>
+                <button className="" onClick={() => downloadFile(document.id)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
