@@ -26,7 +26,7 @@ const getOneWallet = async () => {
   };
 
   // Fonction pour ajouter un nouveau document soumis
-  const addDocument = async (newDocument, documentDetails) => {
+  const addDocument = async (newDocument: string | Blob, documentDetails: { name: string | Blob; information: string | Blob; }) => {
     try {
       console.log('newDocument:', newDocument); 
   console.log('newDocument:', newDocument); 
@@ -42,7 +42,7 @@ const getOneWallet = async () => {
       });
   
       // Mettre à jour l'état des Documents avec le nouveau Document ajouté
-      setDocuments((prevDocuments) => [...prevDocuments, data]);
+      setDocuments(data);
       getDocuments();
     } catch (error) {
       console.error('Erreur lors de la création du document :', error);

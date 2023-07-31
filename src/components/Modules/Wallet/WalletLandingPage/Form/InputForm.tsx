@@ -2,15 +2,20 @@ import { useState } from 'react';
 import WalletIconForm from './IconForm';
 import FormIncompleteAlert from '../../../../../modals/FormIncompleteAlert';
 import { useAppSelector } from '../../../../../hooks/redux';
+import { Wallet } from '../../../../../@types/index';
 
-function WalletInputForm({ onSubmit }) {
+
+interface WalletInputFormProps {
+  onSubmit: (wallet: Wallet) => void;
+}
+
+function WalletInputForm({ onSubmit }: WalletInputFormProps) {
   const userId = useAppSelector((state) => Number(state.user.userId));
   
-  const [selectedIcon, setSelectedIcon] = useState(null);
-
- 
+  const [selectedIcon, setSelectedIcon] = useState<JSX.Element | null>(null);
 
   const [WalletDetails, setWalletDetails] = useState({
+    
     name: '',
     icon: '',
     userId: userId
@@ -18,23 +23,19 @@ function WalletInputForm({ onSubmit }) {
 
   const [formIncomplete, setFormIncomplete] = useState(false);
 
-
   // Fonction pour récupérer le name du wallet:
-  const handleInputChange = (event) => {
+  const handleInputChange = (event: { target: { name: string; value: string; }; }) => {
     const { name, value } = event.target;
-    //  en utilisant le spread operator pour garder les valeurs précédentes
     setWalletDetails({ ...WalletDetails, [name]: value });
   };
 
-    // Fonction pour gérer la sélection d'une icône
-    const handleIconSelection = (selectedIcon) => {
-    
+    // Fonction pour récupérer la sélection du nom de l' icône  afin de l'ajouter dans le state du wallet
+    const handleIconSelection = (selectedIcon: string) => {
       setWalletDetails({ ...WalletDetails, icon: selectedIcon });
-  console.log("WalletDetailshandleIconSelection",selectedIcon)
     };
 
   // Fonction pour gérer la soumission du formulaire
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
 
     if (!WalletDetails.icon || !WalletDetails.name) {
@@ -42,16 +43,14 @@ function WalletInputForm({ onSubmit }) {
       return;
     }
     
-    // ici, on crée un objet avec les détails du document et le fichier sélectionné
+    // ici, on crée un objet avec les détails du document
     onSubmit(WalletDetails);
-console.log("OnsubMitWalletDetails",WalletDetails)
 
     // Réinitialiser le formulaire
     setWalletDetails({
       name: '',
       icon: '',
       userId: userId
-     
     });
     setFormIncomplete(false);
     setSelectedIcon(null)
@@ -81,7 +80,7 @@ console.log("OnsubMitWalletDetails",WalletDetails)
         </div>
         
         <WalletIconForm 
-        onIconSelection={handleIconSelection}  
+        StringNameIconSelection={handleIconSelection}  
         selectedIcon={selectedIcon}
         setSelectedIcon={setSelectedIcon}    />
 

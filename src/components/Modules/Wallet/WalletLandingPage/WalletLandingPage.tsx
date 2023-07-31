@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import WalletInputForm from './Form/InputForm';
 import CircleLigneBackground from '../../../../assets/SvgBackground/CircleLigneBackground';
-import { useAppSelector } from '../../../../hooks/redux';
+import { Wallet } from '../../../../@types/index';
 import axios from 'axios';
 import API_URL from '../../../API_URL';
 import {
@@ -21,7 +21,8 @@ import {
 } from '@heroicons/react/24/solid';
 import { NavLink } from 'react-router-dom';
 
-const iconComponents = {
+
+const iconComponents: any = {
   FolderIcon,
   CalculatorIcon,
   ClipboardDocumentIcon,
@@ -36,13 +37,6 @@ const iconComponents = {
   TruckIcon,
 };
 
-interface Wallet {
-  id: number;
-  userId: number;
-  name: string;
-  icon: string;
-  date: string;
-}
 
 function WalletLandingPage() {
   const [wallets, setWallets] = useState<Wallet[]>([]);
@@ -72,7 +66,7 @@ function WalletLandingPage() {
   const deleteWallet = async (walletId: number) => {
     try {
       const { data } = await axios.delete(`${API_URL}/wallet/${walletId}`);
-      setWallets((wallets) => wallets.filter((wallet: Wallet) => wallet.id !== walletId));
+      setWallets((wallets) => wallets.filter((wallet) => wallet.id !== walletId));
     } catch (error) {
       console.error(`Erreur concernant la supression de wallet ${walletId}:`, error);
     }

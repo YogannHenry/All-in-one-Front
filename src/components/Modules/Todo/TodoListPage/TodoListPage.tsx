@@ -81,10 +81,7 @@ function TodoListPage() {
   const tasksDone = tasks.filter(({ status }) => status);
   let tasksSorted = [...tasksNotDone, ...tasksDone];
 
-  const [sortingType, setSortingType] = useState<
-    'all' | 'active' | 'completed'
-  >('all');
-
+  const [sortingType, setSortingType] = useState<'all' | 'active' | 'completed'> ('all');
   
   if (sortingType === 'active') {
     tasksSorted = tasks.filter(({ status }) => !status);

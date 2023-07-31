@@ -1,4 +1,4 @@
-import { useState } from 'react';
+
 import {
   FolderIcon,
   CalculatorIcon,
@@ -14,15 +14,25 @@ import {
   TruckIcon,
 } from '@heroicons/react/24/solid';
 
-function WalletIconForm({ onIconSelection, selectedIcon, setSelectedIcon }) {
+import { JSX } from 'react/jsx-runtime';
 
 
 
-  const handleIconSelection = (iconComponent, iconNameString) => {
+type IconName = string;
+
+interface WalletIconFormProps {
+  StringNameIconSelection: (icon: IconName) => void;
+  selectedIcon: JSX.Element | null;
+  setSelectedIcon: (icon: JSX.Element | null) => void;
+}
+
+function WalletIconForm({ StringNameIconSelection, selectedIcon, setSelectedIcon }:WalletIconFormProps ) {
+
+  const handleIconSelection = (iconComponent: JSX.Element | null, iconNameString: string) => {
     // ici, setSelectedIcon est une fonction qui a été passée en props depuis le composant parent qui permet de conserver l'icon sélectionnée sur le boutton
     setSelectedIcon(iconComponent);
-    // ici, on appelle la fonction onIconSelection qui a été passée en props depuis le composant parent et qui permet de conserver l'icon sélectionnée dans le state du composant parent
-    onIconSelection(iconNameString);
+    // ici, on appelle la fonction StringNameIconSelection qui a été passée en props depuis le composant parent et qui permet de conserver l'icon sélectionnée dans le state du composant parent
+    StringNameIconSelection(iconNameString);
  
   };
 

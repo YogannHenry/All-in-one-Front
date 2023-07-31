@@ -3,3 +3,10 @@ export interface Task {
   name: string;
   status: boolean;
 }
+
+export interface Wallet {
+
+  userId: number;
+  name: string;
+  icon: string;
+}
