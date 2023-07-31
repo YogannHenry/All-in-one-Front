@@ -2,7 +2,7 @@ import { Task } from '../../../../../@types';
 
 interface TasksItemProps {
   task: Task;
-  updateTask: (id: number) => Promise<void>;
+  updateTask: (id: number, updatedTaskData: Task) => Promise<void>;
   deleteTask: (id: number) => Promise<void>;
 }
 
@@ -13,7 +13,6 @@ function TasksItem({ task, updateTask, deleteTask }: TasksItemProps) {
     const updatedTaskData = {
       status: !status,
     };
-    console.log('Delete button clicked');
     updateTask(id, updatedTaskData);
   }
 

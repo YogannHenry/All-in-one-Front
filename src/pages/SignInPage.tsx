@@ -9,96 +9,98 @@ import PasswordCaractereMissing from '../modals/PasswordCaractereMissing';
 function SignInPage() {
   const isRegistered = useAppSelector((state) => state.user.registered);
 
+  const isLogged = useAppSelector((state) => state.user.logged);
   const loggedMessage = useAppSelector((state) => ` ${state.user.pseudo}`);
 
-  const isLogged = useAppSelector((state) => state.user.logged);
-  
-  const [passwordMissingCaractere, setPasswordMissingCaractere] = useState(false);
+  const [passwordMissingCaractere, setPasswordMissingCaractere] =
+    useState(false);
+
+  const dispatch = useAppDispatch();
 
   const handleCloseAlert = () => {
     setPasswordMissingCaractere(false);
   };
 
-  const dispatch = useAppDispatch();
-
   const handleSubmitRegister = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (event.currentTarget.password.value.length < 8 || !event.currentTarget.password.value.match(/(?=.*[!@#$%^&*])/) || !event.currentTarget.password.value.match(/(?=.*[A-Z])/)) {
+    if (
+      event.currentTarget.password.value.length < 8 ||
+      !event.currentTarget.password.value.match(/(?=.*[!@#$%^&*])/) ||
+      !event.currentTarget.password.value.match(/(?=.*[A-Z])/)
+    ) {
       setPasswordMissingCaractere(true);
       return;
     }
 
     const formData = new FormData(event.currentTarget);
-    console.log(formData)
+
+    // Ici, dispatch génère l'action d'inscription avec les données du formulaire
     dispatch(register(formData));
   };
 
   const handleSubmitLogin = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-
     const formData = new FormData(event.currentTarget);
     dispatch(login(formData));
   };
 
   return (
-    <div className=''>
+    <div className="">
       {isLogged && (
         <div className="hero max-lg:pt-36 pb-40 bg-base-200 h-screen">
-        <form className="hero-content max-md:flex-col max-md:pt-10">
-          <div className="max-w-md flex  flex-col items-center text-center ">
-            <h1 className="text-5xl textfont-bold flex   flex-col gap-4">
-              Content de te voir
-              <span className="text-[var(--color-primary-500)]">
-                {loggedMessage}
-              </span>
-              sur All-in-One
-            </h1>
-            <p className="py-6 text-2xl">
-              Découvre dès maintenant toutes les fonctionnalités en appuyant
-              sur ce bouton présent dans le menu en haut à gauche de l'écran:
-            </p>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-10 w-10"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth="2"
-                d="M4 6h16M4 12h16M4 18h7"
-              />
-            </svg>
-          </div>
-          <img
-            src={clipartFallout}
-            alt="Fallout clipart"
-            className="max-md:w-1/2 w-1/3  fill-red-500 stroke-red-500"
-          />
-        </form>
-      </div>
+          <form className="hero-content max-md:flex-col max-md:pt-10">
+            <div className="max-w-md flex  flex-col items-center text-center ">
+              <h1 className="text-5xl textfont-bold flex   flex-col gap-4">
+                Content de te voir
+                <span className="text-[var(--color-primary-500)]">
+                  {loggedMessage}
+                </span>
+                sur All-in-One
+              </h1>
+              <p className="py-6 text-2xl">
+                Découvre dès maintenant toutes les fonctionnalités en appuyant
+                sur ce bouton présent dans le menu en haut à gauche de l'écran:
+              </p>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-10 w-10"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M4 6h16M4 12h16M4 18h7"
+                />
+              </svg>
+            </div>
+            <img
+              src={clipartFallout}
+              alt="Fallout clipart"
+              className="max-md:w-1/2 w-1/3  fill-red-500 stroke-red-500"
+            />
+          </form>
+        </div>
       )}
       {!isLogged && isRegistered && (
         <form onSubmit={handleSubmitLogin}>
           <div className="flex max-lg:flex-col max-lg:p-5 max-lg:text-center max-lg:pt-40 items-center justify-center h-screen bg-base-200">
             <div className="max-w-md">
               <h1 className="text-5xl font-bold flex flex-col gap-4">
-                Vous êtes inscrits ! 
-    
-                 sur All-in-One
+                Vous êtes inscrits ! sur All-in-One
               </h1>
               <p className="py-6">
-                Connectez-vous dès maintenant pour accéder aux fonctionnalités et ainsi vous simplifier la vie !
+                Connectez-vous dès maintenant pour accéder aux fonctionnalités
+                et ainsi vous simplifier la vie !
               </p>
             </div>
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
               <div className="card-body">
                 <div className="form-control">
-                  {/* <Field name="pseudo" placeholder="Pseudo" type="text" /> */}
                   <Field
                     name="email"
                     placeholder="Adresse Email"
@@ -141,9 +143,10 @@ function SignInPage() {
               </h1>
               <p className="py-6">
                 Bienvenue dans le monde de la gestion simplifiée de votre
-                quotidien ! Vous êtes-vous déjà senti débordé par les tâches, les
-                documents et les rendez-vous qui s'accumulent ? Ne vous
-                inquiétez plus, notre Web App est là pour vous simplifier la vie !
+                quotidien ! Vous êtes-vous déjà senti débordé par les tâches,
+                les documents et les rendez-vous qui s'accumulent ? Ne vous
+                inquiétez plus, notre Web App est là pour vous simplifier la vie
+                !
               </p>
             </div>
             <form
@@ -165,7 +168,9 @@ function SignInPage() {
                     placeholder="Mot de passe"
                     type="password"
                   />
-                  {passwordMissingCaractere && <PasswordCaractereMissing  onClose={handleCloseAlert} />}
+                  {passwordMissingCaractere && (
+                    <PasswordCaractereMissing onClose={handleCloseAlert} />
+                  )}
                   <Field
                     name="passwordConfirm"
                     placeholder="Vérifier votre mot de passe"

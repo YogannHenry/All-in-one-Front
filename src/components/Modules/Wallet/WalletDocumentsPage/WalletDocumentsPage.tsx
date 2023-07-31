@@ -5,6 +5,7 @@ import InputDocumentForm from './Form/InputDocumentForm';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+
 function WalletDocumentsPage() {
   const { walletId } = useParams();
   const [documents, setDocuments] = useState([]);
@@ -87,38 +88,7 @@ const getOneWallet = async () => {
     }
   };
 
-  const PrevisualisationFile = async (documentId: number) => {
-    try {
-      const response = await axios.get(`${API_URL}/wallet/document/${documentId}/download`, {
-        responseType: 'blob',
-      });
   
-      const { data } = await axios.get(`${API_URL}/wallet/document/${documentId}`);
-      const fileName = data[0].name
-      const type = data[0].type
-      
-      const url = window.URL.createObjectURL(new Blob([response.data]));
-      console.log('url:', url);
-      const link = document.createElement('a');
-      console.log(link)
-      link.href = url;
-
-      // const fileExtension = `pdf.${type}`
-
-      const fileExtension = `${fileName}.${type}`
-      link.setAttribute('download', fileExtension);
-      console.log(link)
-
-      document.body.appendChild(link);
-      link.click();
-  
-
-      window.URL.revokeObjectURL(url);
-      document.body.removeChild(link);
-    } catch (error) {
-      console.error('Error while downloading the document:', error);
-    }
-  };
 
   useEffect(() => {
     getDocuments();
@@ -148,7 +118,7 @@ const getOneWallet = async () => {
               <div className="w-4/6 max-lg:h-full max-lg:flex  max-lg:flex-col max-lg:justify-around max-lg:px-1 px-5 border-r-2 ">
                 <div className="flex justify-between">
                   <p className="uppercase">{document.name}</p>
-                  <p className="text-sm">{document.date.substring(0, 10)}</p>
+                  <p className="text-sm">{document.date && document.date.substring(0, 10)}</p>
                 </div>
                 <p className="text-slate-400 text-sm">{document.information}</p>
               </div>

@@ -12,11 +12,10 @@ interface List {
 }
 
 function TodoList() {
-  const [lists, setLists] = useState<List[]>([]);
-  const [newList, setNewList] = useState('');
-
   const userId = useAppSelector((state) => Number(state.user.userId));
 
+  const [lists, setLists] = useState<List[]>([]);
+  const [newList, setNewList] = useState('');
   const [selectedListTasks, setSelectedListTasks] = useState<Task[]>([]);
 
   const getLists = async () => {
@@ -24,10 +23,11 @@ function TodoList() {
     setLists(data);
   };
 
-  // Récupérer les tâches d'une liste pour gérer la prévisualisation
+  // Récupérer les tâches d'une liste pour gérer la prévisualisation, on récupere que les tasks qui ont le status false.
   const getTasksForList = async (listId: number) => {
     const { data } = await axios.get(`${API_URL}/list/${listId}/task`);
-    const filteredTasks = data.filter((task) => task.status === false);
+    const filteredTasks = data.filter((task: Task) => task.status === false);
+
     setSelectedListTasks(filteredTasks);
   };
 

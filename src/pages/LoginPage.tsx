@@ -1,5 +1,4 @@
-import { FormEvent, useEffect } from 'react'; // Importez useEffect
-// Importez useHistory pour la redirection
+import { FormEvent } from 'react'; //FormEvent, c'est un type de données pour typer les form qui contiennent des propriétés comme target, currentTarget, etc.
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { login } from '../store/reducers/user';
 import Field from './LoginField';

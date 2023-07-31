@@ -1,4 +1,4 @@
-import { ArrowUturnLeftIcon } from '@heroicons/react/24/solid';
+import { ArrowUturnLeftIcon, CameraIcon } from '@heroicons/react/24/solid';
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
@@ -57,20 +57,32 @@ function InputDocumentForm({ onSubmit, documentInformationFromInput }) {
   return (
     <div className="flex flex-col relative">
       <div>
-      <NavLink
-        to="/wallet"
-        className="btn bg-[var(--color-primary-300)] max-lg:w-16 mr-10 mb-2"
-      >
-        <ArrowUturnLeftIcon className="h-10 w-10 text-white" />
-      </NavLink>
-      <div className="pb-10 flex justify-start w-full">
-        <input
-          type="file"
-          // ici, on utilise onChange pour gérer le changement de fichier
-          onChange={handleFileChange}
-          className="file-input border-[var(--color-primary-500)] "
-        />
-      </div>
+        <div className="flex justify-between">
+        <NavLink
+          to="/wallet"
+          className="btn bg-[var(--color-primary-300)] max-lg:w-16 mr-10 mb-2"
+        >
+          <ArrowUturnLeftIcon className="h-10 w-10 text-white" />
+        </NavLink>
+        <label className="btn bg-[var(--color-primary-300)] max-lg:w-16 mr-10 mb-2 lg:hidden">
+          <input
+            className="hidden"
+            type="file"
+            name="image"
+            accept="image/*"
+            capture="environment"
+          />
+          <CameraIcon className="h-10 w-10 text-white" />
+        </label>
+        </div>
+        <div className="pb-10 flex justify-start w-full">
+          <input
+            type="file"
+            // ici, on utilise onChange pour gérer le changement de fichier
+            onChange={handleFileChange}
+            className="file-input border-[var(--color-primary-500)] "
+          />
+        </div>
       </div>
 
       {/* Afficher les détails lorsque le fichier est sélectionné */}

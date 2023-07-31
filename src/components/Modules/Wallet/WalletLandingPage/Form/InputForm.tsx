@@ -3,7 +3,7 @@ import WalletIconForm from './IconForm';
 import FormIncompleteAlert from '../../../../../modals/FormIncompleteAlert';
 import { useAppSelector } from '../../../../../hooks/redux';
 
-function WalletInputForm({ onSubmit, onIconChange }) {
+function WalletInputForm({ onSubmit }) {
   const userId = useAppSelector((state) => Number(state.user.userId));
   
   const [selectedIcon, setSelectedIcon] = useState(null);
@@ -28,7 +28,7 @@ function WalletInputForm({ onSubmit, onIconChange }) {
 
     // Fonction pour gérer la sélection d'une icône
     const handleIconSelection = (selectedIcon) => {
-      onIconChange(selectedIcon)
+    
       setWalletDetails({ ...WalletDetails, icon: selectedIcon });
   console.log("WalletDetailshandleIconSelection",selectedIcon)
     };

@@ -8,10 +8,12 @@ import {
 } from 'react-router-dom';
 
 import store, { AppDispatch } from './store/index';
+
+// Importer l'action d'initialisation de l'utilisateur
 import { initializeUser } from './store/reducers/user';
 
 import App from './components/App/App';
-import Home from './components/Home/Home';
+import Home from './pages/Home';
 import SignIn from './pages/SignInPage';
 import Login from './pages/LoginPage';
 import Contact from './pages/ContactPage';

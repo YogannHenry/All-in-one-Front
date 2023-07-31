@@ -5,51 +5,57 @@ import { useParams } from 'react-router-dom';
 import Counter from './Counter/Counter';
 import Form from './Form/Form';
 import Tasks from './Tasks/Tasks';
-
+import API_URL from '../../../API_URL';
 import { Task } from '../../../../@types';
 
-const API_URL = 'http://localhost:3002/api/list';
 
 interface List {
+  id: number;
   name: string;
-  
+}
+
+interface UpdatedTask {
+  id: number;
+  name: string;
+  status: boolean;
 }
 
 function TodoListPage() {
   const [tasks, setTasks] = useState<Task[]>([]);
 
-  const [list, setList] = useState([]);
+  const [list, setList] = useState<List[]>([]);
 
+  //useParams permet de récupérer les paramètres de l'url
   const { listId } = useParams();
 
   const getOneList = async () => {
-    const { data } = await axios.get(`${API_URL}/${listId}`);
+    const { data } = await axios.get(`${API_URL}/list/${listId}`);
     setList(data);
   };
 
   const getTasks = async () => {
-    const { data } = await axios.get(`${API_URL}/${listId}/task`);
+    const { data } = await axios.get(`${API_URL}/list/${listId}/task`);
     setTasks(data);
   };
 
   const addTask = async (newTask: string) => {
-    const { data } = await axios.post(`${API_URL}/${listId}/task`, {
+    const { data } = await axios.post(`${API_URL}/list/${listId}/task`, {
       name: newTask,
     });
     setTasks(data);
     getTasks();
   };
 
-  const updateTask = async (id: number, updatedTaskData: any) => {
-    const { data } = await axios.put(`${API_URL}/task/${id}`, updatedTaskData);
+  const updateTask = async (id: number, updatedTaskData: Task) => {
+    const { data } = await axios.put(`${API_URL}/list/task/${id}`, updatedTaskData);
 
-    const updatedTasks = tasks.map((task) => (task.id === id ? data : task));
+    const updatedTasks = tasks.map((task:Task) => (task.id === id ? data : task));
 
     setTasks(updatedTasks);
   };
 
   const deleteTask = async (id: number) => {
-    const { data } = await axios.delete(`${API_URL}/task/${id}`);
+    const { data } = await axios.delete(`${API_URL}/list/task/${id}`);
     setTasks(tasks => tasks.filter(task => task.id !== id));
     getTasks();
   };
@@ -57,10 +63,10 @@ function TodoListPage() {
 
 
   const deleteAllTasks = async () => {
-    const { data } = await axios.get(`${API_URL}/${listId}/task`);
+    const { data } = await axios.get(`${API_URL}/list/${listId}/task`);
 
     // Filtrer les tâches ayant le statut true
-    const tasksToDelete = data.filter((task) => task.status === true);
+    const tasksToDelete = data.filter((task:Task) => task.status === true);
 
     // Supprimer chaque tâche ayant le statut true
     for (const task of tasksToDelete) {

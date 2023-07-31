@@ -16,7 +16,6 @@ function Form({ addTask }: FormProps) {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     addTask(newTask);
-    console.log('newTask', newTask);
     setNewTask('');
   }
 

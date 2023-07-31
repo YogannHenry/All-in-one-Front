@@ -1,6 +1,6 @@
-import logo from '../../../assets/logo.svg';
-import LogoTodo from '../../../assets/Todo.jpg';
-import Test from '../../../assets/Logo-All-in-One.png';
+import logo from '../assets/logo.svg';
+import LogoTodo from '../assets/Todo.jpg';
+import Test from '../assets/Logo-All-in-One.png';
 
 
 const dataCarrousel = [
