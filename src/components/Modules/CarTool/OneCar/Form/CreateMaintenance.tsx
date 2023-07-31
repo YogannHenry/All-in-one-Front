@@ -1,9 +1,18 @@
 import { useState } from 'react';
-import NewMaintenance from './NewMaintenance';
+import { format } from 'date-fns';
 
-function CreateMaintenance({ onSubmit, newMaintenances }) {
+function CreateMaintenance({ onSubmit }) {
   // État local pour gérer l'ouverture de la div
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [timeUnit, setTimeUnit] = useState('years');
+
+  const [newMaintenanceData, setNewMaintenanceData] = useState({
+    name: '', // Valeur initiale vide
+    last_date_verif: new Date().toISOString().split('T')[0],
+    validity_km: '',
+    last_km_verif: '',
+    validity_period: '',
+  });
 
   // Fonction pour gérer le clic sur le bouton "Plus"
   const handlePlusButtonClick = () => {
@@ -11,26 +20,43 @@ function CreateMaintenance({ onSubmit, newMaintenances }) {
   };
 
   const handleSubmit = (event) => {
-    //empeche le rechargement de la page
     event.preventDefault();
 
-    const type = event.target.elements.type.value;
-    const lastMaintenance = event.target.elements.lastMaintenance.value;
-    const maintenanceInterval = event.target.elements.maintenanceInterval.value;
-    const date = event.target.elements.date.value;
+    // Vérifier si tous les champs requis sont remplis
+    if (
+      newMaintenanceData.name.trim() &&
+      newMaintenanceData.last_date_verif &&
+      !isNaN(parseInt(newMaintenanceData.validity_km)) &&
+      !isNaN(parseInt(newMaintenanceData.last_km_verif)) &&
+      !isNaN(parseInt(newMaintenanceData.validity_period))
+    ) {
+      // Si tous les champs sont remplis, formater la date et soumettre le formulaire
+      const formattedDate = format(
+        new Date(newMaintenanceData.last_date_verif),
+        'yyyy-MM-dd'
+      );
 
-    // Créer un nouvel objet avec les données de l'entretien
-    const newMaintenanceData = {
-      type,
-      lastMaintenance,
-      maintenanceInterval,
-      date,
-    };
+      const newMaintenanceDataFormatted = {
+        ...newMaintenanceData,
+        last_date_verif: formattedDate,
+        last_km_verif: parseInt(newMaintenanceData.last_km_verif, 10),
+        validity_period: `${newMaintenanceData.validity_period} ${timeUnit}`,
+      };
 
-    // Ajouter le nouvel entretien à la liste des nouveaux entretiens
-    onSubmit(newMaintenanceData);
-    //fermer la modale
-    setIsFormOpen(false);
+      onSubmit(newMaintenanceDataFormatted);
+      setIsFormOpen(false);
+    } else {
+      // Si un champ est manquant, afficher une alerte
+      alert('Veuillez remplir tous les champs du formulaire.');
+    }
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setNewMaintenanceData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   return (
@@ -65,16 +91,17 @@ function CreateMaintenance({ onSubmit, newMaintenances }) {
               <div className="p-4 mt-4">
                 <div className="mb-4">
                   <label className="block mb-2 font-semibold">
-                    Creer un suivi :
+                    Sélectionnez un type d'entretien
                   </label>
                   <select
                     className="select select-bordered w-full max-w-xs"
-                    name="type"
+                    name="name"
+                    value={newMaintenanceData.name}
+                    onChange={handleChange}
                   >
-                    <option disabled selected>
-                      Entretien
+                    <option disabled value="">
+                      Sélectionnez un type d'entretien
                     </option>
-                    <option value="other"></option>
                     <option value="Pneu">Pneu</option>
                     <option value="Vidange">Vidange</option>
                     <option value="Courroie">Courroie</option>
@@ -85,26 +112,61 @@ function CreateMaintenance({ onSubmit, newMaintenances }) {
                     Dernier Entretien :
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     className="input input-bordered w-full max-w-xs mb-2"
                     placeholder="Entrez le nombre de KM"
-                    name="lastMaintenance"
+                    name="last_km_verif"
+                    value={newMaintenanceData.last_km_verif}
+                    onChange={handleChange}
                   />
                   <label htmlFor="date" className="block font-bold mb-2">
-                    le :
+                    Date du dernier entretien :
                   </label>
-                  <input type="date" id="date" name="date" className="mb-4" />
+                  <input
+                    type="date"
+                    id="date"
+                    name="last_date_verif"
+                    value={newMaintenanceData.last_date_verif}
+                    onChange={handleChange}
+                    className="mb-4"
+                  />
                 </div>
                 <div>
                   <label className="block font-bold mb-2">
                     Entretien à effectuer tout les :
                   </label>
                   <input
-                    type="text"
+                    type="number"
                     className="input input-bordered w-full max-w-xs mb-2"
                     placeholder="Entrez le nombre de KM"
-                    name="maintenanceInterval"
+                    value={newMaintenanceData.validity_km}
+                    onChange={handleChange}
+                    name="validity_km"
                   />
+                </div>
+                <div>
+                  <label className="block font-bold mb-2">
+                    Entretien à effectuer tous les :
+                  </label>
+                  <div className="flex">
+                    <input
+                      type="number"
+                      className="input input-bordered w-full max-w-xs mr-2"
+                      placeholder="Entrez la valeur"
+                      name="validity_period"
+                      value={newMaintenanceData.validity_period}
+                      onChange={handleChange}
+                    />
+                    <select
+                      className="select select-bordered max-w-xs"
+                      name="time_unit"
+                      value={timeUnit}
+                      onChange={(e) => setTimeUnit(e.target.value)}
+                    >
+                      <option value="years">années</option>
+                      <option value="months">mois</option>
+                    </select>
+                  </div>
                 </div>
                 <button
                   type="submit"
@@ -117,11 +179,6 @@ function CreateMaintenance({ onSubmit, newMaintenances }) {
           </div>
         </div>
       )}
-
-      {/* Afficher les nouveaux entretiens enregistrés */}
-      {newMaintenances.map((maintenance, index) => (
-        <NewMaintenance key={index} maintenanceData={maintenance} />
-      ))}
     </div>
   );
 }
