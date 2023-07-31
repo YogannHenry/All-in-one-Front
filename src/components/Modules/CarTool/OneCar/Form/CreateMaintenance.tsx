@@ -12,6 +12,7 @@ function CreateMaintenance({ onSubmit }) {
     validity_km: '',
     last_km_verif: '',
     validity_period: '',
+    userId: localStorage.getItem('userId'),
   });
 
   // Fonction pour gérer le clic sur le bouton "Plus"
@@ -21,6 +22,15 @@ function CreateMaintenance({ onSubmit }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    const validityPeriodValue = parseInt(
+      newMaintenanceData.validity_period,
+      10
+    );
+    const validityPeriodUnit = timeUnit === 'years' ? 'year' : 'month';
+
+    // Combiner la valeur et l'unité de temps
+    const formattedValidityPeriod = `${validityPeriodValue} ${validityPeriodUnit}`;
 
     const formattedDate = format(
       new Date(newMaintenanceData.last_date_verif),
@@ -44,6 +54,7 @@ function CreateMaintenance({ onSubmit }) {
       ...newMaintenanceData,
       last_date_verif: formattedDate,
       last_km_verif: lastKmVerifNumber,
+      validity_period: formattedValidityPeriod, // Mise à jour avec la valeur et l'unité de temps
     };
 
     onSubmit(newMaintenanceDataFormatted);
@@ -52,6 +63,10 @@ function CreateMaintenance({ onSubmit }) {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
+    if (name === 'validity_period') {
+      console.log('validity_period:', newMaintenanceData.validity_period);
+    }
+
     setNewMaintenanceData((prevData) => ({
       ...prevData,
       [name]: value,
