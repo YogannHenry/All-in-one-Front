@@ -60,6 +60,7 @@ function OneCar() {
       console.error("Erreur lors de la création de l'entretien:", error);
     }
   };
+
   const handleAddMaintenance = (newMaintenanceData) => {
     addMaintenance(carId, newMaintenanceData);
   };
@@ -76,6 +77,23 @@ function OneCar() {
 
   const handleDeleteMaintenance = (maintenanceId) => {
     deleteMaintenance(maintenanceId);
+  };
+
+  const updateMaintenance = async (maintenanceId, updatedMaintenanceData) => {
+    try {
+      await axios.put(
+        `${API_URL}/car/maintenance/${maintenanceId}`,
+        updatedMaintenanceData
+      );
+      // Si la mise à jour réussit, vous pouvez effectuer une action supplémentaire ici, comme actualiser la liste des maintenances, etc.
+      getMaintenanceDetails();
+    } catch (error) {
+      console.error("Erreur lors de la mise à jour de l'entretien:", error);
+    }
+  };
+
+  const handleUpdateMaintenance = (maintenanceId, updatedMaintenanceData) => {
+    updateMaintenance(maintenanceId, updatedMaintenanceData);
   };
 
   useEffect(() => {
@@ -117,6 +135,7 @@ function OneCar() {
           <Maintenance
             maintenances={maintenances}
             handleDeleteMaintenance={handleDeleteMaintenance}
+            handleUpdateMaintenance={handleUpdateMaintenance}
           />
         ) : (
           <p>Aucun entretien disponible pour cette voiture.</p>

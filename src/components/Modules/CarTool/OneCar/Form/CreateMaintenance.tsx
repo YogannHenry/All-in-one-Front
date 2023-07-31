@@ -23,50 +23,37 @@ function CreateMaintenance({ onSubmit }) {
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    const validityPeriodValue = parseInt(
-      newMaintenanceData.validity_period,
-      10
-    );
-    const validityPeriodUnit = timeUnit === 'years' ? 'year' : 'month';
+    // Vérifier si tous les champs requis sont remplis
+    if (
+      newMaintenanceData.name.trim() &&
+      newMaintenanceData.last_date_verif &&
+      newMaintenanceData.validity_km.trim() &&
+      newMaintenanceData.last_km_verif.trim() &&
+      newMaintenanceData.validity_period.trim()
+    ) {
+      // Si tous les champs sont remplis, formater la date et soumettre le formulaire
+      const formattedDate = format(
+        new Date(newMaintenanceData.last_date_verif),
+        'yyyy-MM-dd'
+      );
 
-    // Combiner la valeur et l'unité de temps
-    const formattedValidityPeriod = `${validityPeriodValue} ${validityPeriodUnit}`;
+      const newMaintenanceDataFormatted = {
+        ...newMaintenanceData,
+        last_date_verif: formattedDate,
+        last_km_verif: parseInt(newMaintenanceData.last_km_verif, 10),
+        validity_period: `${newMaintenanceData.validity_period} ${timeUnit}`,
+      };
 
-    const formattedDate = format(
-      new Date(newMaintenanceData.last_date_verif),
-      'yyyy-MM-dd'
-    );
-
-    // Vérifier si last_km_verif est un nombre valide
-    const lastKmVerifNumber = parseInt(newMaintenanceData.last_km_verif, 10);
-    if (isNaN(lastKmVerifNumber)) {
-      console.error('Le champ "Dernier Entretien" doit être un nombre');
-      return;
+      onSubmit(newMaintenanceDataFormatted);
+      setIsFormOpen(false);
+    } else {
+      // Si un champ est manquant, afficher une alerte
+      alert('Veuillez remplir tous les champs du formulaire.');
     }
-
-    // Vérifier si last_km_verif est rempli
-    if (newMaintenanceData.last_km_verif === '') {
-      console.error('Le champ "Dernier Entretien" est requis');
-      return;
-    }
-
-    const newMaintenanceDataFormatted = {
-      ...newMaintenanceData,
-      last_date_verif: formattedDate,
-      last_km_verif: lastKmVerifNumber,
-      validity_period: formattedValidityPeriod, // Mise à jour avec la valeur et l'unité de temps
-    };
-
-    onSubmit(newMaintenanceDataFormatted);
-    setIsFormOpen(false);
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    if (name === 'validity_period') {
-      console.log('validity_period:', newMaintenanceData.validity_period);
-    }
-
     setNewMaintenanceData((prevData) => ({
       ...prevData,
       [name]: value,
