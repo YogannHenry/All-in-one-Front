@@ -1,11 +1,6 @@
-import Carrousel from './Carrousel/Carrousel';
-
-interface ThemeProps {
-  colorTheme: string;
-}
+import Carrousel from '../modals/Carrousel';
 
 function Home() {
-
   const handleScrollToCarrousel = () => {
     const carrouselElement = document.getElementById('carrousel');
     if (carrouselElement) {
@@ -31,9 +26,7 @@ function Home() {
                 placeholder="Entrez votre email..."
                 className="input input-bordered w-full max-w-xs"
               />
-              <a
-                className="btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]"
-              >
+              <a className="btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]">
                 s'inscrire
               </a>
             </div>
@@ -42,7 +35,7 @@ function Home() {
             </h1>
             <div className="flex justify-center mt-5">
               <svg
-              onClick={handleScrollToCarrousel}
+                onClick={handleScrollToCarrousel}
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"

@@ -34,7 +34,7 @@ export const login = createAsyncThunk(
   async (formData: FormData, { rejectWithValue }) => {
     try {
       const objData = Object.fromEntries(formData);
-      console.log('objData2', objData);
+
 
       const { data } = await axios.post(`${API_URL}/login`, objData);
       console.log('data', data);

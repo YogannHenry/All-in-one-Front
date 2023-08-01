@@ -1,5 +1,4 @@
-import { FormEvent, useEffect } from 'react'; // Importez useEffect
-// Importez useHistory pour la redirection
+import { FormEvent } from 'react'; //FormEvent, c'est un type de données pour typer les form qui contiennent des propriétés comme target, currentTarget, etc.
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { login } from '../store/reducers/user';
 import Field from './LoginField';
@@ -21,7 +20,7 @@ function LoginPage() {
   return (
     <div>
       {isLogged && (
-        <div className="hero pb-40 bg-base-200 h-screen">
+        <div className="hero max-lg:pt-40 pb-40 bg-base-200 h-screen">
           <form className="hero-content max-md:flex-col max-md:pt-10">
             <div className="max-w-md flex  flex-col items-center text-center ">
               <h1 className="text-5xl textfont-bold flex   flex-col gap-4">

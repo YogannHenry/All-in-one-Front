@@ -1,25 +1,41 @@
 import OscillateBackground from '../assets/SvgBackground/OscillateBackground';
-import { FormEvent } from 'react';
+import { FormEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { login, register } from '../store/reducers/user';
 import Field from './LoginField';
-import CoilBackground from '../assets/SvgBackground/CoilBackground';
 import clipartFallout from '../assets/1460481845.svg';
+import PasswordCaractereMissing from '../modals/PasswordCaractereMissing';
 
 function SignInPage() {
   const isRegistered = useAppSelector((state) => state.user.registered);
-  console.log(isRegistered);
-
-  const loggedMessage = useAppSelector((state) => ` ${state.user.pseudo}`);
 
   const isLogged = useAppSelector((state) => state.user.logged);
-  
+  const loggedMessage = useAppSelector((state) => ` ${state.user.pseudo}`);
+
+  const [passwordMissingCaractere, setPasswordMissingCaractere] =
+    useState(false);
+
   const dispatch = useAppDispatch();
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleCloseAlert = () => {
+    setPasswordMissingCaractere(false);
+  };
+
+  const handleSubmitRegister = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    if (
+      event.currentTarget.password.value.length < 8 ||
+      !event.currentTarget.password.value.match(/(?=.*[!@#$%^&*])/) ||
+      !event.currentTarget.password.value.match(/(?=.*[A-Z])/)
+    ) {
+      setPasswordMissingCaractere(true);
+      return;
+    }
+
     const formData = new FormData(event.currentTarget);
+
+    // Ici, dispatch génère l'action d'inscription avec les données du formulaire
     dispatch(register(formData));
   };
 
@@ -29,22 +45,23 @@ function SignInPage() {
     const formData = new FormData(event.currentTarget);
     dispatch(login(formData));
   };
+
   return (
-    <div>
+    <div className="">
       {isLogged && (
-        <div className="hero  pb-60 bg-base-200 h-screen">
-          <form className="hero-content text-center max-md:flex-col">
-            <div className="max-w-md">
-              <h1 className="text-5xl font-bold flex flex-col gap-4">
-                Bienvenue 
+        <div className="hero max-lg:pt-36 pb-40 bg-base-200 h-screen">
+          <form className="hero-content max-md:flex-col max-md:pt-10">
+            <div className="max-w-md flex  flex-col items-center text-center ">
+              <h1 className="text-5xl textfont-bold flex   flex-col gap-4">
+                Content de te voir
                 <span className="text-[var(--color-primary-500)]">
-                   {loggedMessage} 
+                  {loggedMessage}
                 </span>
-                 sur All-in-One
+                sur All-in-One
               </h1>
-              <p className="py-6">
-                Découvrez dès maintenant toutes les fonctionnalités en appuyant
-                sur ce bouton présent dans le menu de navigation:
+              <p className="py-6 text-2xl">
+                Découvre dès maintenant toutes les fonctionnalités en appuyant
+                sur ce bouton présent dans le menu en haut à gauche de l'écran:
               </p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -61,29 +78,29 @@ function SignInPage() {
                 />
               </svg>
             </div>
+            <img
+              src={clipartFallout}
+              alt="Fallout clipart"
+              className="max-md:w-1/2 w-1/3  fill-red-500 stroke-red-500"
+            />
           </form>
-          <img src={clipartFallout} alt='Fallout clipart' className='max-md:w-1/2 w-1/3  fill-red-500 stroke-red-500' />       
         </div>
       )}
       {!isLogged && isRegistered && (
         <form onSubmit={handleSubmitLogin}>
-          <div className="flex items-center justify-center h-screen bg-base-200">
+          <div className="flex max-lg:flex-col max-lg:p-5 max-lg:text-center max-lg:pt-40 items-center justify-center h-screen bg-base-200">
             <div className="max-w-md">
               <h1 className="text-5xl font-bold flex flex-col gap-4">
-                Vous êtes inscrits ! 
-                <span className="text-[var(--color-primary-500)]">
-                   {loggedMessage} 
-                </span>
-                 sur All-in-One
+                Vous êtes inscrits ! sur All-in-One
               </h1>
               <p className="py-6">
-                Connectez-vous dès maintenant pour accéder aux fonctionnalités et ainsi vous simplifier la vie !
+                Connectez-vous dès maintenant pour accéder aux fonctionnalités
+                et ainsi vous simplifier la vie !
               </p>
             </div>
             <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
               <div className="card-body">
                 <div className="form-control">
-                  <Field name="pseudo" placeholder="Pseudo" type="text" />
                   <Field
                     name="email"
                     placeholder="Adresse Email"
@@ -117,7 +134,7 @@ function SignInPage() {
         </form>
       )}
       {!isRegistered && (
-        <div className="hero min-h-screen bg-base-200">
+        <div className="  xl:hero min-h-screen bg-base-200 max-md:pt-40 max-md:flex max-md:items-center max-md:justify-center">
           <OscillateBackground />
           <div className="hero-content flex-col lg:flex-row-reverse px-24">
             <div className="px-24 text-center lg:text-left">
@@ -126,13 +143,14 @@ function SignInPage() {
               </h1>
               <p className="py-6">
                 Bienvenue dans le monde de la gestion simplifiée de votre
-                quotidien ! Vous êtes-vous déjà senti débordé par les tâches, les
-                documents et les rendez-vous qui s'accumulent ? Ne vous
-                inquiétez plus, notre Web App est là pour vous simplifier la vie !
+                quotidien ! Vous êtes-vous déjà senti débordé par les tâches,
+                les documents et les rendez-vous qui s'accumulent ? Ne vous
+                inquiétez plus, notre Web App est là pour vous simplifier la vie
+                !
               </p>
             </div>
             <form
-              onSubmit={handleSubmit}
+              onSubmit={handleSubmitRegister}
               className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100"
             >
               <div className="card-body">
@@ -150,6 +168,9 @@ function SignInPage() {
                     placeholder="Mot de passe"
                     type="password"
                   />
+                  {passwordMissingCaractere && (
+                    <PasswordCaractereMissing onClose={handleCloseAlert} />
+                  )}
                   <Field
                     name="passwordConfirm"
                     placeholder="Vérifier votre mot de passe"
