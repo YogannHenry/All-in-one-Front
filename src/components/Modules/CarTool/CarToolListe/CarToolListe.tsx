@@ -85,12 +85,12 @@ function CarsList() {
               <figure>
                 {/* Condition d'affichage de l'icône en fonction du type de véhicule */}
                 {car.type === 'Voiture' && (
-                  <img src={iconVoiture} alt="Icon voiture" />
+                  <img src={iconVoiture} alt="Icon voiture"   className="w-56 h-56"/>
                 )}
                 {car.type === 'Camion' && (
-                  <img src={iconCamion} alt="Icon camion" />
+                  <img src={iconCamion} alt="Icon camion"   className="w-56 h-56" />
                 )}
-                {car.type === 'Moto' && <img src={iconMoto} alt="Icon moto" />}
+                {car.type === 'Moto' && <img src={iconMoto} alt="Icon moto"   className="w-56 h-56" />}
               </figure>
             </NavLink>
             <div className="card-body flex items-center">
