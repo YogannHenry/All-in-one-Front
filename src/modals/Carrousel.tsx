@@ -3,6 +3,7 @@ import LogoTodo from '../assets/Todo.jpg';
 import Test from '../assets/Logo-All-in-One.png';
 import todolistImage from '../assets/totolist.png';
 import walletImage from '../assets/wallet.png';
+import cartool from '../assets/cartool.png';
 
 const dataCarrousel = [
   {
@@ -17,8 +18,8 @@ const dataCarrousel = [
   },
   {
     id: 'slide3',
-    image: Test,
-    description: 'TEST 3',
+    image: cartool,
+    description: 'Plus besoin de vous soucier de perdre de vue les échéances d\'entretien importantes, notre plateforme vous permet de rester organisé et de planifier efficacement l\'entretien de votre véhicule. Découvrez comment notre solution intuitive peut vous aider à prolonger la durée de vie de votre voiture en vous permettant de suivre son entretien de manière transparente et sans effort.',
   },
 ];
 

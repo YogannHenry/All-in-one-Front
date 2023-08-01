@@ -5,6 +5,7 @@ import { login, register } from '../store/reducers/user';
 import Field from './LoginField';
 import clipartFallout from '../assets/1460481845.svg';
 import PasswordCaractereMissing from '../modals/PasswordCaractereMissing';
+import { NavLink } from 'react-router-dom';
 
 function SignInPage() {
   const isRegistered = useAppSelector((state) => state.user.registered);
@@ -49,34 +50,22 @@ function SignInPage() {
   return (
     <div className="">
       {isLogged && (
-        <div className="hero max-lg:pt-36 pb-40 bg-base-200 h-screen">
+          <div className="hero max-lg:pt-40 pb-40 bg-base-200 h-screen">
           <form className="hero-content max-md:flex-col max-md:pt-10">
             <div className="max-w-md flex  flex-col items-center text-center ">
               <h1 className="text-5xl textfont-bold flex   flex-col gap-4">
-                Content de te voir
+                Content de vous voir
                 <span className="text-[var(--color-primary-500)]">
                   {loggedMessage}
                 </span>
                 sur All-in-One
               </h1>
-              <p className="py-6 text-2xl">
-                Découvre dès maintenant toutes les fonctionnalités en appuyant
-                sur ce bouton présent dans le menu en haut à gauche de l'écran:
+              <p className="py-6">
+                Découvrez dès maintenant toutes les fonctionnalités:
               </p>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                className="h-10 w-10"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h7"
-                />
-              </svg>
+              <NavLink to="/" className="btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]">Commencer
+                </NavLink>
+         
             </div>
             <img
               src={clipartFallout}

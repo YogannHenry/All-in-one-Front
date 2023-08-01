@@ -105,7 +105,7 @@ function OneCar() {
   return (
     <div className="bg-base-200 min-h-screen h-full px-20">
       <div className="pt-8">
-        <h1 className="text-4xl mb-10 text-center">{car.name}</h1>
+        <h1 className="text-4xl mb-10 text-center uppercase">{car.name}</h1>
       </div>
       <div className="flex justify-between items-center mb-8 px-60">
         <div>

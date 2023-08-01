@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import axios from 'axios';
 import iconVoiture from '../../../../assets/icon-voiture.png';
@@ -59,9 +59,11 @@ function CarsList() {
         const response = await axios.get(`${API_URL}/car`, config);
         setCars(response.data);
       } else {
+        redirect('/error');
         console.log("Vous n'êtes pas connecté. Le token est manquant.");
       }
     } catch (error) {
+      redirect('/error');
       console.error('Erreur lors de la récupération des véhicules:', error);
     }
   };
