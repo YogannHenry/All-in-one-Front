@@ -171,6 +171,9 @@ function Maintenance({
                 {maintenance.validity_period?.years || 0} années{' '}
                 {maintenance.validity_period?.months || 0} mois{' '}
               </p>
+              <p className="mb-2 font-semibold">IL reste {maintenance.lastKmRemaining} Km avant le prochain entretien.</p>
+              
+              <p className="mb-2 font-semibold">Le prochain entretien est à la date de : {format(new Date(maintenance.lastTimeRemaining), 'yyyy-MM-dd')}</p>
               <button
                 className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2"
                 name="modifier"
