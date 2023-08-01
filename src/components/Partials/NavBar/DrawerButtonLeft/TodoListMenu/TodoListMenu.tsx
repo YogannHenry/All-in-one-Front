@@ -15,9 +15,10 @@ function TodoListMenu() {
 
   const getLists = async () => {
     const { data } = await axios.get(`${API_URL}/list`);
-        setLists(data);
+        setLists(data);      
    
   };
+  
 
   useEffect(() => {
     getLists();
