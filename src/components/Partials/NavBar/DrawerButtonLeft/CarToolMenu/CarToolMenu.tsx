@@ -3,16 +3,24 @@ import { useState, useEffect } from "react";
 import { useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
 import API_URL from "../../../../API_URL";
+import { RootState } from './../../../../../store/index';
+
+interface Car {
+  id: number;
+  name: string;
+ 
+}
+
 
 
 function CarToolMenu() {
 
-  const [cars, setCars] = useState([]);
-  const userToken = useSelector((state) => state.user.token);
+  const [cars, setCars] = useState<Car[]>([]);
+  const userToken = localStorage.getItem('token');
 
   const getCarsMenu = async () => {
     try {
-      const userToken = localStorage.getItem('token');
+     
       console.log(userToken);
 
       if (userToken) {
