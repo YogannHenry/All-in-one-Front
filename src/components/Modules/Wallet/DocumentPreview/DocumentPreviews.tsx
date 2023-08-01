@@ -1,11 +1,12 @@
 import axios from 'axios';
-import TriangleBlur from '../../../../assets/SvgBackground/TriangleBlur';
 import API_URL from '../../../API_URL';
 import InputDocumentForm from './Form/InputDocumentForm';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Document, Page, pdfjs } from 'react-pdf';
+import { Document, Page, pdfjs  } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
+
+
 
 function WalletDocumentsPage() {
   const { walletId } = useParams();
@@ -17,140 +18,90 @@ function WalletDocumentsPage() {
   const [pdfFile, setPdfFile] = useState({});
   const [wallet, setWallet] = useState([]);
 
-  const getOneWallet = async () => {
-    const { data } = await axios.get(`${API_URL}/wallet/${walletId}`);
-    setWallet(data);
-  };
-  const getDocuments = async () => {
+
+const getDocuments = async () => {
     const { data } = await axios.get(`${API_URL}/wallet/${walletId}/document`);
     setDocuments(data);
-  };
-  const addDocument = async (newDocument, documentDetails) => {
-    try {
-      console.log('newDocument:', newDocument);
-      console.log('newDocument:', newDocument);
-      const formData = new FormData();
-      formData.append('uploaded_file', newDocument);
-      formData.append('name', documentDetails.name);
-      formData.append('information', documentDetails.information);
+};
 
-      const { data } = await axios.post(
-        `${API_URL}/wallet/${walletId}/document`,
-        formData,
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
-        }
-      );
-
-      // Mettre à jour l'état des Documents avec le nouveau Document ajouté
-      setDocuments((prevDocuments) => [...prevDocuments, data]);
-      getDocuments();
-    } catch (error) {
-      console.error('Erreur lors de la création du document :', error);
-    }
-  };
-  const deleteDocument = async (documentId: number) => {
-    const { data } = await axios.delete(
-      `${API_URL}/wallet/document/${documentId}`
-    );
+const deleteDocument = async (documentId: number) => {
+    const { data } = await axios.delete(`${API_URL}/wallet/document/${documentId}`);
     setDocuments(documents.filter((document) => document.id !== documentId));
-  };
+};
 
-  const [showPdf, setShowPdf] = useState(false);
-
-
-console.log('showPdf:', showPdf);  
-
-  const previewFile = async (documentId: number) => {
+const previewFile = async (documentId: number) => {
     try {
-      const { data } = await axios.get(
-        `${API_URL}/wallet/document/${documentId}`
-      );
+      const { data } = await axios.get(`${API_URL}/wallet/document/${documentId}`);
       const type = data[0].type;
       if (type.startsWith('image/')) {
-        const imageFileImport = await import(
-          `../../../../../uploads/${data[0].file}`
-        );
-        const pdfFile = imageFileImport.default;
-        setPdfFile((prevPdfFiles) => ({
-          ...prevPdfFiles,
-          [documentId]: pdfFile,
-        }));
+        const imageFileImport = await import(`../../../../../uploads/${data[0].file}`);
+        const pdfFile = imageFileImport.default; 
+        setPdfFile((prevPdfFiles) => ({ ...prevPdfFiles, [documentId]: pdfFile }));
       } else if (type === 'application/pdf') {
-        const pdfFileImport = await import(
-          `../../../../../uploads/${data[0].file}`
-        );
-        const pdfFile = pdfFileImport.default;
-        setPdfFile((prevPdfFiles) => ({
-          ...prevPdfFiles,
-          [documentId]: pdfFile,
-        }));
+        const pdfFileImport = await import(`../../../../../uploads/${data[0].file}`);
+        const pdfFile = pdfFileImport.default; 
+        setPdfFile((prevPdfFiles) => ({ ...prevPdfFiles, [documentId]: pdfFile }));
         // setCurrentDocumentId(documentId);
         // setPreviewDocument(true);
       } else {
         console.error('Type de fichier non pris en charge :', type);
         return;
       }
+ 
     } catch (error) {
       console.error('Erreur lors du chargement du fichier :', error);
     }
   };
 
-  const downloadFile = async (documentId: number) => {
+const downloadFile = async (documentId: number) => {
     try {
-      const response = await axios.get(
-        `${API_URL}/wallet/document/${documentId}/download`,
-        {
-          responseType: 'blob',
-        }
-      );
-
-      const { data } = await axios.get(
-        `${API_URL}/wallet/document/${documentId}`
-      );
-      const fileName = data[0].name;
-      const type = data[0].type;
-
+      const response = await axios.get(`${API_URL}/wallet/document/${documentId}/download`, {
+        responseType: 'blob',
+      });
+  
+      const { data } = await axios.get(`${API_URL}/wallet/document/${documentId}`);
+      const fileName = data[0].name
+      const type = data[0].type
+      
       const url = window.URL.createObjectURL(new Blob([response.data]));
       console.log('url:', url);
       const link = document.createElement('a');
-      console.log(link);
+      console.log(link)
       link.href = url;
 
-      const fileExtension = `${fileName}.${type}`;
+      const fileExtension = `${fileName}.${type}`
       link.setAttribute('download', fileExtension);
-      console.log(link);
+      console.log(link)
 
       document.body.appendChild(link);
       link.click();
+  
 
       window.URL.revokeObjectURL(url);
       document.body.removeChild(link);
     } catch (error) {
       console.error('Error while downloading the document:', error);
     }
-  };
+};
 
   useEffect(() => {
     getDocuments();
     getOneWallet();
     // previewDocument();
+    
   }, []);
 
   const walletName = wallet.map((wallet) => wallet.name);
 
   return (
     <div>
-      <TriangleBlur />
+     <TriangleBlur />
       <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen bg-base-200 z-10  ">
         <h1 className="text-5xl font-bold pb-10">{walletName}</h1>
 
-        <InputDocumentForm
-          onSubmit={addDocument}
-          documentInformationFromInput={setSubmittedDocuments}
-        />
+        <InputDocumentForm 
+        onSubmit={addDocument}
+        documentInformationFromInput={setSubmittedDocuments} />
 
         <div className="card max-md:w-full w-1/2 bg-base-100 shadow-xl">
           {documents.map((document) => (
@@ -168,52 +119,26 @@ console.log('showPdf:', showPdf);
               </div>
 
               <div className="card-actions justify-around">
-                <div className="btn bg-[var(--color-primary-300)] text-white">
-                  <button
-                    onClick={() => {
-                      previewFile(document.id);
-                      setShowPdf(true);
-                    }}
-                    >
-                    Ouvrir
-                  </button>
-
-                  {pdfFile[document.id] &&
-                    !pdfFile[document.id].endsWith('.pdf') && (
-                      <div>
-                        <img
-                          src={pdfFile[document.id]}
-                          alt={`Document ${document.name}`}
-                          />
-                      </div>
-                    )}
-
-                    {showPdf &&
-                    pdfFile[document.id] &&
-                    pdfFile[document.id].endsWith('.pdf') && (
-                      <div className=" top-0 left-0 flex justify-center z-20 w-full h-full bg-white">
-                 
-                        <button
-                          className="absolute btn top-2 left-2 z-50 bg-[var(--color-primary-300)] text-gray-500"
-                          onClick={() => {
-                            
-                            setShowPdf(false);
-                          }}
-                        >
-                          Fermer
-                        </button>
-                        
-                          <Document file={pdfFile[document.id]}>
-                            <Page pageNumber={1} />
-                          </Document>
-                        
-                     
-                      </div>
-                    )}
-                </div>
+                <button className="btn bg-[var(--color-primary-300)] text-white"
+>
+                  <p onClick={() => previewFile(document.id)}>Ouvrir</p>
+                  {pdfFile[document.id] && !pdfFile[document.id].endsWith('.pdf') && (
+                  <div>
+                    <img src={pdfFile[document.id]} alt={`Document ${document.name}`} />
+                  </div>
+                )}
+                {pdfFile[document.id] && pdfFile[document.id].endsWith('.pdf') && (
+                  <div>
+                    <Document file={pdfFile[document.id]}>
+                      <Page pageNumber={1} />
+                    </Document>
+                        </div>
+                        )}
+                </button>
               </div>
               <div className="card-actions justify-around">
-                <button className="" onClick={() => downloadFile(document.id)}>
+                <button className=""
+                onClick={() => downloadFile(document.id)}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -260,3 +185,6 @@ console.log('showPdf:', showPdf);
 }
 
 export default WalletDocumentsPage;
+
+
+

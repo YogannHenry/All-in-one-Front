@@ -45,6 +45,7 @@ const router = createBrowserRouter(
       <Route path="/wallet/:walletId" element={<DocumentsPage />} />
       <Route path="/cars" element={<CarsList />} />
       <Route path="/cars/:carsId" element={<OneCar />} />
+      <Route path="wallet/document/:documentId" element={<DocumentsPage />} />
     </Route>
   )
 );

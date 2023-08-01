@@ -12,7 +12,7 @@ function WalletMenu() {
     const getWallets = async () => {
       const { data } = await axios.get(`${API_URL}/wallet`);
       setWallets(data);
-      getWallets();
+   
     };
   
     useEffect(() => {
