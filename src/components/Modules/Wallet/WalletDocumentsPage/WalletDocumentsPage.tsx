@@ -14,8 +14,8 @@ function WalletDocumentsPage() {
   const [documents, setDocuments] = useState([]);
   // Ici, on utilise le hook useState pour gérer les documents soumis
   const [submittedDocuments, setSubmittedDocuments] = useState([]);
-  const [previewDocument, setPreviewDocument] = useState(false);
-  const [currentDocumentId, setCurrentDocumentId] = useState(null);
+  // const [previewDocument, setPreviewDocument] = useState(false);
+  // const [currentDocumentId, setCurrentDocumentId] = useState(null);
   const [pdfFile, setPdfFile] = useState({});
   const [wallet, setWallet] = useState([]);
 
@@ -55,19 +55,25 @@ const deleteDocument = async (documentId: number) => {
 };
 const previewFile = async (documentId: number) => {
     try {
-      // const rootPath = '../../../../../../All-In-One-Back/uploads'
       const { data } = await axios.get(`${API_URL}/wallet/document/${documentId}`);
-      console.log(data)
-      console.log(data[0].file)
-      const pdfFileImport = await import(`../../../../../../All-In-One-Back/uploads/${data[0].file}`);
-      console.log(pdfFileImport)
-      const pdfFile = pdfFileImport.default; 
-      setPdfFile((prevPdfFiles) => ({ ...prevPdfFiles, [documentId]: pdfFile }));
-      setCurrentDocumentId(documentId);
-      setPreviewDocument(true);
+      const type = data[0].type;
+      if (type.startsWith('image/')) {
+        const imageFileImport = await import(`../../../../../uploads/${data[0].file}`);
+        const pdfFile = imageFileImport.default; 
+        setPdfFile((prevPdfFiles) => ({ ...prevPdfFiles, [documentId]: pdfFile }));
+      } else if (type === 'application/pdf') {
+        const pdfFileImport = await import(`../../../../../uploads/${data[0].file}`);
+        const pdfFile = pdfFileImport.default; 
+        setPdfFile((prevPdfFiles) => ({ ...prevPdfFiles, [documentId]: pdfFile }));
+        // setCurrentDocumentId(documentId);
+        // setPreviewDocument(true);
+      } else {
+        console.error('Type de fichier non pris en charge :', type);
+        return;
+      }
  
     } catch (error) {
-      console.error('Erreur lors du chargement du fichier PDF :', error);
+      console.error('Erreur lors du chargement du fichier :', error);
     }
   };
 
@@ -140,11 +146,16 @@ const downloadFile = async (documentId: number) => {
                 <button className="btn bg-[var(--color-primary-300)] text-white"
 >
                   <p onClick={() => previewFile(document.id)}>Ouvrir</p>
-                    {pdfFile[document.id] && (
-                        <div>
-                          <Document file={pdfFile[document.id]}>
-                            <Page pageNumber={1} />
-                          </Document>
+                  {pdfFile[document.id] && !pdfFile[document.id].endsWith('.pdf') && (
+                  <div>
+                    <img src={pdfFile[document.id]} alt={`Document ${document.name}`} />
+                  </div>
+                )}
+                {pdfFile[document.id] && pdfFile[document.id].endsWith('.pdf') && (
+                  <div>
+                    <Document file={pdfFile[document.id]}>
+                      <Page pageNumber={1} />
+                    </Document>
                         </div>
                         )}
                 </button>
