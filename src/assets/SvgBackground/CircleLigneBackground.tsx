@@ -6,8 +6,7 @@ function CircleLigneBackground() {
 
       xmlns="http://www.w3.org/2000/svg"
       version="1.1"
-      xmlns:xlink="http://www.w3.org/1999/xlink"
-      xmlns:svgjs="http://svgjs.dev/svgjs"
+
       viewBox="2 100 800 800"
     >
       <g stroke="[var(--color-primary-300)]" fill="none" stroke-linecap="round">
@@ -16,7 +15,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="640 2460"
+          strokeDasharray="640 2460"
           opacity="0.73"
         ></circle>
         <circle
@@ -24,7 +23,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="595 2375"
+          strokeDasharray="595 2375"
           transform="rotate(13, 400, 400)"
           opacity="0.90"
         ></circle>
@@ -33,7 +32,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="553 2290"
+          strokeDasharray="553 2290"
           transform="rotate(26, 400, 400)"
           opacity="0.28"
         ></circle>
@@ -42,7 +41,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="512 2205"
+          strokeDasharray="512 2205"
           transform="rotate(39, 400, 400)"
           opacity="0.62"
         ></circle>
@@ -51,7 +50,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="473 2121"
+          strokeDasharray="473 2121"
           transform="rotate(51, 400, 400)"
           opacity="0.18"
         ></circle>
@@ -60,7 +59,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="435 2036"
+          strokeDasharray="435 2036"
           transform="rotate(64, 400, 400)"
           opacity="0.76"
         ></circle>
@@ -69,7 +68,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="399 1951"
+          strokeDasharray="399 1951"
           transform="rotate(77, 400, 400)"
           opacity="0.56"
         ></circle>
@@ -78,7 +77,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="364 1866"
+          strokeDasharray="364 1866"
           transform="rotate(90, 400, 400)"
           opacity="0.31"
         ></circle>
@@ -87,7 +86,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="331 1781"
+          strokeDasharray="331 1781"
           transform="rotate(103, 400, 400)"
           opacity="0.32"
         ></circle>
@@ -96,7 +95,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="299 1696"
+          strokeDasharray="299 1696"
           transform="rotate(116, 400, 400)"
           opacity="0.55"
         ></circle>
@@ -105,7 +104,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="269 1612"
+          strokeDasharray="269 1612"
           transform="rotate(129, 400, 400)"
           opacity="0.34"
         ></circle>
@@ -114,7 +113,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="241 1527"
+          strokeDasharray="241 1527"
           transform="rotate(141, 400, 400)"
           opacity="0.78"
         ></circle>
@@ -123,7 +122,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="214 1442"
+          strokeDasharray="214 1442"
           transform="rotate(154, 400, 400)"
           opacity="0.38"
         ></circle>
@@ -132,7 +131,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="189 1357"
+          strokeDasharray="189 1357"
           transform="rotate(167, 400, 400)"
           opacity="0.99"
         ></circle>
@@ -141,7 +140,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="165 1272"
+          strokeDasharray="165 1272"
           transform="rotate(180, 400, 400)"
           opacity="0.28"
         ></circle>
@@ -150,7 +149,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="143 1188"
+          strokeDasharray="143 1188"
           transform="rotate(193, 400, 400)"
           opacity="0.35"
         ></circle>
@@ -159,7 +158,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="123 1103"
+          strokeDasharray="123 1103"
           transform="rotate(206, 400, 400)"
           opacity="0.53"
         ></circle>
@@ -168,7 +167,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="104 1018"
+          strokeDasharray="104 1018"
           transform="rotate(219, 400, 400)"
           opacity="0.61"
         ></circle>
@@ -177,7 +176,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="87 933"
+          strokeDasharray="87 933"
           transform="rotate(231, 400, 400)"
           opacity="0.51"
         ></circle>
@@ -186,7 +185,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="71 848"
+          strokeDasharray="71 848"
           transform="rotate(244, 400, 400)"
           opacity="0.56"
         ></circle>
@@ -195,7 +194,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="57 763"
+          strokeDasharray="57 763"
           transform="rotate(257, 400, 400)"
           opacity="0.34"
         ></circle>
@@ -204,7 +203,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="44 679"
+          strokeDasharray="44 679"
           transform="rotate(270, 400, 400)"
           opacity="0.51"
         ></circle>
@@ -213,7 +212,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="33 594"
+          strokeDasharray="33 594"
           transform="rotate(283, 400, 400)"
           opacity="0.43"
         ></circle>
@@ -222,7 +221,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="24 509"
+          strokeDasharray="24 509"
           transform="rotate(296, 400, 400)"
           opacity="0.69"
         ></circle>
@@ -231,7 +230,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="16 424"
+          strokeDasharray="16 424"
           transform="rotate(309, 400, 400)"
           opacity="0.43"
         ></circle>
@@ -240,7 +239,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="9 339"
+          strokeDasharray="9 339"
           transform="rotate(321, 400, 400)"
           opacity="0.33"
         ></circle>
@@ -249,7 +248,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="5 254"
+          strokeDasharray="5 254"
           transform="rotate(334, 400, 400)"
           opacity="0.33"
         ></circle>
@@ -258,7 +257,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="2 170"
+          strokeDasharray="2 170"
           transform="rotate(347, 400, 400)"
           opacity="0.54"
         ></circle>
@@ -267,7 +266,7 @@ function CircleLigneBackground() {
           cx="400"
           cy="400"
           stroke-width="8.5"
-          stroke-dasharray="0 85"
+          strokeDasharray="0 85"
           transform="rotate(360, 400, 400)"
           opacity="0.09"
         ></circle>

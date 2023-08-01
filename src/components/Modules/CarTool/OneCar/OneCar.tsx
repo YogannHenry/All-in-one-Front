@@ -7,8 +7,9 @@ import iconMoto from '../../../../assets/icon-moto.png';
 import CreateMaintenance from './Form/CreateMaintenance';
 import EditCarData from './Form/EditCarData';
 import EditMaintenanceData from './Form/EditMaintenanceData';
+import API_URL from '../../../API_URL';
 
-const API_URL = 'http://localhost:3002/api';
+
 
 function OneCar() {
   const [car, setCar] = useState([]);
