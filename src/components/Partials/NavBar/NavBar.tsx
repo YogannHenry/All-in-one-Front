@@ -28,7 +28,7 @@ function NavBar() {
   return (
     <div>
       {isLogged && (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-base-100 border">
           <div className="navbar-start">
             <DrawerButtonLeft />
             <NavLink to="/" className="w-11 ml-5">

@@ -24,6 +24,7 @@ import DocumentsPage from './components/Modules/Wallet/WalletDocumentsPage/Walle
 import CarsList from './components/Modules/CarTool/CarToolListe/CarToolListe';
 import Landing from './components/Modules/Todo/TodoLandingPage/TodoLandingPage';
 import OneCar from './components/Modules/CarTool/OneCar/OneCar';
+import Error from './pages/Error';
 
 import './styles/global.css';
 
@@ -35,8 +36,9 @@ if (token) {
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />}>
+    <Route path="/" element={<App />} errorElement={<Error />}>
       <Route index element={<Home />} />
+      <Route errorElement={<Error />}>
       <Route path="/signin" element={<SignIn />} />
       <Route path="/Login" element={<Login />} />
       <Route path="/Contact" element={<Contact />} />
@@ -47,6 +49,7 @@ const router = createBrowserRouter(
       <Route path="/wallet/:walletId" element={<DocumentsPage />} />
       <Route path="/cars" element={<CarsList />} />
       <Route path="/cars/:carsId" element={<OneCar />} />
+    </Route>
     </Route>
   )
 );

@@ -36,6 +36,7 @@ function TodoListPage() {
   const getTasks = async () => {
     const { data } = await axios.get(`${API_URL}/list/${listId}/task`);
     setTasks(data);
+
   };
 
   const addTask = async (newTask: string) => {
@@ -44,6 +45,7 @@ function TodoListPage() {
     });
     setTasks(data);
     getTasks();
+   
   };
 
   const updateTask = async (id: number, updatedTaskData: Task) => {
@@ -52,12 +54,13 @@ function TodoListPage() {
     const updatedTasks = tasks.map((task:Task) => (task.id === id ? data : task));
 
     setTasks(updatedTasks);
+    getTasks();
   };
 
   const deleteTask = async (id: number) => {
     const { data } = await axios.delete(`${API_URL}/list/task/${id}`);
     setTasks(tasks => tasks.filter(task => task.id !== id));
-    getTasks();
+  
   };
 
 
@@ -93,7 +96,7 @@ function TodoListPage() {
     getTasks();
 
     getOneList();
-  }, [listId, list]);
+  }, [listId]);
 
   const listName = list.map((list) => list.name);
 
