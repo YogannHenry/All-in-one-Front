@@ -65,9 +65,9 @@ function DrawerButtonLeft() {
             <WalletMenu />
           </NavLink>
 
-          <NavLink to="/Cars">
+        {/*}  <NavLink to="/Cars">
             <CarToolMenu />
-          </NavLink>
+  </NavLink>*/}
 
         </div>
         <button onClick={closeDrawer} className="btn md:hidden top-0 right-0">

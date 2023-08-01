@@ -8,7 +8,7 @@ interface MaintenanceDataProps {
   last_date_verif: string;
   last_km_verif: number;
   validity_km: number;
-  validity_period: string;
+  validity_period: string | { years: string; months: string };
   lastKmRemaining: number;
   lastTimeRemaining: string;
 }
@@ -52,7 +52,7 @@ function Maintenance({
       editedMaintenance.last_date_verif &&
       typeof editedMaintenance.validity_km === 'number' &&
       typeof editedMaintenance.last_km_verif === 'number' &&
-      editedMaintenance.validity_period.trim()
+      editedMaintenance.validity_period
     ) {
       // Formater la date et soumettre le formulaire au parent (API)
       const formattedDate = format(
@@ -63,7 +63,6 @@ function Maintenance({
       const editedMaintenanceFormatted = {
         ...editedMaintenance,
         last_date_verif: formattedDate,
-        last_km_verif: parseInt(editedMaintenance.last_km_verif, 10),
         validity_period: `${editedMaintenance.validity_period} ${timeUnit}`,
       };
 
@@ -151,11 +150,17 @@ function Maintenance({
               </label>
               <div className="flex">
                 <input
-                  type="number"
+                  type="text"
                   className="input input-bordered w-full max-w-xs mr-2"
                   placeholder="Entrez la valeur"
                   name="validity_period"
-                  value={editedMaintenance.validity_period}
+                  value={
+                    typeof editedMaintenance.validity_period === "string"
+                      ? editedMaintenance.validity_period
+                      : `${editedMaintenance.validity_period?.years || 0} années ${
+                          editedMaintenance.validity_period?.months || 0
+                        } mois`
+                  }
                   onChange={(e) =>
                     setEditedMaintenance({
                       ...editedMaintenance,
@@ -199,10 +204,13 @@ function Maintenance({
                 Entretien à effectuer tous les : {maintenance.validity_km} KM
               </p>
               <p className="mb-2 font-semibold">
-                Entretien à effectuer tous les :{' '}
-                {maintenance.validity_period?.years || 0} années{' '}
-                {maintenance.validity_period?.months || 0} mois{' '}
-              </p>
+                  Entretien à effectuer tous les :{' '}
+                  {typeof maintenance.validity_period === 'string'
+                    ? maintenance.validity_period
+                    : `${maintenance.validity_period?.years || 0} années ${
+                        maintenance.validity_period?.months || 0
+                      } mois`}
+                </p>
               <p className="mb-2 font-semibold">IL reste {maintenance.lastKmRemaining} Km avant le prochain entretien.</p>
               
               <p className="mb-2 font-semibold">Le prochain entretien est à la date de : {format(new Date(maintenance.lastTimeRemaining), 'yyyy-MM-dd')}</p>

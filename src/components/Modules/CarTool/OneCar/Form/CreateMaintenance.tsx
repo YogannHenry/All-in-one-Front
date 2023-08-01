@@ -185,7 +185,6 @@ function CreateMaintenance({ onSubmit }: CreateMaintenanceProps) {
                       value={timeUnit}
                       onChange={(e) => setTimeUnit(e.target.value)}
                     >
-                      <option value="years">années</option>
                       <option value="months">mois</option>
                     </select>
                   </div>
