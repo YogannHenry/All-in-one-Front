@@ -5,10 +5,10 @@ import axios from 'axios';
 import iconVoiture from '../../../../assets/icon-voiture.png';
 import iconCamion from '../../../../assets/icon-camion.png';
 import iconMoto from '../../../../assets/icon-moto.png';
-
+import API_URL from '../../../API_URL'
 import CarsForm from './Form/Form';
 
-const API_URL = 'http://localhost:3002/api';
+
 
 function CarsList() {
   const [cars, setCars] = useState([]);
