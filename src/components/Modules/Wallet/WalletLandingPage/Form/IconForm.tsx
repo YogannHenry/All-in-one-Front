@@ -52,7 +52,7 @@ function WalletIconForm({ StringNameIconSelection, selectedIcon, setSelectedIcon
   ];
 
   return (
-    <form className="dropdown dropdown-top max-md:dropdown-end  ">
+    <div className="dropdown dropdown-top max-md:dropdown-end  ">
       <label tabIndex={0} className="btn m-1">
         {selectedIcon ? selectedIcon : 'Icons'}
       </label>
@@ -75,7 +75,7 @@ function WalletIconForm({ StringNameIconSelection, selectedIcon, setSelectedIcon
           </li>
         ))}
       </ul>
-    </form>
+    </div>
   );
 }
 
