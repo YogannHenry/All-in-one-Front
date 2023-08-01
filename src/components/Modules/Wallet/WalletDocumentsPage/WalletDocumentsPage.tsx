@@ -5,6 +5,7 @@ import InputDocumentForm from './Form/InputDocumentForm';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Document, Page, pdfjs } from 'react-pdf';
+import { XMarkIcon } from '@heroicons/react/24/solid';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
 function WalletDocumentsPage() {
@@ -58,10 +59,13 @@ function WalletDocumentsPage() {
     setDocuments(documents.filter((document) => document.id !== documentId));
   };
 
-  const [showPdf, setShowPdf] = useState(false);
+  // Add this state variable
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
 
-
-console.log('showPdf:', showPdf);  
+  const closePreview = () => {
+    setIsPreviewOpen(false);
+    setPdfFile({});
+  };
 
   const previewFile = async (documentId: number) => {
     try {
@@ -89,6 +93,7 @@ console.log('showPdf:', showPdf);
         }));
         // setCurrentDocumentId(documentId);
         // setPreviewDocument(true);
+        setIsPreviewOpen(true);
       } else {
         console.error('Type de fichier non pris en charge :', type);
         return;
@@ -136,13 +141,13 @@ console.log('showPdf:', showPdf);
   useEffect(() => {
     getDocuments();
     getOneWallet();
-    // previewDocument();
+
   }, []);
 
   const walletName = wallet.map((wallet) => wallet.name);
 
   return (
-    <div>
+    <div className="bg-base-200 h-full">
       <TriangleBlur />
       <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen bg-base-200 z-10  ">
         <h1 className="text-5xl font-bold pb-10">{walletName}</h1>
@@ -168,49 +173,37 @@ console.log('showPdf:', showPdf);
               </div>
 
               <div className="card-actions justify-around">
-                <div className="btn bg-[var(--color-primary-300)] text-white">
-                  <button
-                    onClick={() => {
-                      previewFile(document.id);
-                      setShowPdf(true);
-                    }}
-                    >
-                    Ouvrir
+                {!isPreviewOpen && (
+                  <button className="btn bg-[var(--color-primary-300)] text-white">
+                    <p onClick={() => previewFile(document.id)}>Ouvrir</p>
                   </button>
-
-                  {pdfFile[document.id] &&
-                    !pdfFile[document.id].endsWith('.pdf') && (
-                      <div>
-                        <img
-                          src={pdfFile[document.id]}
-                          alt={`Document ${document.name}`}
-                          />
+                )}
+                {isPreviewOpen &&
+                  pdfFile[document.id] &&
+                  !pdfFile[document.id].endsWith('.pdf') && (
+                    <div>
+                      <img
+                        src={pdfFile[document.id]}
+                        alt={`Document ${document.name}`}
+                      />
+                    </div>
+                  )}
+                {pdfFile[document.id] &&
+                  pdfFile[document.id].endsWith('.pdf') && (
+                    <div className="w-screen h-screen fixed left-0 top-0 flex justify-center bg-slate-50 overflow-scroll ">
+                      <div className=' absolute mt-40 '>
+                      <Document file={pdfFile[document.id]}>
+                        <Page pageNumber={1} />
+                      </Document>
+                      <button
+                        className="border rounded-lg bg-[var(--color-primary-500)] absolute top-2 right-2 z-50 text-white"
+                        onClick={closePreview}
+                      >
+                        <XMarkIcon className="w-8 h-8 text-white stroke-2 " />
+                      </button>
                       </div>
-                    )}
-
-                    {showPdf &&
-                    pdfFile[document.id] &&
-                    pdfFile[document.id].endsWith('.pdf') && (
-                      <div className=" top-0 left-0 flex justify-center z-20 w-full h-full bg-white">
-                 
-                        <button
-                          className="absolute btn top-2 left-2 z-50 bg-[var(--color-primary-300)] text-gray-500"
-                          onClick={() => {
-                            
-                            setShowPdf(false);
-                          }}
-                        >
-                          Fermer
-                        </button>
-                        
-                          <Document file={pdfFile[document.id]}>
-                            <Page pageNumber={1} />
-                          </Document>
-                        
-                     
-                      </div>
-                    )}
-                </div>
+                    </div>
+                  )}
               </div>
               <div className="card-actions justify-around">
                 <button className="" onClick={() => downloadFile(document.id)}>
