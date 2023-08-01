@@ -10,11 +10,13 @@ const API_URL = 'http://localhost:3002/api';
 
 interface UserState {
   registered: boolean;
+  token: string | null;
   logged: boolean;
   pseudo: string | null;
   userId: number | null;
 }
 export const initialState: UserState = {
+  token:  null,
   logged: false,
   pseudo: null,
   userId: null,
@@ -127,6 +129,7 @@ const userReducer = createReducer(initialState, (builder) => {
       // Vérifiez si le token est présent dans le local storage et définissez l'état "logged" en conséquence
       const token = localStorage.getItem('token');
       state.logged = !!token;
+      state.token = token;
       if (token) {
         // Si le token est présent, charger le pseudo et l'ID utilisateur depuis le local storage
         state.pseudo = localStorage.getItem('pseudo') || null;
