@@ -18,16 +18,16 @@ function Home() {
   return (
     <div>
       {isLogged && (
-        <div className='bg-base-100 h-screen'>
+        <div className='bg-base-100 h-screen px-4'>
           <p className='w-screen flex justify-center pt-10 text-2xl  text-[var(--color-primary-500)]'>Libérer du temps pour les choses qui comptent le plus pour vous</p>
-          <div className=" h-auto flex justify-evenly rounded-3xl items-center pt-20 max-lg:flex-col ">
-            <NavLink to="/list" className="w-1/4 mx-4  border-0 rounded-3xl shadow-xl transition delay-150 duration-300 hover:shadow-2xl max-lg:mb-10">
+          <div className=" h-auto flex justify-evenly rounded-3xl items-center pt-20 max-lg:flex-col gap-10">
+            <NavLink to="/list" className="w-1/4 mx-4  border-0 rounded-3xl shadow-xl transition delay-150 duration-300 hover:shadow-2xl max-lg:w-auto">
           <img src={todolistImage} className='rounded-3xl '  />
           </NavLink>
-          <NavLink to="/Wallet" className="w-1/4 mx-4 border-0 rounded-3xl shadow-xl transition delay-150 duration-300  hover:shadow-2xl" >
+          <NavLink to="/Wallet" className="w-1/4 mx-4 border-0 rounded-3xl shadow-xl transition delay-150 duration-300  hover:shadow-2xl max-lg:w-auto" >
           <img src={walletImage} className='rounded-3xl'  />
           </NavLink>
-          <NavLink to="/cars" className="w-1/4 mx-4 border-0 rounded-3xl shadow-xl transition delay-150 duration-300  hover:shadow-2xl" >
+          <NavLink to="/cars" className="w-1/4 mx-4 border-0 rounded-3xl shadow-xl transition delay-150 duration-300  hover:shadow-2xl max-lg:w-auto" >
           <img src={cartool} className='rounded-3xl'  />
           </NavLink>
           </div>
