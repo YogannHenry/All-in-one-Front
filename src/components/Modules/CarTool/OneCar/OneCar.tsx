@@ -4,18 +4,30 @@ import axios from 'axios';
 import iconVoiture from '../../../../assets/icon-voiture.png';
 import iconCamion from '../../../../assets/icon-camion.png';
 import iconMoto from '../../../../assets/icon-moto.png';
-import CreateMaintenance from './Form/CreateMaintenance';
+import CreateMaintenance, { MaintenanceDataProps } from './Form/CreateMaintenance';
 import EditCarData from './Form/EditCarData';
 import EditMaintenanceData from './Form/EditMaintenanceData';
 import API_URL from '../../../API_URL';
 
-
+interface CarDetailsProps {
+  id: number;
+  name: string;
+  km_per_month: number;
+  type: 'Voiture' | 'Camion' | 'Moto';
+  current_km: number;
+}
 
 function OneCar() {
-  const [car, setCar] = useState([]);
-  const [maintenances, setMaintenances] = useState([]);
+  const [maintenances, setMaintenances] = useState<MaintenanceDataProps[]>([]);
   const { carId } = useParams();
-
+  const [car, setCar] = useState<CarDetailsProps>({
+    id: 0,
+    name: '',
+    km_per_month: 0,
+    type: 'Voiture',
+    current_km: 0,
+  });
+ 
   const getCarDetails = async () => {
     try {
       const response = await axios.get(`${API_URL}/car/${carId}`);
@@ -50,7 +62,7 @@ function OneCar() {
     }
   };
 
-  const addMaintenance = async (carId, newMaintenanceData) => {
+  const addMaintenance = async (carId: number, newMaintenanceData: MaintenanceDataProps) => {
     try {
       await axios.post(
         `${API_URL}/car/${carId}/maintenance`,
@@ -61,12 +73,17 @@ function OneCar() {
       console.error("Erreur lors de la création de l'entretien:", error);
     }
   };
-
-  const handleAddMaintenance = (newMaintenanceData) => {
-    addMaintenance(carId, newMaintenanceData);
+  const handleAddMaintenance = (newMaintenanceData: MaintenanceDataProps) => {
+    if (carId !== undefined) {
+      // carId est défini, vous pouvez appeler addMaintenance avec carId
+      addMaintenance(parseInt(carId, 10), newMaintenanceData);
+    } else {
+      console.error("carId est pas definie. impossible d'ajouter la maintenance");
+      // Faites quelque chose d'autre en cas de carId indéfini si nécessaire
+    }
   };
 
-  const deleteMaintenance = async (maintenanceId) => {
+  const deleteMaintenance = async (maintenanceId: MaintenanceDataProps) => {
     try {
       await axios.delete(`${API_URL}/car/maintenance/${maintenanceId}`);
       // Si la suppression réussit, vous pouvez effectuer une action supplémentaire ici, comme actualiser la liste des maintenances, etc.
@@ -76,7 +93,7 @@ function OneCar() {
     }
   };
 
-  const handleDeleteMaintenance = (maintenanceId) => {
+  const handleDeleteMaintenance = (maintenanceId: MaintenanceDataProps) => {
     deleteMaintenance(maintenanceId);
   };
 

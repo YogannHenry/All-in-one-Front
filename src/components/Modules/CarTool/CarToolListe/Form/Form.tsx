@@ -9,8 +9,11 @@ export interface NewCarProps {
   current_km: string;
 }
 
+interface OnAddCarProps {
+  (newCar: NewCarProps): void;
+}
 
-function CarsForm({ onAddCar }: { onAddCar: (newCar: NewCarProps) => void }) {
+function CarsForm({ onAddCar }: { onAddCar: OnAddCarProps }) {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [newCar, setNewCar] = useState<NewCarProps>({
     name: '',

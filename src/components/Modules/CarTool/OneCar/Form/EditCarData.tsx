@@ -1,14 +1,40 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import API_URL from '../../../../API_URL'
 
-const API_URL = 'http://localhost:3002/api';
+interface CarDataProps {
+  id: number;
+  name: string;
+  km_per_month: number;
+  type: string;
+  current_km: number;
+  icon:string;
+  created_at:string;
+  updated_at:string;
+}
 
-function EditCarData({ car, setCar, updateCarDetails }) {
-  const [carData, setCarData] = useState({});
+interface EditCarDataProps {
+  car: CarDataProps;
+  setCar: React.Dispatch<React.SetStateAction<CarDataProps>>;
+  updateCarDetails: () => void;
+}
+
+function EditCarData({ car, setCar, updateCarDetails }: EditCarDataProps) {
+ 
   // État pour la gestion de l'édition
   const [isEditing, setIsEditing] = useState(false);
   const { carId } = useParams();
+  const [carData, setCarData] = useState<CarDataProps>({
+    id: 0,
+    name: '', // Valeur initiale vide
+    km_per_month: 0,
+    type: '',
+    current_km: 0,
+    icon:'',
+    created_at:'',
+    updated_at:'',
+  });
   // Fonction pour gérer le clic sur le bouton "Modifier"
   const handleEditClick = () => {
     setCarData({ ...car });
@@ -60,10 +86,11 @@ function EditCarData({ car, setCar, updateCarDetails }) {
                 type="text"
                 value={carData.km_per_month || ''}
                 onChange={(e) =>
-                  setCarData({ ...carData, km_per_month: e.target.value })
+                  setCarData({ ...carData, km_per_month: parseInt(e.target.value, 10) })
                 }
                 className="border rounded px-2 py-1 w-48"
               />
+              <span className="font-bold mb-2">Km</span>
             </label>
           </div>
           <div className="mb-4">
@@ -93,10 +120,11 @@ function EditCarData({ car, setCar, updateCarDetails }) {
                 type="text"
                 value={carData.current_km || ''}
                 onChange={(e) =>
-                  setCarData({ ...carData, current_km: e.target.value })
+                  setCarData({ ...carData, current_km: parseInt(e.target.value, 10) })
                 }
                 className="border rounded px-2 py-1 w-48"
               />
+              <span className="font-bold mb-2">Km</span>
             </label>
           </div>
           <button

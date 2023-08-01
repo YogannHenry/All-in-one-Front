@@ -1,16 +1,46 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
 
+
+interface MaintenanceDataProps {
+  id: number;
+  name: string;
+  last_date_verif: string;
+  last_km_verif: number;
+  validity_km: number;
+  validity_period: string;
+  lastKmRemaining: number;
+  lastTimeRemaining: string;
+}
+
+interface MaintenanceProps {
+  maintenances: MaintenanceDataProps[];
+  handleDeleteMaintenance: (id: number) => void;
+  handleUpdateMaintenance: (id: number, updatedMaintenance: MaintenanceDataProps) => void;
+}
+
+
 function Maintenance({
   maintenances,
   handleDeleteMaintenance,
   handleUpdateMaintenance,
-}) {
+}: MaintenanceProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedMaintenance, setEditedMaintenance] = useState({});
+  const [editedMaintenance, setEditedMaintenance] = useState<MaintenanceDataProps>({
+
+    id: 0,
+    name: '',
+    last_date_verif: new Date().toISOString().split('T')[0],
+    last_km_verif: 0,
+    validity_km: 0,
+    validity_period: '',
+    lastKmRemaining: 0,
+    lastTimeRemaining: '',
+  });
+
   const [timeUnit, setTimeUnit] = useState('years');
 
-  const handleEditClick = (maintenance) => {
+  const handleEditClick = (maintenance: MaintenanceDataProps) => {
     setEditedMaintenance({ ...maintenance });
     setIsEditing(true);
   };
@@ -20,9 +50,9 @@ function Maintenance({
     if (
       editedMaintenance.name.trim() &&
       editedMaintenance.last_date_verif &&
-      !isNaN(parseInt(editedMaintenance.validity_km)) &&
-      !isNaN(parseInt(editedMaintenance.last_km_verif)) &&
-      !isNaN(parseInt(editedMaintenance.validity_period))
+      typeof editedMaintenance.validity_km === 'number' &&
+      typeof editedMaintenance.last_km_verif === 'number' &&
+      editedMaintenance.validity_period.trim()
     ) {
       // Formater la date et soumettre le formulaire au parent (API)
       const formattedDate = format(
@@ -93,11 +123,12 @@ function Maintenance({
                   onChange={(e) =>
                     setEditedMaintenance({
                       ...editedMaintenance,
-                      last_km_verif: e.target.value,
+                      last_km_verif: parseInt(e.target.value, 10),
                     })
                   }
                   className="border rounded px-2 py-1 w-48"
                 />
+                <span className="font-bold mb-2">Km</span>
               </label>
               <label className="block font-bold mb-2">
                 Entretien à effectuer tout les :
@@ -110,10 +141,11 @@ function Maintenance({
                 onChange={(e) =>
                   setEditedMaintenance({
                     ...editedMaintenance,
-                    validity_km: e.target.value,
+                    validity_km: parseInt(e.target.value, 10),
                   })
                 }
               />
+              <span className="font-bold mb-2">Km</span>
               <label className="block font-bold mb-2">
                 Entretien à effectuer tous les :
               </label>
@@ -141,6 +173,8 @@ function Maintenance({
                   <option value="months">mois</option>
                 </select>
               </div>
+              {/* Autres champs de saisie pour les autres données de maintenance */}
+              {/* ... */}
               <button
                 onClick={handleSaveClick}
                 className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white mt-4"
