@@ -1,22 +1,78 @@
 import { NavLink } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import TodoListMenu from './TodoListMenu/TodoListMenu';
 import WalletMenu from './WalletMenu/WalletMenu';
 import CarToolMenu from './CarToolMenu/CarToolMenu';
+import axios from 'axios';
+import { List } from 'postcss/lib/list';
+import API_URL from '../../../API_URL';
 
+interface Car {
+  id: number;
+  name: string;
+ 
+}
 
 function DrawerButtonLeft() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [lists, setLists] = useState<List[]>([]); 
+  const [wallets, setWallets] = useState([]);
+  const [cars, setCars] = useState<Car[]>([]);
+  const userToken = localStorage.getItem('token');
 
   const toggleDrawer = () => {
     setIsDrawerOpen((prevIsOpen) => !prevIsOpen);
   };
 
-
-
   const closeDrawer = () => {
     setIsDrawerOpen(false);
+  };
+
+  const getLists = async () => {
+    try {
+      const { data } = await axios.get(`${API_URL}/list`);
+      setLists(data);
+    } catch (error) {"impossible de récupérer les listes depuis le menu"
+    }
+  };
+
+  const getWallets = async () => {
+    try {
+      const { data } = await axios.get(`${API_URL}/wallet`);
+      setWallets(data);
+    } catch (error) {
+      console.error("Oops! les wallets sont perdu dans la crypto space ");
+    }
+  };
+  
+  const getCarsMenu = async () => {
+    try {
+     
+      console.log(userToken);
+
+      if (userToken) {
+        // Ajouter le token à l'en-tête de la requête
+        const config = {
+          headers: {
+            authorization: `${userToken}`,
+          },
+        };
+      
+        const response = await axios.get(`${API_URL}/car`, config);
+        setCars(response.data);
+      } else {
+        console.log("Vous n'êtes pas connecté. Le token est manquant.");
+      }
+    } catch (error) {
+      console.error('Erreur lors de la récupération des véhicules:', error);
+    }
+  };
+
+  const handleOnClick = () => {
+    getLists();
+    getWallets();
+    getCarsMenu();
   };
 
   return (
@@ -27,6 +83,7 @@ function DrawerButtonLeft() {
         className="drawer-toggle"
         checked={isDrawerOpen}
         onChange={toggleDrawer}
+        onClick={handleOnClick}
       />
       <div className="drawer-content max-md:z-0">
         <label
@@ -58,15 +115,15 @@ function DrawerButtonLeft() {
           </a>
 
           <NavLink to="/list">
-            <TodoListMenu />
+          <TodoListMenu lists={lists} />
           </NavLink>
 
           <NavLink to="/Wallet">
-            <WalletMenu />
+            <WalletMenu wallets={wallets} />
           </NavLink>
 
           <NavLink to="/Cars">
-            <CarToolMenu />
+            <CarToolMenu cars={cars} />
           </NavLink>
 
         </div>

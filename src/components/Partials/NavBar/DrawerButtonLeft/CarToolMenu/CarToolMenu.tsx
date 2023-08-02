@@ -11,40 +11,11 @@ interface Car {
  
 }
 
+interface CarsMenuProps {
+  cars: Car[];
+}
 
-
-function CarToolMenu() {
-
-  const [cars, setCars] = useState<Car[]>([]);
-  const userToken = localStorage.getItem('token');
-
-  const getCarsMenu = async () => {
-    try {
-     
-      console.log(userToken);
-
-      if (userToken) {
-        // Ajouter le token à l'en-tête de la requête
-        const config = {
-          headers: {
-            authorization: `${userToken}`,
-          },
-        };
-        console.log(config);
-
-        const response = await axios.get(`${API_URL}/car`, config);
-        setCars(response.data);
-      } else {
-        console.log("Vous n'êtes pas connecté. Le token est manquant.");
-      }
-    } catch (error) {
-      console.error('Erreur lors de la récupération des véhicules:', error);
-    }
-  };
-
-  useEffect(() => {
-    getCarsMenu();
-  }, [userToken]);
+function CarToolMenu({cars}:CarsMenuProps) {
 
   return (
     <ul className="flex flex-col items-center">

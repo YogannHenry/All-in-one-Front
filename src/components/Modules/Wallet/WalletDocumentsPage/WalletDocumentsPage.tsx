@@ -107,18 +107,29 @@ function WalletDocumentsPage() {
 
   const previewFile = async (documentId: number) => {
     try {
-      const { data } = await axios.get(`${API_URL}/wallet/document/${documentId}`);
+      const { data } = await axios.get(
+        `${API_URL}/wallet/document/${documentId}`
+      );
       const type = data[0].type;
-      if (type.startsWith('image/')) {const imageFileImport = await import(`../../../../../uploads/${data[0].file}`);
+      if (type.startsWith('image/')) {
+        const imageFileImport = await import(
+          `../../../../../uploads/${data[0].file}`
+        );
         const pdfFile = imageFileImport.default;
         console.log('pdfFile:', pdfFile);
-        setPdfFile((prevPdfFiles) => ({...prevPdfFiles,[documentId]: pdfFile,
+        setPdfFile((prevPdfFiles) => ({
+          ...prevPdfFiles,
+          [documentId]: pdfFile,
         }));
         setIsPreviewOpen(true);
-      } else if (type === 'application/pdf') {const pdfFileImport = await import(`../../../../../uploads/${data[0].file}`
+      } else if (type === 'application/pdf') {
+        const pdfFileImport = await import(
+          `../../../../../uploads/${data[0].file}`
         );
         const pdfFile = pdfFileImport.default;
-        setPdfFile((prevPdfFiles) => ({...prevPdfFiles,[documentId]: pdfFile,
+        setPdfFile((prevPdfFiles) => ({
+          ...prevPdfFiles,
+          [documentId]: pdfFile,
         }));
         setIsPreviewOpen(true);
       } else {
@@ -179,8 +190,10 @@ function WalletDocumentsPage() {
       <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen bg-base-200 z-10  ">
         <h1 className="text-5xl font-bold pb-10">{walletName}</h1>
 
-        <InputDocumentForm onSubmit={addDocument}
-        documentInformationFromInput={setSubmittedDocuments} />
+        <InputDocumentForm
+          onSubmit={addDocument}
+          documentInformationFromInput={setSubmittedDocuments}
+        />
 
         <div className="card max-md:w-full w-1/2 bg-base-100 shadow-xl">
           {documents.map((document) => (
@@ -209,40 +222,44 @@ function WalletDocumentsPage() {
                   pdfFile[document.id] &&
                   !pdfFile[document.id].endsWith('.pdf') && (
                     <div className="w-screen h-screen fixed left-0 top-0 flex justify-center bg-slate-50 overflow-scroll ">
-                    <div className=' absolute mt-10 w-5/6'>
-                    <p className="text-2xl uppercase flex justify-center pb-5">{document.name}</p>
-                      <img
-                        src={pdfFile[document.id]}
-                        alt={`Document ${document.name}`}
-                      />
-                      <button
-                        className="border rounded-lg bg-[var(--color-primary-500)] absolute top-2 right-2 z-50 text-white"
-                        onClick={closePreview}
-                      >
-                        <XMarkIcon className="w-8 h-8 text-white stroke-2 " />
-                      </button>
+                      <div className=" absolute mt-10 w-5/6">
+                        <p className="text-2xl uppercase flex justify-center pb-5">
+                          {document.name}
+                        </p>
+                        <img
+                          src={pdfFile[document.id]}
+                          alt={`Document ${document.name}`}
+                        />
+                        <button
+                          className="border rounded-lg bg-[var(--color-primary-500)] absolute top-2 right-2 z-50 text-white"
+                          onClick={closePreview}
+                        >
+                          <XMarkIcon className="w-8 h-8 text-white stroke-2 " />
+                        </button>
                       </div>
                     </div>
                   )}
                 {pdfFile[document.id] &&
                   pdfFile[document.id].endsWith('.pdf') && (
                     <div className="w-screen h-screen fixed left-0 top-0 flex justify-center bg-slate-50 overflow-scroll ">
-                      <div className=' absolute mt-40'>
-                        <p className="text-2xl uppercase flex justify-center pb-5">{document.name}</p>
-                      <Document file={pdfFile[document.id]}>
-                        <Page pageNumber={1} />
-                      </Document>
-                      <button
-                        className="border rounded-lg bg-[var(--color-primary-500)] absolute top-2 right-2 z-50 text-white"
-                        onClick={closePreview}
-                      >
-                        <XMarkIcon className="w-8 h-8 text-white stroke-2 " />
-                      </button>
+                      <div className=" absolute mt-40">
+                        <p className="text-2xl uppercase flex justify-center pb-5">
+                          {document.name}
+                        </p>
+                        <Document file={pdfFile[document.id]}>
+                          <Page pageNumber={1} />
+                        </Document>
+                        <button
+                          className="border rounded-lg bg-[var(--color-primary-500)] absolute top-2 right-2 z-50 text-white"
+                          onClick={closePreview}
+                        >
+                          <XMarkIcon className="w-8 h-8 text-white stroke-2 " />
+                        </button>
                       </div>
                     </div>
                   )}
               </div>
-              
+
               <div className="card-actions justify-around">
                 <button className="" onClick={() => downloadFile(document.id)}>
                   <svg

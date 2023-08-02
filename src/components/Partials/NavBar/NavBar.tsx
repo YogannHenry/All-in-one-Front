@@ -3,28 +3,11 @@ import DrawerButtonLeft from './DrawerButtonLeft/DrawerButtonLeft';
 import DrawerButtonRight from './DrawerButtonRight/DrawerButtonRight';
 import Logo from '../../../assets/TodoNavBar.png';
 import ThemeButton from './ThemeButton/ThemeButton';
-import { useAppDispatch, useAppSelector } from '../../../hooks/redux';
-import { logout } from '../../../store/reducers/user';
-import {
-  UserCircleIcon,
-  ArrowRightOnRectangleIcon,
-} from '@heroicons/react/24/solid';
-
-interface ThemeProps {
-  colorTheme: String;
-  handleColorChange: String;
-}
-
-interface List {
-  id: number;
-  name: string;
-}
+import { useAppSelector } from '../../../hooks/redux';
 
 function NavBar() {
   const isLogged = useAppSelector((state) => state.user.logged);
-
- 
-
+  
   return (
     <div>
       {isLogged && (

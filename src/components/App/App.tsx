@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 import ThemeProvider from '../../contexts/ThemeProvider';
 
+
 import NavBar from '../Partials/NavBar/NavBar';
 
 function App() {

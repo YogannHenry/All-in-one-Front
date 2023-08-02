@@ -1,7 +1,4 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import API_URL from "../../../../API_URL";
 
 interface List {
   id: number;
@@ -9,22 +6,13 @@ interface List {
  
 }
 
+interface TodoListMenuProps {
+  lists: List[];
+}
 
-function TodoListMenu() {
-  const [lists, setLists] = useState<List[]>([]);
+function TodoListMenu({ lists }: TodoListMenuProps) {
 
-  const getLists = async () => {
-    const { data } = await axios.get(`${API_URL}/list`);
-        setLists(data);      
-   
-  };
-  
-
-  useEffect(() => {
-    getLists();
-  }, []);
-
-  return (
+return (
     <ul className="flex flex-col items-center">
       <li>
         <a className="font-bold underline uppercase text-base">Todo-List</a>
