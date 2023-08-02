@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
 
-
-interface MaintenanceDataProps {
+export interface EditMaintenanceDataProps {
   id: number;
   name: string;
   last_date_verif: string;
@@ -14,33 +13,36 @@ interface MaintenanceDataProps {
 }
 
 interface MaintenanceProps {
-  maintenances: MaintenanceDataProps[];
-  handleDeleteMaintenance: (id: number) => void;
-  handleUpdateMaintenance: (id: number, updatedMaintenance: MaintenanceDataProps) => void;
+  maintenances: EditMaintenanceDataProps[];
+  deleteMaintenance: (id: number) => void;
+  handleUpdateMaintenance: (
+    id: number,
+    updatedMaintenance: EditMaintenanceDataProps
+  ) => void;
 }
 
-
-function Maintenance({
+function EditMaintenanceData({
   maintenances,
-  handleDeleteMaintenance,
+  deleteMaintenance,
   handleUpdateMaintenance,
 }: MaintenanceProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedMaintenance, setEditedMaintenance] = useState<MaintenanceDataProps>({
 
-    id: 0,
-    name: '',
-    last_date_verif: new Date().toISOString().split('T')[0],
-    last_km_verif: 0,
-    validity_km: 0,
-    validity_period: '',
-    lastKmRemaining: 0,
-    lastTimeRemaining: '',
-  });
+  const [editedMaintenance, setEditedMaintenance] =
+    useState<EditMaintenanceDataProps>({
+      id: 0,
+      name: '',
+      last_date_verif: new Date().toISOString().split('T')[0],
+      last_km_verif: 0,
+      validity_km: 0,
+      validity_period: '',
+      lastKmRemaining: 0,
+      lastTimeRemaining: '',
+    });
 
   const [timeUnit, setTimeUnit] = useState('years');
 
-  const handleEditClick = (maintenance: MaintenanceDataProps) => {
+  const handleEditClick = (maintenance: EditMaintenanceDataProps) => {
     setEditedMaintenance({ ...maintenance });
     setIsEditing(true);
   };
@@ -71,6 +73,9 @@ function Maintenance({
     } else {
       alert('Veuillez remplir toutes les informations du formulaire.');
     }
+  };
+  const handleDeleteClick = (maintenanceId: number) => {
+    deleteMaintenance(maintenanceId);
   };
 
   return (
@@ -155,9 +160,11 @@ function Maintenance({
                   placeholder="Entrez la valeur"
                   name="validity_period"
                   value={
-                    typeof editedMaintenance.validity_period === "string"
+                    typeof editedMaintenance.validity_period === 'string'
                       ? editedMaintenance.validity_period
-                      : `${editedMaintenance.validity_period?.years || 0} années ${
+                      : `${
+                          editedMaintenance.validity_period?.years || 0
+                        } années ${
                           editedMaintenance.validity_period?.months || 0
                         } mois`
                   }
@@ -204,16 +211,22 @@ function Maintenance({
                 Entretien à effectuer tous les : {maintenance.validity_km} KM
               </p>
               <p className="mb-2 font-semibold">
-                  Entretien à effectuer tous les :{' '}
-                  {typeof maintenance.validity_period === 'string'
-                    ? maintenance.validity_period
-                    : `${maintenance.validity_period?.years || 0} années ${
-                        maintenance.validity_period?.months || 0
-                      } mois`}
-                </p>
-              <p className="mb-2 font-semibold">IL reste {maintenance.lastKmRemaining} Km avant le prochain entretien.</p>
-              
-              <p className="mb-2 font-semibold">Le prochain entretien est à la date de : {format(new Date(maintenance.lastTimeRemaining), 'yyyy-MM-dd')}</p>
+                Entretien à effectuer tous les :{' '}
+                {typeof maintenance.validity_period === 'string'
+                  ? maintenance.validity_period
+                  : `${maintenance.validity_period?.years || 0} années ${
+                      maintenance.validity_period?.months || 0
+                    } mois`}
+              </p>
+              <p className="mb-2 font-semibold">
+                IL reste {maintenance.lastKmRemaining} Km avant le prochain
+                entretien.
+              </p>
+
+              <p className="mb-2 font-semibold">
+                Le prochain entretien est à la date de :{' '}
+                {format(new Date(maintenance.lastTimeRemaining), 'yyyy-MM-dd')}
+              </p>
               <button
                 className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2"
                 name="modifier"
@@ -237,7 +250,7 @@ function Maintenance({
               <button
                 className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white mt-2"
                 name="supprimer"
-                onClick={() => handleDeleteMaintenance(maintenance.id)}
+                onClick={() => handleDeleteClick(maintenance.id)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -262,4 +275,4 @@ function Maintenance({
   );
 }
 
-export default Maintenance;
+export default EditMaintenanceData;

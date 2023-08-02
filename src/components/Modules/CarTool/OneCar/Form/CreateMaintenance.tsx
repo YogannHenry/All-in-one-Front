@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
 
-export interface MaintenanceDataProps {
+export interface CreateMaintenanceDataProps {
   name: string;
   last_date_verif: string;
   validity_km: number;
@@ -9,24 +9,23 @@ export interface MaintenanceDataProps {
   validity_period: string;
 }
 
-
-
-interface CreateMaintenanceProps {
-  onSubmit: (newMaintenanceData: MaintenanceDataProps) => void;
+interface MaintenanceProps {
+  onSubmit: (newMaintenanceData: CreateMaintenanceDataProps) => void;
 }
 
-function CreateMaintenance({ onSubmit }: CreateMaintenanceProps) {
+function CreateMaintenance({ onSubmit }: MaintenanceProps) {
   // État local pour gérer l'ouverture de la div
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [timeUnit, setTimeUnit] = useState('years');
 
-  const [newMaintenanceData, setNewMaintenanceData] = useState<MaintenanceDataProps>({
-    name: '', // Valeur initiale vide
-    last_date_verif: new Date().toISOString().split('T')[0],
-    validity_km: 0,
-    last_km_verif: 0,
-    validity_period: '',
-  });
+  const [newMaintenanceData, setNewMaintenanceData] =
+    useState<CreateMaintenanceDataProps>({
+      name: '', // Valeur initiale vide
+      last_date_verif: new Date().toISOString().split('T')[0],
+      validity_km: 0,
+      last_km_verif: 0,
+      validity_period: '',
+    });
 
   // Fonction pour gérer le clic sur le bouton "Plus"
   const handlePlusButtonClick = () => {
@@ -62,7 +61,6 @@ function CreateMaintenance({ onSubmit }: CreateMaintenanceProps) {
         validity_period: `${newMaintenanceData.validity_period} ${timeUnit}`,
       };
 
-
       onSubmit(newMaintenanceDataFormatted);
       setIsFormOpen(false);
     } else {
@@ -71,7 +69,9 @@ function CreateMaintenance({ onSubmit }: CreateMaintenanceProps) {
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     const { name, value } = e.target;
     setNewMaintenanceData((prevData) => ({
       ...prevData,
