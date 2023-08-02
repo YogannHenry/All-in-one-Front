@@ -1,23 +1,30 @@
 import { useState, useEffect } from 'react';
+import { RootState } from '../../../../store';
 import { NavLink, redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import CarsForm, { NewCarProps } from './Form/Form';
+import API_URL from '../../../API_URL';
 import axios from 'axios';
 import iconVoiture from '../../../../assets/icon-voiture.png';
 import iconCamion from '../../../../assets/icon-camion.png';
 import iconMoto from '../../../../assets/icon-moto.png';
 
-import CarsForm from './Form/Form';
-
-const API_URL = 'http://localhost:3002/api';
+interface CarProps {
+  id: number;
+  name: string;
+  km_per_month: string;
+  type: 'Voiture' | 'Moto' | 'Camion';
+  current_km: string;
+}
 
 function CarsList() {
-  const [cars, setCars] = useState([]);
+  const [cars, setCars] = useState<CarProps[]>([]);
 
-  const userToken = useSelector((state) => state.user.token);
-  const userId = useSelector((state) => state.user.userId);
+  const userToken = useSelector((state: RootState) => state.user.token);
+  const userId = useSelector((state: RootState) => state.user.userId);
   console.log('userID:', userId);
 
-  const handleAddCar = async (newCar) => {
+  const handleAddCar = async (newCar: NewCarProps) => {
     try {
       const carWithUserId = { ...newCar, userId };
       console.log('carWithUserId:', carWithUserId);
@@ -30,7 +37,7 @@ function CarsList() {
     }
   };
 
-  const handleDeleteCar = async (carId) => {
+  const handleDeleteCar = async (carId: number) => {
     console.log(carId);
     try {
       await axios.delete(`${API_URL}/car/${carId}`);
@@ -87,12 +94,22 @@ function CarsList() {
               <figure>
                 {/* Condition d'affichage de l'icône en fonction du type de véhicule */}
                 {car.type === 'Voiture' && (
-                  <img src={iconVoiture} alt="Icon voiture"   className="w-56 h-56"/>
+                  <img
+                    src={iconVoiture}
+                    alt="Icon voiture"
+                    className="w-56 h-56"
+                  />
                 )}
                 {car.type === 'Camion' && (
-                  <img src={iconCamion} alt="Icon camion"   className="w-56 h-56" />
+                  <img
+                    src={iconCamion}
+                    alt="Icon camion"
+                    className="w-56 h-56"
+                  />
                 )}
-                {car.type === 'Moto' && <img src={iconMoto} alt="Icon moto"   className="w-56 h-56" />}
+                {car.type === 'Moto' && (
+                  <img src={iconMoto} alt="Icon moto" className="w-56 h-56" />
+                )}
               </figure>
             </NavLink>
             <div className="card-body flex items-center">

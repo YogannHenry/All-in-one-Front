@@ -1,14 +1,39 @@
 import { useState } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import API_URL from '../../../../API_URL';
 
-const API_URL = 'http://localhost:3002/api';
+interface CarDataProps {
+  id: number;
+  name: string;
+  km_per_month: number;
+  type: 'Voiture' | 'Camion' | 'Moto';
+  current_km: number;
+  icon: string;
+  created_at: string;
+  updated_at: string;
+}
 
-function EditCarData({ car, setCar, updateCarDetails }) {
-  const [carData, setCarData] = useState({});
+interface EditCarDataProps {
+  car: CarDataProps;
+  setCar: React.Dispatch<React.SetStateAction<CarDataProps>>;
+  updateCarDetails: () => void;
+}
+
+function EditCarData({ car, setCar, updateCarDetails }: EditCarDataProps) {
   // État pour la gestion de l'édition
   const [isEditing, setIsEditing] = useState(false);
   const { carId } = useParams();
+  const [carData, setCarData] = useState<CarDataProps>({
+    id: 0,
+    name: '', // Valeur initiale vide
+    km_per_month: 0,
+    type: 'Voiture',
+    current_km: 0,
+    icon: '',
+    created_at: '',
+    updated_at: '',
+  });
   // Fonction pour gérer le clic sur le bouton "Modifier"
   const handleEditClick = () => {
     setCarData({ ...car });
@@ -36,6 +61,16 @@ function EditCarData({ car, setCar, updateCarDetails }) {
 
   console.log('carData apres les modifff:', carData);
 
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
+    setCarData((prevCar) => ({
+      ...prevCar,
+      [name]: value,
+    }));
+  };
+
   return (
     <div>
       {isEditing ? (
@@ -46,9 +81,7 @@ function EditCarData({ car, setCar, updateCarDetails }) {
               <input
                 type="text"
                 value={carData.name || ''}
-                onChange={(e) =>
-                  setCarData({ ...carData, name: e.target.value })
-                }
+                onChange={handleChange}
                 className="border rounded px-2 py-1 w-48"
               />
             </label>
@@ -59,11 +92,10 @@ function EditCarData({ car, setCar, updateCarDetails }) {
               <input
                 type="text"
                 value={carData.km_per_month || ''}
-                onChange={(e) =>
-                  setCarData({ ...carData, km_per_month: e.target.value })
-                }
+                onChange={handleChange}
                 className="border rounded px-2 py-1 w-48"
               />
+              <span className="font-bold mb-2">Km</span>
             </label>
           </div>
           <div className="mb-4">
@@ -73,9 +105,7 @@ function EditCarData({ car, setCar, updateCarDetails }) {
                 name="type"
                 className="select select-bordered w-full max-w-xs"
                 value={carData.type || ''}
-                onChange={(e) =>
-                  setCarData({ ...carData, type: e.target.value })
-                }
+                onChange={handleChange}
               >
                 <option disabled selected>
                   Type de véhicules
@@ -92,11 +122,10 @@ function EditCarData({ car, setCar, updateCarDetails }) {
               <input
                 type="text"
                 value={carData.current_km || ''}
-                onChange={(e) =>
-                  setCarData({ ...carData, current_km: e.target.value })
-                }
+                onChange={handleChange}
                 className="border rounded px-2 py-1 w-48"
               />
+              <span className="font-bold mb-2">Km</span>
             </label>
           </div>
           <button

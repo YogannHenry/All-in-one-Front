@@ -1,16 +1,48 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
 
-function Maintenance({
+export interface EditMaintenanceDataProps {
+  id: number;
+  name: string;
+  last_date_verif: string;
+  last_km_verif: number;
+  validity_km: number;
+  validity_period: string | { years: string; months: string };
+  lastKmRemaining: number;
+  lastTimeRemaining: string;
+}
+
+interface MaintenanceProps {
+  maintenances: EditMaintenanceDataProps[];
+  deleteMaintenance: (id: number) => void;
+  handleUpdateMaintenance: (
+    id: number,
+    updatedMaintenance: EditMaintenanceDataProps
+  ) => void;
+}
+
+function EditMaintenanceData({
   maintenances,
-  handleDeleteMaintenance,
+  deleteMaintenance,
   handleUpdateMaintenance,
-}) {
+}: MaintenanceProps) {
   const [isEditing, setIsEditing] = useState(false);
-  const [editedMaintenance, setEditedMaintenance] = useState({});
+
+  const [editedMaintenance, setEditedMaintenance] =
+    useState<EditMaintenanceDataProps>({
+      id: 0,
+      name: '',
+      last_date_verif: new Date().toISOString().split('T')[0],
+      last_km_verif: 0,
+      validity_km: 0,
+      validity_period: '',
+      lastKmRemaining: 0,
+      lastTimeRemaining: '',
+    });
+
   const [timeUnit, setTimeUnit] = useState('years');
 
-  const handleEditClick = (maintenance) => {
+  const handleEditClick = (maintenance: EditMaintenanceDataProps) => {
     setEditedMaintenance({ ...maintenance });
     setIsEditing(true);
   };
@@ -20,9 +52,9 @@ function Maintenance({
     if (
       editedMaintenance.name.trim() &&
       editedMaintenance.last_date_verif &&
-      !isNaN(parseInt(editedMaintenance.validity_km)) &&
-      !isNaN(parseInt(editedMaintenance.last_km_verif)) &&
-      !isNaN(parseInt(editedMaintenance.validity_period))
+      typeof editedMaintenance.validity_km === 'number' &&
+      typeof editedMaintenance.last_km_verif === 'number' &&
+      editedMaintenance.validity_period
     ) {
       // Formater la date et soumettre le formulaire au parent (API)
       const formattedDate = format(
@@ -33,7 +65,6 @@ function Maintenance({
       const editedMaintenanceFormatted = {
         ...editedMaintenance,
         last_date_verif: formattedDate,
-        last_km_verif: parseInt(editedMaintenance.last_km_verif, 10),
         validity_period: `${editedMaintenance.validity_period} ${timeUnit}`,
       };
 
@@ -42,6 +73,9 @@ function Maintenance({
     } else {
       alert('Veuillez remplir toutes les informations du formulaire.');
     }
+  };
+  const handleDeleteClick = (maintenanceId: number) => {
+    deleteMaintenance(maintenanceId);
   };
 
   return (
@@ -93,11 +127,12 @@ function Maintenance({
                   onChange={(e) =>
                     setEditedMaintenance({
                       ...editedMaintenance,
-                      last_km_verif: e.target.value,
+                      last_km_verif: parseInt(e.target.value, 10),
                     })
                   }
                   className="border rounded px-2 py-1 w-48"
                 />
+                <span className="font-bold mb-2">Km</span>
               </label>
               <label className="block font-bold mb-2">
                 Entretien à effectuer tout les :
@@ -110,20 +145,29 @@ function Maintenance({
                 onChange={(e) =>
                   setEditedMaintenance({
                     ...editedMaintenance,
-                    validity_km: e.target.value,
+                    validity_km: parseInt(e.target.value, 10),
                   })
                 }
               />
+              <span className="font-bold mb-2">Km</span>
               <label className="block font-bold mb-2">
                 Entretien à effectuer tous les :
               </label>
               <div className="flex">
                 <input
-                  type="number"
+                  type="text"
                   className="input input-bordered w-full max-w-xs mr-2"
                   placeholder="Entrez la valeur"
                   name="validity_period"
-                  value={editedMaintenance.validity_period}
+                  value={
+                    typeof editedMaintenance.validity_period === 'string'
+                      ? editedMaintenance.validity_period
+                      : `${
+                          editedMaintenance.validity_period?.years || 0
+                        } années ${
+                          editedMaintenance.validity_period?.months || 0
+                        } mois`
+                  }
                   onChange={(e) =>
                     setEditedMaintenance({
                       ...editedMaintenance,
@@ -141,6 +185,8 @@ function Maintenance({
                   <option value="months">mois</option>
                 </select>
               </div>
+              {/* Autres champs de saisie pour les autres données de maintenance */}
+              {/* ... */}
               <button
                 onClick={handleSaveClick}
                 className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white mt-4"
@@ -166,12 +212,21 @@ function Maintenance({
               </p>
               <p className="mb-2 font-semibold">
                 Entretien à effectuer tous les :{' '}
-                {maintenance.validity_period?.years || 0} années{' '}
-                {maintenance.validity_period?.months || 0} mois{' '}
+                {typeof maintenance.validity_period === 'string'
+                  ? maintenance.validity_period
+                  : `${maintenance.validity_period?.years || 0} années ${
+                      maintenance.validity_period?.months || 0
+                    } mois`}
               </p>
-              <p className="mb-2 font-semibold">IL reste {maintenance.lastKmRemaining} Km avant le prochain entretien.</p>
-              
-              <p className="mb-2 font-semibold">Le prochain entretien est à la date de : {format(new Date(maintenance.lastTimeRemaining), 'yyyy-MM-dd')}</p>
+              <p className="mb-2 font-semibold">
+                IL reste {maintenance.lastKmRemaining} Km avant le prochain
+                entretien.
+              </p>
+
+              <p className="mb-2 font-semibold">
+                Le prochain entretien est à la date de :{' '}
+                {format(new Date(maintenance.lastTimeRemaining), 'yyyy-MM-dd')}
+              </p>
               <button
                 className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2"
                 name="modifier"
@@ -195,7 +250,7 @@ function Maintenance({
               <button
                 className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white mt-2"
                 name="supprimer"
-                onClick={() => handleDeleteMaintenance(maintenance.id)}
+                onClick={() => handleDeleteClick(maintenance.id)}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -220,4 +275,4 @@ function Maintenance({
   );
 }
 
-export default Maintenance;
+export default EditMaintenanceData;

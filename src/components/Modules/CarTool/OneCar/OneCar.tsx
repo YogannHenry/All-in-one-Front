@@ -4,17 +4,43 @@ import axios from 'axios';
 import iconVoiture from '../../../../assets/icon-voiture.png';
 import iconCamion from '../../../../assets/icon-camion.png';
 import iconMoto from '../../../../assets/icon-moto.png';
-import CreateMaintenance from './Form/CreateMaintenance';
+import CreateMaintenance, {
+  CreateMaintenanceDataProps,
+} from './Form/CreateMaintenance';
 import EditCarData from './Form/EditCarData';
-import EditMaintenanceData from './Form/EditMaintenanceData';
+import EditMaintenanceData, {
+  EditMaintenanceDataProps,
+} from './Form/EditMaintenanceData';
 import API_URL from '../../../API_URL';
 
-
+interface CarDetailsProps {
+  id: number;
+  name: string;
+  km_per_month: number;
+  type: 'Voiture' | 'Camion' | 'Moto';
+  current_km: number;
+  icon: string;
+  created_at: string;
+  updated_at: string;
+}
 
 function OneCar() {
-  const [car, setCar] = useState([]);
-  const [maintenances, setMaintenances] = useState([]);
+  const [maintenances, setMaintenances] = useState<EditMaintenanceDataProps[]>(
+    []
+  );
   const { carId } = useParams();
+  const [car, setCar] = useState<CarDetailsProps>({
+    id: 0,
+    name: '',
+    km_per_month: 0,
+    type: 'Voiture',
+    current_km: 0,
+    icon: '',
+    created_at: '',
+    updated_at: '',
+  });
+
+  console.log('Type de maintenances :', typeof maintenances);
 
   const getCarDetails = async () => {
     try {
@@ -50,7 +76,10 @@ function OneCar() {
     }
   };
 
-  const addMaintenance = async (carId, newMaintenanceData) => {
+  const addMaintenance = async (
+    carId: number,
+    newMaintenanceData: CreateMaintenanceDataProps
+  ) => {
     try {
       await axios.post(
         `${API_URL}/car/${carId}/maintenance`,
@@ -61,12 +90,21 @@ function OneCar() {
       console.error("Erreur lors de la création de l'entretien:", error);
     }
   };
-
-  const handleAddMaintenance = (newMaintenanceData) => {
-    addMaintenance(carId, newMaintenanceData);
+  const handleAddMaintenance = (
+    newMaintenanceData: CreateMaintenanceDataProps
+  ) => {
+    if (carId !== undefined) {
+      // carId est défini, vous pouvez appeler addMaintenance avec carId
+      addMaintenance(parseInt(carId, 10), newMaintenanceData);
+    } else {
+      console.error(
+        "carId est pas definie. impossible d'ajouter la maintenance"
+      );
+      // Faites quelque chose d'autre en cas de carId indéfini si nécessaire
+    }
   };
 
-  const deleteMaintenance = async (maintenanceId) => {
+  const deleteMaintenance = async (maintenanceId: number) => {
     try {
       await axios.delete(`${API_URL}/car/maintenance/${maintenanceId}`);
       // Si la suppression réussit, vous pouvez effectuer une action supplémentaire ici, comme actualiser la liste des maintenances, etc.
@@ -76,11 +114,10 @@ function OneCar() {
     }
   };
 
-  const handleDeleteMaintenance = (maintenanceId) => {
-    deleteMaintenance(maintenanceId);
-  };
-
-  const updateMaintenance = async (maintenanceId, updatedMaintenanceData) => {
+  const updateMaintenance = async (
+    maintenanceId: number,
+    updatedMaintenanceData: EditMaintenanceDataProps
+  ) => {
     try {
       await axios.put(
         `${API_URL}/car/maintenance/${maintenanceId}`,
@@ -93,7 +130,10 @@ function OneCar() {
     }
   };
 
-  const handleUpdateMaintenance = (maintenanceId, updatedMaintenanceData) => {
+  const handleUpdateMaintenance = (
+    maintenanceId: number,
+    updatedMaintenanceData: EditMaintenanceDataProps
+  ) => {
     updateMaintenance(maintenanceId, updatedMaintenanceData);
   };
 
@@ -135,7 +175,7 @@ function OneCar() {
         {maintenances.length > 0 ? (
           <EditMaintenanceData
             maintenances={maintenances}
-            handleDeleteMaintenance={handleDeleteMaintenance}
+            deleteMaintenance={deleteMaintenance}
             handleUpdateMaintenance={handleUpdateMaintenance}
           />
         ) : (

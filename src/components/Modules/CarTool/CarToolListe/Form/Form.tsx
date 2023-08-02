@@ -1,11 +1,24 @@
 import { useState } from 'react';
 
-function CarsForm({ onAddCar }) {
+
+
+export interface NewCarProps {
+  name: string;
+  km_per_month: string;
+  type: 'Voiture' | 'Moto' | 'Camion';
+  current_km: string;
+}
+
+interface OnAddCarProps {
+  (newCar: NewCarProps): void;
+}
+
+function CarsForm({ onAddCar }: { onAddCar: OnAddCarProps }) {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [newCar, setNewCar] = useState({
+  const [newCar, setNewCar] = useState<NewCarProps>({
     name: '',
     km_per_month: '',
-    type: '',
+    type: 'Voiture',
     current_km: '',
   });
 
@@ -15,7 +28,7 @@ function CarsForm({ onAddCar }) {
     setIsFormOpen(!isFormOpen);
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setNewCar((prevCar) => ({
       ...prevCar,
@@ -23,7 +36,7 @@ function CarsForm({ onAddCar }) {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (
       newCar.name.trim() &&
@@ -36,7 +49,7 @@ function CarsForm({ onAddCar }) {
       setNewCar({
         name: '',
         km_per_month: '',
-        type: '',
+        type: 'Voiture',
         current_km: '',
       });
       setIsFormOpen(false);

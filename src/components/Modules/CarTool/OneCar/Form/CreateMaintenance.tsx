@@ -1,34 +1,53 @@
 import { useState } from 'react';
 import { format } from 'date-fns';
 
-function CreateMaintenance({ onSubmit }) {
+export interface CreateMaintenanceDataProps {
+  name: string;
+  last_date_verif: string;
+  validity_km: number;
+  last_km_verif: number;
+  validity_period: string;
+}
+
+interface MaintenanceProps {
+  onSubmit: (newMaintenanceData: CreateMaintenanceDataProps) => void;
+}
+
+function CreateMaintenance({ onSubmit }: MaintenanceProps) {
   // État local pour gérer l'ouverture de la div
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [timeUnit, setTimeUnit] = useState('years');
 
-  const [newMaintenanceData, setNewMaintenanceData] = useState({
-    name: '', // Valeur initiale vide
-    last_date_verif: new Date().toISOString().split('T')[0],
-    validity_km: '',
-    last_km_verif: '',
-    validity_period: '',
-  });
+  const [newMaintenanceData, setNewMaintenanceData] =
+    useState<CreateMaintenanceDataProps>({
+      name: '', // Valeur initiale vide
+      last_date_verif: new Date().toISOString().split('T')[0],
+      validity_km: 0,
+      last_km_verif: 0,
+      validity_period: '',
+    });
 
   // Fonction pour gérer le clic sur le bouton "Plus"
   const handlePlusButtonClick = () => {
     setIsFormOpen(!isFormOpen); // Inverse l'état d'ouverture
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    console.log('Name:', newMaintenanceData.name);
+    console.log('Last Date Verif:', newMaintenanceData.last_date_verif);
+    console.log('Validity KM:', newMaintenanceData.validity_km);
+    console.log('Last KM Verif:', newMaintenanceData.last_km_verif);
+    console.log('Validity Period:', newMaintenanceData.validity_period);
 
     // Vérifier si tous les champs requis sont remplis
     if (
       newMaintenanceData.name.trim() &&
       newMaintenanceData.last_date_verif &&
-      !isNaN(parseInt(newMaintenanceData.validity_km)) &&
-      !isNaN(parseInt(newMaintenanceData.last_km_verif)) &&
-      !isNaN(parseInt(newMaintenanceData.validity_period))
+      newMaintenanceData.validity_km !== 0 && // Vérifier que la valeur n'est pas 0
+      newMaintenanceData.last_km_verif !== 0 && // Vérifier que la valeur n'est pas 0
+      newMaintenanceData.validity_period.trim()
     ) {
       // Si tous les champs sont remplis, formater la date et soumettre le formulaire
       const formattedDate = format(
@@ -39,7 +58,6 @@ function CreateMaintenance({ onSubmit }) {
       const newMaintenanceDataFormatted = {
         ...newMaintenanceData,
         last_date_verif: formattedDate,
-        last_km_verif: parseInt(newMaintenanceData.last_km_verif, 10),
         validity_period: `${newMaintenanceData.validity_period} ${timeUnit}`,
       };
 
@@ -51,8 +69,10 @@ function CreateMaintenance({ onSubmit }) {
     }
   };
 
-  const handleChange = (event) => {
-    const { name, value } = event.target;
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
     setNewMaintenanceData((prevData) => ({
       ...prevData,
       [name]: value,
@@ -109,7 +129,7 @@ function CreateMaintenance({ onSubmit }) {
                 </div>
                 <div>
                   <label className="block font-bold mb-2">
-                    Dernier Entretien :
+                    Nombre de Km au dernier entretien :
                   </label>
                   <input
                     type="number"
@@ -119,6 +139,7 @@ function CreateMaintenance({ onSubmit }) {
                     value={newMaintenanceData.last_km_verif}
                     onChange={handleChange}
                   />
+                  <span className="font-bold mb-2">Km</span>
                   <label htmlFor="date" className="block font-bold mb-2">
                     Date du dernier entretien :
                   </label>
@@ -143,6 +164,7 @@ function CreateMaintenance({ onSubmit }) {
                     onChange={handleChange}
                     name="validity_km"
                   />
+                  <span className="font-bold mb-2">Km</span>
                 </div>
                 <div>
                   <label className="block font-bold mb-2">
@@ -150,7 +172,7 @@ function CreateMaintenance({ onSubmit }) {
                   </label>
                   <div className="flex">
                     <input
-                      type="number"
+                      type="text"
                       className="input input-bordered w-full max-w-xs mr-2"
                       placeholder="Entrez la valeur"
                       name="validity_period"
@@ -163,7 +185,6 @@ function CreateMaintenance({ onSubmit }) {
                       value={timeUnit}
                       onChange={(e) => setTimeUnit(e.target.value)}
                     >
-                      <option value="years">années</option>
                       <option value="months">mois</option>
                     </select>
                   </div>
