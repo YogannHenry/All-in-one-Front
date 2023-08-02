@@ -16,7 +16,7 @@ interface UserState {
   userId: number | null;
 }
 export const initialState: UserState = {
-  token:  null,
+  token: null,
   logged: false,
   pseudo: null,
   userId: null,
@@ -36,7 +36,6 @@ export const login = createAsyncThunk(
   async (formData: FormData, { rejectWithValue }) => {
     try {
       const objData = Object.fromEntries(formData);
-
 
       const { data } = await axios.post(`${API_URL}/login`, objData);
       console.log('data', data);
