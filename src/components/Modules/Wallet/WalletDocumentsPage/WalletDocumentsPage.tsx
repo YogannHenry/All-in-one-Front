@@ -4,6 +4,9 @@ import API_URL from '../../../API_URL';
 import InputDocumentForm from './Form/InputDocumentForm';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { Document, Page, pdfjs } from 'react-pdf';
+import { XMarkIcon } from '@heroicons/react/24/solid';
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 import { Wallet } from '../../../../@types/index';
 
 interface Document {
@@ -19,23 +22,35 @@ function WalletDocumentsPage() {
   const { walletId } = useParams<{ walletId: string }>();
 
   const [documents, setDocuments] = useState<Document[]>([]);
+  const [submittedDocuments, setSubmittedDocuments] = useState([]);
+  const [pdfFile, setPdfFile] = useState({});
   const [wallet, setWallet] = useState<Wallet[]>([]);
 
   const getOneWallet = async () => {
     try {
-      const { data } = await axios.get<Wallet []>(`${API_URL}/wallet/${walletId}`);
+      const { data } = await axios.get<Wallet[]>(
+        `${API_URL}/wallet/${walletId}`
+      );
       setWallet(data);
     } catch (error) {
-      console.error('Une erreur s\'est produite lors de la récupération du portefeuille :', error);
+      console.error(
+        "Une erreur s'est produite lors de la récupération du portefeuille :",
+        error
+      );
     }
   };
 
   const getDocuments = async () => {
     try {
-      const { data } = await axios.get<Document[]>(`${API_URL}/wallet/${walletId}/document`);
+      const { data } = await axios.get<Document[]>(
+        `${API_URL}/wallet/${walletId}/document`
+      );
       setDocuments(data);
     } catch (error) {
-      console.error('Une erreur s\'est produite lors de la récupération des documents :', error);
+      console.error(
+        "Une erreur s'est produite lors de la récupération des documents :",
+        error
+      );
     }
   };
 
@@ -54,7 +69,7 @@ function WalletDocumentsPage() {
         `${API_URL}/wallet/${walletId}/document`,
         formData,
         {
-          // Ici, on précise le type de contenu de la requête, pour que le serveur sache comment traiter les données, ici, un fichier. 
+          // Ici, on précise le type de contenu de la requête, pour que le serveur sache comment traiter les données, ici, un fichier.
           headers: {
             'Content-Type': 'multipart/form-data',
           },
@@ -68,16 +83,52 @@ function WalletDocumentsPage() {
     }
   };
 
-
   const deleteDocument = async (documentId: number) => {
     try {
-      const { data } = await axios.delete(`${API_URL}/wallet/document/${documentId}`);
+      const { data } = await axios.delete(
+        `${API_URL}/wallet/document/${documentId}`
+      );
       setDocuments(documents.filter((document) => document.id !== documentId));
     } catch (error) {
-      console.error('Une erreur s\'est produite lors de la suppression du document :', error);
+      console.error(
+        "Une erreur s'est produite lors de la suppression du document :",
+        error
+      );
     }
   };
-  
+
+  // Add this state variable
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+
+  const closePreview = () => {
+    setIsPreviewOpen(false);
+    setPdfFile({});
+  };
+
+  const previewFile = async (documentId: number) => {
+    try {
+      const { data } = await axios.get(`${API_URL}/wallet/document/${documentId}`);
+      const type = data[0].type;
+      if (type.startsWith('image/')) {const imageFileImport = await import(`../../../../../uploads/${data[0].file}`);
+        const pdfFile = imageFileImport.default;
+        setPdfFile((prevPdfFiles) => ({...prevPdfFiles,[documentId]: pdfFile,
+        }));
+      } else if (type === 'application/pdf') {const pdfFileImport = await import(`../../../../../uploads/${data[0].file}`
+        );
+        const pdfFile = pdfFileImport.default;
+        setPdfFile((prevPdfFiles) => ({...prevPdfFiles,[documentId]: pdfFile,
+        }));
+        // setCurrentDocumentId(documentId);
+        // setPreviewDocument(true);
+        setIsPreviewOpen(true);
+      } else {
+        console.error('Type de fichier non pris en charge :', type);
+        return;
+      }
+    } catch (error) {
+      console.error('Erreur lors du chargement du fichier :', error);
+    }
+  };
 
   const downloadFile = async (documentId: number) => {
     try {
@@ -108,7 +159,10 @@ function WalletDocumentsPage() {
       window.URL.revokeObjectURL(url);
       document.body.removeChild(link);
     } catch (error) {
-      console.error('Une erreur s\'est produite lors du télechargement du document:', error);
+      console.error(
+        "Une erreur s'est produite lors du télechargement du document:",
+        error
+      );
     }
   };
 
@@ -125,10 +179,7 @@ function WalletDocumentsPage() {
       <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen bg-base-200 z-10  ">
         <h1 className="text-5xl font-bold pb-10">{walletName}</h1>
 
-        <InputDocumentForm
-          onSubmit={addDocument}
-          
-        />
+        <InputDocumentForm onSubmit={addDocument} />
 
         <div className="card max-md:w-full w-1/2 bg-base-100 shadow-xl">
           {documents.map((document) => (
@@ -146,11 +197,13 @@ function WalletDocumentsPage() {
                 </div>
                 <p className="text-slate-400 text-sm">{document.information}</p>
               </div>
+
               <div className="card-actions justify-around p-1">
                 <button className="btn bg-[var(--color-primary-300)] text-white">
                   <p>Ouvrir</p>
                 </button>
               </div>
+              
               <div className="card-actions justify-around">
                 <button className="" onClick={() => downloadFile(document.id)}>
                   <svg
