@@ -5,6 +5,9 @@ import {
 } from '@reduxjs/toolkit';
 
 import axios from 'axios';
+import axiosInstance from '../../utils/axios';
+import { redirect } from 'react-router-dom';
+
 
 const API_URL = 'http://localhost:3002/api';
 
@@ -27,6 +30,8 @@ export const initialState: UserState = {
 export const logout = createAsyncThunk(`${API_URL}/logout`, async () => {
   // Supprimer le token du local storage
   localStorage.removeItem('token');
+  redirect('/');
+  console.log("localstorage", localStorage)
   return false;
 });
 
@@ -46,6 +51,7 @@ export const login = createAsyncThunk(
       localStorage.setItem('pseudo', data.pseudo);
       localStorage.setItem('userId', data.userId.toString());
       // Convertir en chaîne de caractères avant de stocker car pas de number dans le storage
+      console.log("localstorage", localStorage)
       return data as {
         logged: boolean;
         pseudo: string;

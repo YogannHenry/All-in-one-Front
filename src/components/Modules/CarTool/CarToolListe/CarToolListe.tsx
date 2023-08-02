@@ -17,10 +17,24 @@ interface CarProps {
   current_km: string;
 }
 
+// const userToken = localStorage.getItem('token');
+// const userId = useSelector((state: RootState) => state.user.userId);
+// console.log('userToken:', userToken);
+
+// const axiosInstance = axios.create({
+//   baseURL: 'http://localhost:3002/api',
+//   timeout: 8000,
+//   headers: {
+   
+//     authorization: `${userToken}`,
+   
+//   },
+// });
+
 function CarsList() {
   const [cars, setCars] = useState<CarProps[]>([]);
 
-  const userToken = useSelector((state: RootState) => state.user.token);
+  const userToken = localStorage.getItem('token');
   const userId = useSelector((state: RootState) => state.user.userId);
   console.log('userID:', userId);
 
@@ -77,7 +91,7 @@ function CarsList() {
 
   useEffect(() => {
     getCars();
-  }, [userToken]);
+  }, []);
 
   return (
     <div className="bg-base-200  min-h-screen h-full">

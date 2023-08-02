@@ -5,6 +5,7 @@ import { login, register } from '../store/reducers/user';
 import Field from './LoginField';
 import clipartFallout from '../assets/1460481845.svg';
 import PasswordCaractereMissing from '../modals/PasswordCaractereMissing';
+import PasswordConfirmationDoNotMatchPassword from '../modals/PasswordConfirmationDoNotMatchPassword';
 import { NavLink } from 'react-router-dom';
 
 function SignInPage() {
@@ -16,27 +17,40 @@ function SignInPage() {
   const [passwordMissingCaractere, setPasswordMissingCaractere] =
     useState(false);
 
+    const [PasswordConfirmationDoNotMatch, setPasswordConfirmationDoNotMatchPassword] =
+    useState(false);
+
   const dispatch = useAppDispatch();
 
   const handleCloseAlert = () => {
     setPasswordMissingCaractere(false);
+    setPasswordConfirmationDoNotMatchPassword(false);
   };
 
   const handleSubmitRegister = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+    const password = event.currentTarget.password.value;
+    const passwordConfirm = event.currentTarget.passwordConfirm.value;
+
     if (
-      event.currentTarget.password.value.length < 8 ||
-      !event.currentTarget.password.value.match(/(?=.*[!@#$%^&*])/) ||
-      !event.currentTarget.password.value.match(/(?=.*[A-Z])/)
+      password.length < 8 ||
+      !password.match(/(?=.*[!@#$%^&*])/) ||
+      !password.match(/(?=.*[A-Z])/)
     ) {
       setPasswordMissingCaractere(true);
+      setPasswordConfirmationDoNotMatchPassword(false); // Reset the other error state
       return;
     }
 
-    const formData = new FormData(event.currentTarget);
+    if (password !== passwordConfirm) {
+      setPasswordConfirmationDoNotMatchPassword(true);
+      setPasswordMissingCaractere(false); // Reset the other error state
+      return;
+    }
 
-    // Ici, dispatch génère l'action d'inscription avec les données du formulaire
+    // If both conditions are met, proceed with the registration
+    const formData = new FormData(event.currentTarget);
     dispatch(register(formData));
   };
 
@@ -165,6 +179,9 @@ function SignInPage() {
                     placeholder="Vérifier votre mot de passe"
                     type="password"
                   />
+                    {PasswordConfirmationDoNotMatch && (
+                    <PasswordConfirmationDoNotMatchPassword onClose={handleCloseAlert} />
+                  )}
                 </div>
                 <div className="form-control mt-6">
                   <button className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white">
