@@ -51,7 +51,6 @@ function DrawerButtonLeft() {
       console.log(userToken);
 
       if (userToken) {
-        // Ajouter le token à l'en-tête de la requête
         const config = {
           headers: {
             authorization: `${userToken}`,
