@@ -3,6 +3,7 @@ import { RootState } from '../../../../store';
 import { NavLink, redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import CarsForm, { NewCarProps } from './Form/Form';
+import { getConfigWithToken } from '../../../../utils/config';
 import API_URL from '../../../API_URL';
 import axios from 'axios';
 import iconVoiture from '../../../../assets/icon-voiture.png';
@@ -63,7 +64,24 @@ function CarsList() {
   };
 
   // Utilisez le token JWT pour effectuer la requête API
+
   const getCars = async () => {
+    try {
+      const userToken = localStorage.getItem('token');
+      console.log(userToken);
+
+      const config = getConfigWithToken(userToken);
+      console.log(config);
+
+      const response = await axios.get(`${API_URL}/car`, config);
+      setCars(response.data);
+    } catch (error) {
+      redirect('/error');
+      console.error('Erreur lors de la récupération des véhicules:', error);
+    }
+  };
+
+  /*const getCars = async () => {
     try {
       const userToken = localStorage.getItem('token');
       console.log(userToken);
@@ -87,7 +105,7 @@ function CarsList() {
       redirect('/error');
       console.error('Erreur lors de la récupération des véhicules:', error);
     }
-  };
+  };*/
 
   useEffect(() => {
     getCars();

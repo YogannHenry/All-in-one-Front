@@ -39,17 +39,17 @@ const router = createBrowserRouter(
     <Route path="/" element={<App />} errorElement={<Error />}>
       <Route index element={<Home />} />
       <Route errorElement={<Error />}>
-      <Route path="/signin" element={<SignIn />} />
-      <Route path="/Login" element={<Login />} />
-      <Route path="/Contact" element={<Contact />} />
-      <Route path="/TodoList" element={<TodoList />} />
-      <Route path="/list/:listId" element={<TodoListPage />} />
-      <Route path="/list" element={<Landing />} />
-      <Route path="/Wallet" element={<Wallet />} />
-      <Route path="/wallet/:walletId" element={<DocumentsPage />} />
-      <Route path="/cars" element={<CarsList />} />
-      <Route path="/cars/:carId" element={<OneCar />} />
-    </Route>
+        <Route path="/signin" element={<SignIn />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Contact" element={<Contact />} />
+        <Route path="/TodoList" element={<TodoList />} />
+        <Route path="/list/:listId" element={<TodoListPage />} />
+        <Route path="/list" element={<Landing />} />
+        <Route path="/Wallet" element={<Wallet />} />
+        <Route path="/wallet/:walletId" element={<DocumentsPage />} />
+        <Route path="/cars" element={<CarsList />} />
+        <Route path="/cars/:carId" element={<OneCar />} />
+      </Route>
     </Route>
   )
 );
