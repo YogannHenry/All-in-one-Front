@@ -111,15 +111,15 @@ function WalletDocumentsPage() {
       const type = data[0].type;
       if (type.startsWith('image/')) {const imageFileImport = await import(`../../../../../uploads/${data[0].file}`);
         const pdfFile = imageFileImport.default;
+        console.log('pdfFile:', pdfFile);
         setPdfFile((prevPdfFiles) => ({...prevPdfFiles,[documentId]: pdfFile,
         }));
+        setIsPreviewOpen(true);
       } else if (type === 'application/pdf') {const pdfFileImport = await import(`../../../../../uploads/${data[0].file}`
         );
         const pdfFile = pdfFileImport.default;
         setPdfFile((prevPdfFiles) => ({...prevPdfFiles,[documentId]: pdfFile,
         }));
-        // setCurrentDocumentId(documentId);
-        // setPreviewDocument(true);
         setIsPreviewOpen(true);
       } else {
         console.error('Type de fichier non pris en charge :', type);
@@ -208,17 +208,27 @@ function WalletDocumentsPage() {
                 {isPreviewOpen &&
                   pdfFile[document.id] &&
                   !pdfFile[document.id].endsWith('.pdf') && (
-                    <div>
+                    <div className="w-screen h-screen fixed left-0 top-0 flex justify-center bg-slate-50 overflow-scroll ">
+                    <div className=' absolute mt-10 w-5/6'>
+                    <p className="text-2xl uppercase flex justify-center pb-5">{document.name}</p>
                       <img
                         src={pdfFile[document.id]}
                         alt={`Document ${document.name}`}
                       />
+                      <button
+                        className="border rounded-lg bg-[var(--color-primary-500)] absolute top-2 right-2 z-50 text-white"
+                        onClick={closePreview}
+                      >
+                        <XMarkIcon className="w-8 h-8 text-white stroke-2 " />
+                      </button>
+                      </div>
                     </div>
                   )}
                 {pdfFile[document.id] &&
                   pdfFile[document.id].endsWith('.pdf') && (
                     <div className="w-screen h-screen fixed left-0 top-0 flex justify-center bg-slate-50 overflow-scroll ">
-                      <div className=' absolute mt-40 '>
+                      <div className=' absolute mt-40'>
+                        <p className="text-2xl uppercase flex justify-center pb-5">{document.name}</p>
                       <Document file={pdfFile[document.id]}>
                         <Page pageNumber={1} />
                       </Document>
