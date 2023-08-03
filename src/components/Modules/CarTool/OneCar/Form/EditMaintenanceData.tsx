@@ -10,6 +10,7 @@ export interface EditMaintenanceDataProps {
   validity_period: string | { years: string; months: string };
   lastKmRemaining: number;
   lastTimeRemaining: string;
+  kmdateKmPerMonth: string;
 }
 
 interface MaintenanceProps {
@@ -38,6 +39,7 @@ function EditMaintenanceData({
       validity_period: '',
       lastKmRemaining: 0,
       lastTimeRemaining: '',
+      kmdateKmPerMonth: '',
     });
 
   const [timeUnit, setTimeUnit] = useState('years');
@@ -67,13 +69,14 @@ function EditMaintenanceData({
         last_date_verif: formattedDate,
         validity_period: `${editedMaintenance.validity_period} ${timeUnit}`,
       };
-
+      console.log('regggarrrde', editedMaintenance);
       handleUpdateMaintenance(editedMaintenance.id, editedMaintenanceFormatted);
       setIsEditing(false);
     } else {
       alert('Veuillez remplir toutes les informations du formulaire.');
     }
   };
+
   const handleDeleteClick = (maintenanceId: number) => {
     deleteMaintenance(maintenanceId);
   };
