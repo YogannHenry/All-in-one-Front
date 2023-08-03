@@ -1,22 +1,33 @@
-import { FormEvent } from 'react'; //FormEvent, c'est un type de données pour typer les form qui contiennent des propriétés comme target, currentTarget, etc.
+import { FormEvent, useState } from 'react'; //FormEvent, c'est un type de données pour typer les form qui contiennent des propriétés comme target, currentTarget, etc.
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { login } from '../store/reducers/user';
 import Field from './LoginField';
 import clipartFallout from '../assets/1460481845.svg';
 import CoilBackground from '../assets/SvgBackground/CoilBackground';
 import { NavLink } from 'react-router-dom';
+import ConfirmationMatchUserPassword from '../modals/PasswordConfirmationMatchUserPasswordServer';
 
 function LoginPage() {
   const isLogged = useAppSelector((state) => state.user.logged);
   const loggedMessage = useAppSelector((state) => ` ${state.user.pseudo}`);
   const dispatch = useAppDispatch();
 
+const [PasswordMatchUserPassword, setPasswordMatchUserPassword] =
+    useState(false);
+
+    const handleCloseAlert = () => {
+     
+      setPasswordMatchUserPassword(false);
+    };
+
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
     const formData = new FormData(event.currentTarget);
-    dispatch(login(formData));
-  };
+    if ( isLogged === false) {
+      dispatch(login(formData));
+      setPasswordMatchUserPassword(true);
+      return;
+  }};
 
   return (
     <div>
@@ -63,6 +74,9 @@ function LoginPage() {
                     placeholder="Mot de passe"
                     type="password"
                   />
+                    {PasswordMatchUserPassword && (
+                    <ConfirmationMatchUserPassword onClose={handleCloseAlert} />
+                  )}
                   <label className="label">
                     <a
                       href="#"
