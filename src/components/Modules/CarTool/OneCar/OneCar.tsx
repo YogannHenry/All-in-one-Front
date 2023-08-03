@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import iconVoiture from '../../../../assets/icon-voiture.png';
 import iconCamion from '../../../../assets/icon-camion.png';
 import iconMoto from '../../../../assets/icon-moto.png';
@@ -11,8 +10,7 @@ import EditCarData from './Form/EditCarData';
 import EditMaintenanceData, {
   EditMaintenanceDataProps,
 } from './Form/EditMaintenanceData';
-
-import API_URL from '../../../API_URL';
+import { getAPI } from '../../../../utils/config';
 
 interface CarDetailsProps {
   id: number;
@@ -45,7 +43,7 @@ function OneCar() {
 
   const getCarDetails = async () => {
     try {
-      const response = await axios.get(`${API_URL}/car/${carId}`);
+      const response = await getAPI().get(`/car/${carId}`);
       const carData = response.data[0];
       setCar(carData);
       console.log('Détails de la voiture:', response.data);
@@ -63,8 +61,8 @@ function OneCar() {
   const getMaintenanceDetails = async () => {
     try {
       // Appel API pour récupérer les maintenances de la voiture
-      const maintenanceResponse = await axios.get(
-        `${API_URL}/car/${carId}/maintenance`
+      const maintenanceResponse = await getAPI().get(
+        `/car/${carId}/maintenance`
       );
       const maintenancesData = maintenanceResponse.data;
       setMaintenances(maintenancesData);
@@ -82,10 +80,7 @@ function OneCar() {
     newMaintenanceData: CreateMaintenanceDataProps
   ) => {
     try {
-      await axios.post(
-        `${API_URL}/car/${carId}/maintenance`,
-        newMaintenanceData
-      );
+      await getAPI().post(`/car/${carId}/maintenance`, newMaintenanceData);
       getMaintenanceDetails();
     } catch (error) {
       console.error("Erreur lors de la création de l'entretien:", error);
@@ -107,7 +102,7 @@ function OneCar() {
 
   const deleteMaintenance = async (maintenanceId: number) => {
     try {
-      await axios.delete(`${API_URL}/car/maintenance/${maintenanceId}`);
+      await getAPI().delete(`/car/maintenance/${maintenanceId}`);
       // Si la suppression réussit, vous pouvez effectuer une action supplémentaire ici, comme actualiser la liste des maintenances, etc.
       getMaintenanceDetails();
     } catch (error) {
@@ -120,8 +115,8 @@ function OneCar() {
     updatedMaintenanceData: EditMaintenanceDataProps
   ) => {
     try {
-      await axios.put(
-        `${API_URL}/car/maintenance/${maintenanceId}`,
+      await getAPI().put(
+        `/car/maintenance/${maintenanceId}`,
         updatedMaintenanceData
       );
       // Si la mise à jour réussit, vous pouvez effectuer une action supplémentaire ici, comme actualiser la liste des maintenances, etc.

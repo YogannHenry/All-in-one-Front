@@ -4,8 +4,6 @@ import { NavLink, redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import CarsForm, { NewCarProps } from './Form/Form';
 import { getAPI } from '../../../../utils/config';
-import API_URL from '../../../API_URL';
-import axios from 'axios';
 import iconVoiture from '../../../../assets/icon-voiture.png';
 import iconCamion from '../../../../assets/icon-camion.png';
 import iconMoto from '../../../../assets/icon-moto.png';

@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import API_URL from '../../../../API_URL';
+import { getAPI } from '../../../../../utils/config';
 
 interface CarDataProps {
   id: number;
@@ -46,10 +45,7 @@ function EditCarData({ car, setCar, updateCarDetails }: EditCarDataProps) {
       const { id, icon, created_at, updated_at, ...dataWithoutParams } =
         carData;
 
-      const response = await axios.put(
-        `${API_URL}/car/${carId}`,
-        dataWithoutParams
-      );
+      const response = await getAPI().put(`/car/${carId}`, dataWithoutParams);
       setCar(response.data); // Mettre à jour l'état avec les nouvelles données
       setIsEditing(false); // Sortir du mode édition
       updateCarDetails();
