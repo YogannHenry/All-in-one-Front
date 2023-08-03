@@ -185,8 +185,6 @@ function EditMaintenanceData({
                   <option value="months">mois</option>
                 </select>
               </div>
-              {/* Autres champs de saisie pour les autres données de maintenance */}
-              {/* ... */}
               <button
                 onClick={handleSaveClick}
                 className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white mt-4"
