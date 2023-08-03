@@ -144,15 +144,15 @@ function OneCar() {
 
   return (
     <div className="bg-base-200 min-h-screen h-full px-20">
-      <div className="pt-8">
-        <h1 className="text-4xl mb-10 text-center uppercase">{car.name}</h1>
-      </div>
-      <div className="flex justify-between items-center mb-8 px-60">
+      
+        <h1 className="text-4xl mb-2 pt-10 text-center uppercase">{car.name}</h1>
+      
+      <div className="flex justify-around bg-blue-600 items-center ">
         <div>
           <figure>
             {/* Condition d'affichage de l'icône en fonction du type de véhicule */}
             {car.type === 'Voiture' && (
-              <img src={iconVoiture} alt="Icon voiture" />
+              <img className="bg-green-500" src={iconVoiture} alt="Icon voiture" />
             )}
             {car.type === 'Camion' && (
               <img src={iconCamion} alt="Icon camion" />
@@ -160,7 +160,7 @@ function OneCar() {
             {car.type === 'Moto' && <img src={iconMoto} alt="Icon moto" />}
           </figure>
         </div>
-        <div className="max-w-md ">
+        <div className="max-w-md bg-red-500">
           <EditCarData
             car={car}
             setCar={setCar}
@@ -168,9 +168,7 @@ function OneCar() {
           />
         </div>
       </div>
-      <div>
         <CreateMaintenance onSubmit={handleAddMaintenance} />
-      </div>
       <div>
         {maintenances.length > 0 ? (
           <EditMaintenanceData

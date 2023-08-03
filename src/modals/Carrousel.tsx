@@ -10,19 +10,19 @@ const dataCarrousel = [
     id: 'slide1',
     image: todolistImage,
     description:
-      'Grâce à notre outils TodoList, vous serez en mesure de planifier, suivre et accomplir vos tâches de manière plus efficace, vous permettant ainsi de libérer du temps pour les choses qui comptent le plus pour vous. Dites adieu aux listes de tâches désorganisées et découvrez comment notre outil peut transformer votre façon de travailler et de vivre au quotidien.',
+      'Grâce à notre outils TodoList, vous serez en mesure de planifier, suivre et accomplir vos tâches de manière plus efficace, vous permettant ainsi de libérer du temps pour les choses qui comptent le plus pour vous.',
   },
   {
     id: 'slide2',
     image: walletImage,
     description:
-      "Notre outil Wallet facilite l'accès rapide et pratique à vos documents lorsque vous en avez besoin, enlevez-vous le stress de ne plus trouver un document quand vous en avez-besoin. Découvrez comment notre plateforme peut vous aider à garder vos documents et y accéder en toute simplicité.",
+      "Notre outil Wallet facilite l'accès rapide et pratique à vos documents lorsque vous en avez besoin, enlevez-vous le stress de ne plus trouver un document.",
   },
   {
     id: 'slide3',
     image: cartool,
     description:
-      "Plus besoin de vous soucier de perdre de vue les échéances d'entretien importantes, notre plateforme vous permet de rester organisé et de planifier efficacement l'entretien de votre véhicule. Découvrez comment notre solution intuitive peut vous aider à prolonger la durée de vie de votre voiture en vous permettant de suivre son entretien de manière transparente et sans effort.",
+      "Plus besoin de vous soucier de perdre de vue les échéances d'entretien importantes, notre plateforme vous permet de rester organisé et de planifier efficacement l'entretien de votre véhicule.",
   },
 ];
 

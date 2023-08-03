@@ -94,7 +94,7 @@ function SignInPage() {
           <div className="flex max-lg:flex-col max-lg:p-5 max-lg:text-center max-lg:pt-40 items-center justify-center h-screen bg-base-200">
             <div className="max-w-md">
               <h1 className="text-5xl font-bold flex flex-col gap-4">
-                Vous êtes inscrits ! sur All-in-One
+                Vous êtes inscrit! <span>sur All-in-One</span>
               </h1>
               <p className="py-6">
                 Connectez-vous dès maintenant pour accéder aux fonctionnalités

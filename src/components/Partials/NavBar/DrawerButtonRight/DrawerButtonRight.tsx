@@ -15,12 +15,14 @@ function DrawerButtonRight() {
   function handleLogout() {
     dispatch(logout());
   }
+  const pseudo = localStorage.getItem('pseudo');
 
   return (
     <div className=" drawer-end z-50 ">
       <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content">
-        <label htmlFor="my-drawer-4" className="">
+        <label htmlFor="my-drawer-4" className="flex items-center">
+          <p className='pr-2 text-[var(--color-primary-500)]'>{pseudo}</p>
           <UserCircleIcon className="h-10 w-10 text-[var(--color-primary-500)]" />
         </label>
       </div>
