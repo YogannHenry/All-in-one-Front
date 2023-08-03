@@ -8,6 +8,7 @@ import { Document, Page, pdfjs } from 'react-pdf';
 import { XMarkIcon } from '@heroicons/react/24/solid';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 import { Wallet } from '../../../../@types/index';
+import { getAPI } from '../../../../utils/config';
 
 interface Document {
   id: number;
@@ -28,9 +29,7 @@ function WalletDocumentsPage() {
 
   const getOneWallet = async () => {
     try {
-      const { data } = await axios.get<Wallet[]>(
-        `${API_URL}/wallet/${walletId}`
-      );
+      const { data } = await getAPI().get<Wallet[]>(`/wallet/${walletId}`);
       setWallet(data);
     } catch (error) {
       console.error(
@@ -42,8 +41,8 @@ function WalletDocumentsPage() {
 
   const getDocuments = async () => {
     try {
-      const { data } = await axios.get<Document[]>(
-        `${API_URL}/wallet/${walletId}/document`
+      const { data } = await getAPI().get<Document[]>(
+        `/wallet/${walletId}/document`
       );
       setDocuments(data);
     } catch (error) {
@@ -65,8 +64,8 @@ function WalletDocumentsPage() {
       formData.append('name', documentDetails.name);
       formData.append('information', documentDetails.information);
 
-      const { data } = await axios.post(
-        `${API_URL}/wallet/${walletId}/document`,
+      const { data } = await getAPI().post(
+        `/wallet/${walletId}/document`,
         formData,
         {
           // Ici, on précise le type de contenu de la requête, pour que le serveur sache comment traiter les données, ici, un fichier.
@@ -85,9 +84,7 @@ function WalletDocumentsPage() {
 
   const deleteDocument = async (documentId: number) => {
     try {
-      const { data } = await axios.delete(
-        `${API_URL}/wallet/document/${documentId}`
-      );
+      const { data } = await getAPI().delete(`/wallet/document/${documentId}`);
       setDocuments(documents.filter((document) => document.id !== documentId));
     } catch (error) {
       console.error(
@@ -107,9 +104,7 @@ function WalletDocumentsPage() {
 
   const previewFile = async (documentId: number) => {
     try {
-      const { data } = await axios.get(
-        `${API_URL}/wallet/document/${documentId}`
-      );
+      const { data } = await getAPI().get(`/wallet/document/${documentId}`);
       const type = data[0].type;
       if (type.startsWith('image/')) {
         const imageFileImport = await import(
@@ -143,16 +138,14 @@ function WalletDocumentsPage() {
 
   const downloadFile = async (documentId: number) => {
     try {
-      const response = await axios.get(
-        `${API_URL}/wallet/document/${documentId}/download`,
+      const response = await getAPI().get(
+        `/wallet/document/${documentId}/download`,
         {
           responseType: 'blob',
         }
       );
 
-      const { data } = await axios.get(
-        `${API_URL}/wallet/document/${documentId}`
-      );
+      const { data } = await getAPI().get(`/wallet/document/${documentId}`);
       const fileName = data[0].name;
       const type = data[0].type;
 

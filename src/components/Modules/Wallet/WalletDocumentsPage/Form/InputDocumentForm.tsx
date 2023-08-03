@@ -1,5 +1,5 @@
 import { ArrowUturnLeftIcon, CameraIcon } from '@heroicons/react/24/solid';
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 // ici, onSubmit est une fonction qui sera passée en props depuis le composant parent
@@ -17,7 +17,7 @@ function InputDocumentForm({ onSubmit }) {
   });
 
   // Fonction pour gérer l'apparition du menu lors de lq selection d'un fichier
-  const handleFileChange = (event: { target: { files: any[]; }; }) => {
+  const handleFileChange = (event: { target: { files: any[] } }) => {
     const file = event.target.files[0];
     // ici, setSelectedFile permet de mettre à jour le state avec le fichier sélectionné
     setSelectedFile(file);
@@ -26,7 +26,7 @@ function InputDocumentForm({ onSubmit }) {
   };
 
   // Fonction pour gérer le changement des détails du document
-  const handleInputChange = (event: { target: { name: any; value: any; }; }) => {
+  const handleInputChange = (event: { target: { name: any; value: any } }) => {
     // ici, on récupère le nom et la valeur de l'input
     const { name, value } = event.target;
     // ici, on met à jour le state avec les détails du document, en utilisant le spread operator pour garder les valeurs précédentes
@@ -40,8 +40,6 @@ function InputDocumentForm({ onSubmit }) {
     // ici, on crée un objet avec les détails du document et le fichier sélectionné
     onSubmit(selectedFile, documentDetails);
 
-   
-
     console.log('documentDetails', documentDetails);
 
     // Réinitialiser le formulaire
@@ -52,30 +50,28 @@ function InputDocumentForm({ onSubmit }) {
       information: '',
       date: '',
     });
-
-    
   };
 
   return (
     <div className="flex flex-col relative">
       <div>
         <div className="flex justify-between">
-        <NavLink
-          to="/wallet"
-          className="btn bg-[var(--color-primary-300)] max-lg:w-16 mr-10 mb-2"
-        >
-          <ArrowUturnLeftIcon className="h-10 w-10 text-white" />
-        </NavLink>
-        <label className="btn bg-[var(--color-primary-300)] max-lg:w-16 mr-10 mb-2 lg:hidden">
-          <input
-            className="hidden"
-            type="file"
-            name="image"
-            accept="image/*"
-            capture="environment"
-          />
-          <CameraIcon className="h-10 w-10 text-white" />
-        </label>
+          <NavLink
+            to="/wallet"
+            className="btn bg-[var(--color-primary-300)] max-lg:w-16 mr-10 mb-2"
+          >
+            <ArrowUturnLeftIcon className="h-10 w-10 text-white" />
+          </NavLink>
+          <label className="btn bg-[var(--color-primary-300)] max-lg:w-16 mr-10 mb-2 lg:hidden">
+            <input
+              className="hidden"
+              type="file"
+              name="image"
+              accept="image/*"
+              capture="environment"
+            />
+            <CameraIcon className="h-10 w-10 text-white" />
+          </label>
         </div>
         <div className="pb-10 flex justify-start w-full">
           <input

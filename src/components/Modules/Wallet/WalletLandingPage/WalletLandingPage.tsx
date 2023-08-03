@@ -17,10 +17,10 @@ import {
   ShoppingCartIcon,
   HomeIcon,
   TruckIcon,
-  TrashIcon
+  TrashIcon,
 } from '@heroicons/react/24/solid';
 import { NavLink } from 'react-router-dom';
-
+import { getAPI } from '../../../../utils/config';
 
 const iconComponents: any = {
   FolderIcon,
@@ -37,23 +37,21 @@ const iconComponents: any = {
   TruckIcon,
 };
 
-
 function WalletLandingPage() {
   const [wallets, setWallets] = useState<Wallet[]>([]);
-  
+
   const getWallets = async () => {
     try {
-      const { data } = await axios.get(`${API_URL}/wallet`);
+      const { data } = await getAPI().get(`/wallet`);
       setWallets(data);
     } catch (error) {
-      console.error("Erreur concernant la requête getWallets:", error);
+      console.error('Erreur concernant la requête getWallets:', error);
     }
   };
-  
 
   const addWallet = async (WalletDetails: Wallet) => {
     try {
-      const { data } = await axios.post(`${API_URL}/wallet`, WalletDetails);
+      const { data } = await getAPI().post(`/wallet`, WalletDetails);
 
       // Mettre à jour l'état des Wallets avec le nouveau Wallet ajouté
       setWallets(data);
@@ -65,13 +63,17 @@ function WalletLandingPage() {
 
   const deleteWallet = async (walletId: number) => {
     try {
-      const { data } = await axios.delete(`${API_URL}/wallet/${walletId}`);
-      setWallets((wallets) => wallets.filter((wallet) => wallet.id !== walletId));
+      const { data } = await getAPI().delete(`/wallet/${walletId}`);
+      setWallets((wallets) =>
+        wallets.filter((wallet) => wallet.id !== walletId)
+      );
     } catch (error) {
-      console.error(`Erreur concernant la supression de wallet ${walletId}:`, error);
+      console.error(
+        `Erreur concernant la supression de wallet ${walletId}:`,
+        error
+      );
     }
   };
-  
 
   // Fonction pour créer un composant dynamique en fonction du nom de l'icône, dans le componentName sera appelé wallet.icon qui contient le nom de l'icône
   const createDynamicIconComponent = (componentName: string) => {
@@ -95,9 +97,7 @@ function WalletLandingPage() {
         <h1 className="text-5xl font-bold pb-10">Wallet</h1>
         <div className="card  w-full max-w-xl shadow-2xl bg-base-100">
           <div className="card-body ">
-            <WalletInputForm
-              onSubmit={addWallet}
-            />
+            <WalletInputForm onSubmit={addWallet} />
             <div className="card  max-md:w-full bg-base-100 shadow-xl ">
               {wallets.map((wallet: Wallet) => (
                 <div className="flex justify-between items-center h-14 p-4 border-b-2 border-white bg-base-200 hover:bg-[var(--color-primary-500)] hover:text-white hover:stroke-white">
@@ -119,7 +119,7 @@ function WalletLandingPage() {
                       className=""
                       onClick={() => deleteWallet(wallet.id)}
                     >
-                      <TrashIcon className="h-8 w-8 text-[var(--color-primary-500)]"/>
+                      <TrashIcon className="h-8 w-8 text-[var(--color-primary-500)]" />
                     </button>
                   </div>
                 </div>
