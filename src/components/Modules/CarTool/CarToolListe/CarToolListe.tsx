@@ -3,6 +3,7 @@ import { RootState } from '../../../../store';
 import { NavLink, redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import CarsForm, { NewCarProps } from './Form/Form';
+import { getAPI } from '../../../../utils/config';
 import API_URL from '../../../API_URL';
 import axios from 'axios';
 import iconVoiture from '../../../../assets/icon-voiture.png';
@@ -43,8 +44,7 @@ function CarsList() {
     try {
       const carWithUserId = { ...newCar, userId };
       console.log('carWithUserId:', carWithUserId);
-
-      const response = await getAPI().post(`${API_URL}/car`, carWithUserId);
+      const response = await getAPI().post(`/car`, carWithUserId);
       setCars([...cars, response.data]);
       getCars();
     } catch (error) {
@@ -55,7 +55,7 @@ function CarsList() {
   const handleDeleteCar = async (carId: number) => {
     console.log(carId);
     try {
-      await axios.delete(`${API_URL}/car/${carId}`);
+      await getAPI().delete(`/car/${carId}`);
       setCars(cars.filter((car) => car.id !== carId));
       getCars();
     } catch (error) {
@@ -67,45 +67,19 @@ function CarsList() {
 
   const getCars = async () => {
     try {
-      // const userToken = localStorage.getItem('token');
-      // console.log(userToken);
+      const userToken = localStorage.getItem('token');
+      console.log(userToken);
 
-      // const config = getConfigWithToken(userToken);
-      // console.log(config);
+      const config = getConfigWithToken(userToken);
+      console.log(config);
 
-      const response = await getAPI().get(`/car`);
+      const response = await axios.get(`${API_URL}/car`, config);
       setCars(response.data);
     } catch (error) {
       redirect('/error');
       console.error('Erreur lors de la récupération des véhicules:', error);
     }
   };
-
-  /*const getCars = async () => {
-    try {
-      const userToken = localStorage.getItem('token');
-      console.log(userToken);
-
-      if (userToken) {
-        // Ajouter le token à l'en-tête de la requête
-        const config = {
-          headers: {
-            authorization: `${userToken}`,
-          },
-        };
-        console.log(config);
-
-        const response = await axios.get(`${API_URL}/car`, config);
-        setCars(response.data);
-      } else {
-        redirect('/error');
-        console.log("Vous n'êtes pas connecté. Le token est manquant.");
-      }
-    } catch (error) {
-      redirect('/error');
-      console.error('Erreur lors de la récupération des véhicules:', error);
-    }
-  };*/
 
   useEffect(() => {
     getCars();
@@ -175,3 +149,7 @@ function CarsList() {
   );
 }
 export default CarsList;
+function getConfigWithToken(userToken: string | null) {
+  throw new Error('Function not implemented.');
+}
+
