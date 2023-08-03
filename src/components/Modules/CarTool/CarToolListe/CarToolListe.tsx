@@ -4,12 +4,10 @@ import { NavLink, redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import CarsForm, { NewCarProps } from './Form/Form';
 import { getAPI } from '../../../../utils/config';
-import API_URL from '../../../API_URL';
-import axios from 'axios';
 import iconVoiture from '../../../../assets/icon-voiture.png';
 import iconCamion from '../../../../assets/icon-camion.png';
 import iconMoto from '../../../../assets/icon-moto.png';
-import { getAPI } from '../../../../utils/api';
+
 
 interface CarProps {
   id: number;
@@ -19,19 +17,6 @@ interface CarProps {
   current_km: string;
 }
 
-// const userToken = localStorage.getItem('token');
-// const userId = useSelector((state: RootState) => state.user.userId);
-// console.log('userToken:', userToken);
-
-// const axiosInstance = axios.create({
-//   baseURL: 'http://localhost:3002/api',
-//   timeout: 8000,
-//   headers: {
-   
-//     authorization: `${userToken}`,
-   
-//   },
-// });
 
 function CarsList() {
   const [cars, setCars] = useState<CarProps[]>([]);
@@ -67,13 +52,8 @@ function CarsList() {
 
   const getCars = async () => {
     try {
-      const userToken = localStorage.getItem('token');
-      console.log(userToken);
 
-      const config = getConfigWithToken(userToken);
-      console.log(config);
-
-      const response = await axios.get(`${API_URL}/car`, config);
+      const response = await getAPI().get(`/car`);
       setCars(response.data);
     } catch (error) {
       redirect('/error');

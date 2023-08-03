@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import Counter from './Counter/Counter';
 import Form from './Form/Form';
 import Tasks from './Tasks/Tasks';
-import API_URL from '../../../API_URL';
+import {getAPI} from '../../../../utils/config';
 import { Task } from '../../../../@types';
 
 
@@ -29,18 +29,18 @@ function TodoListPage() {
   const { listId } = useParams();
 
   const getOneList = async () => {
-    const { data } = await axios.get(`${API_URL}/list/${listId}`);
+    const { data } = await getAPI().get(`/list/${listId}`);
     setList(data);
   };
 
   const getTasks = async () => {
-    const { data } = await axios.get(`${API_URL}/list/${listId}/task`);
+    const { data } = await getAPI().get(`/list/${listId}/task`);
     setTasks(data);
 
   };
 
   const addTask = async (newTask: string) => {
-    const { data } = await axios.post(`${API_URL}/list/${listId}/task`, {
+    const { data } = await getAPI().post(`/list/${listId}/task`, {
       name: newTask,
     });
     setTasks(data);
@@ -49,7 +49,7 @@ function TodoListPage() {
   };
 
   const updateTask = async (id: number, updatedTaskData: Task) => {
-    const { data } = await axios.put(`${API_URL}/list/task/${id}`, updatedTaskData);
+    const { data } = await getAPI().put(`/list/task/${id}`, updatedTaskData);
 
     const updatedTasks = tasks.map((task:Task) => (task.id === id ? data : task));
 
@@ -58,7 +58,7 @@ function TodoListPage() {
   };
 
   const deleteTask = async (id: number) => {
-    const { data } = await axios.delete(`${API_URL}/list/task/${id}`);
+    const { data } = await getAPI().delete(`/list/task/${id}`);
     setTasks(tasks => tasks.filter(task => task.id !== id));
   
   };
@@ -66,14 +66,14 @@ function TodoListPage() {
 
 
   const deleteAllTasks = async () => {
-    const { data } = await axios.get(`${API_URL}/list/${listId}/task`);
+    const { data } = await getAPI().get(`/list/${listId}/task`);
 
     // Filtrer les tâches ayant le statut true
     const tasksToDelete = data.filter((task:Task) => task.status === true);
 
     // Supprimer chaque tâche ayant le statut true
     for (const task of tasksToDelete) {
-      await axios.delete(`${API_URL}/task/${task.id}`);
+      await getAPI().delete(`/task/${task.id}`);
     }
 
     // Mettre à jour la liste des tâches après la suppression

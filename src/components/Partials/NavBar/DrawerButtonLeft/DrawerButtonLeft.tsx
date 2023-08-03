@@ -6,7 +6,7 @@ import WalletMenu from './WalletMenu/WalletMenu';
 import CarToolMenu from './CarToolMenu/CarToolMenu';
 import axios from 'axios';
 import { List } from 'postcss/lib/list';
-import API_URL from '../../../API_URL';
+import { getAPI } from '../../../../utils/config';
 
 interface Car {
   id: number;
@@ -30,7 +30,7 @@ function DrawerButtonLeft() {
 
   const getLists = async () => {
     try {
-      const { data } = await axios.get(`${API_URL}/list`);
+      const { data } = await getAPI().get(`/list`);
       setLists(data);
     } catch (error) {
       ('impossible de récupérer les listes depuis le menu');
@@ -39,7 +39,7 @@ function DrawerButtonLeft() {
 
   const getWallets = async () => {
     try {
-      const { data } = await axios.get(`${API_URL}/wallet`);
+      const { data } = await getAPI().get(`/wallet`);
       setWallets(data);
     } catch (error) {
       console.error('Oops! les wallets sont perdu dans la crypto space ');
@@ -57,7 +57,7 @@ function DrawerButtonLeft() {
           },
         };
 
-        const response = await axios.get(`${API_URL}/car`, config);
+        const response = await getAPI().get(`/car`);
         setCars(response.data);
       } else {
         console.log("Vous n'êtes pas connecté. Le token est manquant.");

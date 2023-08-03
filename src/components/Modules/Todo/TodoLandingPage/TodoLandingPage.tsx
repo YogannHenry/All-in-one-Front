@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../../../hooks/redux';
 
 import { Task } from '../../../../@types';
-import API_URL from '../../../API_URL';
+import {getAPI} from '../../../../utils/config';
 
 interface List {
   id: number;
@@ -19,20 +19,20 @@ function TodoList() {
   const [selectedListTasks, setSelectedListTasks] = useState<Task[]>([]);
 
   const getLists = async () => {
-    const { data } = await axios.get(`${API_URL}/list`);
+    const { data } = await getAPI().get(`/list`);
     setLists(data);
   };
 
   // Récupérer les tâches d'une liste pour gérer la prévisualisation, on récupere que les tasks qui ont le status false.
   const getTasksForList = async (listId: number) => {
-    const { data } = await axios.get(`${API_URL}/list/${listId}/task`);
+    const { data } = await getAPI().get(`/list/${listId}/task`);
     const filteredTasks = data.filter((task: Task) => task.status === false);
 
     setSelectedListTasks(filteredTasks);
   };
 
   const addList = async (newList: string) => {
-    const { data } = await axios.post(`${API_URL}/list`, {
+    const { data } = await getAPI().post(`/list`, {
       name: newList,
       userId: userId,
     });
@@ -41,7 +41,7 @@ function TodoList() {
   };
 
   const deleteList = async (id: number) => {
-    const { data } = await axios.delete(`${API_URL}/list/${id}`);
+    const { data } = await getAPI().delete(`/list/${id}`);
     getLists();
   };
 
