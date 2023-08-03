@@ -5,7 +5,7 @@ import Crayon from '../assets/crayon.png';
 function Error() {
   return (
     <>
-      <NavBar />
+    
 
       <div className="h-screen w-screen flex items-center justify-center flex-col bg-slate-50">
         <img src={Tasse} className="w-1/5 absolute right-64" alt="tasse" />
