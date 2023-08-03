@@ -3,12 +3,12 @@ import { RootState } from '../../../../store';
 import { NavLink, redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import CarsForm, { NewCarProps } from './Form/Form';
-import { getConfigWithToken } from '../../../../utils/config';
 import API_URL from '../../../API_URL';
 import axios from 'axios';
 import iconVoiture from '../../../../assets/icon-voiture.png';
 import iconCamion from '../../../../assets/icon-camion.png';
 import iconMoto from '../../../../assets/icon-moto.png';
+import { getAPI } from '../../../../utils/api';
 
 interface CarProps {
   id: number;
@@ -44,7 +44,7 @@ function CarsList() {
       const carWithUserId = { ...newCar, userId };
       console.log('carWithUserId:', carWithUserId);
 
-      const response = await axios.post(`${API_URL}/car`, carWithUserId);
+      const response = await getAPI().post(`${API_URL}/car`, carWithUserId);
       setCars([...cars, response.data]);
       getCars();
     } catch (error) {
@@ -67,13 +67,13 @@ function CarsList() {
 
   const getCars = async () => {
     try {
-      const userToken = localStorage.getItem('token');
-      console.log(userToken);
+      // const userToken = localStorage.getItem('token');
+      // console.log(userToken);
 
-      const config = getConfigWithToken(userToken);
-      console.log(config);
+      // const config = getConfigWithToken(userToken);
+      // console.log(config);
 
-      const response = await axios.get(`${API_URL}/car`, config);
+      const response = await getAPI().get(`/car`);
       setCars(response.data);
     } catch (error) {
       redirect('/error');
