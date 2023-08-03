@@ -8,7 +8,6 @@ import iconVoiture from '../../../../assets/icon-voiture.png';
 import iconCamion from '../../../../assets/icon-camion.png';
 import iconMoto from '../../../../assets/icon-moto.png';
 
-
 interface CarProps {
   id: number;
   name: string;
@@ -17,11 +16,8 @@ interface CarProps {
   current_km: string;
 }
 
-
 function CarsList() {
   const [cars, setCars] = useState<CarProps[]>([]);
-
-  const userToken = localStorage.getItem('token');
   const userId = useSelector((state: RootState) => state.user.userId);
   console.log('userID:', userId);
 
@@ -48,11 +44,8 @@ function CarsList() {
     }
   };
 
-  // Utilisez le token JWT pour effectuer la requête API
-
   const getCars = async () => {
     try {
-
       const response = await getAPI().get(`/car`);
       setCars(response.data);
     } catch (error) {
@@ -129,7 +122,3 @@ function CarsList() {
   );
 }
 export default CarsList;
-function getConfigWithToken(userToken: string | null) {
-  throw new Error('Function not implemented.');
-}
-
