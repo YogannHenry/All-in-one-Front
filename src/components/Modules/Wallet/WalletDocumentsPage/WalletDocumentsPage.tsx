@@ -2,7 +2,7 @@ import axios from 'axios';
 import TriangleBlur from '../../../../assets/SvgBackground/TriangleBlur';
 import API_URL from '../../../API_URL';
 import InputDocumentForm from './Form/InputDocumentForm';
-import { useEffect, useState } from 'react';
+import { Dispatch, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Document, Page, pdfjs } from 'react-pdf';
 import { XMarkIcon } from '@heroicons/react/24/solid';
@@ -17,7 +17,15 @@ interface Document {
   date: string;
   type: string;
   walletId: string;
+  onSubmit: (newDocument: string | Blob, documentDetails: { name: string | Blob; information: string | Blob; }) => Promise<void>;
+  documentInformationFromInput: Dispatch <[]>;
 }
+
+interface PdfFile {
+  [key: number]: any; // Le type de la valeur dépend de ce que vous stockez dans pdfFile
+}
+
+
 
 function WalletDocumentsPage() {
   const { walletId } = useParams<{ walletId: string }>();
@@ -110,6 +118,7 @@ function WalletDocumentsPage() {
         const imageFileImport = await import(
           `../../../../../uploads/${data[0].file}`
         );
+        
         const pdfFile = imageFileImport.default;
         console.log('pdfFile:', pdfFile);
         setPdfFile((prevPdfFiles) => ({

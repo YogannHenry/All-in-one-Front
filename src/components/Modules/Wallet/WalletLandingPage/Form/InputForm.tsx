@@ -15,7 +15,7 @@ function WalletInputForm({ onSubmit }: WalletInputFormProps) {
   const [selectedIcon, setSelectedIcon] = useState<JSX.Element | null>(null);
 
   const [WalletDetails, setWalletDetails] = useState({
-    
+    id: 0,
     name: '',
     icon: '',
     userId: userId
@@ -37,7 +37,7 @@ function WalletInputForm({ onSubmit }: WalletInputFormProps) {
   // Fonction pour gérer la soumission du formulaire
   const handleSubmit = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
-
+f
     if (!WalletDetails.icon || !WalletDetails.name) {
       setFormIncomplete(true);
       return;

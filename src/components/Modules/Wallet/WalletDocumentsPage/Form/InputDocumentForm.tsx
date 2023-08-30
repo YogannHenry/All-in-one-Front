@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 // ici, onSubmit est une fonction qui sera passée en props depuis le composant parent
-function InputDocumentForm({ onSubmit }) {
+function InputDocumentForm({ onSubmit }: { onSubmit: (event: Event) => void }) {
   // Ici, on utilise le hook useState pour gérer le fichier sélectionné
   const [selectedFile, setSelectedFile] = useState(null);
 
@@ -17,7 +17,7 @@ function InputDocumentForm({ onSubmit }) {
   });
 
   // Fonction pour gérer l'apparition du menu lors de lq selection d'un fichier
-  const handleFileChange = (event: { target: { files: any[] } }) => {
+  const handleFileChange = (event: { target: { files } }) => {
     const file = event.target.files[0];
     // ici, setSelectedFile permet de mettre à jour le state avec le fichier sélectionné
     setSelectedFile(file);
@@ -34,7 +34,7 @@ function InputDocumentForm({ onSubmit }) {
   };
 
   // Fonction pour gérer la soumission du formulaire
-  const handleSubmit = (event) => {
+  const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
 
     // ici, on crée un objet avec les détails du document et le fichier sélectionné

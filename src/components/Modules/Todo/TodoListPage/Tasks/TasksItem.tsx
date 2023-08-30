@@ -2,7 +2,7 @@ import { Task } from '../../../../../@types';
 
 interface TasksItemProps {
   task: Task;
-  updateTask: (id: number, updatedTaskData: Task) => Promise<void>;
+  updateTask: (id: number, updatedTaskData: any) => Promise<void>;
   deleteTask: (id: number) => Promise<void>;
 }
 

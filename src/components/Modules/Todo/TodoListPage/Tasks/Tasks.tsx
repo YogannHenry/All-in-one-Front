@@ -4,7 +4,7 @@ import TasksItem from './TasksItem';
 
 interface TasksProps {
   list: Task[];
-  updateTask: (id: number) => Promise<void>;
+  updateTask: (id: number, updatedTaskData: any) => Promise<void>;
   deleteTask: (id: number) => Promise<void>;
 }
 

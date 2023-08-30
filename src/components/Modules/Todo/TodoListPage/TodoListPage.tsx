@@ -48,7 +48,7 @@ function TodoListPage() {
    
   };
 
-  const updateTask = async (id: number, updatedTaskData: Task) => {
+  const updateTask = async (id: number, updatedTaskData: any) => {
     const { data } = await getAPI().put(`/list/task/${id}`, updatedTaskData);
 
     const updatedTasks = tasks.map((task:Task) => (task.id === id ? data : task));

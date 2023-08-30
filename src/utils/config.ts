@@ -6,7 +6,7 @@ export const getToken = function () {
 
 export const getAPI = function () {
   const token = getToken();
-  const headers = {};
+  const headers: { [key: string]: string } = {};
 
   if (token) {
     headers.Authorization = `${token}`;

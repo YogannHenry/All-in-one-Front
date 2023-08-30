@@ -56,8 +56,14 @@ export const login = createAsyncThunk(
         pseudo: string;
         userId: number;
       };
-    } catch (error) {
-      return rejectWithValue(error.response.data);
+    } catch (error: any)  {
+      // Gérer l'erreur et spécifier son type
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      } else {
+        // Si vous ne pouvez pas déterminer le type d'erreur, vous pouvez le définir comme une chaîne par exemple
+        return rejectWithValue('Une erreur s\'est produite');
+      }
     }
   }
 );
@@ -102,8 +108,14 @@ export const register = createAsyncThunk(
         pseudo: string | null;
         userId: number | null;
       };
-    } catch (error) {
-      return rejectWithValue(error.response.data);
+    } catch (error: any)  {
+      // Gérer l'erreur et spécifier son type
+      if (error.response && error.response.data) {
+        return rejectWithValue(error.response.data);
+      } else {
+        // Si vous ne pouvez pas déterminer le type d'erreur, vous pouvez le définir comme une chaîne par exemple
+        return rejectWithValue('Une erreur s\'est produite');
+      }
     }
   }
 );
