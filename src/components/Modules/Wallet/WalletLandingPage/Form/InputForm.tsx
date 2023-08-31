@@ -47,12 +47,8 @@ function WalletInputForm({ onSubmit }: WalletInputFormProps) {
     onSubmit(WalletDetails);
 
     // Réinitialiser le formulaire
-    setWalletDetails({
-     
-      name: '',
-      icon: '',
-      userId: userId
-    });
+    setWalletDetails({ ...WalletDetails, name: '' });
+
     setFormIncomplete(false);
     setSelectedIcon(null)
   };

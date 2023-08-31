@@ -1,5 +1,5 @@
 import { ArrowUturnLeftIcon, CameraIcon } from '@heroicons/react/24/solid';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, Dispatch, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
 interface InputDocumentFormProps {
@@ -7,6 +7,7 @@ interface InputDocumentFormProps {
     name: string | Blob;
     information: string | Blob;
   }) => void;
+  documentInformationFromInput: Dispatch<any>; // Assurez-vous que le type Dispatch correspond à votre cas d'utilisation
 }
 
 // ici, onSubmit est une fonction qui sera passée en props depuis le composant parent
