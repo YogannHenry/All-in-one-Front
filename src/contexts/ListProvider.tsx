@@ -2,24 +2,21 @@ import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import API_URL from '../components/API_URL';
 
+type List = {
+  id: number;
+  name: string;
+};
 
-// Créez le contexte
-export const ListContext = createContext(
-  {
-    lists: {
-      id: 0,
-      name: '',
-    },
-    getAllListFromContext: () => [],
-    
-  }
-);
+type ListContextType = {
+  lists: List[];
+  getAllListFromContext: () => List[];
+};
 
-// Créez le fournisseur du contexte (ListProvider)
-const ListProvider = ({ children }) => {
-  const [lists, setLists] = useState([]);
+export const ListContext = createContext<ListContextType | undefined>(undefined);
 
-  // Définissez la fonction pour récupérer les listes via la requête
+const ListProvider: React.FC = ({ children }: React.PropsWithChildren<{}>)=> {
+  const [lists, setLists] = useState<List[]>([]);
+
   const getLists = async () => {
     try {
       const { data } = await axios.get(`${API_URL}/list`);
@@ -30,16 +27,14 @@ const ListProvider = ({ children }) => {
     }
   };
 
-  const getAllListFromContext = (newList) => {
-    setLists(newList);
+  const getAllListFromContext = () => {
+    return lists; // Renvoie simplement les listes actuelles
   };
 
-  // Appelez getLists une seule fois lorsque le composant est monté
   useEffect(() => {
     getLists();
   }, []);
 
-  // Renvoyez le contexte pour qu'il soit accessible aux composants enfants
   return (
     <ListContext.Provider value={{ lists, getAllListFromContext }}>
       {children}

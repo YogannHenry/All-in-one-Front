@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
+import { Wallet } from "../../../../../@types";
 
-function WalletMenu({ wallets }) {
+function WalletMenu({ wallets }: { wallets: Wallet[] }) {
 
  return (
     <ul className="flex flex-col items-center">

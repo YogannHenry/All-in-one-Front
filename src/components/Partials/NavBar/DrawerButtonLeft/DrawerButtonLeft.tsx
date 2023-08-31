@@ -4,14 +4,18 @@ import { useEffect, useState } from 'react';
 import TodoListMenu from './TodoListMenu/TodoListMenu';
 import WalletMenu from './WalletMenu/WalletMenu';
 import CarToolMenu from './CarToolMenu/CarToolMenu';
-import axios from 'axios';
-import { List } from 'postcss/lib/list';
 import { getAPI } from '../../../../utils/config';
 
 interface Car {
   id: number;
   name: string;
 }
+
+interface List  {
+  id: number;
+  name: string;
+};
+
 
 function DrawerButtonLeft() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);

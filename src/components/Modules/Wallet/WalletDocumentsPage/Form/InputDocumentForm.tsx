@@ -1,11 +1,18 @@
 import { ArrowUturnLeftIcon, CameraIcon } from '@heroicons/react/24/solid';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
+interface InputDocumentFormProps {
+  onSubmit: (selectedFile: File | null, documentDetails: {
+    name: string | Blob;
+    information: string | Blob;
+  }) => void;
+}
+
 // ici, onSubmit est une fonction qui sera passée en props depuis le composant parent
-function InputDocumentForm({ onSubmit }: { onSubmit: (event: Event) => void }) {
+function InputDocumentForm({ onSubmit }: InputDocumentFormProps) {
   // Ici, on utilise le hook useState pour gérer le fichier sélectionné
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   // Ici, on utilise le hook useState pour gérer l'affichage des détails de façon interactive
   const [showDetails, setShowDetails] = useState(false);
@@ -17,10 +24,12 @@ function InputDocumentForm({ onSubmit }: { onSubmit: (event: Event) => void }) {
   });
 
   // Fonction pour gérer l'apparition du menu lors de lq selection d'un fichier
-  const handleFileChange = (event: { target: { files } }) => {
-    const file = event.target.files[0];
-    // ici, setSelectedFile permet de mettre à jour le state avec le fichier sélectionné
-    setSelectedFile(file);
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const files = event.target.files;
+    if (files && files.length > 0) {
+      // Vous pouvez accéder au fichier sélectionné ici, par exemple files[0]
+      setSelectedFile(files[0]);
+    }
     // ici, setShowDetails permet de mettre à jour le state pour afficher les détails grâce à true.
     setShowDetails(true);
   };
@@ -34,10 +43,9 @@ function InputDocumentForm({ onSubmit }: { onSubmit: (event: Event) => void }) {
   };
 
   // Fonction pour gérer la soumission du formulaire
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit =  (event: React.FormEvent) => {
     event.preventDefault();
-
-    // ici, on crée un objet avec les détails du document et le fichier sélectionné
+    // Vous pouvez maintenant appeler onSubmit avec le fichier sélectionné
     onSubmit(selectedFile, documentDetails);
 
     console.log('documentDetails', documentDetails);

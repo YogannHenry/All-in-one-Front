@@ -37,7 +37,7 @@ function WalletInputForm({ onSubmit }: WalletInputFormProps) {
   // Fonction pour gérer la soumission du formulaire
   const handleSubmit = (event: { preventDefault: () => void; }) => {
     event.preventDefault();
-f
+
     if (!WalletDetails.icon || !WalletDetails.name) {
       setFormIncomplete(true);
       return;
@@ -48,6 +48,7 @@ f
 
     // Réinitialiser le formulaire
     setWalletDetails({
+     
       name: '',
       icon: '',
       userId: userId

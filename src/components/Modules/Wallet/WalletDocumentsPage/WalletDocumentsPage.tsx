@@ -32,7 +32,7 @@ function WalletDocumentsPage() {
 
   const [documents, setDocuments] = useState<Document[]>([]);
   const [submittedDocuments, setSubmittedDocuments] = useState([]);
-  const [pdfFile, setPdfFile] = useState({});
+  const [pdfFile, setPdfFile] = useState<PdfFile>({});
   const [wallet, setWallet] = useState<Wallet[]>([]);
 
   const getOneWallet = async () => {
@@ -111,6 +111,7 @@ function WalletDocumentsPage() {
   };
 
   const previewFile = async (documentId: number) => {
+    
     try {
       const { data } = await getAPI().get(`/wallet/document/${documentId}`);
       const type = data[0].type;
