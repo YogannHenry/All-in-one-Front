@@ -11,11 +11,10 @@ interface Car {
   name: string;
 }
 
-interface List  {
+interface List {
   id: number;
   name: string;
-};
-
+}
 
 function DrawerButtonLeft() {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);

@@ -12,7 +12,7 @@ export const getAPI = function () {
     headers.Authorization = `${token}`;
   }
   return axios.create({
-    baseURL: 'http://localhost:3002/api', // process.env.REACT_APP_API_PATH,
+    baseURL: 'http://localhost:3000/api', // process.env.REACT_APP_API_PATH,
     headers,
     timeout: 10000,
   });

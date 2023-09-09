@@ -68,7 +68,7 @@ function WalletDocumentsPage() {
     documentDetails: { name: string | Blob; information: string | Blob }
   ) => {
     try {
-      if (newDocument !== null) { // Vérifiez si newDocument n'est pas null
+      if (newDocument !== null) { // Si un document a été soumis
         const formData = new FormData();
         formData.append('uploaded_file', newDocument);
         formData.append('name', documentDetails.name);
@@ -86,9 +86,7 @@ function WalletDocumentsPage() {
   
         setDocuments(data);
         getDocuments();
-      } else {
-        // Traitez le cas où newDocument est null (peut-être une erreur ou une action annulée)
-      }
+      } 
     } catch (error) {
       console.error('Erreur lors de la création du document :', error);
     }
@@ -121,7 +119,7 @@ function WalletDocumentsPage() {
       const type = data[0].type;
       if (type.startsWith('image/')) {
         const imageFileImport = await import(
-          `../../../../../uploads/${data[0].file}.png`
+          `../../../../../uploads/${data[0].png}`
         );
         
         const pdfFile = imageFileImport.default;
@@ -133,7 +131,7 @@ function WalletDocumentsPage() {
         setIsPreviewOpen(true);
       } else if (type === 'application/pdf') {
         const pdfFileImport = await import(
-          `../../../../../uploads/${data[0].file}.pdf`
+          `../../../../../uploads/${data[0].pdf}`
         );
         const pdfFile = pdfFileImport.default;
         setPdfFile((prevPdfFiles) => ({

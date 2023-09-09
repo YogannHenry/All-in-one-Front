@@ -1,0 +1,8 @@
+RewriteEngine On
+RewriteBase /
+
+# Redirige toutes les requêtes vers index.html sauf si elles pointent vers un fichier ou un répertoire existant.
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.\*)$ index.html [L]

@@ -15,7 +15,7 @@ function WalletInputForm({ onSubmit }: WalletInputFormProps) {
   const [selectedIcon, setSelectedIcon] = useState<JSX.Element | null>(null);
 
   const [WalletDetails, setWalletDetails] = useState({
-    id: 0,
+   id:0,
     name: '',
     icon: '',
     userId: userId
