@@ -1,5 +1,6 @@
 import { useAppSelector } from '../hooks/redux';
 import Carrousel from '../modals/Carrousel';
+import AlternativeCarrousel from '../modals/AlternativeCarrousel';
 import todolistImage from '../assets/totolist.png';
 import walletImage from '../assets/wallet.png';
 import cartool from '../assets/cartool.png';
@@ -51,11 +52,11 @@ function Home() {
                 <div className="flex justify-center items-center">
                   <input
                     type="text"
-                    placeholder="Entrez votre email..."
+                    placeholder="E-mail"
                     className="input input-bordered w-full max-w-xs"
                   />
                   <a className="btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]">
-                    s'inscrire
+                    inscrivez-vous c'est gratuit
                   </a>
                 </div>
                 <h1 className="mt-20 text-3xl font-bold">
@@ -77,8 +78,10 @@ function Home() {
                       d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5"
                     />
                   </svg>
+                  
                 </div>
               </div>
+
             </form>
           </div>
           <svg
@@ -103,8 +106,9 @@ function Home() {
             ></path>
           </svg>
 
-          <Carrousel></Carrousel>
         </div>}
+        
+          <AlternativeCarrousel></AlternativeCarrousel>
     </div>
   );
 }

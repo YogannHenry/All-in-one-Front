@@ -3,15 +3,15 @@ import TasksItem from './TasksItem';
 
 
 interface TasksProps {
-  list: Task[];
+  listTask: Task[];
   updateTask: (id: number, updatedTaskData: any) => Promise<void>;
   deleteTask: (id: number) => Promise<void>;
 }
 
-function Tasks({ list, updateTask, deleteTask }: TasksProps) {
+function Tasks({ listTask, updateTask, deleteTask }: TasksProps) {
   return (
     <div className="card max-md:w-full w-1/2 bg-base-100 shadow-xl">
-      {list.map((task) => (
+      {listTask.map((task) => (
         <TasksItem
           key={task.id}
           task={task}

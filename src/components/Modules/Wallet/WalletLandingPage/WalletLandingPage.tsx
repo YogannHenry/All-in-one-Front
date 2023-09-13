@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import WalletInputForm from './Form/InputForm';
 import CircleLigneBackground from '../../../../assets/SvgBackground/CircleLigneBackground';
-import { Wallet } from '../../../../@types/index';
-import axios from 'axios';
-import API_URL from '../../../API_URL';
+import { NewWallet, Wallet } from '../../../../@types/index';
 import {
   FolderIcon,
   CalculatorIcon,
@@ -49,7 +47,7 @@ function WalletLandingPage() {
     }
   };
 
-  const addWallet = async (WalletDetails: Wallet) => {
+  const addWallet = async (WalletDetails: NewWallet) => {
     try {
       const { data } = await getAPI().post(`/wallet`, WalletDetails);
 

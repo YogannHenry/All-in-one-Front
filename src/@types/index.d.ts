@@ -11,3 +11,11 @@ id:number
   name: string;
   icon: string;
 }
+
+export interface NewWallet {
+
+  
+    userId: number;
+    name: string;
+    icon: string;
+  }

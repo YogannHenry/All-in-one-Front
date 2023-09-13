@@ -10,6 +10,7 @@ import { NavLink } from 'react-router-dom';
 
 function SignInPage() {
   const isRegistered = useAppSelector((state) => state.user.registered);
+console.log("isRegistered", isRegistered)
 
   const isLogged = useAppSelector((state) => state.user.logged);
   const loggedMessage = useAppSelector((state) => ` ${state.user.pseudo}`);
@@ -27,6 +28,7 @@ function SignInPage() {
     setPasswordConfirmationDoNotMatchPassword(false);
   };
 
+  
   const handleSubmitRegister = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 

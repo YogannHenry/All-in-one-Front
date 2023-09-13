@@ -2,11 +2,11 @@ import { useState } from 'react';
 import WalletIconForm from './IconForm';
 import FormIncompleteAlert from '../../../../../modals/FormIncompleteAlert';
 import { useAppSelector } from '../../../../../hooks/redux';
-import { Wallet } from '../../../../../@types/index';
+import { NewWallet } from '../../../../../@types/index';
 
 
 interface WalletInputFormProps {
-  onSubmit: (wallet: Wallet) => void;
+  onSubmit: (wallet: NewWallet) => void;
 }
 
 function WalletInputForm({ onSubmit }: WalletInputFormProps) {
@@ -15,7 +15,7 @@ function WalletInputForm({ onSubmit }: WalletInputFormProps) {
   const [selectedIcon, setSelectedIcon] = useState<JSX.Element | null>(null);
 
   const [WalletDetails, setWalletDetails] = useState({
-   id:0,
+  
     name: '',
     icon: '',
     userId: userId

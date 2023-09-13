@@ -1,9 +1,4 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
-import { useSelector } from 'react-redux';
 import { NavLink } from "react-router-dom";
-import API_URL from "../../../../API_URL";
-import { RootState } from './../../../../../store/index';
 
 interface Car {
   id: number;

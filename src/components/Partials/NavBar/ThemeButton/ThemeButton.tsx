@@ -16,6 +16,7 @@ function ThemeButton() {
   // Utilisation de useEffect pour mettre à jour le thème dans le localStorage à chaque changement
   useEffect(() => {
     localStorage.setItem('selectedTheme', currentTheme);
+    //on appelle la fonction qui permet de changer le thème et on lui passe en paramètre le nom du thème
     ChangeColorTheme(currentTheme);
   }, [currentTheme, ChangeColorTheme]);
 

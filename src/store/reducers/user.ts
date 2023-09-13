@@ -5,11 +5,11 @@ import {
 } from '@reduxjs/toolkit';
 
 import axios from 'axios';
-import axiosInstance from '../../utils/axios';
 import { redirect } from 'react-router-dom';
 
 
 const API_URL = 'http://localhost:3000/api';
+//http://heyo5082.odns.fr/api
 
 interface UserState {
   registered: boolean;

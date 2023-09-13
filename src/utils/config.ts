@@ -17,3 +17,5 @@ export const getAPI = function () {
     timeout: 10000,
   });
 };
+
+//http://heyo5082.odns.fr/api

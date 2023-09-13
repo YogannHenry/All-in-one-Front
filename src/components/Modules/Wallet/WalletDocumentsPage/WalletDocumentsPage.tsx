@@ -1,6 +1,4 @@
-import axios from 'axios';
 import TriangleBlur from '../../../../assets/SvgBackground/TriangleBlur';
-import API_URL from '../../../API_URL';
 import InputDocumentForm from './Form/InputDocumentForm';
 import { Dispatch, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
@@ -68,29 +66,36 @@ function WalletDocumentsPage() {
     documentDetails: { name: string | Blob; information: string | Blob }
   ) => {
     try {
-      if (newDocument !== null) { // Si un document a été soumis
+      if (newDocument !== null) { // Vérifie si un document a été soumis
+        // Crée un objet FormData pour envoyer les données du document
         const formData = new FormData();
-        formData.append('uploaded_file', newDocument);
-        formData.append('name', documentDetails.name);
-        formData.append('information', documentDetails.information);
+        formData.append('uploaded_file', newDocument); // Ajoute le fichier au formulaire
+        formData.append('name', documentDetails.name); // Ajoute le nom du document au formulaire
+        formData.append('information', documentDetails.information); // Ajoute les informations du document au formulaire
   
+        // Effectue une requête POST pour créer un document dans un portefeuille spécifié
         const { data } = await getAPI().post(
-          `/wallet/${walletId}/document`,
-          formData,
+          `/wallet/${walletId}/document`, // L'URL de l'endpoint API pour créer un document
+          formData, // Les données du formulaire contenant le document et ses détails
           {
             headers: {
-              'Content-Type': 'multipart/form-data',
+              'Content-Type': 'multipart/form-data', // Spécifie le type de contenu comme 'multipart/form-data' pour les fichiers
             },
           }
         );
   
+        // Met à jour la liste des documents avec la réponse de l'API
         setDocuments(data);
+        
+        // Récupère à nouveau la liste des documents (peut être utile pour rafraîchir la liste)
         getDocuments();
       } 
     } catch (error) {
+      // En cas d'erreur, affiche un message d'erreur dans la console
       console.error('Erreur lors de la création du document :', error);
     }
   };
+  
 
   const deleteDocument = async (documentId: number) => {
     try {
@@ -119,7 +124,7 @@ function WalletDocumentsPage() {
       const type = data[0].type;
       if (type.startsWith('image/')) {
         const imageFileImport = await import(
-          `../../../../../uploads/${data[0].png}`
+          `../../../../../uploads/${data[0].file}`
         );
         
         const pdfFile = imageFileImport.default;
@@ -131,7 +136,7 @@ function WalletDocumentsPage() {
         setIsPreviewOpen(true);
       } else if (type === 'application/pdf') {
         const pdfFileImport = await import(
-          `../../../../../uploads/${data[0].pdf}`
+          `../../../../../uploads/${data[0].file}`
         );
         const pdfFile = pdfFileImport.default;
         setPdfFile((prevPdfFiles) => ({
@@ -156,31 +161,47 @@ function WalletDocumentsPage() {
           responseType: 'blob',
         }
       );
-
+  
       const { data } = await getAPI().get(`/wallet/document/${documentId}`);
       const fileName = data[0].name;
-      const type = data[0].type;
-
+  
+      // Obtenir le Content-Type de la réponse HTTP
+      const contentType = response.headers['content-type'];
+  
+      // Déterminer l'extension en fonction du Content-Type
+      let fileExtension = '';
+      if (contentType.includes('pdf')) {
+        fileExtension = '.pdf';
+      } else if (contentType.includes('jpeg') || contentType.includes('jpg')) {
+        fileExtension = '.jpg';
+      } else if (contentType.includes('png') || contentType.includes('png')) {
+        fileExtension = '.jpg';
+      }  else {
+        console.warn('Type de fichier non pris en charge :', contentType);
+        return;
+      }
+  
       const url = window.URL.createObjectURL(new Blob([response.data]));
       console.log('url:', url);
       const link = document.createElement('a');
       link.href = url;
-
-      const fileExtension = `${fileName}.${type}`;
-      link.setAttribute('download', fileExtension);
-
+  
+      // Utiliser le nom du fichier avec l'extension spécifiée
+      link.setAttribute('download', `${fileName}${fileExtension}`);
+  
       document.body.appendChild(link);
       link.click();
-
+  
       window.URL.revokeObjectURL(url);
       document.body.removeChild(link);
     } catch (error) {
       console.error(
-        "Une erreur s'est produite lors du télechargement du document:",
+        "Une erreur s'est produite lors du téléchargement du document:",
         error
       );
     }
   };
+  
 
   useEffect(() => {
     getDocuments();

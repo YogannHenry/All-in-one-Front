@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
-import API_URL from '../components/API_URL';
+const API_URL = 'http://localhost:3000/api';
 
 type List = {
   id: number;

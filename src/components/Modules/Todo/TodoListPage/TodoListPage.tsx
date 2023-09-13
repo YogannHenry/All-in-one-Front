@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
 import Counter from './Counter/Counter';
 import Form from './Form/Form';
 import Tasks from './Tasks/Tasks';
 import {getAPI} from '../../../../utils/config';
 import { Task } from '../../../../@types';
-
 
 interface List {
   id: number;
@@ -51,7 +48,7 @@ function TodoListPage() {
   const updateTask = async (id: number, updatedTaskData: any) => {
     const { data } = await getAPI().put(`/list/task/${id}`, updatedTaskData);
 
-    const updatedTasks = tasks.map((task:Task) => (task.id === id ? data : task));
+    const updatedTasks = tasks.filter((task:Task) => (task.id === id ? data : task));
 
     setTasks(updatedTasks);
     getTasks();
@@ -66,19 +63,22 @@ function TodoListPage() {
 
 
   const deleteAllTasks = async () => {
-    const { data } = await getAPI().get(`/list/${listId}/task`);
-
-    // Filtrer les tâches ayant le statut true
-    const tasksToDelete = data.filter((task:Task) => task.status === true);
-
-    // Supprimer chaque tâche ayant le statut true
-    for (const task of tasksToDelete) {
-      await getAPI().delete(`/task/${task.id}`);
+    try {
+      const { data } = await getAPI().get(`/list/${listId}/task`);
+    
+      const tasksToDelete = data.filter((task: Task) => task.status === true);
+    
+      for (const task of tasksToDelete) {
+        await getAPI().delete(`/list/task/${task.id}`);
+      }
+    
+      getTasks();
+    } catch (error) {
+      console.error("Une erreur s'est produite lors de la suppression des tâches :", error);
     }
-
-    // Mettre à jour la liste des tâches après la suppression
-    getTasks();
   };
+  
+  
   
   const tasksNotDone = tasks.filter(({ status }) => !status);
   const tasksDone = tasks.filter(({ status }) => status);
@@ -107,7 +107,7 @@ function TodoListPage() {
         <Form addTask={addTask} />
 
         <Tasks
-          list={tasksSorted}
+          listTask={tasksSorted}
           updateTask={updateTask}
           deleteTask={deleteTask}
         />
