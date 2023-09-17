@@ -67,7 +67,7 @@ function ThemeButton() {
     </div>
       )}
         {!isLogged && (
-          <div className="dropdown dropdown-end right-8">
+          <div className="dropdown dropdown-end right-8 max-lg:hidden">
       
           <label
             tabIndex={0}

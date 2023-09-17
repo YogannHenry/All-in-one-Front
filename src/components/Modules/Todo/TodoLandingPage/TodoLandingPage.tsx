@@ -1,10 +1,9 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../../../hooks/redux';
 
 import { Task } from '../../../../@types';
-import {getAPI} from '../../../../utils/config';
+import { getAPI } from '../../../../utils/config';
 
 interface List {
   id: number;
@@ -17,16 +16,25 @@ function TodoList() {
   const [lists, setLists] = useState<List[]>([]);
   const [newList, setNewList] = useState('');
   const [selectedListTasks, setSelectedListTasks] = useState<Task[]>([]);
+  const [updateListId, setUpdateListId] = useState<number | null>(null);
+
+  const [updateListName, setUpdateListName] = useState('');
 
   const getLists = async () => {
     const { data } = await getAPI().get(`/list`);
     setLists(data);
+    console.log(data, 'debut');
   };
 
   // Récupérer les tâches d'une liste pour gérer la prévisualisation, on récupere que les tasks qui ont le status false.
   const getTasksForList = async (listId: number) => {
     const { data } = await getAPI().get(`/list/${listId}/task`);
     const filteredTasks = data.filter((task: Task) => task.status === false);
+
+    // Vérifiez si selectedListTasks est déjà non vide
+    if (selectedListTasks.length > 0) {
+      setSelectedListTasks([]); // Réinitialisez-le à un tableau vide
+    }
 
     setSelectedListTasks(filteredTasks);
   };
@@ -38,6 +46,27 @@ function TodoList() {
     });
     setLists(data);
     getLists();
+  };
+
+  const handleUpdateList = async () => {
+    if (!updateListName || !updateListId) {
+      return;
+    }
+
+    const { data } = await getAPI().put(`/list/${updateListId}`, {
+      name: updateListName,
+    });
+
+    setLists((prevLists) =>
+      prevLists.map((list) =>
+        list.id === updateListId ? { ...list, name: updateListName } : list
+      )
+    );
+
+    // Réinitialise les champs
+    setUpdateListName('');
+    setUpdateListId(null);
+    console.log(data, 'update');
   };
 
   const deleteList = async (id: number) => {
@@ -52,7 +81,7 @@ function TodoList() {
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     addList(newList);
-    setNewList('');
+    setNewList(''); // Réinitialise le champ de saisie
   }
 
   useEffect(() => {
@@ -103,14 +132,34 @@ function TodoList() {
                 className="flex flex-col md:flex-row bg-base-200 mb-4"
                 key={list.id}
               >
-                <div className="md:w-1/2 collapse">
+                <div className="md:w-1/2 collapse z-40">
                   <input
                     onClick={() => getTasksForList(list.id)}
                     type="radio"
                     name="my-accordion-1"
                   />
-                  <div className="collapse-title text-xl font-medium">
-                    {list.name}
+
+                  <div
+                    className={`collapse-title text-xl font-medium ${
+                      updateListId === list.id ? 'z-10' : '-z-10'
+                    }`}
+                  >
+                    {updateListId === list.id ? (
+                      // Champ d'entrée texte en mode édition
+                      <input
+                        type="text"
+                        value={updateListName}
+                        onChange={(e) => setUpdateListName(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === 'Enter') {
+                            handleUpdateList();
+                          }
+                        }}
+                      />
+                    ) : (
+                      // Nom de la liste en mode affichage
+                      <span>{list.name}</span>
+                    )}
                   </div>
                   <div className="collapse-content">
                     <ul>
@@ -130,6 +179,40 @@ function TodoList() {
                   >
                     Ouvrir
                   </NavLink>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (updateListId === list.id) {
+                        // Si la liste est déjà en mode édition, enregistrez les modifications
+                        handleUpdateList();
+                      } else {
+                        // Sinon, activez le mode édition en définissant updateListId
+                        setUpdateListId(list.id);
+                        setUpdateListName(list.name); // Pré-remplissez le champ avec le nom actuel de la liste
+                      }
+                    }}
+                    className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2"
+                  >
+                    {updateListId === list.id ? (
+                      'Enregistrer'
+                    ) : (
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                        />
+                      </svg>
+                    )}
+                  </button>
+
                   <button
                     type="button"
                     onClick={() => deleteList(list.id)}

@@ -5,7 +5,7 @@ import {
 } from '@heroicons/react/24/solid';
 
 import ThemeButton from '../ThemeButton/ThemeButton';
-import Footer from '../../Footer/Footer';
+import Footer from '../../MenuLeftFooter/MenuLeftFooter';
 import { useAppDispatch } from '../../../../hooks/redux';
 import { logout } from '../../../../store/reducers/user';
 

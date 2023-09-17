@@ -41,17 +41,17 @@ console.log("isRegistered", isRegistered)
       !password.match(/(?=.*[A-Z])/)
     ) {
       setPasswordMissingCaractere(true);
-      setPasswordConfirmationDoNotMatchPassword(false); // Reset the other error state
+      setPasswordConfirmationDoNotMatchPassword(false); 
       return;
     }
 
     if (password !== passwordConfirm) {
       setPasswordConfirmationDoNotMatchPassword(true);
-      setPasswordMissingCaractere(false); // Reset the other error state
+      setPasswordMissingCaractere(false); 
       return;
     }
 
-    // If both conditions are met, proceed with the registration
+    // si les deux conditions sont rempli alors on peut envoyer le formulaire
     const formData = new FormData(event.currentTarget);
     dispatch(register(formData));
   };

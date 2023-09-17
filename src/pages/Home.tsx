@@ -1,10 +1,10 @@
 import { useAppSelector } from '../hooks/redux';
-import Carrousel from '../modals/Carrousel';
 import AlternativeCarrousel from '../modals/AlternativeCarrousel';
 import todolistImage from '../assets/totolist.png';
 import walletImage from '../assets/wallet.png';
 import cartool from '../assets/cartool.png';
 import { NavLink } from 'react-router-dom';
+import Footer from '../components/Partials/Footer/Footer';
 
 function Home() {
   const isLogged = useAppSelector((state) => state.user.logged);
@@ -37,8 +37,8 @@ function Home() {
          
         </div>
       )}
-      {!isLogged &&   <div>
-          <div className="hero h-5/6 pt-14 bg-base-200 ">
+      {!isLogged &&   <div className="bg-[var(--color-primary-300)]">
+          <div className="hero h-5/6 pt-14 bg-base-200  ">
             <form className="hero-content text-center">
               <div className="max-w-md">
                 <h1 className="text-5xl font-bold">All-in-One</h1>
@@ -55,8 +55,11 @@ function Home() {
                     placeholder="E-mail"
                     className="input input-bordered w-full max-w-xs"
                   />
-                  <a className="btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]">
+                  <a className="btn lowercase text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]">
+                  <NavLink
+              to="/signin">
                     inscrivez-vous c'est gratuit
+                  </NavLink>
                   </a>
                 </div>
                 <h1 className="mt-20 text-3xl font-bold">
@@ -109,6 +112,12 @@ function Home() {
         </div>}
         
           <AlternativeCarrousel></AlternativeCarrousel>
+          <div className="flex justify-center items-center">   
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+  <path className="fill-[var(--color-primary-300)]" fill="none" fill-opacity="1" d="M0,128L60,106.7C120,85,240,43,360,42.7C480,43,600,85,720,122.7C840,160,960,192,1080,170.7C1200,149,1320,75,1380,37.3L1440,0L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+</svg>
+</div>
+<Footer/>
     </div>
   );
 }

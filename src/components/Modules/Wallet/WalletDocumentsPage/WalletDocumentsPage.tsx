@@ -158,23 +158,13 @@ const downloadFile = async (documentId: number) => {
     );
 
     const { data } = await getAPI().get(`/wallet/document/${documentId}`);
+    console.log('datadownload:', data);
     const fileName = data[0].name;
     const contentType = response.headers['content-type'];
+    const contentTypeParts = contentType.split('/');
+    const fileExtension = contentTypeParts[1]; 
 
-    let fileExtension = '';
-
-    if (contentType.includes('pdf')) {
-      fileExtension = '.pdf';
-    } else if (contentType.includes('jpeg') || contentType.includes('jpg')) {
-      fileExtension = '.jpg';
-    } else if (contentType.includes('png')) {
-      fileExtension = '.png';
-    } else {
-      console.warn('Type de fichier non pris en charge :', contentType);
-      return;
-    }
-
-    fileDownload(data, `${fileName}${fileExtension}`);
+    fileDownload(data, `${fileName}${"."+ fileExtension}`);
   } catch (error) {
     console.error("Une erreur s'est produite lors du téléchargement du document :", error);
   }

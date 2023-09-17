@@ -7,7 +7,7 @@ import { useAppSelector } from '../../../hooks/redux';
 
 function NavBar() {
   const isLogged = useAppSelector((state) => state.user.logged);
-  
+
   return (
     <div>
       {isLogged && (
@@ -19,12 +19,12 @@ function NavBar() {
             </NavLink>
           </div>
           <div className="navbar-center max-md:hidden">
-            <h1 className="text-[var(--color-primary-500)] text-3xl">
+            <h1 className=" bg-gradient-to-tl from-slate-800 via-[var(--color-primary-500)] to-zinc-400 bg-clip-text text-transparent text-5xl">
               All-In-One
             </h1>
           </div>
           <div className="navbar-end">
-           <DrawerButtonRight />
+            <DrawerButtonRight />
           </div>
         </div>
       )}
@@ -63,24 +63,18 @@ function NavBar() {
                 </li>
               </ul>
             </div>
-            <NavLink
-              to="/Contact"
-              className="btn btn-ghost  hover:bg-[var(--color-primary-300)]"
-            >
-              contact
-            </NavLink>
           </div>
           <div className="navbar-end flex max-md:flex-col">
             <ThemeButton />
             <NavLink
               to="/login"
-              className={`btn btn-ghost text-[var(--color-primary-300)]  hover:underline-offset-4 hover:bg-white`}
+              className={`btn btn-ghost text-[var(--color-primary-300)]   hover:underline-offset-4 hover:bg-white`}
             >
               Se connecter
             </NavLink>
             <NavLink
               to="/signin"
-              className={`btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]`}
+              className={`btn text-white bg-[var(--color-primary-300)] max-lg:hidden hover:bg-[var(--color-primary-500)]`}
             >
               s'inscrire
             </NavLink>

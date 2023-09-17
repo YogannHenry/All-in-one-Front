@@ -70,24 +70,6 @@ export const login = createAsyncThunk(
 
 export const initializeUser = createAction('user/initialize');
 
-/*export const register = createAsyncThunk('/register', async (formData: FormData) => {
-  const objData = Object.fromEntries(formData);
-  console.log("objData2", objData);
-
-  const { data } = await axiosInstance.post('/register', objData);
-  console.log("data",data);
-
-  axiosInstance.defaults.headers.common.Authorization = `Bearer ${data.token}`;
-
-  delete data.token;
-
-  return data as {
-
-  registered: boolean;
-  pseudo: string | null;
-  userId : number | null;
-  };
-});*/
 
 export const register = createAsyncThunk(
   '/register',
@@ -96,11 +78,7 @@ export const register = createAsyncThunk(
       const objData = Object.fromEntries(formData);
       console.log('objData2', objData);
 
-      const { data } = await axios.post(`${API_URL}/register`, objData, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
+      const { data } = await axios.post(`${API_URL}/register`, objData,);
 
       console.log('data', data);
       return data as {
@@ -112,12 +90,11 @@ export const register = createAsyncThunk(
       // Gérer l'erreur et spécifier son type
       if (error.response && error.response.data) {
         return rejectWithValue(error.response.data);
-      } else {
-        // Si vous ne pouvez pas déterminer le type d'erreur, vous pouvez le définir comme une chaîne par exemple
+      }
         return rejectWithValue('Une erreur s\'est produite');
       }
     }
-  }
+  
 );
 
 const userReducer = createReducer(initialState, (builder) => {
