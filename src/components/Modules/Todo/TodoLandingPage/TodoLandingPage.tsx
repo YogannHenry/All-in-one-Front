@@ -147,6 +147,7 @@ function TodoList() {
                     {updateListId === list.id ? (
                       // Champ d'entrée texte en mode édition
                       <input
+                      className='input input-bordered border-[var(--color-primary-300)] w-full mr-2'
                         type="text"
                         value={updateListName}
                         onChange={(e) => setUpdateListName(e.target.value)}
@@ -180,6 +181,8 @@ function TodoList() {
                     Ouvrir
                   </NavLink>
                   <button
+                  
+                  className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2"
                     type="button"
                     onClick={() => {
                       if (updateListId === list.id) {
@@ -191,7 +194,6 @@ function TodoList() {
                         setUpdateListName(list.name); // Pré-remplissez le champ avec le nom actuel de la liste
                       }
                     }}
-                    className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white ml-2"
                   >
                     {updateListId === list.id ? (
                       'Enregistrer'

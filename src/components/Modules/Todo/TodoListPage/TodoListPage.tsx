@@ -36,6 +36,18 @@ function TodoListPage() {
 
   };
 
+  const getTasksDone = async () => {
+    const { data } = await getAPI().get(`/list/${listId}/task`);
+    const filteredTasks = data.filter((task: Task) => task.status === false);
+    setTasks(filteredTasks);
+  };
+
+  const getTasksUnDone = async () => {
+    const { data } = await getAPI().get(`/list/${listId}/task`);
+    const filteredTasks = data.filter((task: Task) => task.status === true);
+    setTasks(filteredTasks);
+  };
+
   const addTask = async (newTask: string) => {
     const { data } = await getAPI().post(`/list/${listId}/task`, {
       name: newTask,
@@ -53,6 +65,16 @@ function TodoListPage() {
     setTasks(updatedTasks);
     getTasks();
   };
+
+  const updateTaskName = async (id: number, updatedTasksName: string): Promise<void> => {  
+    const { data } = await getAPI().put(`/list/task/${id}`, updatedTasksName);
+
+    const newTasksName = tasks.filter((task:Task) => (task.id === id ? data : task));
+
+    setTasks(newTasksName);
+    getTasks();
+  };
+
 
   const deleteTask = async (id: number) => {
     const { data } = await getAPI().delete(`/list/task/${id}`);
@@ -78,19 +100,11 @@ function TodoListPage() {
     }
   };
   
-  
-  
+    
   const tasksNotDone = tasks.filter(({ status }) => !status);
   const tasksDone = tasks.filter(({ status }) => status);
   let tasksSorted = [...tasksNotDone, ...tasksDone];
-
-  const [sortingType, setSortingType] = useState<'all' | 'active' | 'completed'> ('all');
-  
-  if (sortingType === 'active') {
-    tasksSorted = tasks.filter(({ status }) => !status);
-  } else if (sortingType === 'completed') {
-    tasksSorted = tasks.filter(({ status }) => status);
-  }
+ 
 
   useEffect(() => {
     getTasks();
@@ -110,18 +124,19 @@ function TodoListPage() {
           listTask={tasksSorted}
           updateTask={updateTask}
           deleteTask={deleteTask}
+          updateTaskName={updateTaskName}
         />
         <div className="flex items-center justify-between max-lg:w-full w-2/4 px-5 h-14 text-xs text-slate-500 pt-10">
           <Counter nbTasksNotDone={tasksNotDone.length} />
           <div className="flex justify-around ">
-            <button onClick={() => setSortingType('all')} className="px-2">
+            <button onClick={() => getTasks()} className="px-2">
               Toutes les Tâches
             </button>
-            <button onClick={() => setSortingType('active')} className="px-2">
+            <button onClick={() => getTasksDone()} className="px-2">
               Actives
             </button>
             <button
-              onClick={() => setSortingType('completed')}
+              onClick={() => getTasksUnDone()}
               className="px-2"
             >
               Terminées

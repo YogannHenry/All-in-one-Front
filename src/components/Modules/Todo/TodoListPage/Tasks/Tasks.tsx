@@ -6,9 +6,10 @@ interface TasksProps {
   listTask: Task[];
   updateTask: (id: number, updatedTaskData: any) => Promise<void>;
   deleteTask: (id: number) => Promise<void>;
+  updateTaskName: (id: number, updatedTaskData: any) => Promise<void>;
 }
 
-function Tasks({ listTask, updateTask, deleteTask }: TasksProps) {
+function Tasks({ listTask, updateTask, deleteTask, updateTaskName }: TasksProps) {
   return (
     <div className="card max-md:w-full w-1/2 bg-base-100 shadow-xl">
       {listTask.map((task) => (
@@ -17,6 +18,7 @@ function Tasks({ listTask, updateTask, deleteTask }: TasksProps) {
           task={task}
           updateTask={updateTask}
           deleteTask={deleteTask}
+          updateTaskName={updateTaskName}
           
         />
       ))}
