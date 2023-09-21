@@ -37,32 +37,7 @@ function NavBar() {
             </NavLink>
           </div>
           <div className="navbar-center max-md:hidden">
-            <div className="dropdown dropdown-hover">
-              <label
-                tabIndex={0}
-                className="btn btn-ghost m-1 mr-16 hover:bg-[var(--color-primary-300)]"
-              >
-                Outils
-              </label>
-              <ul
-                tabIndex={0}
-                className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52 "
-              >
-                <li>
-                  <a className=" hover:bg-[var(--color-primary-300)]">
-                    Todo-List
-                  </a>
-                </li>
-                <li>
-                  <a className=" hover:bg-[var(--color-primary-300)]">Wallet</a>
-                </li>
-                <li>
-                  <a className=" hover:bg-[var(--color-primary-300)]">
-                    Car-Tool
-                  </a>
-                </li>
-              </ul>
-            </div>
+            
           </div>
           <div className="navbar-end flex max-md:flex-col">
             <ThemeButton />
