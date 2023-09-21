@@ -5,7 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 
 import axios from 'axios';
-import { redirect } from 'react-router-dom';
+
 
 
 const API_URL = 'http://localhost:3000/api';
@@ -30,7 +30,6 @@ export const initialState: UserState = {
 export const logout = createAsyncThunk(`${API_URL}/logout`, async () => {
   // Supprimer le token du local storage
   localStorage.removeItem('token');
-  redirect('/');
   console.log("localstorage", localStorage)
   return false;
 });
