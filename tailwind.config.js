@@ -9,6 +9,7 @@ module.exports = {
           200: '#dc2626',
           300: '#b91c1c',
           500: '#7f1d1d',
+          700: '#641717',
         },
         blueIntense: {
           50: '#60a5fa',
@@ -16,6 +17,7 @@ module.exports = {
           200: '#2563eb',
           300: '#1d4ed8',
           500: '#1e3a8a',
+          700: '#1a3175',
         },
         orangeIntense: {
           50: '#fb923c',
@@ -23,6 +25,7 @@ module.exports = {
           200: '#ea580c',
           300: '#c2410c',
           500: '#7c2d12',
+          700: '#431407',
         },
         emeraldIntense: {
           50: '#6ee7b7',
@@ -30,6 +33,7 @@ module.exports = {
           200: '#10b981',
           300: '#059669',
           500: '#065f46',
+          700: '#064e3b',
         },
        
           onNeutralBg: 'var(--onNeutralBg)',

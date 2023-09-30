@@ -81,7 +81,7 @@ function DrawerButtonLeft() {
       <input
         id="my-drawer"
         type="checkbox"
-        className="drawer-toggle"
+        className="drawer-toggle "
         checked={isDrawerOpen}
         onChange={toggleDrawer}
         onClick={handleOnClick}

@@ -12,10 +12,10 @@ export const getAPI = function () {
     headers.Authorization = `${token}`;
   }
   return axios.create({
-    baseURL: 'http://localhost:3000/api', // process.env.REACT_APP_API_PATH,
+    baseURL: 'https://api.all-in-1.fr/api', // process.env.REACT_APP_API_PATH,
     headers,
     timeout: 10000,
   });
 };
 
-//http://heyo5082.odns.fr/api         http://localhost:3000/api
+//http://heyo5082.odns.fr/api         http://localhost:3000/api109.234.165.191                                                                                                    jk,n                                                                                  

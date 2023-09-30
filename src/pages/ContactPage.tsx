@@ -1,4 +1,59 @@
+import { useState } from 'react';
+import axios from 'axios';
+import { NavLink } from 'react-router-dom';
+import {
+  ArrowRightOnRectangleIcon,
+  InformationCircleIcon,
+} from '@heroicons/react/24/solid';
+
 function ContactPage() {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState(false);
+
+  const handleInputChange = (e: {
+    target: { name: string; value: string };
+  }) => {
+    const { name, value } = e.target;
+    if (name === 'name') {
+      setName(value);
+    } else if (name === 'email') {
+      setEmail(value);
+    } else if (name === 'message') {
+      setMessage(value);
+    }
+  };
+
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+
+    try {
+      if (!name || !email || !message) {
+        setError('Veuillez remplir tous les champs.');
+        setSuccess(false);
+        return;
+      }
+
+      // Envoi des données du formulaire au serveur
+      await axios.post('https://api.all-in-1.fr/api/contact', {
+        name,
+        email,
+        message,
+      });
+
+      // Réinitialisation du formulaire après l'envoi
+      setName('');
+      setEmail('');
+      setMessage('');
+      setSuccess(true);
+      setError('');
+    } catch (error) {
+      setError("Une erreur est survenue lors de l'envoi de l'e-mail.");
+    }
+  };
+
   return (
     <div>
       <section className="text-gray-600 body-font relative bg-base-200">
@@ -7,8 +62,8 @@ function ContactPage() {
             <h1 className="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">
               Contactez-Nous
             </h1>
-            <p className="lg:w-2/3 mx-auto leading-relaxed text-base">
-              Contactez nous, si vous rencontrez un problème ou pour avoir plus
+            <p className="lg:w-2/3 mx-auto leading-relaxed text-lg">
+              Vous rencontrez un problème ou vous souhaitez avoir plus
               d'information sur All-in-One
             </p>
           </div>
@@ -28,7 +83,9 @@ function ContactPage() {
                       id="name"
                       name="name"
                       placeholder="Nom..."
-                      className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                      className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-[var(--color-primary-400)] focus:bg-white focus:ring-2 focus:ring-[var(--color-primary-200)] text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                      value={name}
+                      onChange={handleInputChange}
                     />
                   </div>
                 </div>
@@ -45,7 +102,9 @@ function ContactPage() {
                       id="email"
                       name="email"
                       placeholder="Email..."
-                      className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                      className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-[var(--color-primary-400)] focus:bg-white focus:ring-2 focus:ring-[var(--color-primary-200)] text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                      value={email}
+                      onChange={handleInputChange}
                     />
                   </div>
                 </div>
@@ -61,20 +120,66 @@ function ContactPage() {
                       id="message"
                       name="message"
                       placeholder="Écrivez votre message..."
-                      className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+                      className="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-[var(--color-primary-400)] focus:bg-white focus:ring-2 focus:ring-[var(--color-primary-200)] h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+                      value={message}
+                      onChange={handleInputChange}
                     ></textarea>
                   </div>
                 </div>
+
+                {error && (
+                  <div className="alert alert-warning text-lg ">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="stroke-current shrink-0 h-6 w-6"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                      />
+                    </svg>
+                    <span>{error}</span>
+                  </div>
+                )}
+
+                {success && (
+                  <div className="alert shadow-lg bg-green-100">
+                    <InformationCircleIcon className="h-8 w-8" />{' '}
+                    <div>
+                      <h3 className="font-bold text-lg">
+                        Votre email à bien été envoyé!
+                      </h3>
+                      <div className="text-lg">
+                        Revenir vers la page principale
+                      </div>
+                    </div>
+                    <button className="mr-5 ">
+                      <NavLink to="/">
+                        <ArrowRightOnRectangleIcon className="h-10 w-10 " />
+                      </NavLink>
+                    </button>
+                  </div>
+                )}
+
                 <div className="p-2 w-full">
-                  <button className="flex mx-auto btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]">
+                  <button
+                    className="flex mx-auto btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]"
+                    onClick={handleSubmit}
+                  >
                     Envoyer
                   </button>
                 </div>
               </div>
               <div className="p-2 w-full pt-8 mt-8 border-t-4 border-gray-200 text-center">
-                <a className="text-indigo-500">example@email.com</a>
-                <p className="leading-normal my-5">114 Rue de Grenelle</p>
-                <p className="leading-normal my-5">Paris, 75007</p>
+                <a className="text-indigo-500">
+                  Merci d'utiliser un email valide
+                </a>
+                <p className="leading-normal my-5">place de la république</p>
+                <p className="leading-normal my-5">Caen, 14000</p>
                 <span className="inline-flex">
                   <a className="text-gray-500">
                     <svg

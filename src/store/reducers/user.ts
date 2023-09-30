@@ -6,10 +6,9 @@ import {
 
 import axios from 'axios';
 
+const API_URL = 'https://api.all-in-1.fr/api';
 
-
-const API_URL = 'http://localhost:3000/api';
-//http://heyo5082.odns.fr/api
+//'http://heyo5082.odns.fr/api'
 
 interface UserState {
   registered: boolean;
@@ -30,7 +29,7 @@ export const initialState: UserState = {
 export const logout = createAsyncThunk(`${API_URL}/logout`, async () => {
   // Supprimer le token du local storage
   localStorage.removeItem('token');
-  console.log("localstorage", localStorage)
+  console.log('localstorage', localStorage);
   return false;
 });
 
@@ -40,7 +39,7 @@ export const login = createAsyncThunk(
   async (formData: FormData, { rejectWithValue }) => {
     try {
       const objData = Object.fromEntries(formData);
-
+      console.log('API_URL', API_URL);  
       const { data } = await axios.post(`${API_URL}/login`, objData);
       console.log('data', data);
       // Après la connexion réussie, stockez le token dans le local storage
@@ -49,19 +48,19 @@ export const login = createAsyncThunk(
       localStorage.setItem('pseudo', data.pseudo);
       localStorage.setItem('userId', data.userId.toString());
       // Convertir en chaîne de caractères avant de stocker car pas de number dans le storage
-      console.log("localstorage", localStorage)
+      console.log('localstorage', localStorage);
       return data as {
         logged: boolean;
         pseudo: string;
         userId: number;
       };
-    } catch (error: any)  {
+    } catch (error: any) {
       // Gérer l'erreur et spécifier son type
       if (error.response && error.response.data) {
         return rejectWithValue(error.response.data);
       } else {
         // Si vous ne pouvez pas déterminer le type d'erreur, vous pouvez le définir comme une chaîne par exemple
-        return rejectWithValue('Une erreur s\'est produite');
+        return rejectWithValue("Une erreur s'est produite");
       }
     }
   }
@@ -69,15 +68,14 @@ export const login = createAsyncThunk(
 
 export const initializeUser = createAction('user/initialize');
 
-
 export const register = createAsyncThunk(
   '/register',
   async (formData: FormData, { rejectWithValue }) => {
     try {
       const objData = Object.fromEntries(formData);
       console.log('objData2', objData);
-
-      const { data } = await axios.post(`${API_URL}/register`, objData,);
+console.log('API_URL', API_URL);  
+      const { data } = await axios.post(`${API_URL}/register`, objData);
 
       console.log('data', data);
       return data as {
@@ -85,15 +83,14 @@ export const register = createAsyncThunk(
         pseudo: string | null;
         userId: number | null;
       };
-    } catch (error: any)  {
+    } catch (error: any) {
       // Gérer l'erreur et spécifier son type
       if (error.response && error.response.data) {
         return rejectWithValue(error.response.data);
       }
-        return rejectWithValue('Une erreur s\'est produite');
-      }
+      return rejectWithValue("Une erreur s'est produite");
     }
-  
+  }
 );
 
 const userReducer = createReducer(initialState, (builder) => {

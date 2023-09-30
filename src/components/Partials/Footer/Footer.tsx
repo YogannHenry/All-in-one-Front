@@ -3,7 +3,7 @@ import Logo from '../../../assets/TodoNavBar.png';
 
 function Footer() {
   return (
-  <footer className="text-gray-600 body-font bg-slate-200">
+  <footer className="text-gray-600 body-font bg-slate-200 ">
   <div className="container justify-center px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
     
       <img src={Logo} alt="Logo" className="object-scale-down h-32" />          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>

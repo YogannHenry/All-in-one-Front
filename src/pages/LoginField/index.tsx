@@ -30,18 +30,18 @@ function Field({ name, placeholder, ...props }: FieldProps) {
 
   return (
     <div className="form-control">
+      <label htmlFor={inputId} className="label " >
+        <span className="label-text">{placeholder}</span>
+      </label>
       <input
         name={name}
         value={value}
         id={inputId}
         onChange={handleChange}
         placeholder={placeholder}
-        className="input input-bordered"
+        className="input input-bordered "
         {...props}
       />
-      <label htmlFor={inputId} className="label">
-        <span className="label-text">{placeholder}</span>
-      </label>
     </div>
   );
 }
