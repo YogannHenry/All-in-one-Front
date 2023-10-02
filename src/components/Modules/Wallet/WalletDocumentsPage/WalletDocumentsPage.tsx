@@ -8,6 +8,7 @@ pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/$
 import { Wallet } from '../../../../@types/index';
 import { getAPI } from '../../../../utils/config';
 import fileDownload from 'js-file-download';
+import authConnexion from '../../../../hooks/authConnexion';
 
 interface Document {
   id: number;
@@ -28,8 +29,8 @@ interface PdfFile {
 
 
 function WalletDocumentsPage() {
+  const { isUserLogged } = authConnexion();
   const { walletId } = useParams<{ walletId: string }>();
-
   const [documents, setDocuments] = useState<Document[]>([]);
   const [submittedDocuments, setSubmittedDocuments] = useState([]);
   const [pdfFile, setPdfFile] = useState<PdfFile>({});
@@ -174,7 +175,7 @@ const downloadFile = async (documentId: number) => {
   useEffect(() => {
     getDocuments();
     getOneWallet();
-  }, []);
+  }, [isUserLogged]);
 
   const walletName = wallet.map((wallet) => wallet.name);
 

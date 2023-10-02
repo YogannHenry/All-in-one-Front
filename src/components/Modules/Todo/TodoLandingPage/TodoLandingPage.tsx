@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../../../hooks/redux';
-
 import { Task } from '../../../../@types';
 import { getAPI } from '../../../../utils/config';
+import authConnexion from '../../../../hooks/authConnexion';
 
 interface List {
   id: number;
@@ -12,8 +12,7 @@ interface List {
 
 function TodoList() {
   const userId = useAppSelector((state) => Number(state.user.userId));
-  const isUserLogged = useAppSelector((state) => state.user.logged);
-  const navigate = useNavigate();
+  const { isUserLogged } = authConnexion();
 
   const [lists, setLists] = useState<List[]>([]);
   const [newList, setNewList] = useState('');
@@ -87,17 +86,14 @@ function TodoList() {
   }
 
   useEffect(() => {
-      if (!isUserLogged) {
-      navigate('/'); 
-    } else {
-   
+    
       getLists();
     }
-  }, [isUserLogged, navigate]);
+  , [isUserLogged]);
 
   return (
     <>
-    {isUserLogged && (
+    
     <div className="flex items-center flex-col justify-center min-h-screen bg-base-200">
       <div className="max-w-full w-11/12 md:w-3/4 lg:w-1/2 px-4 flex flex-col items-center">
         <h1 className="text-4xl mb-10">TodoList</h1>
@@ -251,7 +247,7 @@ function TodoList() {
         </div>
       </div>
     </div>
-    )}
+ 
     </>
   );
 }

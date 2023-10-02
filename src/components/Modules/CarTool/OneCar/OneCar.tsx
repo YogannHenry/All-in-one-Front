@@ -11,6 +11,7 @@ import EditMaintenanceData, {
   EditMaintenanceDataProps,
 } from './Form/EditMaintenanceData';
 import { getAPI } from '../../../../utils/config';
+import authConnexion from '../../../../hooks/authConnexion';
 
 interface CarDetailsProps {
   id: number;
@@ -24,6 +25,7 @@ interface CarDetailsProps {
 }
 
 function OneCar() {
+  const { isUserLogged } = authConnexion();
   const [maintenances, setMaintenances] = useState<EditMaintenanceDataProps[]>(
     []
   );
@@ -136,7 +138,7 @@ function OneCar() {
   useEffect(() => {
     getCarDetails();
     getMaintenanceDetails();
-  }, []);
+  }, [isUserLogged]);
 
   return (
     <div className="bg-base-200 min-h-screen h-full px-20">

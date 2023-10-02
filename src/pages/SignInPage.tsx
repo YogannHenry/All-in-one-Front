@@ -7,6 +7,8 @@ import clipartFallout from '../assets/1460481845.svg';
 import PasswordCaractereMissing from '../modals/PasswordCaractereMissing';
 import PasswordConfirmationDoNotMatchPassword from '../modals/PasswordConfirmationDoNotMatchPassword';
 import { NavLink } from 'react-router-dom';
+import Home from './Home';
+import LoginPage from './LoginPage';
 
 function SignInPage() {
   const isRegistered = useAppSelector((state) => state.user.registered);
@@ -140,7 +142,7 @@ console.log("isRegistered", isRegistered)
       )}
       {!isRegistered && (
         <div className="  xl:hero min-h-screen bg-base-200 max-md:pt-40 max-md:flex max-md:items-center max-md:justify-center">
-          <OscillateBackground />
+          <OscillateBackground />          
           <div className="hero-content flex-col lg:flex-row-reverse px-24">
             <div className="px-24 text-center lg:text-left">
               <h1 className="text-5xl font-bold">
