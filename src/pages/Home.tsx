@@ -20,9 +20,17 @@ function Home() {
     <div>
       {isLogged && (
         <div className="bg-base-200 px-4">
-          <img className="absolute w-1/4 max-md:hidden" src={flecheMenuGauche} alt="flecheMenuGauche " />
-          <img className="absolute right-0 w-1/4 max-md:hidden" src={flecheMenuDroite} alt="flecheMenuDroite" />
-          
+          <img
+            className="absolute w-1/4 max-md:hidden"
+            src={flecheMenuGauche}
+            alt="flecheMenuGauche "
+          />
+          <img
+            className="absolute right-0 w-1/4 max-md:hidden"
+            src={flecheMenuDroite}
+            alt="flecheMenuDroite"
+          />
+
           <p className=" h-auto flex items-center text-center flex-col  pt-10 text-2xl text-slate-800 font-sans">
             <span className="text-4xl font-bold mb-2">Libérer du temps!</span>{' '}
             pour les choses qui comptent le plus pour vous
@@ -30,76 +38,86 @@ function Home() {
           <div className="flex justify-center">
             <div className=" flex md:flex-row flex-col px-4 py-2 my-10 gap-y-7 gap-x-7 max-w-7xl ">
               <div className=" bg-gradient-to-t from-[var(--color-primary-300)] via-[var(--color-primary-500)] to-[var(--color-primary-700)] border border-gray-200 rounded-xl drop-shadow-md shadow-current p-5  w-[320px] hover:shadow-lg hover:transform hover:scale-105 duration-500 ease-in-out ">
-                  <NavLink to="/list">
-                <div className="flex flex-col justify-center items-center text-white p-2 ">
-                  <div className="bg-gradient-to-t from-gray-900 via-[var(--color-primary-500)]  to-[var(--color-primary-300)]  rounded-full p-2">
-                    <PencilSquareIcon className="h-10 w-10" />
-                  </div>
+                <NavLink to="/list">
+                  <div className="flex flex-col justify-center items-center text-white p-2 ">
+                    <div className="bg-gradient-to-t from-gray-900 via-[var(--color-primary-500)]  to-[var(--color-primary-300)]  rounded-full p-2">
+                      <PencilSquareIcon className="h-10 w-10" />
+                    </div>
 
-                  <div className="text-white text-sm my-2 flex flex-col items-center font-medium md:tracking-tighter">
-                    <div className="pt-5 text-3xl md:text-5xl">TodoList</div>
-                    <ul className="pt-10 text-2xl md:text-xl text-center pb-6 leading-10">
-                      <ol className="pb-2" >Créez vos listes</ol>
-                      <ol>
-                        Prévisualiser les tâches en cours en cliquant dessus
-                      </ol>
-                      <ol className="pb-2" >Créez vos tâches</ol>
-                      <ol className="pb-2" >Modifier</ol>
-                      <ol className="pb-2" >Filtrer</ol>
-                      <ol className="pb-2" >supprimer</ol>
-                    </ul>
+                    <div className="text-white text-sm my-2 flex flex-col items-center font-medium md:tracking-tighter">
+                      <div className="pt-5 text-3xl md:text-5xl">TodoList</div>
+                      <ul className="pt-10 text-2xl md:text-xl text-center pb-6 leading-10">
+                        <ol className="pb-2">Créez vos listes</ol>
+                        <ol>
+                          Prévisualisez les tâches en cours en cliquant dessus
+                        </ol>
+                        <ol className="pb-2">Créez vos tâches</ol>
+                        <ol className="pb-2">Modifiez</ol>
+                        <ol className="pb-2">Filtrez</ol>
+                        <ol className="pb-2">Supprimez</ol>
+                      </ul>
+                    </div>
                   </div>
-                 
-                </div>
-                  </NavLink>
+                </NavLink>
               </div>
               <div className="bg-gradient-to-bl from-[var(--color-primary-700)] via-[var(--color-primary-500)] to-[var(--color-primary-700)] border border-gray-200 rounded-xl drop-shadow-md shadow-current p-5 h-auto w-[320px] hover:shadow-lg hover:transform hover:scale-105 duration-500 ease-in-out ">
-                  <NavLink to="/wallet">
-                <div className="flex flex-col justify-center items-center text-white p-2 ">
-                  <div className="bg-gradient-to-bl from-slate-900 via-[var(--color-primary-500)] to-slate-900 rounded-full p-2">
-                    <WalletIcon className="h-10 w-10" />
+                <NavLink to="/wallet">
+                  <div className="flex flex-col justify-center items-center text-white p-2 ">
+                    <div className="bg-gradient-to-bl from-slate-900 via-[var(--color-primary-500)] to-slate-900 rounded-full p-2">
+                      <WalletIcon className="h-10 w-10" />
+                    </div>
+                    <div className="text-white text-sm my-2 flex flex-col items-center font-medium md:tracking-tighter">
+                      <div className="pt-5 text-3xl md:text-5xl">PortFolio</div>
+                      <ul className="pt-10 text-2xl md:text-xl text-center pb-6 leading-10">
+                        <ol className="pb-2">Créez vos portfolios</ol>
+                        <ol className="pb-2">Classez vos documents</ol>
+                        <ol className="pb-2">
+                          Importez ou prenez vos documents en photos
+                        </ol>
+                        <ol className="pb-2">
+                          Accèdez à vos documents dès que vous en avez besoin
+                        </ol>
+                        <ol className="pb-2">Prévisualisez</ol>
+                        <ol className="pb-2">Téléchargez</ol>
+                      </ul>
+                    </div>
                   </div>
-                  <div className="text-white text-sm my-2 flex flex-col items-center font-medium md:tracking-tighter">
-                  <div className="pt-5 text-3xl md:text-5xl">PortFolio</div>
-                    <ul className="pt-10 text-2xl md:text-xl text-center pb-6 leading-10">
-                      <ol className="pb-2" >Créer vos portfolios</ol>
-                      <ol className="pb-2" >Classer vos documents</ol>
-                      <ol className="pb-2" >Importer ou prenez vos documents en photos</ol>
-                      <ol className="pb-2" >Accèder à vos documents dès que vous en avez besoin</ol>
-                      <ol className="pb-2" >Prévisualiser</ol>
-                      <ol className="pb-2" >Télécharger</ol>                   
-                    </ul>
-                  </div>
-                    
-                </div>
-                  </NavLink>
+                </NavLink>
               </div>
               <div className="bg-gradient-to-t from-[var(--color-primary-700)] via-[var(--color-primary-500)] to-[var(--color-primary-300)] border border-gray-200 rounded-xl drop-shadow-xd shadow-current p-5 h-auto w-[320px] hover:shadow-lg hover:transform hover:scale-105 duration-500 ease-in-out ">
-                  <NavLink to="/cars">
-                <div className="flex flex-col justify-center items-center text-white p-2 ">
-                  <div className="bg-gradient-to-t  from-[var(--color-primary-700)] via-[var(--color-primary-500)] to-[var(--color-primary-300)] rounded-full p-2">
-                  <svg className="h-10 w-10  fill-white" viewBox="0 0 512 512"><path d="M135.2 117.4L109.1 192H402.9l-26.1-74.6C372.3 104.6 360.2 96 346.6 96H165.4c-13.6 0-25.7 8.6-30.2 21.4zM39.6 196.8L74.8 96.3C88.3 57.8 124.6 32 165.4 32H346.6c40.8 0 77.1 25.8 90.6 64.3l35.2 100.5c23.2 9.6 39.6 32.5 39.6 59.2V400v48c0 17.7-14.3 32-32 32H448c-17.7 0-32-14.3-32-32V400H96v48c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V400 256c0-26.7 16.4-49.6 39.6-59.2zM128 288a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z"/></svg>
+                <NavLink to="/cars">
+                  <div className="flex flex-col justify-center items-center text-white p-2 ">
+                    <div className="bg-gradient-to-t  from-[var(--color-primary-700)] via-[var(--color-primary-500)] to-[var(--color-primary-300)] rounded-full p-2">
+                      <svg
+                        className="h-10 w-10  fill-white"
+                        viewBox="0 0 512 512"
+                      >
+                        <path d="M135.2 117.4L109.1 192H402.9l-26.1-74.6C372.3 104.6 360.2 96 346.6 96H165.4c-13.6 0-25.7 8.6-30.2 21.4zM39.6 196.8L74.8 96.3C88.3 57.8 124.6 32 165.4 32H346.6c40.8 0 77.1 25.8 90.6 64.3l35.2 100.5c23.2 9.6 39.6 32.5 39.6 59.2V400v48c0 17.7-14.3 32-32 32H448c-17.7 0-32-14.3-32-32V400H96v48c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32V400 256c0-26.7 16.4-49.6 39.6-59.2zM128 288a32 32 0 1 0 -64 0 32 32 0 1 0 64 0zm288 32a32 32 0 1 0 0-64 32 32 0 1 0 0 64z" />
+                      </svg>
+                    </div>
+                    <div className="text-white text-sm my-2 flex flex-col items-center  font-medium md:tracking-tighter">
+                      <div className="pt-5 text-3xl md:text-5xl">CarTool</div>
+                      <ul className="pt-10 text-2xl md:text-xl text-center pb-6 leading-10">
+                        <ol className="pb-2">Créez un véhicule</ol>
+                        <ol className="pb-2">Crééz vos maintenances</ol>
+                        <ol className="pb-2">
+                          Obtenez automatiquement la date prévisionnel de vos
+                          maintenances
+                        </ol>
+                        <ol className="pb-2">
+                          Gérez le suivi de votre véhicule
+                        </ol>
+                      </ul>
+                    </div>
                   </div>
-                  <div className="text-white text-sm my-2 flex flex-col items-center  font-medium md:tracking-tighter">
-                  <div className="pt-5 text-3xl md:text-5xl">CarTool</div>
-                    <ul className="pt-10 text-2xl md:text-xl text-center pb-6 leading-10">
-                      <ol className="pb-2" >Créer un véhicule</ol>
-                      <ol className="pb-2" >Créér vos maintenances</ol>
-                      <ol className="pb-2" >Obtenez automatiquement la date prévisionnel de vos maintenances</ol>                     
-                      <ol className="pb-2" >Gérer le suivi de votre véhicule</ol>
-                    </ul>
-                  </div>
-                 
-
-                </div>
-                  </NavLink>
+                </NavLink>
               </div>
             </div>
-          </div>    
+          </div>
         </div>
       )}
       {!isLogged && (
-        <div className="bg-[var(--color-primary-300)]">
+        <>
           <div className="hero h-5/6 pt-14 bg-base-200  ">
             <form className="hero-content text-center">
               <div className="max-w-md">
@@ -126,19 +144,15 @@ function Home() {
                 </h1>
                 <div className="flex justify-center mt-5">
                   <svg
-                    onClick={handleScrollToCarrousel}
                     xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className={`stroke-[var(--color-primary-500)] w-10 h-10`}
+                    viewBox="0 0 1440 320"
                   >
                     <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19.5 5.25l-7.5 7.5-7.5-7.5m15 6l-7.5 7.5-7.5-7.5"
-                    />
+                      className="fill-[var(--color-primary-300)]"
+                      fill="none"
+                      fill-opacity="1"
+                      d="M0,128L60,106.7C120,85,240,43,360,42.7C480,43,600,85,720,122.7C840,160,960,192,1080,170.7C1200,149,1320,75,1380,37.3L1440,0L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"
+                    ></path>
                   </svg>
                 </div>
               </div>
@@ -176,7 +190,7 @@ function Home() {
               ></path>
             </svg>
           </div>
-        </div>
+        </>
       )}
 
       <Footer />

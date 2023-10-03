@@ -7,8 +7,8 @@ import clipartFallout from '../assets/1460481845.svg';
 import PasswordCaractereMissing from '../modals/PasswordCaractereMissing';
 import PasswordConfirmationDoNotMatchPassword from '../modals/PasswordConfirmationDoNotMatchPassword';
 import { NavLink } from 'react-router-dom';
-import Home from './Home';
-import LoginPage from './LoginPage';
+import axios from 'axios';
+
 
 function SignInPage() {
   const isRegistered = useAppSelector((state) => state.user.registered);
@@ -29,6 +29,26 @@ console.log("isRegistered", isRegistered)
     setPasswordMissingCaractere(false);
     setPasswordConfirmationDoNotMatchPassword(false);
   };
+
+  const sendConfirmationEmail = async (formData: FormData) => {
+    const pseudo = formData.get('pseudo') as string;
+    const email = formData.get('email') as string;
+      console.log('pseudo, email', pseudo, email);
+      try {
+        await axios.post('https://api.all-in-1.fr/api/emailRegisterConfirmation', {
+          pseudo,
+          email,
+        });
+        console.log('Confirmation email has been sent successfully.', pseudo, email);
+      } catch (error) {
+        // Handle error here
+        console.error('Error sending confirmation email:', error);
+      }
+    
+  };
+  
+
+
 
   
   const handleSubmitRegister = (event: FormEvent<HTMLFormElement>) => {
@@ -56,6 +76,8 @@ console.log("isRegistered", isRegistered)
     // si les deux conditions sont rempli alors on peut envoyer le formulaire
     const formData = new FormData(event.currentTarget);
     dispatch(register(formData));
+    sendConfirmationEmail(formData);
+    console.log('formDataRegisterForm', formData);
   };
 
   const handleSubmitLogin = (event: FormEvent<HTMLFormElement>) => {
@@ -63,7 +85,9 @@ console.log("isRegistered", isRegistered)
 
     const formData = new FormData(event.currentTarget);
     dispatch(login(formData));
+
   };
+
 
   return (
     <div className="">
@@ -163,6 +187,7 @@ console.log("isRegistered", isRegistered)
               <div className="card-body">
                 <div className="form-control">
                   <Field name="pseudo" placeholder="Pseudo" type="text" />
+
                   <Field
                     name="email"
                     placeholder="Adresse Email"
