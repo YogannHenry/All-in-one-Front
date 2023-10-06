@@ -5,6 +5,7 @@ import {
   ArrowRightOnRectangleIcon,
   InformationCircleIcon,
 } from '@heroicons/react/24/solid';
+import API_URL from '../API_URL';
 
 function ContactPage() {
   const [name, setName] = useState('');
@@ -37,7 +38,7 @@ function ContactPage() {
       }
 
       // Envoi des données du formulaire au serveur
-      await axios.post('https://api.all-in-1.fr/api/contact', {
+      await axios.post(`${API_URL}/contact`, {
         name,
         email,
         message,

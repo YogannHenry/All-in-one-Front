@@ -4,7 +4,7 @@ function PasswordConfirmationDoNotMatchPassword({ onClose }: { onClose: () => vo
       className="mb-2 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
       role="alert"
     >
-      <span className="block sm:inline text-xs">
+      <span className="block sm:inline text-sm">
         Le mot de passe  de confirmation doit être égale au mot de passe.
       </span>
       <button

@@ -1,5 +1,6 @@
 import axios from 'axios';
-
+import API_URL
+ from '../API_URL';
 export const getToken = function () {
   return localStorage.getItem('token');
 };
@@ -12,10 +13,10 @@ export const getAPI = function () {
     headers.Authorization = `${token}`;
   }
   return axios.create({
-    baseURL: 'https://api.all-in-1.fr/api', // process.env.REACT_APP_API_PATH,
+    baseURL: API_URL, // process.env.REACT_APP_API_PATH,
     headers,
     timeout: 10000,
   });
 };
 
-//http://heyo5082.odns.fr/api         http://localhost:3000/api109.234.165.191                                                                                                    jk,n                                                                                  
+//hhttps://api.all-in-1.fr/api         http://localhost:3000/api                                                                            

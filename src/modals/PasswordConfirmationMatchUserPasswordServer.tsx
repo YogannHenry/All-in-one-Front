@@ -4,8 +4,8 @@ function ConfirmationMatchUserPassword({ onClose }: { onClose: () => void }) {
       className="mb-2 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
       role="alert"
     >
-      <span className="block sm:inline text-xs">
-      Alerte rouge ! 🚨 Code erroné ! 🧩
+      <span className="block sm:inline text-sm">
+      Mot de passe ou email erroné 🧩
       </span>
       <button
         type="button"

@@ -5,8 +5,7 @@ import {
 } from '@reduxjs/toolkit';
 
 import axios from 'axios';
-
-const API_URL = 'https://api.all-in-1.fr/api';
+import API_URL from '../../API_URL';
 
 //'http://heyo5082.odns.fr/api'
 

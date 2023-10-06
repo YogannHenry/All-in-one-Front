@@ -8,6 +8,7 @@ import PasswordCaractereMissing from '../modals/PasswordCaractereMissing';
 import PasswordConfirmationDoNotMatchPassword from '../modals/PasswordConfirmationDoNotMatchPassword';
 import { NavLink } from 'react-router-dom';
 import axios from 'axios';
+import API_URL from '../API_URL';
 
 
 function SignInPage() {
@@ -35,7 +36,7 @@ console.log("isRegistered", isRegistered)
     const email = formData.get('email') as string;
       console.log('pseudo, email', pseudo, email);
       try {
-        await axios.post('https://api.all-in-1.fr/api/emailRegisterConfirmation', {
+        await axios.post(`${API_URL}/emailRegisterConfirmation`, {
           pseudo,
           email,
         });
@@ -195,11 +196,14 @@ console.log("isRegistered", isRegistered)
                   />
                 </div>
                 <div className="form-control">
+                <div className="tooltip  tooltip-left  tooltip-warning"  data-tip="Le mot de passe doit avoir au moins 8 caractères, inclure un caractère spécial (!@#$%^&*), et une lettre majuscule.">
                   <Field
                     name="password"
-                    placeholder="Mot de passe"
+                    placeholder="Mot de passe "
                     type="password"
+                    
                   />
+                  </div>
                   {passwordMissingCaractere && (
                     <PasswordCaractereMissing onClose={handleCloseAlert} />
                   )}
