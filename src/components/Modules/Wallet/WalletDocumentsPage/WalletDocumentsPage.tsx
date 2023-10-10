@@ -11,6 +11,7 @@ import fileDownload from 'js-file-download';
 import authConnexion from '../../../../hooks/authConnexion';
 
 interface Document {
+  file: any;
   id: number;
   name: string;
   information: string;
@@ -54,6 +55,7 @@ function WalletDocumentsPage() {
         `/wallet/${walletId}/document`
       );
       setDocuments(data);
+      console.log("documejnt",data);
     } catch (error) {
       console.error(
         "Une erreur s'est produite lors de la récupération des documents :",
@@ -118,10 +120,13 @@ function WalletDocumentsPage() {
     try {
       const { data } = await getAPI().get(`/wallet/document/${documentId}`);
       const type = data[0].type;
+      console.log('type:', type);
       if (type.startsWith('image/')) {
         const imageFileImport = await import(
           `../../../../../uploads/${data[0].file}`
         );
+
+        console.log('imageFileImport:', imageFileImport);
         
         const pdfFile = imageFileImport.default;
         console.log('pdfFile:', pdfFile);
@@ -149,26 +154,60 @@ function WalletDocumentsPage() {
     }
   };
 
-const downloadFile = async (documentId: number) => {
-  try {
-    const response = await getAPI().get(
-      `/wallet/document/${documentId}/download`,
-      {
-        responseType: 'blob',
+    // Ajoutez un état pour suivre si l'image doit être affichée
+    const [isImageOpen, setIsImageOpen] = useState(false);
+
+    // Ajoutez un état pour stocker le chemin de l'image à afficher
+    const [imageToShow, setImageToShow] = useState('');
+
+    const openImage = (documentId: number) => {
+      try {
+        const imageData = documents.find(document => document.id === documentId);
+        if (imageData && imageData.type.startsWith('image/')) {
+          const imagePath = `../../../../../uploads/${imageData.file}`;
+          setIsImageOpen(true);
+          setImageToShow(imagePath);
+        }else {
+          console.error('Type de fichier non pris en charge :', imageData?.type);
+          return;
+        }
+      } catch (error) {
+        console.error('Erreur lors de l\'ouverture de l\'image :', error);
       }
-    );
+    };
+      
 
-    const { data } = await getAPI().get(`/wallet/document/${documentId}`);
-    console.log('datadownload:', data);
-    const fileName = data[0].name;
-    const contentType = response.headers['content-type'];
-    const contentTypeParts = contentType.split('/');
-    const fileExtension = contentTypeParts[1]; 
+  const downloadFile = async (documentId: number) => {
+    try {
+      const response = await getAPI().get(`/wallet/document/${documentId}/download`, {
+        responseType: 'blob',
+      });
+  
+      const { data } = await getAPI().get(`/wallet/document/${documentId}`);
+      const fileName = data[0].name
+      const contentType = response.headers['content-type'];
+      const contentTypeParts = contentType.split('/');
+      const fileExtension = contentTypeParts[1]; 
+      
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      console.log('url:', url);
+      const link = document.createElement('a');
+      console.log(link)
+      link.href = url;
 
-    fileDownload(data, `${fileName}${"."+ fileExtension}`);
-  } catch (error) {
-    console.error("Une erreur s'est produite lors du téléchargement du document :", error);
-  }
+   
+      link.setAttribute('download', `${fileName}${"."+ fileExtension}`);
+      console.log(link)
+
+      document.body.appendChild(link);
+      link.click();
+  
+
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(link);
+    } catch (error) {
+      console.error('Error while downloading the document:', error);
+    }
 };
   
 
@@ -222,8 +261,8 @@ const downloadFile = async (documentId: number) => {
                           {document.name}
                         </p>
                         <img
-                          src={pdfFile[document.id]}
-                          alt={`Document ${document.name}`}
+                                 src={`../../../../../uploads/${document.file}`}
+                                 alt={`Document ${document.name}`}
                         />
                         <button
                           className="border rounded-lg bg-[var(--color-primary-500)] absolute top-2 right-2 z-50 text-white"

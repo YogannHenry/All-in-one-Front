@@ -115,16 +115,16 @@ function DrawerButtonLeft() {
             Outils
           </a>
 
-          <NavLink to="/list">
+          <NavLink to="/list" onClick={closeDrawer}>
             <TodoListMenu lists={lists} />
           </NavLink>
 
-          <NavLink to="/Wallet">
+          <NavLink to="/Wallet" onClick={closeDrawer}>
             <WalletMenu wallets={wallets} />
           </NavLink>
 
-          <NavLink to="/Cars">
-            <CarToolMenu cars={cars} />
+          <NavLink to="/Cars" onClick={closeDrawer}>
+            <CarToolMenu cars={cars}  />
           </NavLink>
         </div>
         <button onClick={closeDrawer} className="btn md:hidden top-0 right-0">

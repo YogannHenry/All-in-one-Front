@@ -26,7 +26,7 @@ const dataCarrousel = [
 
 function Carrousel() {
   return (
-    <div className="flex justify-center max-md:flex-col items-center pt-10 bg-[var(--color-primary-300)] ">
+    <div id="carrousel" className="flex justify-center max-md:flex-col items-center pt-10 bg-[var(--color-primary-300)] ">
       <div className="flex flex-col py-2 gap-2 px-5">
         {dataCarrousel.map((item) => (
           <a key={item.id} href={`#${item.id}`} className="card w-96 bg-base-100  shadow-xl">

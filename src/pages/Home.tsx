@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import Footer from '../components/Partials/Footer/Footer';
 import flecheMenuGauche from '../assets/flecheMenuGauche.png';
 import flecheMenuDroite from '../assets/flecheMenuDroite.png';
-import { PencilSquareIcon, WalletIcon } from '@heroicons/react/24/solid';
+import { PencilSquareIcon, WalletIcon, ChevronDoubleDownIcon } from '@heroicons/react/24/solid';
 
 function Home() {
   const isLogged = useAppSelector((state) => state.user.logged);
@@ -114,6 +114,13 @@ function Home() {
               </div>
             </div>
           </div>
+          <div className=' border border-gray-700 rounded-xl drop-shadow-xd shadow-current p-5 m-10 h-auto w-fit '>
+            <h3>Journal d'activité:</h3>
+            <ul>
+              <ol>- 09/10/2023 Css Responsives todo-list et tâches, réparer la fonctionnalité de téléchargement du document, changement mineur Css</ol>
+            </ul>
+          </div>
+
         </div>
       )}
       {!isLogged && (
@@ -122,7 +129,7 @@ function Home() {
             <form className="hero-content text-center">
               <div className="max-w-md">
                 <h1 className="text-5xl font-bold">All-in-One</h1>
-                <p className="py-6">
+                <p className="py-6 text-lg">
                   Bienvenue dans le monde de la gestion simplifiée de votre
                   quotidien! Vous êtes-vous déjà senti débordé par les tâches,
                   les documents et les rendez-vous qui s'accumulent ? Ne vous
@@ -130,30 +137,18 @@ function Home() {
                   vie !
                 </p>
                 <div className="flex justify-center items-center">
-                  <input
-                    type="text"
-                    placeholder="E-mail"
-                    className="input input-bordered w-full max-w-xs"
-                  />
-                  <a className="btn lowercase text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]">
+               
+                  <a className="btn text-lg mt-10 lowercase text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]">
                     <NavLink to="/signin">inscrivez-vous c'est gratuit</NavLink>
                   </a>
                 </div>
-                <h1 className="mt-20 text-3xl font-bold">
+                <h1 className="mt-10 text-3xl font-bold">
                   N'attendez plus et jetez un oeil à nos fonctionnalités
                 </h1>
                 <div className="flex justify-center mt-5">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 1440 320"
-                  >
-                    <path
-                      className="fill-[var(--color-primary-300)]"
-                      fill="none"
-                      fill-opacity="1"
-                      d="M0,128L60,106.7C120,85,240,43,360,42.7C480,43,600,85,720,122.7C840,160,960,192,1080,170.7C1200,149,1320,75,1380,37.3L1440,0L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"
-                    ></path>
-                  </svg>
+              <ChevronDoubleDownIcon 
+               onClick={handleScrollToCarrousel}
+               className="w-8 h-8" />
                 </div>
               </div>
             </form>

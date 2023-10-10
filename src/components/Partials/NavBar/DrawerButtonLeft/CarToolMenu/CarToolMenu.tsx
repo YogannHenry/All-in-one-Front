@@ -20,7 +20,7 @@ function CarToolMenu({cars}:CarsMenuProps) {
       {cars.map((car) => (
       <li key={car.id}>
         <NavLink to={`/Cars/${car.id}`}>
-          <a>{car.name}</a>
+          <a >{car.name}</a>
         </NavLink>
       </li>
       ))}

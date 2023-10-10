@@ -42,7 +42,7 @@ function TasksItem({ task, updateTask, deleteTask, updateTaskName  }: TasksItemP
   
   return (
     <div className="card  bg-base-100 shadow-xl">
-            <div className={status ? 'flex justify-between items-center h-14 px-4 border-b-2 first-line:rounded  flex-grow line-through opacity-50' : 'flex justify-between items-center h-14 px-4 border-b-2 '}>
+            <div className={status ? 'flex justify-between items-center h-auto p-2 pr-4 border-b-2 first-line:rounded  flex-grow line-through opacity-50' : 'flex justify-between items-center h-auto p-2 pr-4 border-b-2 '}>
             
               <div className="form-control">
                 <label className="cursor-pointer label">
@@ -106,7 +106,7 @@ function TasksItem({ task, updateTask, deleteTask, updateTaskName  }: TasksItemP
                       </svg>
                     )}
                   </button>
-              <div className="card-actions justify-around ">
+              <div className="card-actions justify-around max-md:hidden">
                 <button type="button"   onClick={handleClick}>
                 <svg
               

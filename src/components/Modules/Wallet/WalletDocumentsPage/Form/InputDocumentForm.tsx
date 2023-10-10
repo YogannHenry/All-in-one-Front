@@ -78,6 +78,7 @@ function InputDocumentForm({ onSubmit }: InputDocumentFormProps) {
               name="image"
               accept="image/*"
               capture="environment"
+    
             />
             <CameraIcon className="h-10 w-10 text-white" />
           </label>

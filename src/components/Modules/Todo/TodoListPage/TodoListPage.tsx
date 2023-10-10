@@ -118,7 +118,7 @@ function TodoListPage() {
   const listName = list.map((list) => list.name);
 
   return (
-    <div className="max-md:px-4 flex items-center flex-col pt-20 h-screen w-screen bg-base-200">
+    <div className="max-md:px-4 flex items-center flex-col py-20 h-screen bg-base-200">
       
         <p className="text-4xl mb-10 uppercase">{listName}</p>
         <Form addTask={addTask} />

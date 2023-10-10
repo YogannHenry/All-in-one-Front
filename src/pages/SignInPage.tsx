@@ -166,21 +166,9 @@ console.log("isRegistered", isRegistered)
         </form>
       )}
       {!isRegistered && (
-        <div className="  xl:hero min-h-screen bg-base-200 max-md:pt-40 max-md:flex max-md:items-center max-md:justify-center">
+        <div className="  xl:hero min-h-screen bg-base-200 max-md:pt-5 max-md:flex max-md:items-center max-md:justify-center">
           <OscillateBackground />          
-          <div className="hero-content flex-col lg:flex-row-reverse px-24">
-            <div className="px-24 text-center lg:text-left">
-              <h1 className="text-5xl font-bold">
-                Facilitez-vous la vie, inscrivez-vous!
-              </h1>
-              <p className="py-6">
-                Bienvenue dans le monde de la gestion simplifiée de votre
-                quotidien ! Vous êtes-vous déjà senti débordé par les tâches,
-                les documents et les rendez-vous qui s'accumulent ? Ne vous
-                inquiétez plus, notre Web App est là pour vous simplifier la vie
-                !
-              </p>
-            </div>
+          <div className="hero-content flex-col lg:flex-row-reverse px-24  lg:w-1/2">        
             <form
               onSubmit={handleSubmitRegister}
               className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100"
@@ -196,7 +184,7 @@ console.log("isRegistered", isRegistered)
                   />
                 </div>
                 <div className="form-control">
-                <div className="tooltip  tooltip-left  tooltip-warning"  data-tip="Le mot de passe doit avoir au moins 8 caractères, inclure un caractère spécial (!@#$%^&*), et une lettre majuscule.">
+                <div className="tooltip  tooltip-left max-md:tooltip-top tooltip-warning"  data-tip="Le mot de passe doit avoir au moins 8 caractères, inclure un caractère spécial (!@#$%^&*), et une lettre majuscule.">
                   <Field
                     name="password"
                     placeholder="Mot de passe "
@@ -216,6 +204,14 @@ console.log("isRegistered", isRegistered)
                     <PasswordConfirmationDoNotMatchPassword onClose={handleCloseAlert} />
                   )}
                 </div>
+                <label className="label">
+                    <a
+                      href="#"
+                      className="label-text-alt link link-hover text-blue-700"
+                    >
+                      Déja un compte?  <a href="https://all-in-1.fr/login">Cliquer ici</a>
+                    </a>
+                  </label>
                 <div className="form-control mt-6">
                   <button className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white">
                     S'inscrire
@@ -224,6 +220,7 @@ console.log("isRegistered", isRegistered)
               </div>
             </form>
           </div>
+          
         </div>
       )}
     </div>
