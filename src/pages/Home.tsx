@@ -118,6 +118,7 @@ function Home() {
             <h3>Journal d'activité:</h3>
             <ul>
               <ol>- 09/10/2023 Css Responsives todo-list et tâches, réparer la fonctionnalité de téléchargement du document, changement mineur Css</ol>
+              <ol>- 10/10/2023 Preview image fonctionnelle sur l'hébergeur. Modification du module WalletDocument suppression fonction previexFile creation fonction openImage. Reste à rêgler l'affichage des pdf</ol>
             </ul>
           </div>
 

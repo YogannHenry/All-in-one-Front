@@ -18,16 +18,16 @@ interface Document {
   date: string;
   type: string;
   walletId: string;
-  onSubmit: (newDocument: File | null, documentDetails: { name: string | Blob; information: string | Blob }) => void;
-  documentInformationFromInput: Dispatch <any>;
+  onSubmit: (
+    newDocument: File | null,
+    documentDetails: { name: string | Blob; information: string | Blob }
+  ) => void;
+  documentInformationFromInput: Dispatch<any>;
 }
 
 interface PdfFile {
   [key: number]: any; // Le type de la valeur dépend de ce que vous stockez dans pdfFile
 }
-
-
-
 
 function WalletDocumentsPage() {
   const { isUserLogged } = authConnexion();
@@ -55,7 +55,7 @@ function WalletDocumentsPage() {
         `/wallet/${walletId}/document`
       );
       setDocuments(data);
-      console.log("documejnt",data);
+      console.log('documejnt', data);
     } catch (error) {
       console.error(
         "Une erreur s'est produite lors de la récupération des documents :",
@@ -70,12 +70,13 @@ function WalletDocumentsPage() {
     documentDetails: { name: string | Blob; information: string | Blob }
   ) => {
     try {
-      if (newDocument !== null) { // Si un document a été soumis
+      if (newDocument !== null) {
+        // Si un document a été soumis
         const formData = new FormData();
         formData.append('uploaded_file', newDocument);
         formData.append('name', documentDetails.name);
         formData.append('information', documentDetails.information);
-  
+
         const { data } = await getAPI().post(
           `/wallet/${walletId}/document`,
           formData,
@@ -85,15 +86,14 @@ function WalletDocumentsPage() {
             },
           }
         );
-  
+
         setDocuments(data);
         getDocuments();
-      } 
+      }
     } catch (error) {
       console.error('Erreur lors de la création du document :', error);
     }
   };
-  
 
   const deleteDocument = async (documentId: number) => {
     try {
@@ -116,26 +116,11 @@ function WalletDocumentsPage() {
   };
 
   const previewFile = async (documentId: number) => {
-    
     try {
       const { data } = await getAPI().get(`/wallet/document/${documentId}`);
       const type = data[0].type;
       console.log('type:', type);
-      if (type.startsWith('image/')) {
-        const imageFileImport = await import(
-          `../../../../../uploads/${data[0].file}`
-        );
-
-        console.log('imageFileImport:', imageFileImport);
-        
-        const pdfFile = imageFileImport.default;
-        console.log('pdfFile:', pdfFile);
-        setPdfFile((prevPdfFiles) => ({
-          ...prevPdfFiles,
-          [documentId]: pdfFile,
-        }));
-        setIsPreviewOpen(true);
-      } else if (type === 'application/pdf') {
+      if (type === 'application/pdf') {
         const pdfFileImport = await import(
           `../../../../../uploads/${data[0].file}`
         );
@@ -154,62 +139,64 @@ function WalletDocumentsPage() {
     }
   };
 
-    // Ajoutez un état pour suivre si l'image doit être affichée
-    const [isImageOpen, setIsImageOpen] = useState(false);
+  // Ajoutez un état pour suivre si l'image doit être affichée
+  const [isImageOpen, setIsImageOpen] = useState(false);
 
-    // Ajoutez un état pour stocker le chemin de l'image à afficher
-    const [imageToShow, setImageToShow] = useState('');
+  // Ajoutez un état pour stocker le chemin de l'image à afficher
+  const [imageToShow, setImageToShow] = useState('');
 
-    const openImage = (documentId: number) => {
-      try {
-        const imageData = documents.find(document => document.id === documentId);
-        if (imageData && imageData.type.startsWith('image/')) {
-          const imagePath = `../../../../../uploads/${imageData.file}`;
-          setIsImageOpen(true);
-          setImageToShow(imagePath);
-        }else {
-          console.error('Type de fichier non pris en charge :', imageData?.type);
-          return;
-        }
-      } catch (error) {
-        console.error('Erreur lors de l\'ouverture de l\'image :', error);
+  const openImage = (documentId: number) => {
+    try {
+      const imageData = documents.find(
+        (document) => document.id === documentId
+      );
+      if (imageData && imageData.type.startsWith('image/')) {
+        const imagePath = `https://all-in-1.fr/uploads/${imageData.file}`;
+        setIsImageOpen(true);
+        setImageToShow(imagePath);
+        console.log('imagePath:', imagePath);
+      } else {
+        console.error('Type de fichier non pris en charge :', imageData?.type);
+        return;
       }
-    };
-      
+    } catch (error) {
+      console.error("Erreur lors de l'ouverture de l'image :", error);
+    }
+  };
 
   const downloadFile = async (documentId: number) => {
     try {
-      const response = await getAPI().get(`/wallet/document/${documentId}/download`, {
-        responseType: 'blob',
-      });
-  
+      const response = await getAPI().get(
+        `/wallet/document/${documentId}/download`,
+        {
+          responseType: 'blob',
+        }
+      );
+
       const { data } = await getAPI().get(`/wallet/document/${documentId}`);
-      const fileName = data[0].name
+      const fileName = data[0].name;
       const contentType = response.headers['content-type'];
       const contentTypeParts = contentType.split('/');
-      const fileExtension = contentTypeParts[1]; 
-      
+      const fileExtension = contentTypeParts[1];
+
       const url = window.URL.createObjectURL(new Blob([response.data]));
       console.log('url:', url);
       const link = document.createElement('a');
-      console.log(link)
+      console.log(link);
       link.href = url;
 
-   
-      link.setAttribute('download', `${fileName}${"."+ fileExtension}`);
-      console.log(link)
+      link.setAttribute('download', `${fileName}${'.' + fileExtension}`);
+      console.log(link);
 
       document.body.appendChild(link);
       link.click();
-  
 
       window.URL.revokeObjectURL(url);
       document.body.removeChild(link);
     } catch (error) {
       console.error('Error while downloading the document:', error);
     }
-};
-  
+  };
 
   useEffect(() => {
     getDocuments();
@@ -247,51 +234,33 @@ function WalletDocumentsPage() {
               </div>
 
               <div className="card-actions justify-around">
-                {!isPreviewOpen && (
+                {!isImageOpen && (
                   <button className="btn bg-[var(--color-primary-300)] text-white">
-                    <p onClick={() => previewFile(document.id)}>Ouvrir</p>
+                    <p onClick={() => {
+                      previewFile(document.id);
+                      openImage(document.id)}}>Ouvrir</p>
                   </button>
                 )}
-                {isPreviewOpen &&
-                  pdfFile[document.id] &&
-                  !pdfFile[document.id].endsWith('.pdf') && (
-                    <div className="w-screen h-screen fixed left-0 top-0 flex justify-center bg-slate-50 overflow-scroll ">
-                      <div className=" absolute mt-10 w-5/6">
-                        <p className="text-2xl uppercase flex justify-center pb-5">
-                          {document.name}
-                        </p>
-                        <img
-                                 src={`../../../../../uploads/${document.file}`}
-                                 alt={`Document ${document.name}`}
-                        />
-                        <button
-                          className="border rounded-lg bg-[var(--color-primary-500)] absolute top-2 right-2 z-50 text-white"
-                          onClick={closePreview}
-                        >
-                          <XMarkIcon className="w-8 h-8 text-white stroke-2 " />
-                        </button>
-                      </div>
+                {isImageOpen && (
+                  <div className="w-screen h-screen fixed left-0 top-0 flex justify-center bg-slate-50 overflow-scroll ">
+                    <div className=" absolute mt-10 w-5/6">
+                      <p className="text-2xl uppercase flex justify-center pb-5">
+                        {document.name}
+                      </p>
+                      <img src={imageToShow} alt="Image Preview" />
+                      <button
+                        className="border rounded-lg bg-[var(--color-primary-500)] absolute top-2 right-2 z-50 text-white"
+                        onClick={() => {
+                          setIsImageOpen(false);
+                          setImageToShow('');
+                        }}
+                      >
+                        <XMarkIcon className="w-8 h-8 text-white stroke-2 " />
+                      </button>
                     </div>
-                  )}
-                {pdfFile[document.id] &&
-                  pdfFile[document.id].endsWith('.pdf') && (
-                    <div className="w-screen h-screen fixed left-0 top-0 flex justify-center bg-slate-50 overflow-scroll ">
-                      <div className=" absolute mt-40">
-                        <p className="text-2xl uppercase flex justify-center pb-5">
-                          {document.name}
-                        </p>
-                        <Document file={pdfFile[document.id]}>
-                          <Page pageNumber={1} />
-                        </Document>
-                        <button
-                          className="border rounded-lg bg-[var(--color-primary-500)] absolute top-2 right-2 z-50 text-white"
-                          onClick={closePreview}
-                        >
-                          <XMarkIcon className="w-8 h-8 text-white stroke-2 " />
-                        </button>
-                      </div>
-                    </div>
-                  )}
+                  </div>
+                )}
+      
               </div>
 
               <div className="card-actions justify-around">
