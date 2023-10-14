@@ -115,48 +115,35 @@ function WalletDocumentsPage() {
     setPdfFile({});
   };
 
-  const previewFile = async (documentId: number) => {
-    try {
-      const { data } = await getAPI().get(`/wallet/document/${documentId}`);
-      const type = data[0].type;
-      console.log('type:', type);
-      if (type === 'application/pdf') {
-        const pdfFileImport = await import(
-          `../../../../../uploads/${data[0].file}`
-        );
-        const pdfFile = pdfFileImport.default;
-        setPdfFile((prevPdfFiles) => ({
-          ...prevPdfFiles,
-          [documentId]: pdfFile,
-        }));
-        setIsPreviewOpen(true);
-      } else {
-        console.error('Type de fichier non pris en charge :', type);
-        return;
-      }
-    } catch (error) {
-      console.error('Erreur lors du chargement du fichier :', error);
-    }
-  };
 
   // Ajoutez un état pour suivre si l'image doit être affichée
-  const [isImageOpen, setIsImageOpen] = useState(false);
+  const [isDocumentOpen, setisDocumentOpen] = useState(false);
 
   // Ajoutez un état pour stocker le chemin de l'image à afficher
   const [imageToShow, setImageToShow] = useState('');
+  const [documentToShow, setDocumentToShow] = useState('');
+  console.log('ImageToShow:', imageToShow);
 
-  const openImage = (documentId: number) => {
+  const openDocument = (documentId: number) => {
     try {
-      const imageData = documents.find(
+      const documentData = documents.find(
         (document) => document.id === documentId
       );
-      if (imageData && imageData.type.startsWith('image/')) {
-        const imagePath = `https://all-in-1.fr/uploads/${imageData.file}`;
-        setIsImageOpen(true);
+      console.log('documentData:', documentData);
+      if (documentData && documentData.type.startsWith('image/')) {
+        const imagePath = `https://all-in-1.fr/uploads/${documentData.file}`;
+        setisDocumentOpen(true);
         setImageToShow(imagePath);
         console.log('imagePath:', imagePath);
+        
+      } else if (documentData && documentData.type.startsWith('application/')) {
+        const documentPath = `https://all-in-1.fr/uploads/${documentData.file}`;
+        console.log('documentPath:', documentPath);
+        setisDocumentOpen(true);
+        setDocumentToShow(documentPath);
+        console.log('imagePath:', documentPath);
       } else {
-        console.error('Type de fichier non pris en charge :', imageData?.type);
+        console.error('Type de fichier non pris en charge :', documentData?.type);
         return;
       }
     } catch (error) {
@@ -201,6 +188,7 @@ function WalletDocumentsPage() {
   useEffect(() => {
     getDocuments();
     getOneWallet();
+    
   }, [isUserLogged]);
 
   const walletName = wallet.map((wallet) => wallet.name);
@@ -234,33 +222,44 @@ function WalletDocumentsPage() {
               </div>
 
               <div className="card-actions justify-around">
-                {!isImageOpen && (
+                {!isDocumentOpen && (
                   <button className="btn bg-[var(--color-primary-300)] text-white">
-                    <p onClick={() => {
-                      previewFile(document.id);
-                      openImage(document.id)}}>Ouvrir</p>
+                    <p
+                      onClick={() => {
+               
+                        openDocument(document.id);
+                      }}
+                    >
+                      Ouvrir
+                    </p>
                   </button>
                 )}
-                {isImageOpen && (
-                  <div className="w-screen h-screen fixed left-0 top-0 flex justify-center bg-slate-50 overflow-scroll ">
-                    <div className=" absolute mt-10 w-5/6">
+                {isDocumentOpen &&   (
+                  <div className="w-screen h-screen fixed left-0 top-0 flex justify-center bg-slate-50 overflow-scroll">
+                    <div className="absolute mt-10 w-5/6">
                       <p className="text-2xl uppercase flex justify-center pb-5">
                         {document.name}
                       </p>
-                      <img src={imageToShow} alt="Image Preview" />
+                    
+                        <Document file={documentToShow}>
+
+                          <Page pageNumber={1} />
+                        </Document>
+                    
+                        <img src={imageToShow} alt="Image Preview" />
+                    
                       <button
                         className="border rounded-lg bg-[var(--color-primary-500)] absolute top-2 right-2 z-50 text-white"
                         onClick={() => {
-                          setIsImageOpen(false);
+                          setisDocumentOpen(false);
                           setImageToShow('');
                         }}
                       >
-                        <XMarkIcon className="w-8 h-8 text-white stroke-2 " />
+                        <XMarkIcon className="w-8 h-8 text-white stroke-2" />
                       </button>
                     </div>
                   </div>
                 )}
-      
               </div>
 
               <div className="card-actions justify-around">
