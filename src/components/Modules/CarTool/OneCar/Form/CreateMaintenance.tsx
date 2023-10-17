@@ -81,7 +81,7 @@ function CreateMaintenance({ onSubmit }: MaintenanceProps) {
 
   return (
     <div>
-      <div className="flex mt-4">
+      <div className="flex my-4 ">
         <button
           className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white"
           onClick={handlePlusButtonClick} // Déclenche la fonction lors du clic sur le bouton
@@ -106,9 +106,9 @@ function CreateMaintenance({ onSubmit }: MaintenanceProps) {
       {/* Espace à ouvrir */}
       {isFormOpen && (
         <div className="flex justify-center pb-8">
-          <div className="bg-white shadow p-4 sm:w-1/3 rounded-lg flex flex-col">
+          <div className="bg-white shadow p-4 rounded-lg flex flex-col ">
             <form onSubmit={handleSubmit}>
-              <div className="p-4 mt-4">
+              <div className="p-4 mt-4 max-md:w-[330px]">
                 <div className="mb-4">
                   <label className="block mb-2 font-semibold">
                     Sélectionnez un type d'entretien

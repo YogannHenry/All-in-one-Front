@@ -70,7 +70,7 @@ function EditCarData({ car, setCar, updateCarDetails }: EditCarDataProps) {
   return (
     <div>
       {isEditing ? (
-        <div>
+        <div className="p-3 text-lg w-[350px] h-[350px] ">
           <div className="mb-4">
             <label className="block mb-2 font-semibold">
               Modèle:
@@ -78,7 +78,7 @@ function EditCarData({ car, setCar, updateCarDetails }: EditCarDataProps) {
                 type="text"
                 value={carData.name || ''}
                 onChange={handleChange}
-                className="border rounded px-2 py-1 w-48"
+                className="border rounded px-2 py-1 w-48 font-normal"
               />
             </label>
           </div>
@@ -89,7 +89,7 @@ function EditCarData({ car, setCar, updateCarDetails }: EditCarDataProps) {
                 type="text"
                 value={carData.km_per_month || ''}
                 onChange={handleChange}
-                className="border rounded px-2 py-1 w-48"
+                className="border rounded px-2 py-1 w-48 font-normal"
               />
               <span className="font-bold mb-2">Km</span>
             </label>
@@ -99,7 +99,7 @@ function EditCarData({ car, setCar, updateCarDetails }: EditCarDataProps) {
               Type de véhicule:
               <select
                 name="type"
-                className="select select-bordered w-full max-w-xs"
+                className="select select-bordered w-full max-w-xs font-normal"
                 value={carData.type || ''}
                 onChange={handleChange}
               >
@@ -119,27 +119,27 @@ function EditCarData({ car, setCar, updateCarDetails }: EditCarDataProps) {
                 type="text"
                 value={carData.current_km || ''}
                 onChange={handleChange}
-                className="border rounded px-2 py-1 w-48"
+                className="border rounded px-2 py-1 w-48 font-normal"
               />
               <span className="font-bold mb-2">Km</span>
             </label>
           </div>
           <button
             onClick={handleSaveClick}
-            className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white mt-4"
+            className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white"
           >
             Enregistrer
           </button>
         </div>
       ) : (
-        <div>
-          <p className="mb-2 font-semibold">Modèle: {car.name}</p>
-          <p className="mb-2 font-semibold">Km par mois: {car.km_per_month}</p>
-          <p className="mb-2 font-semibold">Type de véhicule: {car.type}</p>
-          <p className="mb-2 font-semibold">Km actuel: {car.current_km}</p>
+        <div className="text-xl p-4 w-[350px] h-[350px] flex flex-col justify-around ">
+          <p className="mb-2 font-semibold">Modèle: <span className='font-normal'>{car.name}</span></p>
+          <p className="mb-2 font-semibold">Km par mois: <span className='font-normal'>{car.km_per_month}</span></p>
+          <p className="mb-2 font-semibold">Type de véhicule:<span className='font-normal'> {car.type}</span></p>
+          <p className="mb-2 font-semibold">Km actuel:<span className='font-normal'> {car.current_km}</span></p>
           <button
             onClick={handleEditClick}
-            className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white mt-4"
+            className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white mt-4 w-1/2"
           >
             Modifier
           </button>

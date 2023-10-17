@@ -141,41 +141,50 @@ function OneCar() {
   }, [isUserLogged]);
 
   return (
-    <div className="bg-base-200 min-h-screen h-full px-20">
-      <h1 className="text-4xl mb-2 pt-10 text-center uppercase">{car.name}</h1>
+    <div className="bg-gradient-to-t from-[var(--color-primary-100)]  via-[var(--color-primary-50)]  to-[var(--color-primary-50)] px-20">
+      <div className=" flex flex-col items-center ">
+        <h1 className="text-4xl mb-2 pt-10 text-center uppercase">
+          {car.name}
+        </h1>
 
-      <div className="flex justify-around bg-blue-600 items-center ">
-        <div className="max-w-md">
-          <figure>
-            {/* Condition d'affichage de l'icône en fonction du type de véhicule */}
-            {car.type === 'Voiture' && (
-              <img src={iconVoiture} alt="Icon voiture" />
-            )}
-            {car.type === 'Camion' && (
-              <img src={iconCamion} alt="Icon camion" />
-            )}
-            {car.type === 'Moto' && <img src={iconMoto} alt="Icon moto" />}
-          </figure>
-        </div>
-        <div className="max-w-md bg-red-500">
-          <EditCarData
-            car={car}
-            setCar={setCar}
-            updateCarDetails={getCarDetails}
-          />
+        <div className="flex justify-between max-lg:flex-col gap-2 lg:w-3/6">
+          <div className="w-[350px] flex items-center justify-around   h-[350px] bg-white border rounded-3xl max-lg:hidden ">
+            <figure>
+              {/* Condition d'affichage de l'icône en fonction du type de véhicule */}
+              {car.type === 'Voiture' && (
+                <img src={iconVoiture} alt="Icon voiture" />
+              )}
+              {car.type === 'Camion' && (
+                <img src={iconCamion} alt="Icon camion" />
+              )}
+              {car.type === 'Moto' && <img src={iconMoto} alt="Icon moto" />}
+            </figure>
+          </div>
+          <div className="max-w-md  bg-white border rounded-3xl">
+            <EditCarData
+              car={car}
+              setCar={setCar}
+              updateCarDetails={getCarDetails}
+            />
+          </div>
         </div>
       </div>
-      <CreateMaintenance onSubmit={handleAddMaintenance} />
-      <div>
-        {maintenances.length > 0 ? (
-          <EditMaintenanceData
-            maintenances={maintenances}
-            deleteMaintenance={deleteMaintenance}
-            handleUpdateMaintenance={handleUpdateMaintenance}
-          />
-        ) : (
-          <p>Aucun entretien disponible pour cette voiture.</p>
-        )}
+
+      <div className="flex flex-col items-center  ">
+      <div className="flex flex-col  justify-evenly  lg:w-3/6">
+        <CreateMaintenance onSubmit={handleAddMaintenance} />
+        <div>
+          {maintenances.length > 0 ? (
+            <EditMaintenanceData
+              maintenances={maintenances}
+              deleteMaintenance={deleteMaintenance}
+              handleUpdateMaintenance={handleUpdateMaintenance}
+            />
+          ) : (
+            <p>Aucun entretien disponible pour cette voiture.</p>
+          )}
+        </div>
+        </div>
       </div>
     </div>
   );
