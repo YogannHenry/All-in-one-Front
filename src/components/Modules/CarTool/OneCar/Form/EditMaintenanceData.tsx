@@ -10,7 +10,7 @@ import {
 } from '@heroicons/react/24/solid';
 
 export interface EditMaintenanceDataProps {
-  formattedDateNextMaintenance: string | number | Date;
+  formattedDateNextMaintenance: string;
   number_of_days_before_next_verif: number;
   id: number;
   name: string;
@@ -19,6 +19,7 @@ export interface EditMaintenanceDataProps {
   validity_km: number;
   validity_period: string | { years: string; months: string };
   lastKmRemaining: number;
+  completionPercentageKm: number;
  
 }
 
@@ -53,6 +54,7 @@ function EditMaintenanceData({  maintenances,  deleteMaintenance,  handleUpdateM
       lastKmRemaining: 0,
       formattedDateNextMaintenance: '',
       number_of_days_before_next_verif: 0,
+      completionPercentageKm: 0,
       
     });
 
@@ -63,7 +65,7 @@ function EditMaintenanceData({  maintenances,  deleteMaintenance,  handleUpdateM
     setIsEditing(true);
   };
 
-  const handleSaveClick = () => {
+  const handleUptadeMaintenance = () => {
     const { name, last_date_verif, validity_km, last_km_verif, validity_period } = editedMaintenance;
 
     if (
@@ -95,12 +97,7 @@ function EditMaintenanceData({  maintenances,  deleteMaintenance,  handleUpdateM
     deleteMaintenance(maintenanceId);
   };
 
-  const pourcentageOfRemainingKm = (maintenance: EditMaintenanceDataProps) => {
-    const pourcentage =
-      (maintenance.lastKmRemaining * 100) / maintenance.validity_km;
-    return pourcentage;
-  };
-  console.log("pourcentageOfRemainingKm",);
+ 
 
 
   return (
@@ -211,7 +208,7 @@ function EditMaintenanceData({  maintenances,  deleteMaintenance,  handleUpdateM
                 </select>
               </div>
               <button
-                onClick={handleSaveClick}
+                onClick={handleUptadeMaintenance}
                 className="btn bg-black hover:bg-[var(--color-primary-500)] text-white mt-4"
               >
                 Enregistrer
@@ -283,12 +280,12 @@ function EditMaintenanceData({  maintenances,  deleteMaintenance,  handleUpdateM
                       <div
                         className="radial-progress text-[var(--color-primary-300)] max-lg:w-[300px]"
                           style={{
-                          '--value': '20',
+                          '--value': `${maintenance.completionPercentageKm}`,
                           '--size': '8rem',
                           '--thickness': '0.6rem',
                         }}
                       >
-                        {maintenance.lastKmRemaining} 
+                        {maintenance.completionPercentageKm}% 
                       </div>
                     </div>
                     <p className="ml-10 font-medium text-gray-600 sm:text-xl max-lg:text-sm">

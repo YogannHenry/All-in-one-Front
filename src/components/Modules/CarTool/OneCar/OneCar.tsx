@@ -48,6 +48,7 @@ function OneCar() {
       const carData = response.data[0];
       setCar(carData);
       console.log('Détails de la voiture:', response.data);
+      getMaintenanceDetails();
       // Appel API pour récupérer les maintenances de la voiture
     } catch (error) {
       console.error(
@@ -134,6 +135,8 @@ function OneCar() {
     updatedMaintenanceData: EditMaintenanceDataProps
   ) => {
     updateMaintenance(maintenanceId, updatedMaintenanceData);
+    
+    console.log('updatedMaintenanceData', updatedMaintenanceData);
   };
 
   useEffect(() => {
