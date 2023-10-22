@@ -29,11 +29,15 @@ interface MaintenanceProps {
   ) => void;
 }
 
-function EditMaintenanceData({
-  maintenances,
-  deleteMaintenance,
-  handleUpdateMaintenance,
-}: MaintenanceProps) {
+interface CustomStyle {
+  '--value': string;
+  '--size': string;
+  '--thickness': string;
+}
+
+
+
+function EditMaintenanceData({  maintenances,  deleteMaintenance,  handleUpdateMaintenance,}: MaintenanceProps) {
   const [isEditing, setIsEditing] = useState(false);
 
   const [editedMaintenance, setEditedMaintenance] =
@@ -46,34 +50,32 @@ function EditMaintenanceData({
       validity_period: '',
       lastKmRemaining: 0,
       lastTimeRemaining: '',
+      
     });
 
   const [timeUnit, setTimeUnit] = useState('years');
 
-  const handleEditClick = (maintenance: EditMaintenanceDataProps) => {
-    setEditedMaintenance({ ...maintenance });
+  const handleEditClick = (maintenance: EditMaintenanceDataProps) => {    
+    setEditedMaintenance({ ...maintenance});
     setIsEditing(true);
   };
 
   const handleSaveClick = () => {
-    // Vérifier si toutes les données nécessaires ont été modifiées et sont valides
-    if (
-      editedMaintenance.name.trim() &&
-      editedMaintenance.last_date_verif &&
-      typeof editedMaintenance.validity_km === 'number' &&
-      typeof editedMaintenance.last_km_verif === 'number' &&
-      editedMaintenance.validity_period
-    ) {
-      // Formater la date et soumettre le formulaire au parent (API)
-      const formattedDate = format(
-        new Date(editedMaintenance.last_date_verif),
-        'yyyy-MM-dd'
-      );
+    const { name, last_date_verif, validity_km, last_km_verif, validity_period } = editedMaintenance;
 
+    if (
+      name &&
+      typeof last_date_verif === 'string' &&
+      last_date_verif.trim() &&
+      typeof validity_km === 'number' &&
+      typeof last_km_verif === 'number' &&
+      validity_period
+    ) {
+      const formattedDate = format(new Date(last_date_verif), 'yyyy-MM-dd');
       const editedMaintenanceFormatted = {
         ...editedMaintenance,
         last_date_verif: formattedDate,
-        validity_period: `${editedMaintenance.validity_period} ${timeUnit}`,
+        validity_period: `${validity_period} ${timeUnit}`,
       };
 
       handleUpdateMaintenance(editedMaintenance.id, editedMaintenanceFormatted);
@@ -82,9 +84,19 @@ function EditMaintenanceData({
       alert('Veuillez remplir toutes les informations du formulaire.');
     }
   };
+
   const handleDeleteClick = (maintenanceId: number) => {
+    console.log("maintenances", maintenances)
     deleteMaintenance(maintenanceId);
   };
+
+  const pourcentageOfRemainingKm = (maintenance: EditMaintenanceDataProps) => {
+    const pourcentage =
+      (maintenance.lastKmRemaining * 100) / maintenance.validity_km;
+    return pourcentage;
+  };
+  console.log("pourcentageOfRemainingKm",);
+
 
   return (
     <div className="flex justify-between  flex-col gap-8 ">
@@ -195,7 +207,7 @@ function EditMaintenanceData({
               </div>
               <button
                 onClick={handleSaveClick}
-                className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white mt-4"
+                className="btn bg-black hover:bg-[var(--color-primary-500)] text-white mt-4"
               >
                 Enregistrer
               </button>
@@ -265,13 +277,13 @@ function EditMaintenanceData({
                     <div className="flex items-center justify-center -m-6 overflow-hidden bg-white rounded-full">
                       <div
                         className="radial-progress text-[var(--color-primary-300)] max-lg:w-[300px]"
-                        style={{
-                          '--value': '50',
+                          style={{
+                          '--value': '20',
                           '--size': '8rem',
                           '--thickness': '0.6rem',
                         }}
                       >
-                        70%
+                        {maintenance.lastKmRemaining}
                       </div>
                     </div>
                     <p className="ml-10 font-medium text-gray-600 sm:text-xl max-lg:text-sm">
@@ -284,7 +296,7 @@ function EditMaintenanceData({
                       <div
                         className="radial-progress text-[var(--color-primary-300)] max-lg:w-[300px]"
                         style={{
-                          '--value': '70',
+                          '--value': '20',
                           '--size': '8rem',
                           '--thickness': '0.6rem',
                         }}

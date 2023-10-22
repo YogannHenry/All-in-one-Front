@@ -55,7 +55,6 @@ function EditCarData({ car, setCar, updateCarDetails }: EditCarDataProps) {
     }
   };
 
-  console.log('carData apres les modifff:', carData);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -69,8 +68,10 @@ function EditCarData({ car, setCar, updateCarDetails }: EditCarDataProps) {
 
   return (
     <div>
+      
       {isEditing ? (
-        <div className="p-3 text-lg w-[350px] h-[350px] ">
+        <div className="p-3 text-lg w-[350px] h-[350px] bg-black">
+          
           <div className="mb-4">
             <label className="block mb-2 font-semibold">
               Modèle:
@@ -83,14 +84,15 @@ function EditCarData({ car, setCar, updateCarDetails }: EditCarDataProps) {
             </label>
           </div>
           <div className="mb-4">
-            <label className="block mb-2 font-semibold">
+            <label className="z-50 mb-2 font-semibold">
               Km par mois:
               <input
-                type="text"
-                value={carData.km_per_month || ''}
-                onChange={handleChange}
-                className="border rounded px-2 py-1 w-48 font-normal"
-              />
+    type="text"
+    value={carData.km_per_month || ''} // Affiche la valeur actuelle
+    onChange={handleChange} // Gère les modifications
+    name="km_per_month" // Ajoutez le nom du champ ici
+    className="border rounded px-2 py-1 w-48 font-normal"
+  />
               <span className="font-bold mb-2">Km</span>
             </label>
           </div>
@@ -100,7 +102,7 @@ function EditCarData({ car, setCar, updateCarDetails }: EditCarDataProps) {
               <select
                 name="type"
                 className="select select-bordered w-full max-w-xs font-normal"
-                value={carData.type || ''}
+                value={carData.type}
                 onChange={handleChange}
               >
                 <option disabled selected>
@@ -119,6 +121,7 @@ function EditCarData({ car, setCar, updateCarDetails }: EditCarDataProps) {
                 type="text"
                 value={carData.current_km || ''}
                 onChange={handleChange}
+                name="current_km" // Ajoutez le nom du champ ici
                 className="border rounded px-2 py-1 w-48 font-normal"
               />
               <span className="font-bold mb-2">Km</span>

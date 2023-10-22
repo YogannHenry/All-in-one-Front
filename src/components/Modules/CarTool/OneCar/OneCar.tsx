@@ -41,8 +41,7 @@ function OneCar() {
     updated_at: '',
   });
 
-  console.log('Type de maintenances :', typeof maintenances);
-
+ 
   const getCarDetails = async () => {
     try {
       const response = await getAPI().get(`/car/${carId}`);
@@ -67,6 +66,7 @@ function OneCar() {
         `/car/${carId}/maintenance`
       );
       const maintenancesData = maintenanceResponse.data;
+      
       setMaintenances(maintenancesData);
       console.log('Maintenances de la voiture:', maintenancesData);
     } catch (error) {
@@ -96,16 +96,17 @@ function OneCar() {
       addMaintenance(parseInt(carId, 10), newMaintenanceData);
     } else {
       console.error(
-        "carId est pas definie. impossible d'ajouter la maintenance"
+        "carId est pas définie. Impossible d'ajouter la maintenance."
       );
       // Faites quelque chose d'autre en cas de carId indéfini si nécessaire
     }
   };
+  
 
   const deleteMaintenance = async (maintenanceId: number) => {
     try {
+      console.log('maintenanceId', maintenanceId);
       await getAPI().delete(`/car/maintenance/${maintenanceId}`);
-      // Si la suppression réussit, vous pouvez effectuer une action supplémentaire ici, comme actualiser la liste des maintenances, etc.
       getMaintenanceDetails();
     } catch (error) {
       console.error("Erreur lors de la suppression de l'entretien:", error);
@@ -143,7 +144,8 @@ function OneCar() {
   return (
     <div className="bg-gradient-to-t from-[var(--color-primary-100)]  via-[var(--color-primary-50)]  to-[var(--color-primary-50)] px-20">
       <div className=" flex flex-col items-center ">
-        <h1 className="text-4xl mb-2 pt-10 text-center uppercase">
+        
+        <h1 className="text-5xl font-semibold mb-2 pt-10 text-center uppercase">
           {car.name}
         </h1>
 
