@@ -41,7 +41,6 @@ function OneCar() {
     updated_at: '',
   });
 
-  console.log('Type de maintenances :', typeof maintenances);
 
   const getCarDetails = async () => {
     try {
