@@ -145,14 +145,14 @@ function OneCar() {
   }, [isUserLogged]);
 
   return (
-    <div className="bg-gradient-to-t from-[var(--color-primary-100)]  via-[var(--color-primary-50)]  to-[var(--color-primary-50)] px-20">
+    <div className="bg-gradient-to-t from-[var(--color-primary-100)]  via-[var(--color-primary-50)]  to-[var(--color-primary-50)] ">
       <div className=" flex flex-col items-center ">
         
         <h1 className="text-5xl font-semibold mb-2 pt-10 text-center uppercase">
           {car.name}
         </h1>
 
-        <div className="flex justify-between max-lg:flex-col gap-2 lg:w-3/6">
+        <div className="flex justify-between max-lg:flex-col gap-2 lg:w-4/6  2xl:w-3/6">
           <div className="w-[350px] flex items-center justify-around   h-[350px] bg-white border rounded-3xl max-lg:hidden ">
             <figure>
               {/* Condition d'affichage de l'icône en fonction du type de véhicule */}
@@ -176,7 +176,7 @@ function OneCar() {
       </div>
 
       <div className="flex flex-col items-center  ">
-      <div className="flex flex-col  justify-evenly  lg:w-3/6">
+      <div className="flex flex-col  justify-evenly  lg:w-4/6 2xl:w-3/6">
         <CreateMaintenance onSubmit={handleAddMaintenance} />
         <div>
           {maintenances.length > 0 ? (

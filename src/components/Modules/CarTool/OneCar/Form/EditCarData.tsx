@@ -70,7 +70,7 @@ function EditCarData({ car, setCar, updateCarDetails }: EditCarDataProps) {
     <div>
       
       {isEditing ? (
-        <div className="p-3 text-lg w-[350px] h-[350px] bg-black">
+        <div className="p-3 text-lg w-[350px] h-[350px] ">
           
           <div className="mb-4">
             <label className="block mb-2 font-semibold">
