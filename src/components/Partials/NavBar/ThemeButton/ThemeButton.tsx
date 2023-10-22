@@ -1,5 +1,5 @@
 import { ThemeContext } from '../../../../contexts/ThemeProvider';
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useAppSelector } from '../../../../hooks/redux';
 // on importe notre ThemeContext qui va nous permettre de changer le thème et la fonction useContext qui va nous permettre d'utiliser notre contexte
 function ThemeButton() {

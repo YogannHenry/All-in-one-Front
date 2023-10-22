@@ -65,10 +65,7 @@ function WalletDocumentsPage() {
   };
 
   // Fonction pour ajouter un nouveau document soumis
-  const addDocument = async (
-    newDocument: File | null,
-    documentDetails: { name: string | Blob; information: string | Blob }
-  ) => {
+  const addDocument = async (    newDocument: File | null,    documentDetails: { name: string | Blob; information: string | Blob }  ) => {
     try {
       if (newDocument !== null) {
         // Si un document a été soumis

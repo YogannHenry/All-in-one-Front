@@ -4,11 +4,6 @@ import { useAppSelector } from '../../../../hooks/redux';
 import { Task } from '../../../../@types';
 import { getAPI } from '../../../../utils/config';
 import authConnexion from '../../../../hooks/authConnexion';
-import {
-  MagnifyingGlassCircleIcon,
-  TrashIcon,
-  PencilSquareIcon,
-} from '@heroicons/react/24/solid';
 
 interface List {
   id: number;
