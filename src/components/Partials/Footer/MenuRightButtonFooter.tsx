@@ -7,16 +7,21 @@ import {
 import { getAPI } from '../../../utils/config';
 
 function MenuLeftFooter() {
-  const userId = localStorage.getItem('userId') 
-  
-    const deleteUser = async (userId: number) => {
+  const userId = localStorage.getItem('userId');
+
+  const deleteUser = async (userId: number) => {
+    const confirmation = window.confirm("Attention, la suppression de compte entraînera la suppression totale de vos données. Souhaitez-vous poursuivre ?");
+    if (confirmation) {
     const { data } = await getAPI().delete(`/user/${userId}`);
     console.log(data);
+    localStorage.clear();
+    window.location.href = '/';
+    }
   };
 
   return (
     <footer className="footer flex flex-col items-center justify-around">
-   <button onClick={() => deleteUser(Number(userId))} className="px-2">
+      <button onClick={() => deleteUser(Number(userId))} className="px-2">
         <UserMinusIcon className="h-7 w-7" />
       </button>
       <NavLink to="/contact">

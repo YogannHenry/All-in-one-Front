@@ -7,7 +7,7 @@ import { getAPI } from '../../../../utils/config';
 import iconVoiture from '../../../../assets/icon-voiture.png';
 import iconCamion from '../../../../assets/icon-camion.png';
 import iconMoto from '../../../../assets/icon-moto.png';
-import authConnexion from '../../../../hooks/authConnexion';
+
 
 interface CarProps {
   id: number;
@@ -18,7 +18,7 @@ interface CarProps {
 }
 
 function CarsList() {
-  const { isUserLogged } = authConnexion();
+
   const [cars, setCars] = useState<CarProps[]>([]);
   const userId = useSelector((state: RootState) => state.user.userId);
   console.log('userID:', userId);
@@ -58,7 +58,7 @@ function CarsList() {
 
   useEffect(() => {
     getCars();
-  }, [isUserLogged]);
+  }, []);
 
   return (
     <div className="bg-base-200  min-h-screen h-full">

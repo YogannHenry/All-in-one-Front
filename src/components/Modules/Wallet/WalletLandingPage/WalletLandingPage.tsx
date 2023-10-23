@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import WalletInputForm from './Form/InputForm';
 import CircleLigneBackground from '../../../../assets/SvgBackground/CircleLigneBackground';
 import { NewWallet, Wallet } from '../../../../@types/index';
-import authConnexion from '../../../../hooks/authConnexion';
 import {
   FolderIcon,
   CalculatorIcon,
@@ -39,7 +38,6 @@ const iconComponents: any = {
 };
 
 function WalletLandingPage() {
-  const { isUserLogged } = authConnexion();
   const isLogged = useAppSelector((state) => state.user.logged);
   const [wallets, setWallets] = useState<Wallet[]>([]);
 
@@ -90,7 +88,7 @@ function WalletLandingPage() {
 
   useEffect(() => {
     getWallets();
-  }, [isUserLogged]);
+  }, []);
 
   return (
     <div>

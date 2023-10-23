@@ -1,4 +1,5 @@
 import { getAPI } from "../utils/config";
+import { Task } from "../@types";
 
 export const TodoListApi = {
   getLists: async () => {
@@ -8,7 +9,7 @@ export const TodoListApi = {
 
   getTasksForList: async (listId: number) => {
     const { data } = await getAPI().get(`/list/${listId}/task`);
-    const filteredTasks = data.filter((task: { status: boolean; }) => task.status === false);
+    const filteredTasks = data.filter((task: Task) => task.status === false);
     return filteredTasks;
   },
 

@@ -16,6 +16,7 @@ import App from './components/App/App';
 import Home from './pages/Home';
 import SignIn from './pages/SignInPage';
 import Login from './pages/LoginPage';
+import LoginPageWithFlip from './pages/LoginPageWithFlip';
 import Contact from './pages/ContactPage';
 import TodoList from './components/Modules/Todo/TodoListPage/TodoListPage';
 import TodoListPage from './components/Modules/Todo/TodoListPage/TodoListPage';

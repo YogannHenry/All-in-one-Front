@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { useAppSelector } from '../../../../hooks/redux';
 import { Task } from '../../../../@types';
 import { getAPI } from '../../../../utils/config';
-import authConnexion from '../../../../hooks/authConnexion';
+import { TodoListApi } from '../../../../apis/TodoListApi';
 
 interface List {
   id: number;
@@ -12,8 +12,6 @@ interface List {
 
 function TodoList() {
   const userId = useAppSelector((state) => Number(state.user.userId));
-  const { isUserLogged } = authConnexion();
-
   const [lists, setLists] = useState<List[]>([]);
   const [newList, setNewList] = useState('');
   const [selectedListTasks, setSelectedListTasks] = useState<Task[]>([]);
@@ -22,31 +20,23 @@ function TodoList() {
   const [updateListName, setUpdateListName] = useState('');
 
   const getLists = async () => {
-    const { data } = await getAPI().get(`/list`);
-    setLists(data);
-    console.log(data, 'debut');
+    TodoListApi.getLists().then((data: List[]) => setLists(data));    
   };
 
-  // Récupérer les tâches d'une liste pour gérer la prévisualisation, on récupere que les tasks qui ont le status false.
   const getTasksForList = async (listId: number) => {
-    const { data } = await getAPI().get(`/list/${listId}/task`);
-    const filteredTasks = data.filter((task: Task) => task.status === false);
-
-    // Vérifiez si selectedListTasks est déjà non vide
-    if (selectedListTasks.length > 0) {
-      setSelectedListTasks([]); // Réinitialisez-le à un tableau vide
-    }
-
-    setSelectedListTasks(filteredTasks);
+    try {
+      const data: Task[] = await TodoListApi.getTasksForList(listId);
+      setSelectedListTasks(data);
+    } catch (error) {
+      if (error) {
+        setSelectedListTasks([]);
+      }}
   };
 
   const addList = async (newList: string) => {
-    const { data } = await getAPI().post(`/list`, {
-      name: newList,
-      userId: userId,
-    });
-    setLists(data);
-    getLists();
+  TodoListApi.createList(newList, userId).then((data: List[]) => setLists(data));
+  getLists();
+  
   };
 
   const handleUpdateList = async () => {
@@ -87,7 +77,7 @@ function TodoList() {
 
   useEffect(() => {
     getLists();
-  }, [isUserLogged]);
+  }, []);
 
   return (
     <>

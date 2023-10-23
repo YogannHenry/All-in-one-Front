@@ -2,7 +2,7 @@ import OscillateBackground from '../assets/SvgBackground/OscillateBackground';
 import { FormEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { login, register } from '../store/reducers/user';
-import Field from './LoginField';
+import Field from '../modals/LoginField';
 import clipartFallout from '../assets/1460481845.svg';
 import PasswordCaractereMissing from '../modals/PasswordCaractereMissing';
 import PasswordConfirmationDoNotMatchPassword from '../modals/PasswordConfirmationDoNotMatchPassword';
@@ -10,10 +10,9 @@ import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import API_URL from '../API_URL';
 
-
 function SignInPage() {
   const isRegistered = useAppSelector((state) => state.user.registered);
-console.log("isRegistered", isRegistered)
+  console.log('isRegistered', isRegistered);
 
   const isLogged = useAppSelector((state) => state.user.logged);
   const loggedMessage = useAppSelector((state) => ` ${state.user.pseudo}`);
@@ -21,8 +20,10 @@ console.log("isRegistered", isRegistered)
   const [passwordMissingCaractere, setPasswordMissingCaractere] =
     useState(false);
 
-    const [PasswordConfirmationDoNotMatch, setPasswordConfirmationDoNotMatchPassword] =
-    useState(false);
+  const [
+    PasswordConfirmationDoNotMatch,
+    setPasswordConfirmationDoNotMatchPassword,
+  ] = useState(false);
 
   const dispatch = useAppDispatch();
 
@@ -34,24 +35,23 @@ console.log("isRegistered", isRegistered)
   const sendConfirmationEmail = async (formData: FormData) => {
     const pseudo = formData.get('pseudo') as string;
     const email = formData.get('email') as string;
-      console.log('pseudo, email', pseudo, email);
-      try {
-        await axios.post(`${API_URL}/emailRegisterConfirmation`, {
-          pseudo,
-          email,
-        });
-        console.log('Confirmation email has been sent successfully.', pseudo, email);
-      } catch (error) {
-        // Handle error here
-        console.error('Error sending confirmation email:', error);
-      }
-    
+    console.log('pseudo, email', pseudo, email);
+    try {
+      await axios.post(`${API_URL}/emailRegisterConfirmation`, {
+        pseudo,
+        email,
+      });
+      console.log(
+        'Confirmation email has been sent successfully.',
+        pseudo,
+        email
+      );
+    } catch (error) {
+      // Handle error here
+      console.error('Error sending confirmation email:', error);
+    }
   };
-  
 
-
-
-  
   const handleSubmitRegister = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -64,13 +64,13 @@ console.log("isRegistered", isRegistered)
       !password.match(/(?=.*[A-Z])/)
     ) {
       setPasswordMissingCaractere(true);
-      setPasswordConfirmationDoNotMatchPassword(false); 
+      setPasswordConfirmationDoNotMatchPassword(false);
       return;
     }
 
     if (password !== passwordConfirm) {
       setPasswordConfirmationDoNotMatchPassword(true);
-      setPasswordMissingCaractere(false); 
+      setPasswordMissingCaractere(false);
       return;
     }
 
@@ -86,14 +86,12 @@ console.log("isRegistered", isRegistered)
 
     const formData = new FormData(event.currentTarget);
     dispatch(login(formData));
-
   };
-
 
   return (
     <div className="">
       {isLogged && (
-          <div className="hero max-lg:pt-40 pb-40 bg-base-200 h-screen">
+        <div className="hero max-lg:pt-40 pb-40 bg-base-200 h-screen">
           <form className="hero-content max-md:flex-col max-md:pt-10">
             <div className="max-w-md flex  flex-col items-center text-center ">
               <h1 className="text-5xl textfont-bold flex   flex-col gap-4">
@@ -106,9 +104,12 @@ console.log("isRegistered", isRegistered)
               <p className="py-6">
                 Découvrez dès maintenant toutes les fonctionnalités:
               </p>
-              <NavLink to="/" className="btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]">Commencer
-                </NavLink>
-         
+              <NavLink
+                to="/"
+                className="btn text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]"
+              >
+                Commencer
+              </NavLink>
             </div>
             <img
               src={clipartFallout}
@@ -167,8 +168,8 @@ console.log("isRegistered", isRegistered)
       )}
       {!isRegistered && (
         <div className="  xl:hero min-h-screen bg-base-200 max-md:pt-5 max-md:flex max-md:items-center max-md:justify-center">
-          <OscillateBackground />          
-          <div className="hero-content flex-col lg:flex-row-reverse px-24  lg:w-1/2">        
+          <OscillateBackground />
+          <div className="hero-content flex-col lg:flex-row-reverse px-24  lg:w-1/2">
             <form
               onSubmit={handleSubmitRegister}
               className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100"
@@ -184,13 +185,15 @@ console.log("isRegistered", isRegistered)
                   />
                 </div>
                 <div className="form-control">
-                <div className="tooltip  tooltip-left max-md:tooltip-top tooltip-warning"  data-tip="Le mot de passe doit avoir au moins 8 caractères, inclure un caractère spécial (!@#$%^&*), et une lettre majuscule.">
-                  <Field
-                    name="password"
-                    placeholder="Mot de passe "
-                    type="password"
-                    
-                  />
+                  <div
+                    className="tooltip  tooltip-left max-md:tooltip-top tooltip-warning"
+                    data-tip="Le mot de passe doit avoir au moins 8 caractères, inclure un caractère spécial (!@#$%^&*), et une lettre majuscule."
+                  >
+                    <Field
+                      name="password"
+                      placeholder="Mot de passe "
+                      type="password"
+                    />
                   </div>
                   {passwordMissingCaractere && (
                     <PasswordCaractereMissing onClose={handleCloseAlert} />
@@ -200,18 +203,20 @@ console.log("isRegistered", isRegistered)
                     placeholder="Vérifier votre mot de passe"
                     type="password"
                   />
-                    {PasswordConfirmationDoNotMatch && (
-                    <PasswordConfirmationDoNotMatchPassword onClose={handleCloseAlert} />
+                  {PasswordConfirmationDoNotMatch && (
+                    <PasswordConfirmationDoNotMatchPassword
+                      onClose={handleCloseAlert}
+                    />
                   )}
                 </div>
                 <label className="label">
-                    <a
-                      href="#"
-                      className="label-text-alt link link-hover text-blue-700"
-                    >
-                      Déja un compte?  <a href="https://all-in-1.fr/login">Cliquer ici</a>
-                    </a>
-                  </label>
+                  <a
+                    href="https://all-in-1.fr/login"
+                    className="label-text-alt link link-hover text-blue-700"
+                  >
+                    Déja un compte?
+                  </a>
+                </label>
                 <div className="form-control mt-6">
                   <button className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white">
                     S'inscrire
@@ -220,7 +225,6 @@ console.log("isRegistered", isRegistered)
               </div>
             </form>
           </div>
-          
         </div>
       )}
     </div>

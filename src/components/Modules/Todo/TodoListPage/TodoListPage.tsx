@@ -5,7 +5,7 @@ import Form from './Form/Form';
 import Tasks from './Tasks/Tasks';
 import {getAPI} from '../../../../utils/config';
 import { Task } from '../../../../@types';
-import authConnexion from '../../../../hooks/authConnexion';
+
 
 interface List {
   id: number;
@@ -18,8 +18,7 @@ interface UpdatedTask {
   status: boolean;
 }
 
-function TodoListPage() {
-  const { isUserLogged } = authConnexion();
+function TodoListPage() {  
   const [tasks, setTasks] = useState<Task[]>([]);
 
   const [list, setList] = useState<List[]>([]);
@@ -113,7 +112,7 @@ function TodoListPage() {
     getTasks();
 
     getOneList();
-  }, [listId, isUserLogged]);
+  }, [listId]);
 
   const listName = list.map((list) => list.name);
 

@@ -1,14 +1,14 @@
 import { FormEvent, useState } from 'react'; //FormEvent, c'est un type de données pour typer les form qui contiennent des propriétés comme target, currentTarget, etc.
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { login } from '../store/reducers/user';
-import Field from './LoginField';
+import Field from '../modals/LoginField';
 import clipartFallout from '../assets/1460481845.svg';
 import CoilBackground from '../assets/SvgBackground/CoilBackground';
 import { NavLink } from 'react-router-dom';
 import ConfirmationMatchUserPassword from '../modals/PasswordConfirmationMatchUserPasswordServer';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/solid';
 
-function LoginPage() {
+function LoginPageWithFlip() {
   const isLogged = useAppSelector((state) => state.user.logged);
   const loggedMessage = useAppSelector((state) => ` ${state.user.pseudo}`);
   const dispatch = useAppDispatch();
@@ -69,84 +69,77 @@ function LoginPage() {
       {!isLogged && (
         <form onSubmit={handleSubmit}>
           <div className="flex items-center justify-center h-screen bg-base-200">
-          <div
-        className="w-[300px] h-[420px] bg-transparent cursor-pointer group perspective"
-      >
-        <div
-          className="relative preserve-3d group-hover:my-rotate-y-180 w-full h-full duration-1000"
-        >
-            <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 absolute backface-hidden border-2">
-              <div className="card-body">
-                <div className="form-control">
-                  <Field
-                    name="email"
-                    placeholder="Adresse Email"
-                    type="email"
-                  />
-                  <div className="flex items-end">
-                    <Field
-                      name="password"
-                      placeholder="Mot de passe"
-                      type={passwordVisible ? 'text' : 'password'}
-                    />
-                    <label className="swap pb-2 pl-2">
-                      <input
-                        type="checkbox"
-                        onChange={togglePasswordVisibility}
-                        checked={passwordVisible}
+            <div className="w-[300px] h-[420px] bg-transparent cursor-pointer group perspective">
+              <div className="relative preserve-3d group-hover:my-rotate-y-180 w-full h-full duration-1000">
+                <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100 absolute backface-hidden border-2">
+                  <div className="card-body">
+                    <div className="form-control">
+                      <Field
+                        name="email"
+                        placeholder="Adresse Email"
+                        type="email"
                       />
-                      {passwordVisible ? (
-                        <EyeSlashIcon className="w-8 h-8 " />
-                      ) : (
-                        <EyeIcon className="w-8 h-8 " />
-                      )}
-                    </label>
-                  </div>
+                      <div className="flex items-end">
+                        <Field
+                          name="password"
+                          placeholder="Mot de passe"
+                          type={passwordVisible ? 'text' : 'password'}
+                        />
+                        <label className="swap pb-2 pl-2">
+                          <input
+                            type="checkbox"
+                            onChange={togglePasswordVisibility}
+                            checked={passwordVisible}
+                          />
+                          {passwordVisible ? (
+                            <EyeSlashIcon className="w-8 h-8 " />
+                          ) : (
+                            <EyeIcon className="w-8 h-8 " />
+                          )}
+                        </label>
+                      </div>
 
-                  {PasswordMatchUserPassword && (
-                    <ConfirmationMatchUserPassword onClose={handleCloseAlert} />
-                  )}
-                  <label className="label">
-                    <a
-                      href="#"
-                      className="label-text-alt link link-hover text-blue-700"
-                    >
-                      Mot de passe oublié?
-                    </a>
-                  </label>
+                      {PasswordMatchUserPassword && (
+                        <ConfirmationMatchUserPassword
+                          onClose={handleCloseAlert}
+                        />
+                      )}
+                      <label className="label">
+                        <a
+                          href="#"
+                          className="label-text-alt link link-hover text-blue-700"
+                        >
+                          Mot de passe oublié?
+                        </a>
+                      </label>
+                    </div>
+                    <div className="form-control mt-6">
+                      <button
+                        type="submit"
+                        className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white"
+                      >
+                        Se Connecter
+                      </button>
+                    </div>
+                  </div>
                 </div>
-                <div className="form-control mt-6">
-                  <button
-                    type="submit"
-                    className="btn bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)] text-white"
-                  >
-                    Se Connecter
-                  </button>
+                <div className="absolute my-rotate-y-180 backface-hidden w-full h-full bg-gray-100 overflow-hidden">
+                  <div className="text-center flex flex-col items-center justify-center h-full text-gray-800 px-2 pb-24">
+                    <h1 className="text-3xl font-semibold">The King's Man</h1>
+                    <p className="my-2">9.0 Rating</p>
+                    <p>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                      Facilis itaque assumenda saepe animi maxime libero non
+                      quasi, odit natus veritatis enim culpa nam inventore
+                      doloribus quidem temporibus amet velit accusamus.
+                    </p>
+                    <button className="bg-teal-500 px-6 py-2 font-semibold text-white rounded-full absolute -bottom-20 delay-500 duration-1000 group-hover:bottom-20 scale-0 group-hover:scale-125">
+                      Watch Now
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div           className="absolute my-rotate-y-180 backface-hidden w-full h-full bg-gray-100 overflow-hidden"
-          >
-            <div
-              className="text-center flex flex-col items-center justify-center h-full text-gray-800 px-2 pb-24"
-            >
-              <h1 className="text-3xl font-semibold">The King's Man</h1>
-              <p className="my-2">9.0 Rating</p>
-              <p>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis
-                itaque assumenda saepe animi maxime libero non quasi, odit natus
-                veritatis enim culpa nam inventore doloribus quidem temporibus
-                amet velit accusamus.
-              </p>
-              <button
-                className="bg-teal-500 px-6 py-2 font-semibold text-white rounded-full absolute -bottom-20 delay-500 duration-1000 group-hover:bottom-20 scale-0 group-hover:scale-125"
-              >
-                Watch Now
-              </button>
-            </div>
-          </div>
-          </div>
-          </div>
           </div>
         </form>
       )}
@@ -154,4 +147,4 @@ function LoginPage() {
   );
 }
 
-export default LoginPage;
+export default LoginPageWithFlip;

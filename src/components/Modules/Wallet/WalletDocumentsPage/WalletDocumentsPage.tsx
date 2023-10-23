@@ -7,8 +7,7 @@ import { XMarkIcon } from '@heroicons/react/24/solid';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 import { Wallet } from '../../../../@types/index';
 import { getAPI } from '../../../../utils/config';
-import fileDownload from 'js-file-download';
-import authConnexion from '../../../../hooks/authConnexion';
+
 
 interface Document {
   file: any;
@@ -30,7 +29,6 @@ interface PdfFile {
 }
 
 function WalletDocumentsPage() {
-  const { isUserLogged } = authConnexion();
   const { walletId } = useParams<{ walletId: string }>();
   const [documents, setDocuments] = useState<Document[]>([]);
   const [submittedDocuments, setSubmittedDocuments] = useState([]);
@@ -186,7 +184,7 @@ function WalletDocumentsPage() {
     getDocuments();
     getOneWallet();
     
-  }, [isUserLogged]);
+  }, []);
 
   const walletName = wallet.map((wallet) => wallet.name);
 

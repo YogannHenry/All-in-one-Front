@@ -1,7 +1,7 @@
 import { FormEvent, useState } from 'react'; //FormEvent, c'est un type de données pour typer les form qui contiennent des propriétés comme target, currentTarget, etc.
 import { useAppDispatch, useAppSelector } from '../hooks/redux';
 import { login } from '../store/reducers/user';
-import Field from './LoginField';
+import Field from '../modals/LoginField';
 import clipartFallout from '../assets/1460481845.svg';
 import CoilBackground from '../assets/SvgBackground/CoilBackground';
 import { NavLink } from 'react-router-dom';
@@ -13,6 +13,7 @@ function LoginPage() {
   const loggedMessage = useAppSelector((state) => ` ${state.user.pseudo}`);
   const dispatch = useAppDispatch();
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [Loader, setLoader] = useState(false);
 
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
@@ -25,12 +26,14 @@ function LoginPage() {
     setPasswordMatchUserPassword(false);
   };
 
+  
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     if (isLogged === false) {
       dispatch(login(formData));
       setPasswordMatchUserPassword(true);
+      setLoader(true);
       return;
     }
   };
@@ -107,6 +110,12 @@ function LoginPage() {
                     >
                       Mot de passe oublié?
                     </a>
+                    <a
+                      href="https://all-in-1.fr/signin"
+                      className="label-text-alt link link-hover text-blue-700"
+                    >
+                      Pas encore de compte?
+                    </a>
                   </label>
                 </div>
                 <div className="form-control mt-6">
@@ -117,6 +126,7 @@ function LoginPage() {
                     Se Connecter
                   </button>
                 </div>
+                
               </div>
             </div>
           </div>

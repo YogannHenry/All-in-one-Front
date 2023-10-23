@@ -7,7 +7,6 @@ import {
 import axios from 'axios';
 import API_URL from '../../API_URL';
 
-//'http://heyo5082.odns.fr/api'
 
 interface UserState {
   registered: boolean;
@@ -26,8 +25,8 @@ export const initialState: UserState = {
 
 // Action pour la déconnexion
 export const logout = createAsyncThunk(`${API_URL}/logout`, async () => {
-  // Supprimer le token du local storage
   localStorage.removeItem('token');
+  location.href = '/';
   console.log('localstorage', localStorage);
   return false;
 });
@@ -39,6 +38,9 @@ export const login = createAsyncThunk(
     try {
       const objData = Object.fromEntries(formData);
       console.log('API_URL', API_URL);  
+
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       const { data } = await axios.post(`${API_URL}/login`, objData);
       console.log('data', data);
       // Après la connexion réussie, stockez le token dans le local storage
@@ -54,12 +56,10 @@ export const login = createAsyncThunk(
         userId: number;
       };
     } catch (error: any) {
-      // Gérer l'erreur et spécifier son type
       if (error.response && error.response.data) {
         return rejectWithValue(error.response.data);
       } else {
-        // Si vous ne pouvez pas déterminer le type d'erreur, vous pouvez le définir comme une chaîne par exemple
-        return rejectWithValue("Une erreur s'est produite");
+        return rejectWithValue("Une erreur s'est produite lors de la connexion de l'utilisateur");
       }
     }
   }
@@ -72,22 +72,17 @@ export const register = createAsyncThunk(
   async (formData: FormData, { rejectWithValue }) => {
     try {
       const objData = Object.fromEntries(formData);
-      console.log('objData2', objData);
-console.log('API_URL', API_URL);  
       const { data } = await axios.post(`${API_URL}/register`, objData);
-
-      console.log('data', data);
       return data as {
         registered: boolean;
         pseudo: string | null;
         userId: number | null;
       };
     } catch (error: any) {
-      // Gérer l'erreur et spécifier son type
       if (error.response && error.response.data) {
         return rejectWithValue(error.response.data);
       }
-      return rejectWithValue("Une erreur s'est produite");
+      return rejectWithValue("Une erreur s'est produite lors de l'enregistrement de l'utilisateur");
     }
   }
 );
