@@ -37,8 +37,7 @@ function Home() {
 
           <p className=" h-auto flex items-center text-center flex-col  pt-10 text-2xl text-slate-800 font-sans">
             <span className="text-4xl font-bold mb-2">
-              Libérer du temps! mich mich
-            </span>{' '}
+              Libérer du temps! mich michel michel
             pour les choses qui comptent le plus pour vous
           </p>
           <div className="flex justify-center">
