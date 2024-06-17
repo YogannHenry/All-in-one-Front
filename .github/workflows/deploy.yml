@@ -4,7 +4,7 @@ on:
     branches:
       - main
 jobs:
-  # Build And deploy Job
+  # Build And deploy Jobe
   build-deploy:
     runs-on: ubuntu-latest
     steps:
