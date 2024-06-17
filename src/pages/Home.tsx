@@ -4,7 +4,11 @@ import { NavLink } from 'react-router-dom';
 import Footer from '../components/Partials/Footer/Footer';
 import flecheMenuGauche from '../assets/flecheMenuGauche.png';
 import flecheMenuDroite from '../assets/flecheMenuDroite.png';
-import { PencilSquareIcon, WalletIcon, ChevronDoubleDownIcon } from '@heroicons/react/24/solid';
+import {
+  PencilSquareIcon,
+  WalletIcon,
+  ChevronDoubleDownIcon,
+} from '@heroicons/react/24/solid';
 
 function Home() {
   const isLogged = useAppSelector((state) => state.user.logged);
@@ -32,7 +36,9 @@ function Home() {
           />
 
           <p className=" h-auto flex items-center text-center flex-col  pt-10 text-2xl text-slate-800 font-sans">
-            <span className="text-4xl font-bold mb-2">Libérer du temps!</span>{' '}
+            <span className="text-4xl font-bold mb-2">
+              Libérer du temps! mich mich
+            </span>{' '}
             pour les choses qui comptent le plus pour vous
           </p>
           <div className="flex justify-center">
@@ -114,15 +120,26 @@ function Home() {
               </div>
             </div>
           </div>
-          <div className=' border border-gray-700 rounded-xl drop-shadow-xd shadow-current p-5 m-10 h-auto w-fit '>
+          <div className=" border border-gray-700 rounded-xl drop-shadow-xd shadow-current p-5 m-10 h-auto w-fit ">
             <h3>Journal d'activité:</h3>
             <ul>
-              <ol>- 09/10/2023 Css Responsives todo-list et tâches, réparer la fonctionnalité de téléchargement du document, changement mineur Css</ol>
-              <ol>- 10/10/2023 Preview image fonctionnelle sur l'hébergeur. Modification du module WalletDocument suppression fonction previexFile creation fonction openImage. Reste à rêgler l'affichage des pdf</ol>
-              <ol>17/10/2023 Css carTool work on progress + création composant InfoCard factorisation du code</ol>
+              <ol>
+                - 09/10/2023 Css Responsives todo-list et tâches, réparer la
+                fonctionnalité de téléchargement du document, changement mineur
+                Css
+              </ol>
+              <ol>
+                - 10/10/2023 Preview image fonctionnelle sur l'hébergeur.
+                Modification du module WalletDocument suppression fonction
+                previexFile creation fonction openImage. Reste à rêgler
+                l'affichage des pdf
+              </ol>
+              <ol>
+                17/10/2023 Css carTool work on progress + création composant
+                InfoCard factorisation du code
+              </ol>
             </ul>
           </div>
-
         </div>
       )}
       {!isLogged && (
@@ -139,7 +156,6 @@ function Home() {
                   vie !
                 </p>
                 <div className="flex justify-center items-center">
-               
                   <a className="btn text-lg mt-10 lowercase text-white bg-[var(--color-primary-300)] hover:bg-[var(--color-primary-500)]">
                     <NavLink to="/signin">inscrivez-vous c'est gratuit</NavLink>
                   </a>
@@ -148,9 +164,10 @@ function Home() {
                   N'attendez plus et jetez un oeil à nos fonctionnalités
                 </h1>
                 <div className="flex justify-center mt-5">
-              <ChevronDoubleDownIcon 
-               onClick={handleScrollToCarrousel}
-               className="w-8 h-8" />
+                  <ChevronDoubleDownIcon
+                    onClick={handleScrollToCarrousel}
+                    className="w-8 h-8"
+                  />
                 </div>
               </div>
             </form>

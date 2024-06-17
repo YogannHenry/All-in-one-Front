@@ -20,7 +20,6 @@ export interface EditMaintenanceDataProps {
   validity_period: string | { years: string; months: string };
   lastKmRemaining: number;
   completionPercentageKm: number;
- 
 }
 
 interface MaintenanceProps {
@@ -38,9 +37,11 @@ interface CustomStyle {
   '--thickness': string;
 }
 
-
-
-function EditMaintenanceData({  maintenances,  deleteMaintenance,  handleUpdateMaintenance,}: MaintenanceProps) {
+function EditMaintenanceData({
+  maintenances,
+  deleteMaintenance,
+  handleUpdateMaintenance,
+}: MaintenanceProps) {
   const [isEditing, setIsEditing] = useState(false);
 
   const [editedMaintenance, setEditedMaintenance] =
@@ -55,18 +56,23 @@ function EditMaintenanceData({  maintenances,  deleteMaintenance,  handleUpdateM
       formattedDateNextMaintenance: '',
       number_of_days_before_next_verif: 0,
       completionPercentageKm: 0,
-      
     });
 
   const [timeUnit, setTimeUnit] = useState('years');
 
-  const handleEditClick = (maintenance: EditMaintenanceDataProps) => {    
-    setEditedMaintenance({ ...maintenance});
+  const handleEditClick = (maintenance: EditMaintenanceDataProps) => {
+    setEditedMaintenance({ ...maintenance });
     setIsEditing(true);
   };
 
   const handleUptadeMaintenance = () => {
-    const { name, last_date_verif, validity_km, last_km_verif, validity_period } = editedMaintenance;
+    const {
+      name,
+      last_date_verif,
+      validity_km,
+      last_km_verif,
+      validity_period,
+    } = editedMaintenance;
 
     if (
       name &&
@@ -82,7 +88,7 @@ function EditMaintenanceData({  maintenances,  deleteMaintenance,  handleUpdateM
         ...editedMaintenance,
         last_date_verif: formattedDate,
         validity_period: `${validity_period} ${timeUnit}`,
-        console: console.log("validity_period", validity_period)
+        console: console.log('validity_period', validity_period),
       };
 
       handleUpdateMaintenance(editedMaintenance.id, editedMaintenanceFormatted);
@@ -93,12 +99,9 @@ function EditMaintenanceData({  maintenances,  deleteMaintenance,  handleUpdateM
   };
 
   const handleDeleteClick = (maintenanceId: number) => {
-    console.log("maintenances", maintenances)
+    console.log('maintenances', maintenances);
     deleteMaintenance(maintenanceId);
   };
-
- 
-
 
   return (
     <div className="flex justify-between  flex-col gap-8 ">
@@ -279,29 +282,34 @@ function EditMaintenanceData({  maintenances,  deleteMaintenance,  handleUpdateM
                     <div className="flex items-center justify-center -m-6 overflow-hidden bg-white rounded-full">
                       <div
                         className="radial-progress text-[var(--color-primary-300)] max-lg:w-[300px]"
-                          style={{
-                          '--value': `${maintenance.completionPercentageKm}`,
-                          '--size': '8rem',
-                          '--thickness': '0.6rem',
-                        }}
+                        style={
+                          {
+                            '--value': `${maintenance.completionPercentageKm}`,
+                            '--size': '8rem',
+                            '--thickness': '0.6rem',
+                          } as React.CSSProperties
+                        } // Add the type assertion here
                       >
-                        {maintenance.completionPercentageKm}% 
+                        {maintenance.completionPercentageKm}%
                       </div>
                     </div>
                     <p className="ml-10 font-medium text-gray-600 sm:text-xl max-lg:text-sm">
                       Il reste {maintenance.lastKmRemaining} Km avant le
-                      prochain entretien. Soit {maintenance.number_of_days_before_next_verif} jours
+                      prochain entretien. Soit{' '}
+                      {maintenance.number_of_days_before_next_verif} jours
                     </p>
                   </div>
                   <div className="flex items-center px-10 bg-white shadow-xl rounded-2xl">
                     <div className="flex items-center justify-center -m-6 overflow-hidden bg-white rounded-full">
                       <div
                         className="radial-progress text-[var(--color-primary-300)] max-lg:w-[300px]"
-                        style={{
-                          '--value': '20',
-                          '--size': '8rem',
-                          '--thickness': '0.6rem',
-                        }}
+                        style={
+                          {
+                            '--value': '20',
+                            '--size': '8rem',
+                            '--thickness': '0.6rem',
+                          } as React.CSSProperties
+                        } // Add the type assertion here
                       >
                         70%
                       </div>
@@ -311,8 +319,8 @@ function EditMaintenanceData({  maintenances,  deleteMaintenance,  handleUpdateM
                       ></span>
                     </div>
                     <p className="ml-10 font-medium text-gray-600 sm:text-xl max-lg:text-sm">
-                      Prévoir le prochain entretien pour le: {
-                     maintenance.formattedDateNextMaintenance}
+                      Prévoir le prochain entretien pour le:{' '}
+                      {maintenance.formattedDateNextMaintenance}
                     </p>
                   </div>
                 </div>
