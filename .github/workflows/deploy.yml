@@ -26,7 +26,7 @@ jobs:
 
       # Deploy via FTP
       - name: FTP Deploy
-        uses: ./my-actions/ftp-deploy
+        uses: anvil-solutions/Fast-FTP-Action@2.1.3
         with:
           server: ${{ secrets.FTP_SERVER }}
           port:
