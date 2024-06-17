@@ -36,10 +36,8 @@ function Home() {
           />
 
           <p className=" h-auto flex items-center text-center flex-col  pt-10 text-2xl text-slate-800 font-sans">
-            <span className="text-4xl font-bold mb-2">
-              Libérer du temps! mich michel michel pour les choses qui comptent
-              le plus pour vous
-            </span>
+            <span className="text-4xl font-bold mb-2">Libérer du temps!</span>
+            pour les choses qui comptent le plus pour vous
           </p>
           <div className="flex justify-center">
             <div className=" flex md:flex-row flex-col px-4 py-2 my-10 gap-y-7 gap-x-7 max-w-7xl ">
