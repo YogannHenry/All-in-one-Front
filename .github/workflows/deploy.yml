@@ -44,23 +44,13 @@ jobs:
         env:
           VITE_API_URL: ${{ vars.VITE_API_URL }}
 
-      # Deploy via SSH
-      # - name: SSH Deployment
-      #   uses: saranraj3195/sparkout-deployment@v2
-      #   env:
-      #     DEPLOY_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-      #     ARGS: '-avz --delete'
-      #     SERVER_PORT: ${{ secrets.SERVER_PORT }}
-      #     FOLDER: 'dist/*'
-      #     SERVER_IP: ${{ secrets.SERVER_HOST }}
-      #     USERNAME: ${{ secrets.USERNAME }}
-      #     SERVER_DESTINATION: ${{ secrets.DEPLOYMENT_DIRECTORY }}
-         - name: Fast FTP Action
-      uses: anvil-solutions/Fast-FTP-Action@2.1.0
-         with:
-        server: ${{ secrets.FTP_SERVER }}
-        port: 21
-        username: ${{ secrets.FTP_USERNAME }}
-        password: ${{ secrets.FTP_PASSWORD }}
-        local_dir: ./dist
-        remote_dir: ${{ secrets.FTP_REMOTE_DIR }}
+      # Deploy via FTP
+      - name: Fast FTP Action
+        uses: anvil-solutions/Fast-FTP-Action@2.1.0
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          port: 21
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local_dir: ./dist
+          remote_dir: ${{ secrets.FTP_REMOTE_DIR }}
