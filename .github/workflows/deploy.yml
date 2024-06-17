@@ -1,36 +1,57 @@
 name: DevOps-GitHubActions
+
 on:
   push:
     branches:
       - main
+  workflow_dispatch: # Permet de déclencher manuellement le workflow depuis l'interface GitHub
+
 jobs:
-  # Build And deploy Jobe
+  # Build And deploy Job
   build-deploy:
     runs-on: ubuntu-latest
+
     steps:
+      # Checkout the code from the repository
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      # Setup Node.js environment
       - name: Install Node
         uses: actions/setup-node@v3
         with:
           node-version: 18.x
 
+      # Debug Info
+      - name: Debug Info
+        run: |
+          echo "GITHUB_REF: $GITHUB_REF"
+          echo "GITHUB_SHA: $GITHUB_SHA"
+          echo "VITE_API_URL: ${{ vars.VITE_API_URL }}"
+          echo "SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}"
+          echo "SERVER_PORT: ${{ secrets.SERVER_PORT }}"
+          echo "SERVER_HOST: ${{ secrets.SERVER_HOST }}"
+          echo "USERNAME: ${{ secrets.USERNAME }}"
+          echo "DEPLOYMENT_DIRECTORY: ${{ secrets.DEPLOYMENT_DIRECTORY }}"
+
+      # Install project dependencies
       - name: Install Dependencies
         run: npm install
 
+      # Build the project
       - name: Build Project
         run: npm run build
         env:
-          VITE_API_URL: ${{vars.VITE_API_URL}}
+          VITE_API_URL: ${{ vars.VITE_API_URL }}
 
-      # Deploy via FTP
-      - name: Fast FTP Action
-        uses: anvil-solutions/Fast-FTP-Action@2.1.0
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          port: 21
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local_dir: ./dist
-          remote_dir: ${{ secrets.FTP_REMOTE_DIR }}
+      # Deploy via SSH
+      - name: SSH Deployment
+        uses: saranraj3195/sparkout-deployment@v2
+        env:
+          DEPLOY_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          ARGS: '-avz --delete'
+          SERVER_PORT: ${{ secrets.SERVER_PORT }}
+          FOLDER: 'dist/*'
+          SERVER_IP: ${{ secrets.SERVER_HOST }}
+          USERNAME: ${{ secrets.USERNAME }}
+          SERVER_DESTINATION: ${{ secrets.DEPLOYMENT_DIRECTORY }}
