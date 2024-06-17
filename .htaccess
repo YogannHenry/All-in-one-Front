@@ -1,8 +1,24 @@
-RewriteEngine On
-RewriteBase /
+# o2switch pagespeed start / DO NOT REMOVE OR EDIT
+<IfModule pagespeed_module>
+ModPagespeed on
+ModPagespeedRewriteLevel PassThrough
+ModPagespeedEnableFilters add_head,canonicalize_javascript_libraries,collapse_whitespace,combine_css,combine_heads,extend_cache,hint_preload_subresources,lazyload_images,rewrite_javascript,move_css_above_scripts,move_css_to_head,insert_dns_prefetch,remove_comments,remove_quotes,rewrite_images,strip_image_meta_data,sprite_images
+</IfModule>
+# o2switch pagespeed end / DO NOT REMOVE OR EDIT
+<IfModule mod_rewrite.c>
+  RewriteRule ^(api)($|/) - [L]
+  RewriteEngine On
+  RewriteBase /
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteCond %{REQUEST_FILENAME} !-l
+  RewriteRule ^ index.html [L]
 
-# Redirige toutes les requêtes vers index.html sauf si elles pointent vers un fichier ou un répertoire existant.
+RewriteCond %{HTTPS} off
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.\*)$ index.html [L]
+
+</IfModule>
+AddType image/png png jpg jpeg
+AddType application/pdf pdf
