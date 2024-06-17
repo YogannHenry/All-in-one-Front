@@ -14,13 +14,13 @@ jobs:
     steps:
       # Checkout the code from the repository
       - name: Checkout Code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v2
 
       # Setup Node.js environment
       - name: Install Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v2
         with:
-          node-version: 18.x
+          node-version: 20.x
 
       # Debug Info
       - name: Debug Info
