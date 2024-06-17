@@ -65,7 +65,10 @@ function WalletDocumentsPage() {
   };
 
   // Fonction pour ajouter un nouveau document soumis
-  const addDocument = async (    newDocument: File | null,    documentDetails: { name: string | Blob; information: string | Blob }  ) => {
+  const addDocument = async (
+    newDocument: File | null,
+    documentDetails: { name: string | Blob; information: string | Blob }
+  ) => {
     try {
       if (newDocument !== null) {
         // Si un document a été soumis
@@ -112,7 +115,6 @@ function WalletDocumentsPage() {
     setPdfFile({});
   };
 
-
   // Ajoutez un état pour suivre si l'image doit être affichée
   const [isDocumentOpen, setisDocumentOpen] = useState(false);
 
@@ -128,19 +130,21 @@ function WalletDocumentsPage() {
       );
       console.log('documentData:', documentData);
       if (documentData && documentData.type.startsWith('image/')) {
-        const imagePath = `https://all-in-1.fr/uploads/${documentData.file}`;
+        const imagePath = `https://all-in-1.fr/dist/uploads/${documentData.file}`;
         setisDocumentOpen(true);
         setImageToShow(imagePath);
         console.log('imagePath:', imagePath);
-        
       } else if (documentData && documentData.type.startsWith('application/')) {
-        const documentPath = `https://all-in-1.fr/uploads/${documentData.file}`;
+        const documentPath = `https://all-in-1.fr/dist/uploads/${documentData.file}`;
         console.log('documentPath:', documentPath);
         setisDocumentOpen(true);
         setDocumentToShow(documentPath);
         console.log('imagePath:', documentPath);
       } else {
-        console.error('Type de fichier non pris en charge :', documentData?.type);
+        console.error(
+          'Type de fichier non pris en charge :',
+          documentData?.type
+        );
         return;
       }
     } catch (error) {
@@ -185,7 +189,6 @@ function WalletDocumentsPage() {
   useEffect(() => {
     getDocuments();
     getOneWallet();
-    
   }, [isUserLogged]);
 
   const walletName = wallet.map((wallet) => wallet.name);
@@ -223,7 +226,6 @@ function WalletDocumentsPage() {
                   <button className="btn bg-[var(--color-primary-300)] text-white">
                     <p
                       onClick={() => {
-               
                         openDocument(document.id);
                       }}
                     >
@@ -231,20 +233,19 @@ function WalletDocumentsPage() {
                     </p>
                   </button>
                 )}
-                {isDocumentOpen &&   (
+                {isDocumentOpen && (
                   <div className="w-screen h-screen fixed left-0 top-0 flex justify-center bg-slate-50 overflow-scroll">
                     <div className="absolute mt-10 w-5/6">
                       <p className="text-2xl uppercase flex justify-center pb-5">
                         {document.name}
                       </p>
-                    
-                        <Document file={documentToShow}>
 
-                          <Page pageNumber={1} />
-                        </Document>
-                    
-                        <img src={imageToShow} alt="Image Preview" />
-                    
+                      <Document file={documentToShow}>
+                        <Page pageNumber={1} />
+                      </Document>
+
+                      <img src={imageToShow} alt="Image Preview" />
+
                       <button
                         className="border rounded-lg bg-[var(--color-primary-500)] absolute top-2 right-2 z-50 text-white"
                         onClick={() => {
