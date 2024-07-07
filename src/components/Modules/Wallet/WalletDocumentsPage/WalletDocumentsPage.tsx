@@ -133,7 +133,7 @@ function WalletDocumentsPage() {
       if (documentData) {
         console.log('estoy aqui');
         const basePath = 'https://all-in-1.fr/uploads/';
-        console.log('basePath:', basePath);
+        console.log('basePath2:', basePath);
         const filePath = `${basePath}${documentData.file}`;
 
         console.log('filePath:', filePath);
