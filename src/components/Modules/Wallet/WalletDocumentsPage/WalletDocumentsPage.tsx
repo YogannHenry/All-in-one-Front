@@ -130,12 +130,12 @@ function WalletDocumentsPage() {
       );
       console.log('documentData:', documentData);
       if (documentData && documentData.type.startsWith('image/')) {
-        const imagePath = `https://all-in-1.fr/dist/uploads/${documentData.file}`;
+        const imagePath = `https://all-in-1.fr/uploads/${documentData.file}`;
         setisDocumentOpen(true);
         setImageToShow(imagePath);
         console.log('imagePath:', imagePath);
       } else if (documentData && documentData.type.startsWith('application/')) {
-        const documentPath = `https://all-in-1.fr/dist/uploads/${documentData.file}`;
+        const documentPath = `https://all-in-1.fr/uploads/${documentData.file}`;
         console.log('documentPath:', documentPath);
         setisDocumentOpen(true);
         setDocumentToShow(documentPath);
