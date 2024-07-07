@@ -133,13 +133,13 @@ function WalletDocumentsPage() {
         const imagePath = `https://all-in-1.fr/uploads/${documentData.file}`;
         setisDocumentOpen(true);
         setImageToShow(imagePath);
-        console.log('imagePath:', imagePath);
+        console.log('imagePath2:', imagePath);
       } else if (documentData && documentData.type.startsWith('application/')) {
         const documentPath = `https://all-in-1.fr/uploads/${documentData.file}`;
         console.log('documentPath:', documentPath);
         setisDocumentOpen(true);
         setDocumentToShow(documentPath);
-        console.log('imagePath:', documentPath);
+        console.log('imagePath//documentPath:', documentPath);
       } else {
         console.error(
           'Type de fichier non pris en charge :',
