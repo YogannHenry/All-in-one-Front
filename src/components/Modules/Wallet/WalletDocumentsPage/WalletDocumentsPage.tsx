@@ -124,40 +124,31 @@ function WalletDocumentsPage() {
   console.log('ImageToShow:', imageToShow);
 
   const openDocument = (documentId: number) => {
-    console.log('estoy aqui oppening document');
     try {
       const documentData = documents.find(
         (document) => document.id === documentId
       );
       console.log('documentData:', documentData);
-
-      if (documentData) {
-        console.log('estoy aqui');
-        const basePath = 'https://all-in-1.fr/uploads/';
-        console.log('basePath2:', basePath);
-        const filePath = `${basePath}${documentData.file}`;
-
-        console.log('filePath:', filePath);
-
-        if (documentData.type.startsWith('image/')) {
-          setisDocumentOpen(true);
-          setImageToShow(filePath);
-          console.log('imagePath:', filePath);
-        } else if (documentData.type.startsWith('application/')) {
-          setisDocumentOpen(true);
-          setDocumentToShow(filePath);
-          console.log('documentPath:', filePath);
-        } else {
-          console.error(
-            'Type de fichier non pris en charge :',
-            documentData.type
-          );
-        }
+      if (documentData && documentData.type.startsWith('image/')) {
+        const imagePath = `https://all-in-1.fr/uploads/${documentData.file}`;
+        setisDocumentOpen(true);
+        setImageToShow(imagePath);
+        console.log('imagePath:', imagePath);
+      } else if (documentData && documentData.type.startsWith('application/')) {
+        const documentPath = `https://all-in-1.fr/uploads/${documentData.file}`;
+        console.log('documentPath:', documentPath);
+        setisDocumentOpen(true);
+        setDocumentToShow(documentPath);
+        console.log('imagePath:', documentPath);
       } else {
-        console.error("Document non trouvé pour l'ID :", documentId);
+        console.error(
+          'Type de fichier non pris en charge :',
+          documentData?.type
+        );
+        return;
       }
     } catch (error) {
-      console.error("Erreur lors de l'ouverture du document :", error);
+      console.error("Erreur lors de l'ouverture de l'image :", error);
     }
   };
 
