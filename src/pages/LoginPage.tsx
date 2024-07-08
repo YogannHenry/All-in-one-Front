@@ -28,9 +28,19 @@ function LoginPage() {
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
+
+    const password = event.currentTarget.password.value;
+    if (
+      password.length < 8 ||
+      !password.match(/(?=.*[!@#$%^&*])/) ||
+      !password.match(/(?=.*[A-Z])/)
+    ) {
+      setPasswordMatchUserPassword(true);
+      return;
+    }
     if (isLogged === false) {
       dispatch(login(formData));
-      setPasswordMatchUserPassword(true);
+
       return;
     }
   };

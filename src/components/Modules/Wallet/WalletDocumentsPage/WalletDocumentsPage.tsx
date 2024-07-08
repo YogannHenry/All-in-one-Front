@@ -124,6 +124,7 @@ function WalletDocumentsPage() {
   console.log('ImageToShow:', imageToShow);
 
   const openDocument = (documentId: number) => {
+    console.log('estoy aqui oppening document');
     try {
       const documentData = documents.find(
         (document) => document.id === documentId
